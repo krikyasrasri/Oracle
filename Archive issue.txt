@@ -1,0 +1,115 @@
+INC08444230	Priority 3   Resolved
+INC08442228	Priority 3   Resolved
+INC08446712	Priority 3   Resolved
+INC08446648	Priority 3   Resolved
+INC08446635	Priority 2   Resolved
+INC08446524	Priority 3   Server login issue
+INC08446490	Priority 3   Server login issue
+INC08446508	Priority 3   Server login issue
+
+771751936
+
+alter system set log_archive_dest_1='LOCATION=/oradump/archive' scope=both;
+
+
+SELECT A.*,
+Round(A.Count#*B.AVG#/1024/1024) Daily_Avg_Mb
+FROM
+(
+SELECT
+To_Char(First_Time,'YYYY-MM-DD') DAY,
+Count(1) Count#,
+Min(RECID) Min#,
+Max(RECID) Max#
+FROM
+v$log_history 
+GROUP
+BY To_Char(First_Time,'YYYY-MM-DD')
+ORDER
+BY 1 DESC
+) A,
+(
+SELECT
+Avg(BYTES) AVG#,
+Count(1) Count#,
+Max(BYTES) Max_Bytes,
+Min(BYTES) Min_Bytes
+FROM
+v$log
+) B
+
+; 
+delete noprompt archivelog all;
+
+restore archivelog from sequence 13311 until sequence 13331;
+
+SQL> alter database recover managed standby database cancel;
+
+Database altered.
+
+SQL> alter database recover managed standby database using current logfile disconnect from session;
+
+Database altered.
+
+SQL> SELECT PROCESS, STATUS, THREAD#, SEQUENCE#, BLOCK#, BLOCKS, DELAY_MINS from v$managed_standby;
+
+
+ALTER DATABASE RECOVER MANAGED STANDBY DATABASE DISCONNECT FROM SESSION; 
+
+select dest_id,status,error from v$archive_dest;
+
+delete force archivelog all backed up 1 times to sbt;
+
+delete noprompt archivelog all backed up 1 times to sbt;
+
+Please find the below steps and attached file for running  script to create FLEXERA user ,use this script and create user for any newly creating  databases.
+
+Below are the steps that we will be performing on the database to create this monitoring user 
+
+1.	Login into the server as ORACLE user where we are going to create the monitoring user.
+
+2.	Copy the user creation script create_oracle_audit_user.sql into any of the filesystem on the server.
+
+3.	Change the location to the path where the script is being copied.
+cd /copied_script_path
+
+4.	Issue the below command to set the oracle instance.
+export ORACLE_SID=<specify_instance_name>
+
+5.	Login into the database as sysdba user and verify it is up and running fine.
+
+6.	Once logged in as sys, enable the logging and execute the copied script using @ symbol. Once the execution is completed disable the logging and verify the logfile for errors if any.
+Sql>spool  create_oracle_audit_userlog;  ? Logfile for verification
+Sql>@ create_oracle_audit_user.sql;
+Sql>spool off
+
+7.	To verify the granted privileges for the newly created user execute the below command.
+Sql> set lines 200 long 1000 pages 1000
+Sql> set echo off
+set verify off
+col granted_role form a35
+col owner form a15
+col table_name form a35
+col privilege form a35
+
+spool privs.lst
+PROMPT Roles granted to user
+SELECT granted_role,admin_option,default_role FROM dba_role_privs WHERE grantee=UPPER('fnmpaudit');
+
+PROMPT Table Privileges granted to a user through roles
+SELECT granted_role, owner, table_name, privilege FROM (SELECT granted_role FROM dba_role_privs WHERE grantee=UPPER('fnmpaudit') UNION SELECT granted_role FROM role_role_privs WHERE role in (SELECT granted_role FROM dba_role_privs WHERE grantee=UPPER('fnmpaudit'))) roles, dba_tab_privs WHERE granted_role=grantee;
+
+PROMPT System Privileges assigned to a user through roles
+SELECT granted_role, privilege FROM ( SELECT granted_role FROM dba_role_privs WHERE grantee=UPPER('fnmpaudit') UNION SELECT granted_role FROM role_role_privs WHERE role in (SELECT granted_role FROM dba_role_privs WHERE grantee=UPPER('fnmpaudit'))) roles, dba_sys_privs WHERE granted_role=grantee;
+
+PROMPT Table privileges assigned directly to a user
+SELECT owner, table_name, privilege FROM dba_tab_privs WHERE grantee=UPPER('fnmpaudit');
+
+PROMPT System privileges assigned directly to a user
+SELECT privilege, admin_option FROM  dba_sys_privs WHERE grantee=UPPER('fnmpaudit');
+spool off
+
+
+
+
+

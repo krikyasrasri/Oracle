@@ -1,0 +1,28 @@
+
+find . -name "ora_*.aud" -min +90 -exec ls -lrt {} +
+
+
+find /opt/oracle/u01/app/oracle/product/9.2.0/rdbms/audit/*.aud -ctime +30 -exec rm {} \;
+ ;
+
+ 
+ change archivelog all crosscheck;
+
+run {
+      allocate channel a1 type 'sbt_tape'
+      parms 'SBT_LIBRARY=/usr/omni/lib/libob2oracle8_64bit.a, ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=invivo,OB2BARLIST=SEKIAZU0344_invivo_ARCHIVE_BACKUP)'
+      format '%d_arch_%U.rbck';
+      backup archivelog all not backed up 3 times tag ARCHIVE_Backup;
+      delete archivelog until time = 'sysdate-2';
+      release channel a1;
+    }
+
+run {
+      allocate channel c1 type 'sbt_tape'
+      parms 'SBT_LIBRARY=/usr/omni/lib/libob2oracle8_64bit.a, ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=invivo,OB2BARLIST=SEKIAZU0344_invivo_ARCHIVE_BACKUP)'
+      format '%d_controlfile_%U.rbck';
+      backup  current controlfile tag CONTROLFILE_DAY;
+      release channel c1;
+    }
+
+exit

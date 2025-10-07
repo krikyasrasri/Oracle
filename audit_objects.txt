@@ -1,0 +1,18 @@
+
+SQL> show parameter audit
+
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+audit_file_dest                      string      /data/d031/app/oracle/product/
+                                                 10.2.0.5/db_7/rdbms/audit
+audit_sys_operations                 boolean     FALSE
+audit_syslog_level                   string
+audit_trail                          string      DB
+SQL>
+
+
+Enabled auditing using  following
+audit insert, update, delete, select on LEADS.ISAC_LOOKUP_TABLE;
+
+To view audit details run the following
+SELECT username,owner,obj_name,action_name,priv_used,timestamp, USERHOST, TERMINAL FROM dba_audit_object where obj_name='ISAC_LOOKUP_TABLE';  

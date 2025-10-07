@@ -1,0 +1,11 @@
+auto sql tuning
+
+BEGIN
+DBMS_AUTO_TASK_ADMIN.DISABLE(
+client_name => 'sql tuning advisor',
+operation => NULL,
+window_name => NULL);
+END;
+/ 2 3 4 5 6 7
+
+PL/SQL procedure successfully completed.

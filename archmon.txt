@@ -1,0 +1,9 @@
+This was not the correct approach to the problem.
+Just because the pid was used by oracle internal process, we just can't kill oracle process for monitor_arc.sh.
+
+1. don't use menu.sh to stop / start the monitor_arc.sh, instead use this:
+    /sys_apps_01/rman/scripts/archmon stop/start
+
+If this does not start, use archmon abort to kill the process.
+
+If the monitor_arc.sh is not running and the stop says can't stop, check the pid file in /sys_apps_01/rman/tmp/archmon.pid, purge this and do a archmon start, this should start a fresh monitor_arc.sh script.

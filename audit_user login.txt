@@ -1,0 +1,18 @@
+col os_username format a20
+col username    format a25
+col userhost    format a15
+col terminal    format a20
+col d
+select os_username,username,userhost,terminal,to_char(timestamp,'DD-MON-YYYY HH24:MI:SS') LOGON_TIME,logoff_time,
+       decode(returncode, 1017,'invalid username/password logon denied',
+                         28000,'the account is locked',
+                         28001,'the password has expired',
+                         28007,'the password cannot be reused',
+                         28009,'connection as SYS should be as SYSDBA or SYSOPER',
+                         returncode
+             ) description
+  from dba_audit_trail
+ where action_name = 'LOGON'
+   and username = username
+   and trunc(timestamp) between '03-07-2013' and '03-07-2013'
+order by timestamp;

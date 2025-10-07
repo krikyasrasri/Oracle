@@ -1,0 +1,70 @@
+cat rman_logon.out|crypt backupuser
+
+rman/tigers#09@prct0k
+
+
+rman target /
+
+connect rcvcat rman/backup3#@drct0s
+
+*****************************************************************
+
+Rman target /
+
+backup archivelog from sequence =65751 until sequence =66299 delete input;
+
+backup archivelog from sequence =97101 until sequence =97646 delete input;
+
+
+df -k|grep rman
+
+
+$ cd /sys_apps_01/rman/scripts
+
+
+PSSM0S @ gis2stl3:/sys_apps_01/rman/scripts
+
+
+-rwxr--r--   1 oracle   dba      341427200 Nov 18  2008 full_exp.dmp*
+-rwxr--r--   1 oracle   dba          764 Nov 18  2008 sqlnet.log*
+-rwxr--r--   1 oracle   dba         2937 Nov 18  2008 archmon*
+-rwxr--r--   1 oracle   dba         7474 Nov 18  2008 backup_archive_range.sh*
+-rwxr--r--   1 oracle   dba         9578 Nov 18  2008 bkup_cold.sh*
+-rwxr--r--   1 oracle   dba        11212 Nov 18  2008 bkup_cold_ops.sh*
+-rwxr--r--   1 oracle   dba        14122 Nov 18  2008 bkup_online.sh*
+-rwxr--r--   1 oracle   dba        14122 Nov 18  2008 bkup_online_ops.sh*
+-rwxr--r--   1 oracle   dba         9053 Nov 18  2008 expire.sh*
+-rwxr--r--   1 oracle   dba         9053 Nov 18  2008 expire_9i.sh*
+-rwxr--r--   1 oracle   dba        72871 Nov 18  2008 menu.sh*
+-rwxr--r--   1 oracle   dba        30905 Nov 18  2008 monitor_arc.sh*
+-rwxr--r--   1 oracle   dba         1280 Nov 18  2008 recovery_test.cfg*
+-rwxr--r--   1 oracle   dba        31213 Nov 18  2008 recovery_test.sh*
+-rwxr--r--   1 oracle   dba         9905 Nov 18  2008 restart_ops.sh*
+-rwxr--r--   1 oracle   dba        10371 Nov 18  2008 restart_standalone.sh*
+-rwxr--r--   1 oracle   dba        11788 Nov 18  2008 rman_dry_run.sh*
+-rwxr--r--   1 oracle   dba         7020 Nov 18  2008 rman_logon.sh*
+-rwxr--r--   1 oracle   dba         2055 Nov 18  2008 rman_profile.sh*
+-rwxr--r--   1 oracle   dba          234 Nov 18  2008 rman_progress.sql*
+-rwxr--r--   1 oracle   dba         2820 Nov 18  2008 rman_setup.sh*
+-rwxr--r--   1 oracle   dba         1919 May 20  2009 rman_profile.cfg*
+-rwxr--r--   1 oracle   dba           41 Jun  9 12:59 rman_logon.out*
+-rw-------   1 oracle   dba       287388 Jun 28 00:38 nohup.out
+
+
+
+$ cat rman_logon.out|crypt backupuser
+PSSM0S:/:rman/backup_pr0d@prct0s.world:y
+PSSM0S @ gis2stl3:/sys_apps_01/rman/scripts
+$ rman target /
+
+Recovery Manager: Release 10.2.0.4.0 - Production on Tue Jun 29 14:00:08 2010
+
+Copyright (c) 1982, 2007, Oracle.  All rights reserved.
+
+connected to target database: PSSM0S (DBID=2822979101)
+
+RMAN> connect rcvcat rman/backup_pr0d@prct0s.world
+
+connected to recovery catalog database
+
+RMAN> backup archivelog from sequence = 40821 until sequence = 41181 delete input;
