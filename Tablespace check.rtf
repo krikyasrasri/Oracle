@@ -1,0 +1,55 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 WITH res AS (\
+   SELECT\
+       a.*,\
+       round(100 - ( (allocated - used) / allocated) * 100,2) "Used_PCT"\
+   FROM\
+       (\
+           SELECT\
+               t.host_name,\
+               t.target_name,\
+               key_value tablespace_name,\
+               round(SUM(DECODE(metric_column,'spaceAllocated',value,0) ) / 1024,2) AS allocated,\
+               round(SUM(DECODE(metric_column,'spaceUsed',value,0) ) / 1024,2) AS used,\
+               round(SUM(DECODE(metric_column,'bytesFree',value,0) ) / 1024,2) AS free\
+           FROM\
+               mgmt$metric_current c,\
+               mgmt$target t\
+           WHERE\
+               t.target_name = c.target_name\
+               AND   metric_column IN (\
+                   'spaceAllocated',\
+                   'spaceUsed',\
+                   'bytesFree'\
+               )\
+           GROUP BY\
+               t.host_name,\
+               t.target_name,\
+               key_value\
+       ) a\
+   WHERE\
+       allocated - used > 0\
+       AND   round(100 - ( (allocated - used) / allocated) * 100,2) > 85\
+) SELECT\
+   host_name,\
+   target_name,\
+   tablespace_name,\
+   allocated,\
+   used,\
+   allocated - used AS free,\
+   round(100 - ( (allocated - used) / allocated) * 100,2) AS used_pct\
+ FROM\
+   res\
+ORDER BY\
+   1,\
+   2,\
+   7 DESC;\
+-- host: psysemmdbk01\
+user: sysman\
+-- OEM sysman: Em#13c_PPD$}

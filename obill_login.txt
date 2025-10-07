@@ -1,0 +1,602 @@
+**********************GG Installation***********************
+./runInstaller -silent -responseFile /rman_refresh/fbo_ggs_Linux_x64_shiphome/Disk1/response/oggcore.rsp -ignorePrereq -waitforcompletion -showProgress \
+oracle.install.responseFileVersion=/oracle/install/rspfmt_ogginstall_response_schema_v12_1_2 \
+INSTALL_OPTION=ORA11g \
+SOFTWARE_LOCATION=/u01/app/ogg/12.2.0.2  \
+START_MANAGER=TRUE \
+MANAGER_PORT=7811 \
+DATABASE_LOCATION=/u01/app/oracle/product/11.2.0.4/db \
+INVENTORY_LOCATION=/u01/app/oraInventory \
+UNIX_GROUP_NAME=oinstall \
+
+export ORACLE_HOME=/u01/app/ogg/12.2.0.2
+export PATH=$ORACLE_HOME/OPatch:$PATH
+
+***********For AWS EC2 Instance *******
+./agentDeploy.sh -ignorePrereqs ORACLE_HOSTNAME=10.71.97.146 AGENT_BASE_DIR=/u01/app/oracle/product/agent13c OMS_HOST=ebsemmppd.intuit.net EM_UPLOAD_PORT=1159 AGENT_REGISTRATION_PASSWORD=Intuit01 AGENT_INSTANCE_HOME=/u01/app/oracle/product/agent13c/agent_inst b_doDiscovery=false START_AGENT=TRUE b_forceInstCheck=true -force AGENT_PORT=3872 -invPtrLoc /opt/oracle
+sudo /u01/app/oracle/product/agent13c/agent_13.2.0.0.0/root.sh
+cd /u01/app/oracle/product/agent13c/agent_inst/bin
+./emctl config agent addinternaltargets
+./emctl config agent listtargets
+./emctl upload
+./emctl status agent
+To Deinstall:
+/u01/app/oracle/product/agent13c/agent_13.2.0.0.0/sysman/install/AgentDeinstall.pl -agentHome /u01/app/oracle/product/agent13c/agent_13.2.0.0.0
+
+
+ec2-35-155-148-193.us-west-2.compute.amazonaws.com  - prod ers
+***********************************************************************************************************
+ec2-52-38-142-8.us-west-2.compute.amazonaws.com
+ec2-52-40-199-191.us-west-2.compute.amazonaws.com
+
+Obill prod connect :
+eiamcli aws_ssh -a 177794654858 -p id_rsa.pub -d ~/.ssh/
+eiamCli getAWSTempSSHCert -a 177794654858 -p id_rsa.pub
+
+obill pre-prod:
+
+eiamcli aws_ssh -a 485170921074 -p id_rsa.pub -d ~/.ssh/
+***********************************************
+dbill pre-prod
+eiamcli aws_ssh -a 848123879756 -p id_rsa.pub -d ~/.ssh/
+eiamCli getAWSTempSSHCert -a 848123879756 -p id_rsa.pub
+
+dbill prod
+eiamcli aws_ssh -a 890254371212 -p id_rsa.pub -d ~/.ssh/
+eiamCli getAWSTempSSHCert -a 890254371212 -p id_rsa.pub
+***********************************************
+Canada:
+eiamcli aws_ssh -a 8421-7593-5607 -p id_rsa.pub -d ~/.ssh/
+eiamCli getAWSTempSSHCert -a 8421-7593-5607 -p id_rsa.pub -d ~/.ssh
+
+oeapp
+oeapp37   PDCPDS100_STB   1017
+
+Canada Pre-prod
+eiamcli aws_ssh -a 5470-3253-5612 -p id_rsa.pub -d ~/.ssh/
+5470-3253-5612
+
+sed -i 's/ZONE=\"UTC\"/ZONE=\"US\/Mountain\"/' /etc/sysconfig/clock
+ln -sf /usr/share/zoneinfo/US/Mountain /etc/localtime
+
+***********************************************
+Veridata
+eiamcli aws_ssh -a 5026-1263-9829 -p id_rsa.pub -d ~/.ssh
+ssh -i ~/.ssh/id_rsa spothu1@34.211.60.58 -L 8830:10.77.146.243:8830
+http://localhost:8830/veridata/login.jsf
+
+eiamcli aws_ssh -a 2868-9577-3206 -p id_rsa.pub -d ~/.ssh/
+ssh -v -i ~/.ssh/id_rsa spothu1@52.88.20.132 -L 8830:10.72.62.33:8830
+http://localhost:8830/veridata/login.jsf
+***********************************************
+OEM
+
+eiamcli aws_ssh -a 5026-1263-9829 -p id_rsa.pub -d ~/.ssh/
+ssh -v -i ~/.ssh/id_rsa spothu1@34.211.60.58 -L 7799:10.77.146.60:7799
+https://localhost:7799/em
+
+Pre-prod OEM
+
+eiamcli aws_ssh -a 2868-9577-3206 -p id_rsa.pub -d ~/.ssh/
+ssh -v -i ~/.ssh/id_rsa spothu1@52.88.20.132 -L 7799:10.72.56.205:7799
+https://localhost:7799/em
+
+
+***********************************************
+
+Ebpi login GG HUB:
+
+eiamcli aws_ssh -a 6735-2627-5783 -p id_rsa.pub -d ~/.ssh/
+eiamCli getAWSTempSSHCert -a 6735-2627-5783 -p id_rsa.pub -d ~/.ssh
+
+ssh -i preprod-101bastion.pem ec2-user@52.38.142.8
+ssh -i bastion.pem 10.66.157.220
+ssh -i bastion.pem 10.66.157.73
+
+Ebpi prod GGHub
+ssh -i prod-101bastion.pem ec2-user@52.40.199.191
+ssh -i prod-101bastion.pem 10.71.24.244
+
+sqlplus dbadmin/'n0pa$$word'@aiaprd
+
+***********************************************
+
+ERS PROD: 
+ssh -i ers_prod_west_bastion.pem ec2-user@35.155.148.193
+ ssh -i bastion.pem 10.70.103.6
+ 
+ ERS Pre-Prod
+ 
+ ssh -i ERS-bastion.pem ec2-user@52.32.236.191
+ ssh -i test.pem 10.67.246.48
+ 
+*********************************************** 
+ Revstream PROD:
+ 
+ ssh -i bastion_rvs_prod.pem ec2-user@34.212.196.227
+ ssh -i bastion.pem 10.70.85.154
+ ***********************************************
+ WEBS PROD:
+ 
+  ssh -i bastion-prod-west.pem ec2-user@52.89.190.55
+   ssh -i bastion.pem 10.93.135.57
+   
+    sqlplus dbadmin/'Awob64#pr$1'@wbsprd01
+   
+   ssh -i bastion-prod-east.pem ec2-user@18.224.124.68
+   ssh -i bastion.pem 10.93.190.218
+   
+   pre-prod
+   --------
+ssh -i bastion-west.pem ec2-user@34.208.236.25
+ ssh -i bastion.pem 10.86.247.97
+ 
+sqlplus dbadmin/"Inob43#pr$"@wbsqal01
+sqlplus dbadmin/"Inob43#pr$"@wbsqal02
+sqlplus dbadmin/"Inob43#pr$"@wbsqal03
+sqlplus dbadmin/"Inob43#pr$"@wbssys02
+sqlplus dbadmin/"Inob43#pr$"@wbssys03
+sqlplus dbadmin/"Inob43#pr$"@wbssys06
+sqlplus dbadmin/"Inob43#pr$"@wbspdr01
+sqlplus dbadmin/"Inob43#pr$"@wbsprf01
+sqlplus dbadmin/"Intuit01"@wbspds01
+
+ *********************************************** 
+  PIM PROD: 
+  ssh -i prod-bastion.pem ec2-user@35.163.153.134
+  ssh -i dev-prod.pem 10.71.97.137
+  
+  PIM Pre-Prod
+  
+ ssh -i dev.pem ec2-user@52.35.244.145
+  ssh -i  dev.pem 10.72.30.60
+  ssh -i bastion.pem 10.72.30.9
+***********************************************  
+  
+  MDM PROD:
+ 
+  ssh -i prod_bastion.pem ec2-user@35.166.211.128
+  ssh -i bastion.pem 10.71.123.236
+  
+  MDM PREPROD:
+
+ssh -i preprod_bastion.pem ec2-user@54.244.14.122
+ssh -i mdm-apps-db.pem 10.67.230.5
+***********************************************
+
+SPUR pre-prod :
+
+ ssh -i bastion.pem ec2-user@52.89.145.159
+ssh -i bastion.pem 10.66.188.65
+
+PROD : 
+ssh -i prod_bastion.pem ec2-user@35.167.74.102
+ssh -i bastion.pem 10.69.70.95
+
+***********************************************
+
+NGP
+
+eiamcli aws_ssh -a 3256-8365-4688 -p id_rsa.pub -d ~/.ssh/
+eiamCli getAWSTempSSHCert -a 3256-8365-4688 -p id_rsa.pub
+
+/usr/local/mysql/bin
+
+mysql -h qbse-production.cluster-ckbobjce0prw.us-west-2.rds.amazonaws.com -u root -p
+
+mysql -h qal-db-cluster.cluster-ro-cnwporauownp.us-west-2.rds.amazonaws.com -u app -p`jiffy -get EP_MYSQL_PWD_SHARD1`
+
+**************************************************
+IGS
+
+ssh -i '/Users/spothu/.ssh/IGS/igs_prod_west.pem' -L 3340:10.69.70.7:799 35.167.74.102 -i '/Users/spothu/.ssh/IGS/igs_prod_west.pem' -l ec2-user -N
+
+***********************************************
+ERS
+
+ERS Login : West bastion host  ssh -i ERS-bastion.pem ec2-user@52.32.236.191
+10.67.246.38
+
+ East : ssh -i  ers-pre-east.pem ec2-user@3.130.162.160
+    10.67.238.30
+
+ers GG HUB login : ssh -i test.pem 10.67.246.38
+
+***********************************************
+
+Obill webs GG Hub login :  ssh -i bastion-west.pem ec2-user@34.208.236.25
+                           ssh -i obill-webs-dev-gghub.pem ec2-user@10.86.247.42
+ **************************************************
+IdentityCore AWS Pre-Prod
+
+eiamcli aws_ssh -a 1812-9903-1239  -p id_rsa.pub -d ~/.ssh/
+eiamCli getAWSTempCredentials -a 1812-9903-1239 -r AppOps -o 1 -p default
+eiamCli getAWSTempSSHCert --awsAccountNumber 1812-9903-1239 --publicKeyName id_rsa.pub -d ~/.ssh
+***********************************************
+IdentityCore AWS Prod
+
+eiamcli aws_ssh -a 3163-1797-4279 -p id_rsa.pub -d ~/.ssh/
+eiamCli getAWSTempCredentials -a 3163-1797-4279 -r AppOps -o 1 -p default
+eiamCli getAWSTempSSHCert --awsAccountNumber 3163-1797-4279 --publicKeyName id_rsa.pub -d ~/.ssh
+
+/ogg_data/sql/satya/ogg_lag_check.ksh
+
+sqlplus dbadmin/`sudo python $OGG_HOME/dirsql/get_creds.py dbadmin idxpde2a`@idxpde2a`
+sqlplus dbadmin/`sudo python $OGG_HOME/dirsql/get_creds.py dbadmin othpde2b`@othpde2b
+***************************************************
+
+SFDLoop
+-------
+
+ssh -N -L 6376:sfleew2a.chzrgpwkbywc.us-west-2.rds.amazonaws.com:1526 ec2-user@10.67.202.178 -o "proxycommand ssh -W %h:%p -i id_rsa ec2-user@ec2-54-70-205-90.us-west-2.compute.amazonaws.com"
+
+
+eiamCli aws_ssh -a 4973-3991-9927 -p id_rsa.pub -d ~/.ssh/ 
+eiamCli getAWSTempCredentials -a 4973-3991-9927 -r PowerUser -o 1 -p default
+
+ssh -i id_rsa.pub spothu1@10.67.207.42 -o "proxycommand ssh -W %h:%p -i id_rsa.pub spothu1@ec2-54-70-205-90.us-west-2.compute.amazonaws.com"
+
+
+SFDLoop Prod
+-------------
+eiamCli aws_ssh -a 2675-9486-0550 -p id_rsa.pub -d ~/.ssh/
+eiamCli getAWSTempCredentials -a 2675-9486-0550 -r PowerUser -o 1 -p default
+
+ssh -i id_rsa.pub spothu1@10.69.150.211 -o "proxycommand ssh -W %h:%p -i id_rsa.pub spothu1@52.13.168.164"
+
+
+********************************
+***********NGP ******
+eiamCli aws_ssh -a 3256-8365-4688 -p id_rsa.pub -d ~/.ssh/ 
+eiamCli getAWSTempCredentials -a 3256-8365-4688 -r PowerUser -o 1 -p default
+
+ssh -i ~/NGP/preprod_bastion.pem -o "ServerAliveInterval 60" -L 3306:prf-ngp-db-cluster-cluster.cluster-cnwporauownp.us-west-2.rds.amazonaws.com:3306 ec2-user@44.232.95.93
+
+ssh -i ~/.ssh/NGP/preprod_bastion.pem -o "ServerAliveInterval 60" -L 3306:prf-ngp-db-cluster-cluster.cluster-cnwporauownp.us-west-2.rds.amazonaws.com:3306 ec2-user@44.232.95.93 
+ssh -i ~/.ssh/NGP/preprod_bastion.pem -o "ServerAliveInterval 60" -L 3306:sys-db-instance.cnwporauownp.us-west-2.rds.amazonaws.com:3306 ec2-user@44.232.95.93 
+ssh -i ~/.ssh/NGP/preprod_bastion.pem -o "ServerAliveInterval 60" -L 3306:qal-db-cluster.cluster-ro-cnwporauownp.us-west-2.rds.amazonaws.com:3306 ec2-user@44.232.95.93
+ssh -i ~/.ssh/NGP/preprod_bastion.pem -o "ServerAliveInterval 60" -L 3306:irp-stg-cluster.cluster-c1by1xkcguel.us-west-2.rds.amazonaws.com:3306 ec2-user@44.232.95.93 
+
+
+eiamCli aws_ssh -a 5778-2612-5008 -p id_rsa.pub -d ~/.ssh/ 
+eiamCli getAWSTempCredentials -a 5778-2612-5008 -r PowerUser -o 1 -p default
+
+ssh -i ~/NGP/prod_bastion.pem 3306:irp-prod-cluster.cluster-c1by1xkcguel.us-west-2.rds.amazonaws.com:3306 ec2-user@34.218.16.181
+
+***************************************************
+
+Supplmentel logging and primary key*****
+
+BEGIN
+  rdsadmin.rdsadmin_util.force_logging(p_enable => true);
+    rdsadmin.rdsadmin_util.alter_supplemental_logging(p_action => 'ADD',p_type   => 'ALL');
+   rdsadmin.rdsadmin_util.alter_supplemental_logging(p_action => 'ADD',p_type   => 'FOREIGN KEY');
+  rdsadmin.rdsadmin_util.alter_supplemental_logging(p_action => 'ADD',p_type   => 'PRIMARY KEY');
+ rdsadmin.rdsadmin_util.alter_supplemental_logging(p_action => 'ADD',p_type   => 'UNIQUE');
+end;
+
+***************************************************
+To start the seervice in database 
+
+ SQL> exec dbms_service.stop_service('mdmprf_rw_svc');
+
+PL/SQL procedure successfully completed.
+
+SQL> exec dbms_service.start_service('emmsys');
+
+PL/SQL procedure successfully completed.
+
+exec dbms_service.start_service('mdmpds01');
+
+
+SQL> exec DBMS_SERVICE.CREATE_SERVICE('mdmpds01','mdmpds01');
+
+PL/SQL procedure successfully completed.
+
+SQL>  exec dbms_service.stop_service('mdmprf_rw_svc');
+
+PL/SQL procedure successfully completed.
+
+
+BEGIN
+  DBMS_SERVICE.delete_service(
+    service_name => 'rvsprd_rw '
+  );
+END;
+/
+
+
+SQL>
+
+***************************************************
+
+To find the SCn number by using the timestamp
+
+select timestamp_to_scn(to_timestamp('24/09/2019 02:50:00','DD/MM/YYYY HH24:MI:SS')) as scn from dual;
+
+***************************************************
+To find the timestamp using the SCN number
+
+select scn_to_timestamp(86303468) as timestamp from dual;
+
+***************************************************
+
+Set lines 300
+col DB_UNIQUE_NAME for a15
+col open_mode for a10
+
+Alter session set nls_date_format='dd-mon-yyyy hh24:mi:ss';
+
+select db_unique_name,name,startup_time,sysdate,database_role,open_mode,switchover_status,switchover#,dataguard_broker,protection_mode,current_scn from gv$database,gv$instance;
+
+select process,status,max(sequence#) from v$managed_standby group by process,status;
+
+select max(sequence#) from v$archived_log;
+
+select max(sequence#) from v$archived_log where applied='YES';
+
+GGSCI (psyserssgkd1 as oggown@stgsys011) 9> add extract PSLPDW, EXTTRAILSOURCE /data/dirdat/sl
+
+EXTRACT added.
+
+GGSCI (psyserssgkd1 as oggown@stgsys011) 10> add rmttrail /opt/r3d3/goldengate/dirdat/trails/tr, extract PSLPDW, megabytes 100
+RMTTRAIL added.
+
+GGSCI (psyserssgkd1 as oggown@stgsys011) 15> edit param PCDSCAS
+
+
+v)	ADD REPLICAT RCDCAS, EXTTRAIL /u01/app/ogg/12.2.0.2/dirdat/casds/pd, CHECKPOINTTABLE oggown.CHKPT
+
+EXTRACT PCDSCAS
+RMTHOST ppdsebpdbk01.corp.intuit.net, MGRPORT 7809
+RMTTRAIL /u01/app/ogg/12.2.0.2/dirdat/casds/pd
+PASSTHRU
+TABLE CASDS.BILLING_PROFILE;
+TABLE CASDS.BILLING_PROFILE_STATUS_TYPE;
+TABLE CASDS.BANK_ACCOUNT;
+TABLE CASDS.BANK_ACCOUNT_TYPE;
+TABLE CASDS.CREDIT_CARD;
+TABLE CASDS.CREDIT_CARD_TYPE;
+TABLE CASDS.CUST_ENTITLED_OFFERING;
+TABLE CASDS.CUST_ENTITLED_OFFERING_ATTR;
+TABLE CASDS.PAYMENT_METHOD_TYPE;
+
+
+
+
+EXTRACT P1CDSCAS
+RMTHOST 10.66.157.103, MGRPORT 7809
+RMTTRAIL /u01/app/oracle/ogg/dirdat/cdscas/sy
+PASSTHRU
+TABLE CASDS.*;
+TABLE SIEBEL.*;
+TABLE MDM.*
+
+v)	ADD REPLICAT R3AWSCAS, EXTTRAIL  /u01/app/ogg/12.2.0.2/dirdat/cas/sy, CHECKPOINTTABLE oggown.CHKPT
+
+select * from ASSET.cust_entitled_offering where service_acct_can='825676701'
+
+REPLICAT RCDCAS
+ASSUMETARGETDEFS
+DISCARDFILE ./dirdat/rcaspds.dsc, append, megabytes 500
+SETENV (NLS_LANG="AMERICAN_AMERICA.AL32UTF8")
+USERIDALIAS caspds_oggown
+--ALLOWNOOPUPDATES
+DBOPTIONS SUPPRESSTRIGGERS
+MAP CASDS.BANK_ACCOUNT, TARGET BILLING.BANK_ACCOUNT;
+MAP CASDS.BANK_ACCOUNT_TYPE, TARGET BILLING.BANK_ACCOUNT_TYPE;
+MAP CASDS.BILLING_PROFILE, TARGET BILLING.BILLING_PROFILE;
+MAP CASDS.BILLING_PROFILE_STATUS_TYPE, TARGET BILLING.BILLING_PROFILE_STATUS_TYPE;
+MAP CASDS.CREDIT_CARD, TARGET BILLING.CREDIT_CARD;
+MAP CASDS.CREDIT_CARD_TYPE, TARGET BILLING.CREDIT_CARD_TYPE;
+MAP CASDS.CUST_ENTITLED_OFFERING, TARGET ASSET.CUST_ENTITLED_OFFERING;
+MAP CASDS.CUST_ENTITLED_OFFERING_ATTR, TARGET ASSET.CUST_ENTITLED_OFFERING_ATTR;
+MAP CASDS.PAYMENT_METHOD_TYPE, TARGET BILLING.PAYMENT_METHOD_TYPE;
+12)  Start the manager , extract and pump
+
+
+
+
+DECLARE
+hdnl NUMBER;
+BEGIN
+hdnl := DBMS_DATAPUMP.OPEN( operation => 'IMPORT', job_mode => 'SCHEMA', job_name=>null);
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'cds_preprod_13sep19_%U.dmp', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_dump_file);
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'import_files.log', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_log_file);
+DBMS_DATAPUMP.SET_PARAMETER(hdnl,'TABLE_EXISTS_ACTION','REPLACE') ;
+DBMS_DATAPUMP.METADATA_FILTER(hdnl,‘SCHEMA_EXPR’,’IN (''AIA’’,'‘CHOFM’’,'‘INTUIT_WORK_REP’’,'‘JMSUSER’’,'‘MASTER_REP’’,'‘MDMOFM’’,'‘OBOFM’’,'‘OTOFM’’,'‘PHOFM’’,'‘RTOFM’’)');
+DBMS_DATAPUMP.SET_PARALLEL(hdnl,5) ;
+DBMS_DATAPUMP.START_JOB(hdnl);
+END;
+/
+
+
+DECLARE
+hdnl NUMBER;
+BEGIN
+hdnl := DBMS_DATAPUMP.OPEN( operation => 'EXPORT', job_mode => 'SCHEMA', job_name=>null);
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'cds_preprod_13sep19_%U.dmp', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_dump_file);
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'import_files.log', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_log_file);
+DBMS_DATAPUMP.SET_PARAMETER(hdnl,'TABLE_EXISTS_ACTION','REPLACE') ;
+DBMS_DATAPUMP.SET_PARALLEL(hdnl,5) ;
+DBMS_DATAPUMP.START_JOB(hdnl);
+END;
+/  
+
+
+DECLARE
+hdnl NUMBER;
+BEGIN
+hdnl := DBMS_DATAPUMP.OPEN( operation => 'IMPORT', job_mode => 'SCHEMA', job_name=>null);
+dbms_output.put_line(hdnl);
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'cds_preprod_13sep19_%U.dmp', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_dump_file);
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'import_files.log', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_log_file);
+DBMS_DATAPUMP.SET_PARAMETER(hdnl,'TABLE_EXISTS_ACTION','REPLACE');
+dbms_datapump.metadata_transform ( hdnl, 'OID' , 0 , null ) ;
+DBMS_DATAPUMP.set_parallel(handle => hdnl, degree => 8);
+DBMS_DATAPUMP.START_JOB(hdnl);
+END;
+/
+
+
+'CASDS','SIEBEL','PMERRINER','RSCHUBERT','EBS_IQUATE_PPD','KVELHAL','CASOP','READ_ONLY','RTHAYAPARAN','EBS_IQUATE_PROD','GRATHOD','APPSEC'
+
+************************************************************************************************************
+
+SQL Server database status
+
+SELECT name, state_desc  FROM sys.databases
+
+**************************** 
+Disk space 
+
+EXEC MASTER..xp_fixeddrives
+*****************************
+
+We can further modify above query to also include database name in the query as well.
+
+SELECT DISTINCT DB_NAME(dovs.database_id) DBName,
+dovs.logical_volume_name AS LogicalName,
+dovs.volume_mount_point AS Drive,
+CONVERT(INT,dovs.available_bytes/1048576.0) AS FreeSpaceInMB
+FROM sys.master_files mf
+CROSS APPLY sys.dm_os_volume_stats(mf.database_id, mf.FILE_ID) dovs
+ORDER BY FreeSpaceInMB ASC
+GO
+
+****************************
+
+If you see a database name, multiple times, it is because your database has multiple files and they are on different drives. You can modify above query one more time to even include the details of actual file location.
+
+
+SELECT DISTINCT DB_NAME(dovs.database_id) DBName,
+mf.physical_name PhysicalFileLocation,
+dovs.logical_volume_name AS LogicalName,
+dovs.volume_mount_point AS Drive,
+CONVERT(INT,dovs.available_bytes/1048576.0) AS FreeSpaceInMB
+FROM sys.master_files mf
+CROSS APPLY sys.dm_os_volume_stats(mf.database_id, mf.FILE_ID) dovs
+ORDER BY FreeSpaceInMB ASC
+GO
+
+*****************************
+
+If you have an issue with your log file growth, I suggest that you follow either of the above solutions instead of truncating it.
+
+
+/* FULL Recovery and Log File Growth */
+USE [master]
+GO
+-- Create Database SimpleTran
+IF EXISTS (SELECT name FROM sys.databases WHERE name = N'SimpleTran')
+BEGIN
+ALTER DATABASE [SimpleTran] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+DROP DATABASE [SimpleTran]
+END
+GO
+CREATE DATABASE [SimpleTran]
+GO
+-- Set Database backup model to FULL
+ALTER DATABASE [SimpleTran] SET RECOVERY FULL
+GO
+BACKUP DATABASE [SimpleTran] TO DISK = N'D:\SimpleTran.bak' WITH NOFORMAT, NOINIT, NAME = N'SimpleTran-Full Database Backup', SKIP, NOREWIND, NOUNLOAD, STATS = 10
+GO
+-- Check Database Log File Size
+SELECT DB_NAME(database_id) AS DatabaseName,
+Name AS Logical_Name,
+Physical_Name, (size*8)/1024 SizeMB
+FROM sys.master_files
+WHERE DB_NAME(database_id) = 'SimpleTran'
+GO
+-- Create Table in Database with Transaction
+USE SimpleTran
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE OBJECT_ID = OBJECT_ID(N'[dbo].[RealTempTable]') AND TYPE IN (N'U'))
+DROP TABLE [dbo].[RealTempTable]
+GO
+CREATE TABLE RealTempTable (ID INT)
+INSERT INTO RealTempTable (ID)
+SELECT TOP 50000 ROW_NUMBER() OVER (ORDER BY a.name) RowID
+FROM sys.all_objects a
+CROSS JOIN sys.all_objects b
+GO
+-- Check the size of the Database
+SELECT DB_NAME(database_id) AS DatabaseName,
+Name AS Logical_Name,
+Physical_Name, (size*8)/1024 SizeMB
+FROM sys.master_files
+WHERE DB_NAME(database_id) = 'SimpleTran'
+GO
+-- Take Full Backup
+BACKUP LOG [SimpleTran] TO DISK = N'D:\SimpleTran.bak' WITH NOFORMAT, NOINIT, NAME = N'SimpleTran-Transaction Log&nbsp;&nbsp;Backup', SKIP, NOREWIND, NOUNLOAD, STATS = 10
+GO
+-- Run following transaction multiple times and check the size of T-Log
+INSERT INTO RealTempTable (ID)
+SELECT TOP 50000 ROW_NUMBER() OVER (ORDER BY a.name) RowID
+FROM sys.all_objects a
+CROSS JOIN sys.all_objects b
+GO
+-- Check the size of the Database
+SELECT DB_NAME(database_id) AS DatabaseName,
+Name AS Logical_Name,
+Physical_Name, (size*8)/1024 SizeMB
+FROM sys.master_files
+WHERE DB_NAME(database_id) = 'SimpleTran'
+GO
+/*
+Now run following code multiple times.
+You will notice that it will not increase the size of .ldf file but will for sure
+increasethe size of the log backup.
+*/
+-- Second Time
+-- START
+BACKUP LOG [SimpleTran] TO DISK = N'D:\SimpleTran.log' WITH NOFORMAT, NOINIT, NAME = N'SimpleTran-Transaction Log&nbsp;&nbsp;Backup', SKIP, NOREWIND, NOUNLOAD, STATS = 10
+GO
+-- Run following transaction and check the size of T-Log
+INSERT INTO RealTempTable (ID)
+SELECT TOP 50000 ROW_NUMBER() OVER (ORDER BY a.name) RowID
+FROM sys.all_objects a
+CROSS JOIN sys.all_objects b
+GO
+-- Check the size of the Database
+SELECT DB_NAME(database_id) AS DatabaseName,
+Name AS Logical_Name,
+Physical_Name, (size*8)/1024 SizeMB
+FROM sys.master_files
+WHERE DB_NAME(database_id) = 'SimpleTran'
+GO
+-- END
+--Clean Up
+USE MASTER
+GO
+IF EXISTS (SELECT name FROM sys.databases WHERE name = N'SimpleTran')
+BEGIN
+ALTER DATABASE [SimpleTran] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+DROP DATABASE [SimpleTran]
+END
+
+******************
+
+*******log space size **********
+DBCC SQLPERF(LOGSPACE); 
+*********************	
+ 
+ Allocated 510025536 bytes in shared pool for flashback generation buffer
+Flashback Database Enabled at SCN 12924565040916
+Completed:  alter database flashback on
+
+
+CREATE RESTORE POINT FACTOPS_5024 GUARANTEE FLASHBACK DATABASE;
+
+sh
+############# BRM01 ACTIVE SESSION MONITORING########ut immedite;
+startup mount;
+flashback database to restore point FACTOPS_5024;
+
+***********************************
+BRM Cron
+#########CLEAR AUDIT tables #############
+0,15,30,45 * * * *  /bin/find /u01/app/oracle/admin/brmprd/adump/*.aud -type f -mtime +5 -exec rm -rf {} \; > /tmp/findaud.log
+
+
+*/15 * * * * /l/scripts/activesession.sh brmprd brmprd > /l/log/activesession.log 2>&1

@@ -1,0 +1,1088 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;\f2\fnil\fcharset0 Menlo-Regular;
+\f3\fswiss\fcharset0 ArialMT;\f4\fmodern\fcharset0 CourierNewPSMT;\f5\fnil\fcharset0 AvenirNextforINTUIT-Regular;
+\f6\fmodern\fcharset0 CourierNewPS-BoldMT;\f7\fnil\fcharset0 Tahoma-Bold;\f8\fnil\fcharset0 Tahoma;
+\f9\fnil\fcharset0 Verdana;\f10\fnil\fcharset0 Verdana-Bold;\f11\fnil\fcharset0 Menlo-Bold;
+}
+{\colortbl;\red255\green255\blue255;\red20\green0\blue65;\red127\green0\blue128;\red0\green0\blue0;
+\red255\green255\blue255;\red43\green71\blue20;\red251\green0\blue7;\red151\green85\blue4;\red11\green90\blue124;
+\red110\green5\blue2;\red32\green0\blue99;\red168\green24\blue75;\red134\green19\blue62;\red63\green105\blue30;
+\red0\green0\blue255;\red0\green0\blue255;\red127\green127\blue127;\red0\green0\blue135;\red206\green59\blue5;
+\red153\green102\blue51;\red0\green0\blue0;\red180\green36\blue25;\red38\green38\blue38;\red67\green67\blue67;
+}
+{\*\expandedcolortbl;;\cssrgb\c10369\c3853\c32394;\cssrgb\c57919\c12801\c57269;\csgray\c0;
+\cssrgb\c100000\c100000\c100000;\cssrgb\c21795\c34243\c10019;\cssrgb\c100000\c0\c0;\cssrgb\c66183\c40833\c0;\cssrgb\c0\c42931\c55996;
+\cssrgb\c51239\c6511\c0;\cssrgb\c17067\c7357\c46453;\csgenericrgb\c65882\c9412\c29412;\cssrgb\c60282\c14051\c30968;\cssrgb\c30831\c47797\c15540;
+\cssrgb\c1680\c19835\c100000;\csgenericrgb\c0\c0\c100000;\cssrgb\c57046\c57047\c57046;\cssrgb\c0\c0\c60000;\cssrgb\c85233\c31565\c0;
+\cssrgb\c66800\c47512\c25860;\cssrgb\c0\c0\c0;\cssrgb\c76409\c21698\c12524;\cssrgb\c20000\c20000\c20000;\cssrgb\c33333\c33333\c33333;
+}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}}{\leveltext\leveltemplateid1\'01\'00;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww33100\viewh17940\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs34 \cf2 Issue 1:
+\f1\b0  Extract/Pump is not progressing\
+\
+Solution:\
+May be Extract/Pump is stuck. \
+info <Extract/Pump_name>\
+sh sleep 30\
+info <Extract/Pump_name>\
+\
+If RBA is not changing, that means, Extract/Pump is not progressing (may be 
+\f0\b stuck
+\f1\b0 ).\
+Try to 
+\f0\b stop or kill
+\f1\b0  the Extract/Pump and start it.\
+\
+Please check free space in RDS instance.\
+\
+\pard\pardeftab720\partightenfactor0
+\cf3 \expnd0\expndtw0\kerning0
+select username,status,sid,serial#,logon_time,SQL_ID,PROGRAM,MODULE,CLIENT_INFO,LAST_CALL_ET,event,wait_time from gv$session where module like '%
+\f2\fs26 \cf4 \kerning1\expnd0\expndtw0 \CocoaLigature0 EB002OTH
+\f1\fs34 \cf3 \expnd0\expndtw0\kerning0
+\CocoaLigature1 %';\cf0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+==========================================================================================\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 \
+Issue 2:
+\f1\b0  Replicat is not progressing\
+\
+Solution:\
+May be replicat is stuck or applying slow.\
+info <replicat_name>\
+sh sleep 30\
+info <replicat_name>\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 If replicat is lagging or applying slow, could be because of \
+  - Extract & pump processes lagging\
+  - High activity   (i.e. check number of trail files generated or to be applied and run "
+\f2\fs26 \cf4 \CocoaLigature0 stats process_name hourly"
+\f1\fs34 \cf3 \CocoaLigature1 )\
+  - SQL plan change\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl320\partightenfactor0
+
+\f3\fs28 \cf3 \cb5 \expnd0\expndtw0\kerning0
+		     @/ogg_data/sql/ash1
+\f1\fs34 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 		
+\f3\fs28 \cb5 \expnd0\expndtw0\kerning0
+@/ogg_data/sql/xplan\
+		Fix good plan & purge bad plan\
+
+\f1\fs34 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\pardeftab720\partightenfactor0
+\cf3 \expnd0\expndtw0\kerning0
+select username,status,sid,serial#,logon_time,SQL_ID,PROGRAM,MODULE,CLIENT_INFO,LAST_CALL_ET,event,wait_time from gv$session where module like '%
+\f2\fs26 \cf4 \kerning1\expnd0\expndtw0 \CocoaLigature0 RP200IDM
+\f1\fs34 \cf3 \expnd0\expndtw0\kerning0
+\CocoaLigature1 %';\
+\
+select * from table(dbms_xplan.display_cursor('8zsx8uwmm26pg'));\
+select executions_delta,EXECUTIONS_TOTAL,buffer_gets_delta,disk_reads_delta ,trunc(cpu_time_delta/1000000,2) cpu_time, trunc(elapsed_time_delta/1000000,2) elap_time,a.SNAP_ID, b.end_interval_time,a.PLAN_HASH_VALUE from sys.WRH$_SQLSTAT a, sys.wrm$_snapshot b where sql_id='8zsx8uwmm26pg' and a.snap_id=b.snap_id and b.end_interval_time >= sysdate-2.1 order by end_interval_time;\
+\cf0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 If RBA is not changing, that means, replicat is not progressing (may be 
+\f0\b stuck
+\f1\b0 ).\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0\cf0 The replicat is retrying on a FK constraint, there may be another replicat lagging. You would inspect ggserr.log, report file and/or discard file.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\pardeftab720\partightenfactor0
+\cf0 If replicat is hung\
+  - The replicat is similar to any other database session, it may be hung because of myriad reasons that may hang a db session such as lack of space, db hang, bad query & concurrency locks (last 2 are most common for us)\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 e.g.\
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs26 \cf0 \expnd0\expndtw0\kerning0
+info RV_L_AU6\
+ \
+REPLICAT   RV_L_AU6  Last Started 2019-03-25 14:28   Status RUNNING\
+Checkpoint Lag       00:00:00 (updated 00:14:18 ago)\
+Process ID           48563\
+Log Read Checkpoint  File /ogg/trail/aut/r000013489\
+                     2019-03-25 16:08:41.023787  RBA 281089575\
+\
+ps -efa|grep 48563\
+ogg      48563 11043  1 14:28 ?        00:01:27 /u01/app/ogg/12.2.0.1/replicat PARAMFILE /u01/app/ogg/12.2.0.1/dirprm/rv_l_au6.prm REPORTFILE /u01/app/ogg/12.2.0.1/dirrpt/RV_L_AU6.rpt PROCESSID RV_L_AU6 USESUBDIRS\
+oracle   48575 48563  2 14:28 ?        00:03:10 oraclecgiprd01 (DESCRIPTION=(LOCAL=YES)(ADDRESS=(PROTOCOL=beq)))\
+ \
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs28 \cf3 \cb5 @/ogg_data/sql/sidinfo_by_pid
+\f1\fs34 \cf0 \cb1  	(and enter 48575 \'96 the pid of the Oracle server process)\
+select username,status,sid,serial#,logon_time,SQL_ID,PROGRAM,MODULE,CLIENT_INFO,LAST_CALL_ET,event,wait_time from gv$session where module like '%RE005IDM%';\
+\pard\pardeftab720\partightenfactor0
+\cf0 \kerning1\expnd0\expndtw0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \expnd0\expndtw0\kerning0
+On shell,    
+\f4\fs26 kill -9 48575
+\f1\fs34 \
+And then\
+\pard\pardeftab720\sl320\partightenfactor0
+
+\fs30 \cf6 \kerning1\expnd0\expndtw0 begin\
+rdsadmin.rdsadmin_util.kill(sid=> 19056, serial => 16087, method=>'IMMEDIATE');\
+end;\
+/\
+\pard\pardeftab720\sl320\partightenfactor0
+
+\fs34 \cf0 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 SQL> alter system kill session 'sid,serial' immediate;\
+(This will automatically kill the replicat)
+\fs24 \
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs20 \cf0 \'a0
+\f1\fs24 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls2\ilvl0
+\f5\b\fs28 \cf7 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+DON\'92T EVER KILL the replicat process, kill the underlying Oracle server process first, then on the database. You don\'92t need to kill the replicat in this case 
+\b0 (this is nothing unique to replicat, you would do that let\'92s say your SQL*Plus session or SQl*Developer session was hung on a DML, this is DBA stuff not OGG)
+\f1\fs24 \
+\ls2\ilvl0
+\f5\b\fs28 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+Replicats are always applying DML\'92s(insert, update, delete) so killing it will leave locked rows on the database\
+\pard\tx566\pardeftab720\partightenfactor0
+
+\f1\b0\fs34 \cf0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 ==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf8 Issue 3:
+\f1\b0 \
+2018-11-01 21:20:21  ERROR   OGG-00664  Oracle GoldenGate Delivery for Oracle, ra_l_aud.prm:  \
+OCI Error beginning session (status = 257-ORA-00257: 
+\f0\b archiver
+\f1\b0  error. Connect internal only, until freed.).\
+2018-11-01 21:20:21  ERROR   OGG-01668  Oracle GoldenGate Delivery for Oracle, ra_l_aud.prm:  PROCESS ABENDING.\
+\
+Solution:\
+Check space on
+\f0\b  archive mount point
+\f1\b0  and remove older archives\cf0 \
+\
+==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 Issue 4:
+\f1\b0 \
+OGG-01031 There is a problem in network communication. Reply received is 
+\f0\b Output file
+\f1\b0  is not in any allowed output directories. (Doc ID 2095284.1)\
+\
+Solution:\
+In Oracle GoldenGate 12.2 version, we need to use the parameter ALLOWOUTPUTDIR in the ./GLOBALS parameter file. With this parameter, we can authorize GoldenGate to use the particular directory to store the trail files.\
+\
+cat $\{OGG_HOME\}/GLOBALS\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f4 \cf0 GGSCHEMA OGGOWN\
+CHECKPOINTTABLE OGGOWN.CHKPTAB\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f6\b \cf0 ALLOWOUTPUTDIR
+\f4\b0  /ogg/12.2.0.1/trail
+\f1 \
+\
+==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf9 Issue 5:
+\f1\b0 \
+ERROR   OGG-00868  Oracle GoldenGate Capture for Oracle, el2qjira.prm:  The number of Oracle redo threads (2) is not the same as the number of checkpoint threads (1)\
+\
+
+\f4 SQL> select distinct(thread#) from v$log;\
+GGSCI (test1) 3> info LFLXPAR2 showch
+\f1 \
+\
+Solution:\
+1. Deleted the Extract process\
+2. Re-added the extract process with 3 threads\
+3. Alter the extract process with the lowest SCN\
+4. Started the extract\
+5. Alter the pump process with the new sequence number\
+6. Check for the replicat process lag\
+7. Alter the replicat process with the new sequence number\cf0 \
+\
+==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 Issue 6:
+\f1\b0 \
+2018-11-02 05:31:40  WARNING OGG-01154  Oracle GoldenGate Delivery for Oracle, rl001aud.prm:  \
+SQL error 1552 mapping PZOWN.AUDIT_DATA to PZOWN.AUDIT_DATA OCI Error 
+\f0\b ORA-01552
+\f1\b0 : cannot use system 
+\f0\b rollback segment 
+\f1\b0 for non-system tablespace 'AUDIT_DATA' (status = 1552), SQL <INSERT INTO "PZOWN"."AUDIT_DATA" ("AUDIT_ID","ACTION_CODE","EVENT_CODE","DATABASE_ID","COMPANY_AUTH_ID","AGENT_AUTH_ID","OFFERING_ID","SUBJECT_ID","SUBJECT_TYPE","REMOTE_IP","LOCAL_IP","CREATE_DATE","DETAIL","APPLICATION_ID") VALUES (:a0,:a1,:a2,:a3,:a4,:a5,:a6,:a7,:a8,:a9,:a10,:a11,:a12,:a13)>.\
+2018-11-02 05:31:40  ERROR OGG-01296  Oracle GoldenGate Delivery for Oracle, rl001aud.prm:  Error mapping from PZOWN.AUDIT_DATA to PZOWN.AUDIT_DATA.\
+\
+Solution:\
+check 
+\f0\b undo
+\f1\b0  tablespace\
+\
+==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf10 Issue 7:
+\f1\b0 \
+2018-11-06 20:54:18  WARNING OGG-01154  Oracle GoldenGate Delivery for Oracle, rc001idx.prm:  \
+SQL error 1654 mapping IDPROFILEOWN.IDP_SERVICE_USER to IDPROFILEOWN.IDP_SERVICE_USER OCI Error 
+\f0\b ORA-01654
+\f1\b0 : 
+\f0\b unable to extend
+\f1\b0  index IDPROFILEOWN.IDP_SERVICE_USER_SNAME_IDX01 by 8192 in tablespace IDP_DATA (status = 1654), SQL <UPDATE "IDPROFILEOWN"."IDP_SERVICE_USER" x SET x."MODIFY_DATE" = :a1,x."MODIFY_USER_ID" = :a2,x."EDIT_SEQUENCE" = :a3,x."SCREEN_NAME" = :a4,x."EMAIL_TYPE" = :a5,x."EMAIL_STATUS" = :a6,x."EMAIL_VALIDATION_LEVEL" = :a7,x."EMAIL_PRIMARY" = :a8,x."EMAIL" = :a9,x."LAST_MOD_TIME" = :a10 WHERE x."USER_AUTH_ID" = :b0 AND x."MODIFY_DATE" = :b1 AND x."MODIFY_USER_ID" = :b2 AND x."EDIT_SEQUENCE" = :b3 AND x."SCREEN_NAME" is NULL AND x."EMAIL_TYPE" = :b5 AND x."EMAIL_STATUS" is NULL AND x."EMAIL_VALIDATION_LEVEL" is NULL AND x."EMAIL_PRIMARY" is NULL AND x."EMAIL" is NULL AND x."LAST_MOD_TIME" = :b10 AND x."CHARACTERISTICS_ID" = :b11>.\
+2018-11-06 20:54:18  ERROR OGG-01296  Oracle GoldenGate Delivery for Oracle, rc001idx.prm: Error mapping from IDPROFILEOWN.IDP_SERVICE_USER to IDPROFILEOWN.IDP_SERVICE_USER.\
+\
+Solution:\
+Add 
+\f0\b space
+\f1\b0  to tablespace\cf0 \
+\
+==========================================================================================\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 \
+Issue 8: 
+\f1\b0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 2019-03-12 21:39:00  ERROR   OGG-01172  Oracle GoldenGate Delivery for Oracle, ra_l_del.prm:  Discard file (/ogg/error/error_ra_l_del.dsc) exceeded max bytes (1000000000).\
+2019-03-12 21:39:00  ERROR   OGG-01668  Oracle GoldenGate Delivery for Oracle, ra_l_del.prm:  PROCESS ABENDING.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 Solution:\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 Move the discard file, with old name\
+mv error_ra_l_del.dsc error_ra_l_del.dsc.old\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f4 \cf0 oracle@pprfiamdbb00.corp.intuit.net:/ogg/error->ls -tlr error_ra_l_del*dsc\
+-rw-r----- 1 oracle oinstall          0 Mar  3 00:03 error_ra_l_del0.dsc\
+-rw-r--r-- 1 oracle oinstall 1000000489 Mar 12 21:41 error_ra_l_del.dsc\
+\
+oracle@pprfiamdbb00.corp.intuit.net:/ogg/error->mv error_ra_l_del.dsc error_ra_l_del.dsc.bkp
+\f1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf11 Issue 9:
+\f1\b0  Pump abended\
+2018-08-30 22:04:09  ERROR   
+\f0\b OGG-06601
+\f1\b0   Oracle GoldenGate Capture for Oracle, psprd.prm:  Mismatch between the length of seqno from checkpoint (9) and recovery (6) for extract trail /u01/oggdata/rm.\
+\
+Solution:\
+\ul At source:\ulnone \
+GGSCI 2> info 
+\f2\fs26 \cf4 \CocoaLigature0 PG001OTH
+\f1\fs34 \cf11 \CocoaLigature1 \
+GGSCI 2> alter extract 
+\f2\fs26 \cf4 \CocoaLigature0 PA001RPT
+\f1\fs34 \cf11 \CocoaLigature1  etrollover\
+ 		
+\f0\b [[ or ]]
+\f1\b0 \
+		GGSCI 2> info <pump-process>\
+		GGSCI 5> ALTER PSPRD BEGIN 2018-04-09 04:59:02.000012 ( from above output from info <pump-process> )\
+		ALTER 
+\f2\fs26 \cf4 \CocoaLigature0 PG001OTH
+\f1\fs34 \cf11 \CocoaLigature1  BEGIN 
+\f2\fs26 \cf4 \CocoaLigature0 2019-02-12 21:20:08.000000
+\f1\fs34 \cf11 \CocoaLigature1 \
+\
+2018-08-30 22:06:23  INFO    OGG-01520  Rollover performed.  For each affected output trail of Version 10 or higher format, after starting the source extract, \
+issue ALTER EXTSEQNO for that trail's reader (either pump EXTRACT or REPLICAT) to move the reader's scan to the new trail file;  it will not happen automatically.\
+EXTRACT altered.\
+\
+\ul At target:\ulnone \
+lag RG008OTH\
+	Sending GETLAG request to REPLICAT RG008OTH ...\
+	Last record lag 5 seconds.\
+
+\f0\b 	At EOF, no more records to process.
+\f1\b0 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf11 stop all related replicats\
+alter each replicat, alter <rep-name> EXTSEQNO <next_seq_number> extrba 0\
+e.g.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf11 stop RG000OTH\
+alter RG000OTH extseqno 50 extrba 0\
+start RG000OTH NOFILTERDUPTRANSACTIONS \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+==========================================================================================\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf9 Issue 10:
+\f1\b0 \
+2019-01-07 00:30:56  WARNING OGG-01154  Oracle GoldenGate Delivery for Oracle, rw001idf.prm:\
+SQL error 14402 mapping GGHB_USER.HEARTBEAT to GGHB_USER.GGS_HEARTBEAT OCI Error 
+\f0\b ORA-14402: updating partition key
+\f1\b0  column would cause a partition change (status = 14402), \
+SQL <UPDATE "GGHB_USER"."GGS_HEARTBEAT" x SET x."ID" = :a15,x."SRC_DB" = :a16,x."SRC_HOSTNAME" = :a17,x."TARGET_HOSTNAME" = :a18,x."EXTRACT_NAME" = :a19,x."SOURCE_COMMIT" = :a20,x."CAPTIME" = :a21,x."PMPTIME" = :a22,x."PMPGROUP" = :a23,x."DELTIME" = :a24,x."THREAD" = :a26,x."UPDATE_TIMESTAMP" = :a27,x."EDDLDELTASTATS" = :a28,x."EDMLDELTASTATS" = :a29,x."RDDLDELTASTATS" = :a30,x."RDMLDELTASTATS" = :a31 WHERE x."DELGROUP" = :b0>.\
+2019-01-07 00:30:56  ERROR   OGG-01296  Oracle GoldenGate Delivery for Oracle, rw001idf.prm:  Error mapping from GGHB_USER.HEARTBEAT to GGHB_USER.GGS_HEARTBEAT.\
+\
+Solution:\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tx40666\pardeftab720\partightenfactor0
+
+\f4 \cf9 set lines 333 pages 44444
+\f1\fs28 \cf12 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
+
+\f4\fs34 \cf9 select OWNER,TABLE_NAME,ROW_MOVEMENT from dba_tables where table_name like '%HEARTBEAT%' and OWNER like '%GG%' order by TABLE_NAME;
+\f1 \cf0 \
+\pard\pardeftab720\sl320\partightenfactor0
+
+\f4 \cf9 alter table GGHB_USER.GGS_HEARTBEAT 
+\f6\b enable
+\f4\b0  row movement;\
+alter table GGHB_USER.HEARTBEAT 
+\f6\b enable
+\f4\b0  row movement;\
+\
+\pard\pardeftab720\ri-340\partightenfactor0
+\cf9 select * from GGHB_USER.HEARTBEAT;\
+\pard\pardeftab720\sl320\partightenfactor0
+
+\f1 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 ==========================================================================================\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 \
+Issue 11:
+\f1\b0 \
+Source:\
+\pard\pardeftab720\partightenfactor0
+\cf0 2019-03-01 11:33:57\'a0 ERROR\'a0\'a0 OGG-01733\'a0 Oracle GoldenGate Capture for Oracle, pd_l_ida.prm:\'a0 Trail file header file size value 346799263 for trail file '/ogg/trail/aud/rl021139' differs from the actual size of the file (349203376).\
+\
+Target:\
+2019-03-01 11:56:32\'a0 ERROR\'a0\'a0 OGG-02171\'a0 Oracle GoldenGate Delivery for Oracle, rlaud001.prm:\'a0 Error reading LCR from data source. Status 509, data source type 0.\
+2019-03-01 11:56:32\'a0 ERROR\'a0\'a0 OGG-02191\'a0 Oracle GoldenGate Delivery for Oracle, rlaud001.prm:\'a0 Incompatible record 104 in /ogg/trail/aud/rl021139, rba 346,799,263 when getting trail header.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 Solution:\
+\pard\pardeftab720\partightenfactor0
+\cf0 ogg@pprddbrep300.corp.intuit.net:/ogg->ll /ogg/trail/aud/rl021139\
+-rw-r----- 1 ogg oinstall 349203376 Feb 28 02:24 /ogg/trail/aud/rl021139\
+\
+Logdump 163 > open /ogg/trail/ida/ea021138\
+Current LogTrail is /ogg/trail/ida/ea021138\
+Logdump 164 > ghdr on; detail on;\
+Logdump 166 > SCANFORTIME 2019-02-28:02:20:00\
+\
+alter pd_l_ida etrollover\
+start pd_l_ida\
+\
+stop all related replicats\
+alter each replicat (rlaud001 - rlaud016), alter <rep-name> EXTSEQNO <next_seq_number> extrba 0\
+e.g.\
+alter rlaud001 extseqno 21140 extrba 0\
+start rlaud001\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 ==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf13 Issue 12:
+\f1\b0 \
+2018-11-08 22:35:51  ERROR   
+\f0\b OGG-01031
+\f1\b0   Oracle GoldenGate Capture for Oracle, pa_au.prm:  There is a problem in network communication, a remote file problem, \
+encryption keys for target and source do not match (if using ENCRYPT) or an unknown error. (Reply received is Unable to open file "/ogg/trail/ra033465" (error 11, Resource temporarily unavailable)).\
+\
+Solution:\
+At source -\
+info PA_AU                    \
+alter PA_AU 
+\f0\b etrollover
+\f1\b0 \
+start PA_AU\
+\
+At target -\
+For all related replicats, alter <rep-name> EXTSEQNO <next_seq_number> extrba 0\
+e.g.\
+alter RA_AU1 EXTSEQNO 33466 extrba 0\
+alter RA_AU2 EXTSEQNO 33466 extrba 0\cf0 \
+\
+==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf8 Issue 13:
+\f1\b0 \
+2018-12-09 22:29:40  ERROR   OGG-01232  Oracle GoldenGate Capture for Oracle, pl001idf.prm:  Receive TCP params error: 
+\f0\b TCP/IP error 104
+\f1\b0  (Connection reset by peer), endpoint: ogg-idm-prf.identity-prf-us-east-2.a.intuit.com:15010.\
+\
+Solution:\
+GG Pump Process Abending With "Receive TCP Params Error: TCP/IP Error 104" (Doc ID 2088680.1)\
+\
+OPTION 1: Use the NOSTREAMING option if hitting tcp/ip errors too often NOSTREAMING - will make the data pump more resilient to transient network outages\
+\
+OPTION 2: Add AUTORESTART to the manager prm file to have all pumps restart when it gets a TCP/IP error\
+\
+
+\f0\b AUTORESTART
+\f1\b0  < process type> , RETRIES .., WAITMINUTES .., RESETMINUTES ..\
+i.e \
+AUTORESTART EXTRACT *, RETRIES 3, WAITMINUTES 5, RESETMINUTES 60 \cf0 \
+\
+==========================================================================================\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 \
+Issue 14: Extracts are lagging behind (not extracting data)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b0 \cf0 EXTRACT     RUNNING     EB001AUT    03:07:51      00:00:01\
+EXTRACT     RUNNING     EB001DEL    03:07:50      00:00:01\
+EXTRACT     RUNNING     EB001IDM    03:07:49      00:00:03\
+EXTRACT     RUNNING     EB001IUS     03:07:45      00:00:07
+\f0\b \
+\
+
+\f1\b0 Solution:
+\f0\b \
+
+\f1\b0 GGSCI (ogg-prd-us-west-2-01) 3> info EB001IUS\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f4 \cf0 EXTRACT    EB001IUS  Last Started 2018-11-04 13:34   Status RUNNING\
+Checkpoint Lag       02:50:05 (updated 00:00:09 ago)\
+Process ID           20119\
+Log Read Checkpoint  Oracle Integrated Redo Logs\
+                     2018-12-28 15:36:14\
+                     SCN 28.1100950396 (121360034684)
+\f1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b0 \cf0 tail -15000 ggserr.log | grep -i EB001AUT\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f4 \cf0 2018-12-28 16:09:47  WARNING OGG-01027  Oracle GoldenGate Capture for Oracle, eb001aut.prm:  Long Running Transaction: XID 1.14.364294, Items 0, Extract EB001AUT, Redo Thread 1, SCN 28.1100950137 (121360034425), Redo Seq #133207, Redo RBA 118284132.\
+2018-12-28 16:22:17  INFO    OGG-01971  Oracle GoldenGate Capture for Oracle, eb001aut.prm:  The previous message, \'91WARNING OGG-01027\'92, repeated 2 times.\
+2018-12-28 16:32:17  INFO    OGG-01971  Oracle GoldenGate Capture for Oracle, eb001aut.prm:  The previous message, \'91WARNING OGG-01027\'92, repeated 2 times.\
+2018-12-28 16:42:17  INFO    OGG-01971  Oracle GoldenGate Capture for Oracle, eb001aut.prm:  The previous message, \'91WARNING OGG-01027\'92, repeated 2 times.
+\f6\b \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b0 \cf0 v$transaction didn\'92t show any active transactions\
+select t.XIDUSN || \'91.\'92 || t.XIDSLOT || \'91.\'92 || XIDSQN AS \'93XID\'94 FROM gv$transaction t;\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f4 \cf0 no rows selected
+\f1 \
+\
+GGSCI (ogg-prd-us-west-2-01) 1> send extract EB001AUT showtrans\
+
+\f4 \
+Sending SHOWTRANS request to EXTRACT EB001AUT ...\
+\
+------------------------------------------------------------\
+XID:                  1.14.364294\
+Items:                0\
+Extract:              EB001AUT\
+Redo Thread:          1\
+Start Time:           2018-12-28:15:36:13\
+SCN:                  28.1100950137 (121360034425)\
+Redo Seq:             133207\
+Redo RBA:             118284132\
+Status:               Running\
+...\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1 \cf0 \
+(Shows all transaction id\'92s (XID\'92s) that the extracts are stuck on)\
+\
+First stop or kill extract process and start it. If it's NOT proceeding, then skip the transactions..\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 You can\'92t always skiptrans.
+\f1\b0 ...in case the extracts are stuck on transactions that no longer exist indicating they were dead transactions.\
+\
+GGSCI (ogg-prd-us-west-2-01) 2> send extract EB001AUT skiptrans 1.14.364294\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f4 \cf0 Sending skiptrans request to EXTRACT EB001AUT ...\
+Are you sure you sure you want to skip transaction [XID 1.14.364294, Redo Thread 1, Start Time 2018-12-28:15:36:13, SCN 28.1100950137 (121360034425)]? (y/n)
+\f6\b y
+\f4\b0 \
+\
+Sending skiptrans request to EXTRACT EB001AUT ...\
+Transaction [XID 1.14.364294, Redo Thread 1, Start Time 2018-12-28:15:36:13, SCN 28.1100950137 (121360034425)] skipped.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1 \cf0 \
+And kill and restart the extracts if they appear to be hung.
+\f0\b \
+
+\f1\b0 \
+==========================================================================================\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf3 Issue 15: 
+\f1\b0 \
+2019-01-08 05:08:56  WARNING OGG-01223  Oracle GoldenGate Capture for Oracle, pc002idm.prm:  
+\f0\b TCP/IP error 32 (Broken pipe)
+\f1\b0 , endpoint: ogg-idm-prd.identity-prd-us-west-2.a.intuit.com:15016.\
+2019-01-08 05:08:56  WARNING OGG-01223  Oracle GoldenGate Capture for Oracle, pc003del.prm:  TCP/IP error 32 (Broken pipe), endpoint: ogg-idm-prd.identity-prd-us-east-2.a.intuit.com:15025.\
+\
+Oracle Golden Gate Pump Extract abends with "ERROR OGG-01233 Send TCP params error: TCP/IP error 32 (Broken pipe), endpoint: <ip:port>" (Doc ID 1547887.1)\
+\
+Bug 14499879 - ALLOW RETRY IN STREAMING MODE WHEN POSSIBLE\
+\pard\pardeftab720\sl240\partightenfactor0
+\cf3 The fix for bug 14499879 is in 11.2.1.0.4 and above.\cf0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 ==========================================================================================\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf14 Issue 16: 
+\f1\b0 \
+2019-01-10 00:07:28  ERROR   OGG-00868  Oracle GoldenGate Capture for Oracle, el002jra.prm:  Error code 1291, error message: 
+\f0\b ORA-01291: missing logfile
+\f1\b0 \
+ (Missing Log File /a01/oradata/jiraperf/arch/2_3799_921325869.arch, THREAD 2, SEQUENCE 3799, SC. Read Position SCN: Unknown).\
+2019-01-10 00:07:28  ERROR   OGG-01668  Oracle GoldenGate Capture for Oracle, el002jra.prm:  PROCESS ABENDING.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ri-25960\pardirnatural\partightenfactor0
+\cf14 2020-01-19 23:08:47  ERROR   OGG-00868  Error code 1291, error message: ORA-01291: missing logfile\
+(Missing Log File WAITING FOR DICTIONARY REDO: FILE /rdsdbdata/db/IDXPFW2A_A/arch/redolog-164762-1-980468904.arc, THREAD 1, SEQUENCE 164762, SCN 0x0bb5.7da\
+d502f. Read Position SCN: 2997.2139426994 (12874156413106)).\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf14 \
+Solution:\
+Check the archive log file exists or not.\
+Unzip the archive or restore the archive log\
+[[ or ]] alter extract to start from next available archive.\
+[[ or ]] unregister and register the extract again\
+\pard\pardeftab720\sl400\partightenfactor0
+
+\f4\fs32 \cf14 \expnd0\expndtw0\kerning0
+dblogin userid oggown password oggown\
+stop extract EL002JRA\
+unregister extract EL002JRA database\
+register extract EL002JRA database\
+start extract EL002JRA\
+info extract EL002JRA\
+
+\f1\fs34 \cf0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 ==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 Issue 17: \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b0 \cf0 2019-02-05 00:35:47  WARNING OGG-01519  Oracle GoldenGate Delivery for Oracle, rc100oth.prm:  Waiting at EOF on input trail file /ogg/trail/oth/ogg-east-2_pprdiamdba-qy-ogg/rc000000483, which is not marked as complete; but succeeding trail file /ogg/trail/oth/ogg-east-2_pprdiamdba-qy-ogg/rc000000484 exists. If ALTER ETROLLOVER has been performed on source extract, ALTER EXTSEQNO must be performed on each corresponding downstream reader.\
+\
+Solution:\
+This means rc100oth is stuck on seqno 483\
+As the pump didn\'92t close the file properly\
+So you have to stop the replicat and manually push it to 484\
+\
+info rc100oth
+\f0\b \
+
+\f1\b0 stop rc100oth\
+alter rc100oth EXTSEQNO 484 extrba 0\
+start rc100oth\
+==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf15 Issue 18: \
+
+\f1\b0 2019-02-12 23:46:46  WARNING OGG-01221  Oracle GoldenGate Capture for Oracle, pc004idm.prm:  Connect failed to 10.91.120.197:15041, error 111:Connection refused.\
+2019-02-12 23:41:10  ERROR   OGG-01224  Oracle GoldenGate Capture for Oracle, pc004idm.prm:  .\
+2019-02-12 23:41:10  ERROR   OGG-01668  Oracle GoldenGate Capture for Oracle, pc004idm.prm:  PROCESS ABENDING.\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf15 2019-02-16 02:26:48  ERROR   OGG-01224  Oracle GoldenGate Capture for Oracle, pg002oth.prm:  TCP/IP error 111 (Connection refused), endpoint: 10.142.2.26:15000.\
+2019-02-16 02:26:48  ERROR   OGG-01668  Oracle GoldenGate Capture for Oracle, pg002oth.prm:  PROCESS ABENDING.\
+\
+\pard\pardeftab720\partightenfactor0
+\cf15 2019-04-30 21:08:30  WARNING OGG-01223  Oracle GoldenGate Capture for Oracle, pg001aut.prm:  TCP/IP error 104 (Connection reset by peer), endpoint: 10.145.132.209:15001.\
+2019-04-30 21:08:29  WARNING OGG-01223  Oracle GoldenGate Capture for Oracle, pc001idm.prm:  TCP/IP error 104 (Connection reset by peer), endpoint: 10.142.2.26:15030.\
+2019-04-30 21:08:42  INFO    OGG-01230  Oracle GoldenGate Capture for Oracle, pc100aut.prm:  Recovered from TCP error, host 10.142.2.26, port 15035.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf15 \
+Solution:\
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat5 \trwWidth15680\trftsWidth3 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth15680\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadl0 \clpadr0 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl340\partightenfactor0
+
+\f7\b\fs28\fsmilli14300 \cf15 \expnd0\expndtw0\kerning0
+Starting pumps manually (after maintenance is over) or let pumps starts automatically.\
+\
+
+\f8\b0 Check collector process at source/target\
+\pard\intbl\itap1\pardeftab720\sl400\partightenfactor0
+
+\f3\fs34 \cf15 \cb5   ps -ef | grep ogg |grep server|wc -l
+\f4\fs32 \cf16 \cb1 \
+
+\f3\fs34 \cf15 \cb5   ps -ef |grep server | grep -v grep|wc -l
+\f4\fs32 \cf16 \cb1 \
+\pard\intbl\itap1\pardeftab720\sl340\partightenfactor0
+
+\f1\fs34 \cf0 \kerning1\expnd0\expndtw0 \cell \lastrow\row
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 ==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf17 Issue 19:
+\f1\b0 \
+GoldenGate Error Queue For Apply Process "OGG$RNDDEV_A" Contains New Transaction With ORA-904\
+\
+Solution:\
+Streams APPLY OGG$RNDDEV_A encountered user error ORA-904 during eager apply: 
+\f0\b ORA-00904
+\f1\b0 : : invalid identifier (Doc ID 2172355.1)\
+Provide execute privileges on dbms_reputil2.get_final_lob to GoldenGate user
+\f4 \cf0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs26 \cf4 \CocoaLigature0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf0 \CocoaLigature1 ==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 Issue 20:
+\f1\b0 \
+\pard\pardeftab720\partightenfactor0
+\cf0 2019-03-27 03:20:34\'a0 INFO\'a0\'a0\'a0 OGG-06510\'a0 Oracle GoldenGate Delivery for Oracle, rc101idx.prm:\'a0 Using the following key columns for target table PZOWN.SR_COMPANY_EX: EXCEPTION_ID.\
+2019-03-27 03:20:34\'a0 ERROR\'a0\'a0 OGG-03534\'a0 Oracle GoldenGate Delivery for Oracle, rc101idx.prm:\'a0 Invalid character 'ae' at offset 15 for character set UTF-8 was found while performing character validation of source column NAME maps target column NAME.\
+2019-03-27 03:20:34\'a0 ERROR\'a0\'a0 OGG-01668\'a0 Oracle GoldenGate Delivery for Oracle, rc101idx.prm:\'a0 PROCESS ABENDING.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+Solution:
+\f9\fs30 \cf18 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720\partightenfactor0
+\cf18 In parameter file you will see below attribute for\'a0OGG-03534\'a0to handle "?" character. Please uncomment that and let replicate sync and revert back the attribute.\'a0\'a0stopping and start the replicate.\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs26 \cf4 \kerning1\expnd0\expndtw0 \CocoaLigature0 REPLACEBADCHAR SUBSTITUTE '?'\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f9\fs30 \cf18 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs34 \cf0 \kerning1\expnd0\expndtw0 [ or ]\
+\pard\pardeftab720\partightenfactor0
+
+\f9\fs30 \cf18 \expnd0\expndtw0\kerning0
+\
+As per \cb5 instructions in \cb1 Oracle SR - 3-19720574591 : Replicats are abending with OGG-03534
+\f1\fs32 \cf0 ,
+\f9\fs30 \cf18 \cb5  commented NLS_LANG and added NOCHARSETCONVERSION, for few seconds.
+\f1\fs32 \cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f9\fs30 \cf18 \'a0
+\f1\fs32 \cf0 \
+
+\f9\fs30 \cf18 e.g.
+\f1\fs32 \cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs30 \cf0 oracle@ogg-prd-us-east-2-01:/ogg/12.2.0.1/dirprm-> diff rd101idx.prm rd101idx.prm.2018
+\f1\fs32 \
+
+\f4\fs30 11,12c11
+\f1\fs32 \
+
+\f4\fs30 < --SETENV (NLS_LANG=AMERICAN_AMERICA.AL32UTF8)
+\f1\fs32 \
+
+\f4\fs30 < NOCHARSETCONVERSION
+\f1\fs32 \
+
+\f4\fs30 ---
+\f1\fs32 \
+
+\f4\fs30 > SETENV (NLS_LANG=AMERICAN_AMERICA.AL32UTF8)
+\f1\fs32 \
+\pard\pardeftab720\partightenfactor0
+
+\f9\fs30 \cf18 \'a0
+\f1\fs32 \cf0 \
+
+\f9\fs30 \cf18 Oracle DOC - 
+\f10\b OGG-03521 Invalid Character For Character Set UTF-8 (Doc ID 2029686.1)
+\f1\b0\fs32 \cf0 \
+
+\f9\fs30 \cf18 And reverted the changes, once the passed the RBA/record.\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs34 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 ==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf19 Issue 21:
+\f1\b0 \
+\
+2019-05-17 19:19:21  ERROR   OGG-01337  Oracle GoldenGate Capture for Oracle, pb100oth.prm:  Trail file /ogg/12.2.0.1/trail/oth/us-west-2-e2e_us-east-2-e2e/rb000000277, IO error 1 (Command sent was not recognised by receiving process).\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\fs40 \cf19 \
+\pard\pardeftab720\sl240\sa200\partightenfactor0
+
+\f8\fs26 \cf19 \cb5 \expnd0\expndtw0\kerning0
+1) 
+\fs28 perform etrollover as per
+\fs26 \'a0
+\f7\b\fs39\fsmilli19900 Doc ID 1484505.1\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b0\fs40 \cf19 \cb1 \kerning1\expnd0\expndtw0 info PB100OTH\
+alter extract 
+\f2\fs32 \CocoaLigature0 PB100OTH
+\f1\fs40 \CocoaLigature1  etrollover\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f8\fs26 \cf19 \cb5 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720\sl240\sa200\partightenfactor0
+
+\fs28 \cf19 If step1 doesn't resolve the issue goto setp2\
+\
+2) Try to rename and copy back the original 
+\f7\b remote trail file\
+Stop pump process (even if it's ABENDED). Pump process should be in STOPPED state.
+\f8\b0 \
+for e.g.,\
+cp /ogg_data/rt000406 /ogg_data/rt000406.bak\cb1 \uc0\u8232 \cb5 mv /ogg_data/rt000406 /ogg_data/rt000406.old\cb1 \uc0\u8232 \cb5 mv /ogg_data/rt000406.bak /ogg_data/rt000406\cb1 \uc0\u8232 \u8232 \cb5 Restart the Pump process.\
+If step2 doesn't resolve the issue goto setp3\
+\
+3)\'a0Delete and re-add the replicat as shown in the below example.\cb1 \uc0\u8232 \cb5 \
+(a) \'a0 \'a0 delete the data pump\cb1 \uc0\u8232 \cb5 ggsci> delete dpump\cb1 \uc0\u8232 \u8232 \cb5 (B)\'a0\'a0\'a0\'a0 Add data pump in writing to the next file in the sequence, change the extseqno depending on the trail file number the data pump should start processing\cb1 \uc0\u8232 \u8232 \cb5 ggsci> add ext dpump, exttrail /ogg_data/lt\'a0\cb1 \uc0\u8232 \cb5 ggsci> add rmttrail /ogg_data/rt,\'a0 seqno 407 , ext dpump\'a0\'a0       <-----------start writing to new file\'a0\cb1 \uc0\u8232 \cb5 ggsci> alter ext dpump, extseqno 4, extrba 0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0\'a0 <-----------start from read checkpoint\'a0\'a0 \'a0 \'a0 \'a0 \'a0 \'a0 \'a0\'a0\cb1 \uc0\u8232 \u8232 \cb5 (c) \'a0 Start the pump process\cb1 \uc0\u8232 \cb5 ggsci> start dpump\'a0\cb1 \uc0\u8232 \u8232 \cb5 (d)\'a0\'a0 Upload the info detail and showch output for all the pump process\cb1 \uc0\u8232 \u8232 \cb5 (e) once the pump is up and running check for the replicat status.\cb1 \uc0\u8232 \u8232 \cb5 (f) replicat will need to be manually changed to point to the new trail sequence 407.
+\f1\fs40 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\fs34 \cf0 ==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 Issue 22:
+\f1\b0 \
+\
+2019-05-29 04:50:59  ERROR   OGG-01091  Oracle GoldenGate Capture for Oracle, pd_l_ida.prm:  Unable to open file "/ogg/trail/ida/ea023788" (error 2, No such file or directory).\
+2019-05-29 04:50:59  ERROR   OGG-01668  Oracle GoldenGate Capture for Oracle, pd_l_ida.prm:  PROCESS ABENDING.\
+\
+[ happens after server auto reboot ]\
+\
+GGSCI (pprdauddbb00.corp.intuit.net) 2> info PD_L_IDA\
+\
+EXTRACT    PD_L_IDA  Last Started 2019-05-29 05:03   Status ABENDED\
+Checkpoint Lag       02:33:30 (updated 00:01:53 ago)\
+Log Read Checkpoint  File /ogg/trail/ida/ea023787\
+                     2019-05-29 02:29:44.000000  RBA 
+\f0\b 81413108
+\f1\b0 \
+\
+\
+GGSCI (pprdauddbb00.corp.intuit.net) 14> sh ls -tlr /ogg/trail/ida/ea02378*\
+-rw-rw-rw- 1 oracle oinstall  
+\f0\b 80330896
+\f1\b0  May 29 04:47 /ogg/trail/ida/ea023787\
+-rw-rw-rw- 1 oracle oinstall   4950716 May 29 04:58 /ogg/trail/ida/ea023788\
+\
+RBA (81413108) is ahead/greater than trail file size (80330896), which is not possible.\
+\
+Solution:\
+Alter the OGG process to next sequence number\
+lag PD_L_IDA \
+alter PD_L_IDA, extseqno 23788, extrba 0\
+start PD_L_IDA\
+\
+==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf20 Issue 23:\
+\pard\pardeftab720\partightenfactor0
+
+\f1\b0 \cf20 ERROR   OGG-00664  Oracle GoldenGate Delivery for Oracle, rw100idf.prm:  OCI Error Sending commit command to database inbound server, \
+'OGG$RW100IDF' (status = 26815-ORA-26815: Error from Apply Network Receiver for Apply "OGG$RW100IDF" and Capture "replicat".\
+ORA-26886: LCR commit position ('313632333039') must be greater than the applied high position of the XStream inbound server (position='313632333039').).\
+\
+\pard\pardeftab720\sl340\partightenfactor0
+\cf20 Doc ID 2132789.1 -  Solution is to use a OGG build which have fix for the bug 22295723\
+[[ or ]]\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf20 Convert integrated replicat to classical replicat\
+\pard\pardeftab720\sl240\partightenfactor0
+
+\f8\fs28 \cf20 \cb5 \expnd0\expndtw0\kerning0
+stop <replicat>\
+ALTER REPLICAT <groupname>, NONINTEGRATED\cf21 \
+\cf20 start <replicat>\
+\pard\pardeftab720\sl340\partightenfactor0
+
+\f1\fs34 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 ==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 Issue 24:
+\f1\b0 \
+2019-06-19 02:26:54  ERROR   OGG-01029  Oracle GoldenGate Delivery for Oracle, re100idf.prm:  Extract reposition err -.\
+2019-06-19 02:26:59  ERROR   OGG-01668  Oracle GoldenGate Delivery for Oracle, re100idf.prm:  PROCESS ABENDING.\
+\
+\pard\pardeftab720\sl340\partightenfactor0
+
+\f7\b\fs28\fsmilli14300 \cf21 \cb5 \expnd0\expndtw0\kerning0
+Replication Process Failed to start with ERROR OGG-01029 Extract reposition err -. (Doc ID 2290747.1)
+\f1\b0\fs34 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 Convert integrated replicat to classical replicat\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\fs36 \cf0 stop <
+\f8\fs30 \cf21 \cb5 \expnd0\expndtw0\kerning0
+replicat-name>
+\f1\fs36 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\pardeftab720\sl240\partightenfactor0
+
+\f8\fs30 \cf21 \cb5 \expnd0\expndtw0\kerning0
+ALTER REPLICAT <replicat-name>, NONINTEGRATED
+\fs28 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\fs36 \cf0 \cb1 \kerning1\expnd0\expndtw0 start <
+\f8\fs30 \cf21 \cb5 \expnd0\expndtw0\kerning0
+replicat-name>
+\f1\fs36 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\pardeftab720\sl240\partightenfactor0
+
+\fs34 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 ==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf9 Issue 25:
+\f1\b0 \
+\
+2019-07-04 17:54:35  ERROR   OGG-01224  Oracle GoldenGate Collector for Oracle:  Connection timeout, endpoint: :0.\
+2019-07-04 17:54:35  ERROR   OGG-01668  Oracle GoldenGate Collector for Oracle:  PROCESS ABENDING.\
+\pard\pardeftab720\partightenfactor0
+\cf9 2020-01-21 19:49:58  WARNING OGG-01223  Oracle GoldenGate Capture for Oracle, pb100idm.prm:  TCP/IP error 110 (Connection timed out), endpoint: ogg-idm-e2e.identity-e2e-us-east-2.a.intuit.com:15009.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf9 Solution:\
+Find out the pump on source side.\
+It's must be lagging, kill it and start it.\cf0 \
+\
+==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 Issue 26:\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b0 \cf0 2019-07-09 02:00:18  WARNING OGG-01431  Oracle GoldenGate Delivery for Oracle, rw001pth.prm:  Aborted grouped transaction on 'PAUTHOWN.PARTNER_CONNECTION_HISTORY', Mapping error.\
+2019-07-09 02:00:18  WARNING OGG-01151  Oracle GoldenGate Delivery for Oracle, rw001pth.prm:  Error mapping from PAUTHOWN.PARTNER_CONNECTION_HISTORY to PAUTHOWN.PARTNER_CONNECTION_HISTORY.\
+2019-07-09 02:00:18  ERROR   OGG-01296  Oracle GoldenGate Delivery for Oracle, rw001pth.prm:  Error mapping from PAUTHOWN.PARTNER_CONNECTION_HISTORY to PAUTHOWN.PARTNER_CONNECTION_HISTORY.\
+\
+Key column PARTNER_CONNECTION_ID (1) is missing from update on table PAUTHOWN.PARTNER_CONNECTION_HISTORY\
+Missing 1 key columns in update for table PAUTHOWN.PARTNER_CONNECTION_HISTORY.\
+\
+Solution:\
+\pard\pardeftab720\ri-27766\sl320\partightenfactor0
+\cf0 Replicat Abending With Mapping Error and discard file shows Missing Key Columns (Doc ID 1276538.1)\
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat5 \trwWidth15680\trftsWidth3 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth15680\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadl0 \clpadr0 \gaph\cellx8640
+\pard\intbl\itap1\tx36228\pardeftab720\ri-27415\sl340\partightenfactor0
+\cf0 Key column <column-name> (1) is missing from delete on table <schema.table-name>, table has no PK but has UI with a DESC column (Doc ID 2080963.1)\cell \lastrow\row
+\pard\pardeftab720\sl320\partightenfactor0
+\cf0 \
+\pard\pardeftab720\sl240\partightenfactor0
+\cf0 Add same set of primary key or unique key on both source and target tables.\
+\
+\pard\pardeftab720\sl240\partightenfactor0
+
+\fs36 \cf0 However, as a workaround we can force the extract/replicat to use same columns as key columns using KEYCOLS parameter in the TABLE or MAP statement.\'a0\
+MAP <schema>.<table_name>, target <schema>.<table_name>, keycols (empid);\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs28 \cf4 \CocoaLigature0 MAP PAUTHOWN.PARTNER_CONNECTION_HISTORY, TARGET PAUTHOWN.PARTNER_CONNECTION_HISTORY, 
+\f11\b \cf22 KEYCOLS
+\f2\b0 \cf4  (VERSION)
+\fs26 \
+\pard\pardeftab720\sl320\partightenfactor0
+
+\f1\fs34 \cf0 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 ==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 Issue 27:\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\b0\fs26 \cf4 \CocoaLigature0 2019-08-14 01:13:49  ERROR   OGG-01184  Oracle GoldenGate Capture for Oracle, 
+\f11\b \cf22 ea100pth
+\f2\b0 \cf4 .prm:  Expected 4 bytes, but got 0 bytes, in trail /ogg/12.2.0.1/trail/pth/east-2_west-2/eb000000023, seqno 23, reading record trailer token at RBA 5411893.\
+2019-08-14 01:13:49  ERROR   OGG-01668  Oracle GoldenGate Capture for Oracle, 
+\f11\b \cf22 ea100pth
+\f2\b0 \cf4 .prm:  PROCESS ABENDING.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf0 \CocoaLigature1 Solution:\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs26 \cf4 \CocoaLigature0 \
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat5 \trwWidth15680\trftsWidth3 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalc \clshdrawnil \clwWidth15680\clftsWidth3 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrnil \clbrdrr\brdrnil \clpadl0 \clpadr0 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl340\partightenfactor0
+
+\f7\b\fs28\fsmilli14300 \cf21 \expnd0\expndtw0\kerning0
+\CocoaLigature1 Extract Abends with "Expected <n> bytes, but got <n> bytes, in trail " (Doc ID 1968574.1)
+\f8\b0\fs22 \cf23 \cell \lastrow\row
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs42 \cf0 \kerning1\expnd0\expndtw0 \
+\pard\pardeftab720\sl240\sa200\partightenfactor0
+
+\f8\fs30 \cf21 \cb5 \expnd0\expndtw0\kerning0
+ggsci> alter \{extract\}, etrollover\
+ggsci> alter \{data pump\}, extseqno ### , extrba 0
+\fs22 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs32 \cf0 \cb1 \kerning1\expnd0\expndtw0 info \cf4 \CocoaLigature0 EA100PTH detail\
+stop EA100PTH\cf0 \CocoaLigature1 \
+alter extract \cf4 \CocoaLigature0 EA100PTH \cf21 \cb5 \expnd0\expndtw0\kerning0
+\CocoaLigature1 etrollover\
+start \cf4 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 EA100PTH\
+\cf0 \CocoaLigature1 info \cf4 \CocoaLigature0 EA100PTH detail\cf0 \CocoaLigature1 \
+\
+info \cf4 \CocoaLigature0 PE100PTH\
+stop PE100PTH\
+sh ls -ltr /ogg/12.2.0.1/trail/pth/east-2_west-2/eb00000002*|tail\cf0 \CocoaLigature1 \
+alter \cf4 \CocoaLigature0 PE100PTH \cf21 \cb5 \expnd0\expndtw0\kerning0
+\CocoaLigature1 extseqno 24\
+\cf4 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 start PE100PTH\cf0 \CocoaLigature1 \
+info \cf4 \CocoaLigature0 PE100PTH
+\f2\fs26 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf0 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 ==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 Issue 28:
+\f1\b0 \
+2020-04-05 23:32:25  ERROR   OGG-01921  Oracle GoldenGate Delivery for Oracle, rt101oth.prm:  Missing GETBEFORECOLS with conflict detection enabled in target table OAUTH2OWN.TOKEN.\
+\
+Solution:\
+\
+add "UPDATERECORDFORMAT FULL" in extract file, bounce extract (this applies to future transactions only).
+\f3\fs28 \cf24 \cb5 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs34 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 ==========================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf0 Issue 29:
+\f1\b0 \
+SQL error 4098 mapping JIRA.AO_BF4748_SD_TOOLBAR to JIRA.AO_BF4748_SD_TOOLBAR OCI Error ORA-04098: trigger 'JIRA.AO_BF4748_SD_TOOLBA1208505466' is invalid and failed re-validation (status = 4098), SQL <INSERT INTO "JIRA"."AO_BF4748_SD_TOOLBAR" ("CONFIG","ID","NAME") VALUES (:a0,:a1,:a2)>.\
+2020-05-09 05:57:14  ERROR   OGG-01296  Oracle GoldenGate Delivery for Oracle, rw001jra.prm:  Error mapping from JIRA.AO_BF4748_SD_TOOLBAR to JIRA.AO_BF4748_SD_TOOLBAR.\
+\
+Solution:\
+Check trigger and sequence. And create sequence used by mentioned trigger.\
+\
+SET DEFINE OFF\
+SET HEADING OFF\
+SET LONGC 999999\
+SET LONG 999999\
+SET LINES 32000\
+SET FEEDBACK OFF\
+set lines 333 pages 44444\
+col SEQUENCE_OWNER for a10\
+col SEQUENCE_NAME for a40\
+col MAX_VALUE for 99999999999999999999999999999\
+col LAST_NUMBER for 99999999999999\
+\
+select dbms_metadata.get_ddl('TRIGGER','AO_BF4748_SD_TOOLBA1208505466','JIRA') from dual;\
+select dbms_metadata.get_ddl('SEQUENCE','AO_BF4748_SD_PREP_ID_SEQ','JIRA') from dual;\
+\
+==========================================================================================\
+\
+\
+\
+==========================================================================================\
+}

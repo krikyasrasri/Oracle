@@ -1,0 +1,89 @@
+#!/bin/ksh
+############################################
+# Name: ggs_monitor.sh #
+# PURPOSE: TO MONITOR LAG OF GOLDEN GATE #
+# NOTE: THIS SCRIPT CALLS ggs.ksh #
+# THIS SCRIPT NOTIFY IF LAG IS MORE THEN 30 MIN #
+# ONLY FOR FOR EXT AND PMP PROCESS GROUP #
+# USAGE: ggs_monitor.ksh <sid> <limit minutes> <GG HOME>
+###########################################
+
+mkdir -p /u01/app/ogg/scripts/logs 2>/dev/null
+
+LOGDIR=/u01/app/ogg/scripts/logs
+EMAILFile=$LOGDIR/email_file.log
+BOX=$(uname -a | awk '{print $2}')
+#EMAILLIST=EBSOracleData@intuit.com
+EMAILLIST=jaspreet_singh@intuit.com
+
+rm /u01/app/ogg/scripts/logs/email_file.log /u01/app/ogg/scripts/logs/ggs_1.log /u01/app/ogg/scripts/logs/ggs_check.log /u01/app/ogg/scripts/logs/info_all.out 2>>/dev/null
+export AWS_DEFAULT_REGION=us-west-2
+export ORACLE_SID=$1
+export ORACLE_HOME=/u01/app/oracle/product/12.1.0.1
+limit_minutes=$2
+GG_HOME=$3
+
+export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$ORACLE_HOME/lib32:/usr/lib:/u01/app/ogg
+
+echo "ggsksh started `date`" > /u01/app/ogg/scripts/logs/ggs_check.log
+env|grep ORA
+
+##################### Capture info all output ##############################
+$GG_HOME/ggsci << EOF >> $LOGDIR/ggs_check.log
+INFO ALL
+EXIT
+EOF
+
+#### Just to keep some timestamp based backup to diagnose any failures
+cp /u01/app/ogg/scripts/logs/ggs_check.log /u01/app/ogg/scripts/logs/ggs_check.log.`date '+%d%h%y_%H%M%S'`
+
+flag=0
+##################### Extract only required rows  ##############################
+if [ "`uname`" = "Linux" ]; then
+        cat /u01/app/ogg/scripts/logs/ggs_check.log|grep -E "EXTRACT|REPLICAT"|egrep -v "^[[:space:]]*$"|awk '{print $4,$5}'>/u01/app/ogg/scripts/logs/info_all.log
+else
+        cat /u01/app/ogg/scripts/logs/ggs_check.log|egrep -e "EXTRACT|REPLICAT"|egrep -v "^[[:space:]]*$"|awk '{print $4,$5}'>/u01/app/ogg/scripts/logs/info_all.log
+fi
+##################### Find out an Hour's delay  ##############################
+cat /u01/app/ogg/scripts/logs/info_all.log|while read line
+do
+        lag_hr=`echo $line|awk '{print $1}'|cut -d: -f1`
+        lag_min=`echo $line|awk '{print $1}'|cut -d: -f2`
+        lag_min_total=$(( ($lag_hr * 60) + $lag_min ))
+
+        ckp_hr=`echo $line|awk '{print $2}'|cut -d: -f1`
+        ckp_min=`echo $line|awk '{print $2}'|cut -d: -f2`
+        ckp_min_total=$(( (ckp_hr * 60) + $ckp_min ))
+        if [ ${lag_min_total} -ge ${limit_minutes} ] || [ ${ckp_min_total} -ge ${limit_minutes} ] ; then
+                echo "WARNING: Lag OR Check point is greater than 1 hour">>/u01/app/ogg/scripts/logs/ggs_check.log
+                flag=1
+                break
+        else
+                #echo "CONGRATULATIONS: GG is working fine!!!! ">>/u01/app/ogg/scripts/logs/ggs_check.log
+                flag=0
+        fi
+done
+
+######################### Check if anything is wrong with GG #######################################
+echo "">>$EMAILFile
+echo "Status of Golden Gate on : $BOX ">>$EMAILFile
+echo "">>$EMAILFile
+echo "">>$EMAILFile
+grep Program /u01/app/ogg/scripts/logs/ggs_check.log>> $EMAILFile
+if [ "`uname`" = "Linux" ]; then
+        grep -E "MANAGER|EXTRACT|REPLICAT" /u01/app/ogg/scripts/logs/ggs_check.log >> $EMAILFile
+        grep -E "ABENDED|STOPPED|WARNING" /u01/app/ogg/scripts/logs/ggs_check.log
+else
+        egrep -e "MANAGER|EXTRACT|REPLICAT" /u01/app/ogg/scripts/logs/ggs_check.log >> $EMAILFile
+        egrep -e "ABENDED|STOPPED|WARNING" /u01/app/ogg/scripts/logs/ggs_check.log
+fi
+if [ $? = 0 ]
+then
+   echo "One of the Golden Gate Processes is down OR Lag/Checkpoint is more than 1 hour"
+# mailx -s "Golden Gate Processes needs Checking ON: $BOX" $EMAILLIST < $EMAILFile
+/usr/bin/aws sns publish --topic-arn arn:aws:sns:us-west-2:384043330046:T4I-PROD-DBOPS_AWS-ALERT --subject "One or more Golden Gate process abended at AWS GG HUB  $(hostname)" --message "`cat $EMAILFile`"
+else
+   echo "All is working!!! "
+   echo "All is working!!! " >> $EMAILFile
+fi
+

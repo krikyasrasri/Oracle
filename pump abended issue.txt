@@ -1,0 +1,1279 @@
+oracle@ppdspimdbk01:/home/oracle->cd /u01/app/ogg/12.2.0.1/
+oracle@ppdspimdbk01:/u01/app/ogg/12.2.0.1->./ggsci
+
+Oracle GoldenGate Command Interpreter for Oracle
+Version 12.2.0.1.1 OGGCORE_12.2.0.1.0_PLATFORMS_151211.1401_FBO
+Linux, x64, 64bit (optimized), Oracle 11g on Dec 12 2015 00:54:38
+Operating system character set identified as UTF-8.
+
+Copyright (C) 1995, 2015, Oracle and/or its affiliates. All rights reserved.
+
+
+
+GGSCI (ppdspimdbk01) 1> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:04
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:05
+EXTRACT     RUNNING     E3PIMEXA    00:00:01      00:00:00
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:06
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      66:47:55
+
+
+GGSCI (ppdspimdbk01) 2> start P3PIMEXA
+
+Sending START request to MANAGER ...
+EXTRACT P3PIMEXA starting
+
+
+GGSCI (ppdspimdbk01) 3> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:07
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:09
+EXTRACT     RUNNING     E3PIMEXA    00:00:11      00:00:05
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:01
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      66:48:10
+
+
+GGSCI (ppdspimdbk01) 4> view report P3PIMEXA
+
+
+***********************************************************************
+                 Oracle GoldenGate Capture for Oracle
+    Version 12.2.0.1.1 OGGCORE_12.2.0.1.0_PLATFORMS_151211.1401_FBO
+   Linux, x64, 64bit (optimized), Oracle 11g on Dec 12 2015 01:10:08
+
+Copyright (C) 1995, 2015, Oracle and/or its affiliates. All rights reserved.
+
+
+                    Starting at 2019-05-30 20:52:43
+***********************************************************************
+
+Operating System Version:
+Linux
+Version #2 SMP Thu Sep 27 22:10:16 PDT 2018, Release 4.1.12-124.19.6.el7uek.x86_64
+Node: ppdspimdbk01
+Machine: x86_64
+                         soft limit   hard limit
+Address Space Size   :    unlimited    unlimited
+Heap Size            :    unlimited    unlimited
+File Size            :    unlimited    unlimited
+CPU Time             :    unlimited    unlimited
+
+Process id: 126584
+
+Description:
+
+***********************************************************************
+**            Running with the following parameters                  **
+***********************************************************************
+
+2019-05-30 20:52:43  INFO    OGG-03059  Operating system character set identified as UTF-8.
+
+2019-05-30 20:52:43  INFO    OGG-02695  ANSI SQL parameter syntax is used for parameter parsing.
+EXTRACT P3PIMEXA
+PASSTHRU
+RMTHOST rmohsitutxd503.omcs.intuit.net, NOSTREAMING, MGRPORT 7809, COMPRESS, tcpbufsize 1000000, tcp
+flushbytes 1000000, ENCRYPT AES128, KEYNAME keypimsys
+DECRYPTTRAIL
+ENCRYPTTRAIL
+RMTTRAIL /titu9o/ogg_trails/ext/pim_pds/p5
+INCLUDE /u01/app/ogg/12.2.0.1/dirprm/E2EXAPIM_SourceTable_Mapping.inc
+TABLE BOM.BOM_COMPONENTS_B;
+TABLE BOM.BOM_COMPONENTS_EXT_B;
+TABLE BOM.BOM_STRUCTURES_B;
+TABLE BOM.BOM_STRUCTURES_EXT_B;
+TABLE BOM.BOM_STRUCTURE_TYPES_B;
+TABLE EGO.EGO_FND_DF_COL_USGS_EXT;
+TABLE EGO.EGO_FND_DSC_FLX_CTX_EXT;
+TABLE EGO.EGO_MTL_SY_ITEMS_EXT_B;
+TABLE EGO.EGO_MTL_SY_ITEMS_EXT_TL;
+TABLE EGO.EGO_OBJ_AG_ASSOCS_B;
+TABLE ENG.ENG_CHANGE_ACTIONS;
+TABLE ENG.ENG_CHANGE_ACTIONS_TL;
+TABLE ENG.ENG_CHANGE_CLASSIFICATIONS_B;
+TABLE ENG.ENG_CHANGE_CLASSIFICATIONS_TL;
+TABLE ENG.ENG_CHANGE_LINES;
+TABLE ENG.ENG_CHANGE_ORDER_TYPES;
+TABLE ENG.ENG_CHANGE_ORDER_TYPES_TL;
+TABLE ENG.ENG_CHANGE_PRIORITIES;
+TABLE ENG.ENG_CHANGE_ROUTES;
+TABLE ENG.ENG_CHANGE_ROUTES_TL;
+TABLE ENG.ENG_CHANGE_STATUSES;
+TABLE ENG.ENG_CHANGE_STATUSES_TL;
+TABLE ENG.ENG_CHANGE_TYPE_APPLICATIONS;
+TABLE ENG.ENG_ENGINEERING_CHANGES;
+TABLE ENG.ENG_REVISED_ITEMS;
+TABLE APPLSYS.FND_DESCR_FLEX_COLUMN_USAGES;
+TABLE APPLSYS.FND_DESCR_FLEX_COL_USAGE_TL;
+TABLE APPLSYS.FND_DESCR_FLEX_CONTEXTS;
+TABLE APPLSYS.FND_DESCR_FLEX_CONTEXTS_TL;
+TABLE APPLSYS.FND_FLEX_VALUES;
+TABLE APPLSYS.FND_FLEX_VALUES_TL;
+TABLE APPLSYS.FND_FLEX_VALUE_NORM_HIERARCHY;
+TABLE APPLSYS.FND_FLEX_VALUE_SETS;
+TABLE APPLSYS.FND_LOOKUP_VALUES;
+TABLE APPLSYS.FND_RESPONSIBILITY;
+TABLE APPLSYS.FND_USER;
+TABLE GL.GL_CODE_COMBINATIONS;
+TABLE GL.GL_LEDGERS;
+TABLE HR.HR_ALL_ORGANIZATION_UNITS;
+TABLE HR.HR_ALL_ORGANIZATION_UNITS_TL;
+TABLE HR.HR_ORGANIZATION_INFORMATION;
+TABLE AR.HZ_CODE_ASSIGNMENTS;
+TABLE AR.HZ_CUST_ACCOUNTS;
+TABLE AR.HZ_PARTIES;
+TABLE INV.MTL_CATEGORIES_B;
+TABLE INV.MTL_CATEGORY_SETS_B;
+TABLE INV.MTL_CATEGORY_SETS_TL;
+TABLE INV.MTL_ITEM_CATALOG_GROUPS_B;
+TABLE INV.MTL_ITEM_CATALOG_GROUPS_TL;
+TABLE INV.MTL_ITEM_CATEGORIES;
+TABLE INV.MTL_ITEM_REVISIONS_B;
+TABLE INV.MTL_ITEM_REVISIONS_TL;
+TABLE INV.MTL_PARAMETERS;
+TABLE INV.MTL_SYSTEM_ITEMS_B;
+TABLE PA.PA_PROJECTS_ALL;
+TABLE PA.PA_PROJ_ELEMENTS;
+TABLE HR.PER_ALL_PEOPLE_F;
+TABLE HR.PER_ORGANIZATION_STRUCTURES;
+
+2019-05-30 20:52:44  INFO    OGG-01851  filecaching started: thread ID: 140649940014848.
+
+2019-05-30 20:52:44  INFO    OGG-01815  Virtual Memory Facilities for: COM
+    anon alloc: mmap(MAP_ANON)  anon free: munmap
+    file alloc: mmap(MAP_SHARED)  file free: munmap
+    target directories:
+    /u01/app/ogg/12.2.0.1/dirtmp.
+
+CACHEMGR virtual memory values (may have been adjusted)
+CACHEPAGEOUTSIZE (default):               8M
+PROCESS VM AVAIL FROM OS (min):         128G
+CACHESIZEMAX (strict force to disk):     96G
+
+2019-05-30 20:52:44  INFO    OGG-06569  Remote Collector/Server version 12.3 receiving data is a dif
+ferent version than this Extract 12.2 sending data.
+
+Source Context :
+  SourceModule            : [ggnet.tcprtn]
+  SourceID                : [/scratch/aime/adestore/views/aime_adc4150408/oggcore/OpenSys/src/gglib/
+ggnet/tcprtn.c]
+  SourceFunction          : [opt_settle]
+  SourceLine              : [3405]
+  ThreadBacktrace         : [12] elements
+                          : [/u01/app/ogg/12.2.0.1/libgglog.so(CMessageContext::AddThreadContext()+0
+x1b) [0x7feba87a0f1b]]
+                          : [/u01/app/ogg/12.2.0.1/libgglog.so(CMessageFactory::CreateMessage(CSourc
+eContext*, unsigned int, ...)+0x134) [0x7feba879b0a4]]
+                          : [/u01/app/ogg/12.2.0.1/libgglog.so(_MSG_ERR_TCP_RECEIVE_PARAMS_ERROR(CSo
+urceContext*, char const*, CMessageFactory::MessageDisposition)+0x30) [0x7feba877d432]]
+                          : [/u01/app/ogg/12.2.0.1/extract(opt_negotiate(int, char (&) [2048])+0x12d
+) [0x6bc9f1]]
+                          : [/u01/app/ogg/12.2.0.1/extract(Verify_Remote_Seq9d_Support(extract_def*,
+ bool)+0xc4) [0x57e964]]
+                          : [/u01/app/ogg/12.2.0.1/extract() [0x5f3d36]]
+                          : [/u01/app/ogg/12.2.0.1/extract(ggs::gglib::MultiThreading::MainThread::E
+xecMain()+0x60) [0x6d05b0]]
+                          : [/u01/app/ogg/12.2.0.1/extract(ggs::gglib::MultiThreading::Thread::RunTh
+read(ggs::gglib::MultiThreading::Thread::ThreadArgs*)+0x14d) [0x6d179d]]
+                          : [/u01/app/ogg/12.2.0.1/extract(ggs::gglib::MultiThreading::MainThread::R
+un(int, char**)+0xb1) [0x6d1881]]
+                          : [/u01/app/ogg/12.2.0.1/extract(main+0x3b) [0x5f50eb]]
+                          : [/lib64/libc.so.6(__libc_start_main+0xf5) [0x7feba14bc3d5]]
+                          : [/u01/app/ogg/12.2.0.1/extract() [0x563159]]
+
+2019-05-30 20:52:50  ERROR   OGG-01232  Receive TCP params error: TCP/IP error 104 (Connection reset
+ by peer), endpoint: rmohsitutxd503.omcs.intuit.net:7814.
+
+2019-05-30 20:52:50  ERROR   OGG-01668  PROCESS ABENDING.
+
+
+GGSCI (ppdspimdbk01) 5>
+
+GGSCI (ppdspimdbk01) 5>
+
+GGSCI (ppdspimdbk01) 5>
+
+GGSCI (ppdspimdbk01) 5>
+
+GGSCI (ppdspimdbk01) 5> exit
+oracle@ppdspimdbk01:/u01/app/ogg/12.2.0.1->cat /etc/oratab
+pimpds01:/u01/app/oracle/product/11.2.0.4/db:Y
+oracle@ppdspimdbk01:/u01/app/ogg/12.2.0.1->dba
+
+SQL*Plus: Release 11.2.0.4.0 Production on Thu May 30 20:57:06 2019
+
+Copyright (c) 1982, 2013, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production
+With the Partitioning option
+
+SQL> select name,open_mode,database_role from gv$database;
+
+NAME      OPEN_MODE            DATABASE_ROLE
+--------- -------------------- ----------------
+PIMPDS01  READ WRITE           PRIMARY
+
+SQL> !
+oracle@ppdspimdbk01:/u01/app/ogg/12.2.0.1->./ggsci
+
+Oracle GoldenGate Command Interpreter for Oracle
+Version 12.2.0.1.1 OGGCORE_12.2.0.1.0_PLATFORMS_151211.1401_FBO
+Linux, x64, 64bit (optimized), Oracle 11g on Dec 12 2015 00:54:38
+Operating system character set identified as UTF-8.
+
+Copyright (C) 1995, 2015, Oracle and/or its affiliates. All rights reserved.
+
+
+
+GGSCI (ppdspimdbk01) 1> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:00
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:02
+EXTRACT     RUNNING     E3PIMEXA    00:00:08      00:00:01
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:00
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      66:54:37
+
+
+GGSCI (ppdspimdbk01) 2> dblogin USERID oggown; PASSWORD oggown
+Successfully logged into database.
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 3> register extract TEST database
+
+2019-05-30 21:04:00  INFO    OGG-02003  Extract TEST successfully registered with database at SCN 12903786638375.
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 4> ADD EXTRACT test, TRANLOG, SCN 12903661320111
+EXTRACT added.
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 5> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:06
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:03
+EXTRACT     RUNNING     E3PIMEXA    00:00:05      00:00:00
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:08
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:02:19
+EXTRACT     STOPPED     TEST        00:00:00      00:00:25
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 6> view param TEST
+ERROR: PARAM file TEST does not exist.
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 7> edit param TEST
+
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 8> view param TEST
+
+EXTRACT TEST
+USERID oggown; PASSWORD oggown
+EXTTRAIL /u01/oradata/oggdata/pimpds01/ext/et
+DISCARDFILE /u01/oradata/oggdata/pimpds01/ext/E3PIMEXA.dsc; append; megabytes 500
+INCLUDE /u01/app/ogg/12.2.0.1/dirprm/E2EXAPIM_SourceTable_Mapping.inc
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 9> ADD EXTRACT test, TRANLOG, SCN 12903661320111
+ERROR: EXTRACT TEST already exists.
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 10> ADD EXTTRAIL /u01/oradata/oggdata/pimpds01/ext/et, EXTRACT test, MEGABYTES 500
+EXTTRAIL added.
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 11> info al
+ERROR: Invalid command.
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 12> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:02
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:07
+EXTRACT     RUNNING     E3PIMEXA    00:00:09      00:00:00
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:09
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:03:34
+EXTRACT     STOPPED     TEST        00:00:00      00:01:39
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 13> start TEST
+
+Sending START request to MANAGER ...
+EXTRACT TEST starting
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 14> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:10
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:03
+EXTRACT     RUNNING     E3PIMEXA    00:00:09      00:00:07
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:06
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:03:42
+EXTRACT     RUNNING     TEST        00:00:00      00:01:47
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 15> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:10
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:05
+EXTRACT     RUNNING     E3PIMEXA    00:00:03      00:00:00
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:08
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:03:54
+EXTRACT     ABENDED     TEST        00:00:00      00:01:59
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 16> view report TEST
+
+
+***********************************************************************
+                 Oracle GoldenGate Capture for Oracle
+    Version 12.2.0.1.1 OGGCORE_12.2.0.1.0_PLATFORMS_151211.1401_FBO
+   Linux, x64, 64bit (optimized), Oracle 11g on Dec 12 2015 01:10:08
+
+Copyright (C) 1995, 2015, Oracle and/or its affiliates. All rights reserved.
+
+
+                    Starting at 2019-05-30 21:08:21
+***********************************************************************
+
+Operating System Version:
+Linux
+Version #2 SMP Thu Sep 27 22:10:16 PDT 2018, Release 4.1.12-124.19.6.el7uek.x86_64
+Node: ppdspimdbk01
+Machine: x86_64
+                         soft limit   hard limit
+Address Space Size   :    unlimited    unlimited
+Heap Size            :    unlimited    unlimited
+File Size            :    unlimited    unlimited
+CPU Time             :    unlimited    unlimited
+
+Process id: 33826
+
+Description:
+
+***********************************************************************
+**            Running with the following parameters                  **
+***********************************************************************
+
+2019-05-30 21:08:21  INFO    OGG-03059  Operating system character set identified as UTF-8.
+
+2019-05-30 21:08:21  INFO    OGG-02695  ANSI SQL parameter syntax is used for parameter parsing.
+-memory-(2) : lexer error 3 :
+        1:1: Tokens : ( UNREC_TOK | UNSUP_TOK | LPAREN | RPAREN | AT | APOS | DQUOTE | SOLIDUS | PER
+CENT | MINUS | NE | EQ | LE | GE | LTH | GTH | UNDRBAR | TILDE | DOLLAR | QUESTION | POW | NL | INTV
+AL | INVALID_STRINGVAL | STRINGVAL | QUOTEDSTRING | FULL_STRING | PARAMSTRING | WS ); at offset 14,
+near ';' :
+        ;
+-memory-(4) : lexer error 3 :
+        1:1: Tokens : ( UNREC_TOK | UNSUP_TOK | LPAREN | RPAREN | AT | APOS | DQUOTE | SOLIDUS | PER
+CENT | MINUS | NE | EQ | LE | GE | LTH | GTH | UNDRBAR | TILDE | DOLLAR | QUESTION | POW | NL | INTV
+AL | INVALID_STRINGVAL | STRINGVAL | QUOTEDSTRING | FULL_STRING | PARAMSTRING | WS ); at offset 59,
+near ';' :
+        ;
+-memory-(4) : lexer error 3 :
+        1:1: Tokens : ( UNREC_TOK | UNSUP_TOK | LPAREN | RPAREN | AT | APOS | DQUOTE | SOLIDUS | PER
+CENT | MINUS | NE | EQ | LE | GE | LTH | GTH | UNDRBAR | TILDE | DOLLAR | QUESTION | POW | NL | INTV
+AL | INVALID_STRINGVAL | STRINGVAL | QUOTEDSTRING | FULL_STRING | PARAMSTRING | WS ); at offset 67,
+near ';' :
+        ;
+EXTRACT TEST
+USERID oggown; PASSWORD ***
+
+2019-05-30 21:08:22  INFO    OGG-03522  Setting session time zone to source database time zone 'GMT'
+.
+EXTTRAIL /u01/oradata/oggdata/pimpds01/ext/et
+DISCARDFILE /u01/oradata/oggdata/pimpds01/ext/E3PIMEXA.dsc; append; megabytes 500
+INCLUDE /u01/app/ogg/12.2.0.1/dirprm/E2EXAPIM_SourceTable_Mapping.inc
+TABLE BOM.BOM_COMPONENTS_B;
+TABLE BOM.BOM_COMPONENTS_EXT_B;
+TABLE BOM.BOM_STRUCTURES_B;
+TABLE BOM.BOM_STRUCTURES_EXT_B;
+TABLE BOM.BOM_STRUCTURE_TYPES_B;
+TABLE EGO.EGO_FND_DF_COL_USGS_EXT;
+TABLE EGO.EGO_FND_DSC_FLX_CTX_EXT;
+TABLE EGO.EGO_MTL_SY_ITEMS_EXT_B;
+TABLE EGO.EGO_MTL_SY_ITEMS_EXT_TL;
+TABLE EGO.EGO_OBJ_AG_ASSOCS_B;
+TABLE ENG.ENG_CHANGE_ACTIONS;
+TABLE ENG.ENG_CHANGE_ACTIONS_TL;
+TABLE ENG.ENG_CHANGE_CLASSIFICATIONS_B;
+TABLE ENG.ENG_CHANGE_CLASSIFICATIONS_TL;
+TABLE ENG.ENG_CHANGE_LINES;
+TABLE ENG.ENG_CHANGE_ORDER_TYPES;
+TABLE ENG.ENG_CHANGE_ORDER_TYPES_TL;
+TABLE ENG.ENG_CHANGE_PRIORITIES;
+TABLE ENG.ENG_CHANGE_ROUTES;
+TABLE ENG.ENG_CHANGE_ROUTES_TL;
+TABLE ENG.ENG_CHANGE_STATUSES;
+TABLE ENG.ENG_CHANGE_STATUSES_TL;
+TABLE ENG.ENG_CHANGE_TYPE_APPLICATIONS;
+TABLE ENG.ENG_ENGINEERING_CHANGES;
+TABLE ENG.ENG_REVISED_ITEMS;
+TABLE APPLSYS.FND_DESCR_FLEX_COLUMN_USAGES;
+TABLE APPLSYS.FND_DESCR_FLEX_COL_USAGE_TL;
+TABLE APPLSYS.FND_DESCR_FLEX_CONTEXTS;
+TABLE APPLSYS.FND_DESCR_FLEX_CONTEXTS_TL;
+TABLE APPLSYS.FND_FLEX_VALUES;
+TABLE APPLSYS.FND_FLEX_VALUES_TL;
+TABLE APPLSYS.FND_FLEX_VALUE_NORM_HIERARCHY;
+TABLE APPLSYS.FND_FLEX_VALUE_SETS;
+TABLE APPLSYS.FND_LOOKUP_VALUES;
+TABLE APPLSYS.FND_RESPONSIBILITY;
+TABLE APPLSYS.FND_USER;
+TABLE GL.GL_CODE_COMBINATIONS;
+TABLE GL.GL_LEDGERS;
+TABLE HR.HR_ALL_ORGANIZATION_UNITS;
+TABLE HR.HR_ALL_ORGANIZATION_UNITS_TL;
+TABLE HR.HR_ORGANIZATION_INFORMATION;
+TABLE AR.HZ_CODE_ASSIGNMENTS;
+TABLE AR.HZ_CUST_ACCOUNTS;
+TABLE AR.HZ_PARTIES;
+TABLE INV.MTL_CATEGORIES_B;
+TABLE INV.MTL_CATEGORY_SETS_B;
+TABLE INV.MTL_CATEGORY_SETS_TL;
+TABLE INV.MTL_ITEM_CATALOG_GROUPS_B;
+TABLE INV.MTL_ITEM_CATALOG_GROUPS_TL;
+TABLE INV.MTL_ITEM_CATEGORIES;
+TABLE INV.MTL_ITEM_REVISIONS_B;
+TABLE INV.MTL_ITEM_REVISIONS_TL;
+TABLE INV.MTL_PARAMETERS;
+TABLE INV.MTL_SYSTEM_ITEMS_B;
+TABLE PA.PA_PROJECTS_ALL;
+TABLE PA.PA_PROJ_ELEMENTS;
+TABLE HR.PER_ALL_PEOPLE_F;
+TABLE HR.PER_ORGANIZATION_STRUCTURES;
+
+2019-05-30 21:08:23  INFO    OGG-01635  BOUNDED RECOVERY: reset to initial or altered checkpoint.
+
+2019-05-30 21:08:23  INFO    OGG-01815  Virtual Memory Facilities for: BR
+    anon alloc: mmap(MAP_ANON)  anon free: munmap
+    file alloc: mmap(MAP_SHARED)  file free: munmap
+    target directories:
+    /u01/app/ogg/12.2.0.1/BR/TEST.
+
+Bounded Recovery Parameter:
+BRINTERVAL = 4HOURS
+BRDIR      = /u01/app/ogg/12.2.0.1
+
+2019-05-30 21:08:23  INFO    OGG-01851  filecaching started: thread ID: 139843988301568.
+
+2019-05-30 21:08:23  INFO    OGG-01815  Virtual Memory Facilities for: COM
+    anon alloc: mmap(MAP_ANON)  anon free: munmap
+    file alloc: mmap(MAP_SHARED)  file free: munmap
+    target directories:
+    /u01/app/ogg/12.2.0.1/dirtmp.
+
+CACHEMGR virtual memory values (may have been adjusted)
+CACHEPAGEOUTSIZE (default):               8M
+PROCESS VM AVAIL FROM OS (min):         128G
+CACHESIZEMAX (strict force to disk):     96G
+
+Database Version:
+Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production
+PL/SQL Release 11.2.0.4.0 - Production
+CORE    11.2.0.4.0      Production
+TNS for Linux: Version 11.2.0.4.0 - Production
+NLSRTL Version 11.2.0.4.0 - Production
+
+Database Language and Character Set:
+NLS_LANGUAGE     = "AMERICAN"
+NLS_TERRITORY    = "AMERICA"
+NLS_CHARACTERSET = "AL32UTF8"
+
+2019-05-30 21:08:23  INFO    OGG-02089  Source redo compatibility version is: 11.2.0.4.
+
+2019-05-30 21:08:23  INFO    OGG-01513  Positioning to SCN 3004.1579562927 (12903661320111).
+
+2019-05-30 21:08:23  INFO    OGG-01560  Positioned to Sequence 3078, RBA 26057744, SCN 3004.15795629
+27 (12903661320111).
+
+2019-05-30 21:08:23  INFO    OGG-01056  Recovery initialization completed for target file /u01/orada
+ta/oggdata/pimpds01/ext/et000032, at RBA 202336, CSN 12903786475967.
+
+2019-05-30 21:08:23  INFO    OGG-01478  Output file /u01/oradata/oggdata/pimpds01/ext/et is using fo
+rmat RELEASE 12.2.
+
+Source Context :
+  SourceModule            : [er.extrout]
+  SourceID                : [/scratch/aime/adestore/views/aime_adc4150408/oggcore/OpenSys/src/app/er
+/extrout.c]
+  SourceFunction          : [ext_file_open]
+  SourceLine              : [1024]
+  ThreadBacktrace         : [12] elements
+                          : [/u01/app/ogg/12.2.0.1/libgglog.so(CMessageContext::AddThreadContext()+0
+x1b) [0x7f300e07df1b]]
+                          : [/u01/app/ogg/12.2.0.1/libgglog.so(CMessageFactory::CreateMessage(CSourc
+eContext*, unsigned int, ...)+0x134) [0x7f300e0780a4]]
+                          : [/u01/app/ogg/12.2.0.1/libgglog.so(_MSG_ERR_FILE_LOCK_ERROR_PID(CSourceC
+ontext*, char const*, long, CMessageFactory::MessageDisposition)+0x3a) [0x7f300e057148]]
+                          : [/u01/app/ogg/12.2.0.1/extract() [0x584447]]
+                          : [/u01/app/ogg/12.2.0.1/extract(open_targ_ext_files(short)+0x1a5) [0x5847
+e5]]
+                          : [/u01/app/ogg/12.2.0.1/extract() [0x5f3d74]]
+                          : [/u01/app/ogg/12.2.0.1/extract(ggs::gglib::MultiThreading::MainThread::E
+xecMain()+0x60) [0x6d05b0]]
+                          : [/u01/app/ogg/12.2.0.1/extract(ggs::gglib::MultiThreading::Thread::RunTh
+read(ggs::gglib::MultiThreading::Thread::ThreadArgs*)+0x14d) [0x6d179d]]
+                          : [/u01/app/ogg/12.2.0.1/extract(ggs::gglib::MultiThreading::MainThread::R
+un(int, char**)+0xb1) [0x6d1881]]
+                          : [/u01/app/ogg/12.2.0.1/extract(main+0x3b) [0x5f50eb]]
+                          : [/lib64/libc.so.6(__libc_start_main+0xf5) [0x7f3006d993d5]]
+                          : [/u01/app/ogg/12.2.0.1/extract() [0x563159]]
+
+2019-05-30 21:08:33  ERROR   OGG-01454  Unable to lock file "/u01/oradata/oggdata/pimpds01/ext/et000
+032" (error 11, Resource temporarily unavailable).  Lock currently held by process id (PID) 69531.
+
+2019-05-30 21:08:33  ERROR   OGG-01668  PROCESS ABENDING.
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 17> exit
+
+GGSCI (ppdspimdbk01) 2> start TEST
+
+Sending START request to MANAGER ...
+EXTRACT TEST starting
+
+
+GGSCI (ppdspimdbk01) 3> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:07
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:04
+EXTRACT     RUNNING     E3PIMEXA    00:00:11      00:00:06
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:01
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:07:42
+EXTRACT     RUNNING     TEST        00:00:00      00:05:47
+
+
+GGSCI (ppdspimdbk01) 4> !
+info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:03
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:02
+EXTRACT     RUNNING     E3PIMEXA    00:00:03      00:00:02
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:07
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:08:20
+EXTRACT     ABENDED     TEST        00:00:00      00:06:25
+
+
+oracle@ppdspimdbk01:/u01/oradata/oggdata/pimpds01/ext->mv et000032 et000032_backup
+oracle@ppdspimdbk01:/u01/oradata/oggdata/pimpds01/ext->ls -lrth et000032*
+-rw-r----- 1 oracle oinstall 198K May 30 13:31 et000032_backup
+-rw-r----- 1 oracle oinstall 198K May 30 21:15 et000032_bak
+oracle@ppdspimdbk01:/u01/oradata/oggdata/pimpds01/ext->cp et000032_backup et000032
+oracle@ppdspimdbk01:/u01/oradata/oggdata/pimpds01/ext->ls -rlth et000032*
+-rw-r----- 1 oracle oinstall 198K May 30 13:31 et000032_backup
+-rw-r----- 1 oracle oinstall 198K May 30 21:15 et000032_bak
+-rw-r----- 1 oracle oinstall 198K May 30 21:16 et000032
+oracle@ppdspimdbk01:/u01/oradata/oggdata/pimpds01/ext->cd /u01/app/ogg/12.2.0.1
+oracle@ppdspimdbk01:/u01/app/ogg/12.2.0.1->./ggsci
+
+Oracle GoldenGate Command Interpreter for Oracle
+Version 12.2.0.1.1 OGGCORE_12.2.0.1.0_PLATFORMS_151211.1401_FBO
+Linux, x64, 64bit (optimized), Oracle 11g on Dec 12 2015 00:54:38
+Operating system character set identified as UTF-8.
+
+Copyright (C) 1995, 2015, Oracle and/or its affiliates. All rights reserved.
+
+
+
+GGSCI (ppdspimdbk01) 1> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:09
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:11
+EXTRACT     RUNNING     E3PIMEXA    00:00:01      00:00:01
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:10
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:12:28
+EXTRACT     ABENDED     TEST        00:00:00      00:10:33
+
+
+GGSCI (ppdspimdbk01) 2> start TEST
+
+Sending START request to MANAGER ...
+EXTRACT TEST starting
+
+
+GGSCI (ppdspimdbk01) 3> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:05
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:06
+EXTRACT     RUNNING     E3PIMEXA    00:00:01      00:00:07
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:05
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:12:35
+EXTRACT     RUNNING     TEST        00:00:00      00:00:01
+
+
+GGSCI (ppdspimdbk01) 4> !
+info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:09
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:10
+EXTRACT     RUNNING     E3PIMEXA    00:00:10      00:00:01
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:09
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:12:39
+EXTRACT     RUNNING     TEST        00:00:00      00:00:05
+
+
+
+
+GGSCI (ppdspimdbk01) 7> !
+info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:04
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:03
+EXTRACT     RUNNING     E3PIMEXA    00:00:10      00:00:05
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:04
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:12:44
+EXTRACT     RUNNING     TEST        359:17:21     00:00:00
+
+
+GGSCI (ppdspimdbk01) 8> !
+info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:05
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:04
+EXTRACT     RUNNING     E3PIMEXA    00:00:10      00:00:07
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:06
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:12:45
+EXTRACT     RUNNING     TEST        359:17:21     00:00:02
+
+
+GGSCI (ppdspimdbk01) 9> !
+info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:07
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:06
+EXTRACT     RUNNING     E3PIMEXA    00:00:10      00:00:08
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:07
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:12:47
+EXTRACT     RUNNING     TEST        359:17:21     00:00:03
+
+
+GGSCI (ppdspimdbk01) 10> !
+info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:08
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:08
+EXTRACT     RUNNING     E3PIMEXA    00:00:10      00:00:10
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:09
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:12:48
+EXTRACT     RUNNING     TEST        359:17:21     00:00:05
+
+
+GGSCI (ppdspimdbk01) 15> !
+info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:06
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:06
+EXTRACT     RUNNING     E3PIMEXA    00:00:17      00:00:02
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:09
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:14:14
+EXTRACT     RUNNING     TEST        359:17:21     00:01:31
+
+
+GGSCI (ppdspimdbk01) 23> !
+info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:00
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:07
+EXTRACT     RUNNING     E3PIMEXA    00:00:03      00:00:13
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:10
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:30:43
+EXTRACT     RUNNING     TEST        359:17:21     00:18:00
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 29> stop E3PIMEXA
+
+Sending STOP request to EXTRACT E3PIMEXA ...
+Request processed.
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 31> unregister extract E3PIMEXA database
+
+2019-05-30 21:38:10  INFO    OGG-01750  Successfully unregistered EXTRACT E3PIMEXA from database.
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 32> delete E3PIMEXA
+Deleted EXTRACT E3PIMEXA.
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 33> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:05
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:05
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:01
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:33:43
+EXTRACT     RUNNING     TEST        359:17:21     00:20:59
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 34> ADD EXTRACT E3PIMEXA, TRANLOG, SCN 12903661320111
+EXTRACT added.
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 35> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:02
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:07
+EXTRACT     STOPPED     E3PIMEXA    00:00:00      00:00:02
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:02
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:34:25
+EXTRACT     RUNNING     TEST        359:17:21     00:21:41
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 36> view param E3PIMEXA
+
+EXTRACT E3PIMEXA
+USERID oggown; PASSWORD oggown
+--EXTTRAIL /u01/oradata/oggdata/pimpds01/ext/e3 , FORMAT RELEASE 12.1
+EXTTRAIL /u01/oradata/oggdata/pimpds01/ext/e3
+DISCARDFILE /u01/oradata/oggdata/pimpds01/ext/E3PIMEXA.dsc; append; megabytes 500
+INCLUDE /u01/app/ogg/12.2.0.1/dirprm/E2EXAPIM_SourceTable_Mapping.inc
+
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 44> view param E3PIMEXA
+
+EXTRACT E3PIMEXA
+USERID oggown; PASSWORD oggown
+EXTTRAIL /u01/oradata/oggdata/pimpds01/ext/e3
+DISCARDFILE /u01/oradata/oggdata/pimpds01/ext/E3PIMEXA.dsc; append; megabytes 500
+INCLUDE /u01/app/ogg/12.2.0.1/dirprm/E2EXAPIM_SourceTable_Mapping.inc
+
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 45> ADD EXTRACT E3PIMEXA, TRANLOG, SCN 12903661320111
+ERROR: EXTRACT E3PIMEXA already exists.
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 46> ADD EXTTRAIL /u01/oradata/oggdata/pimpds01/ext/e3, EXTRACT E3PIMEXA, MEGABYTES 500
+EXTTRAIL added.
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 47> start E3PIMEXA
+
+Sending START request to MANAGER ...
+EXTRACT E3PIMEXA starting
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 48> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:03
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:08
+EXTRACT     RUNNING     E3PIMEXA    00:00:00      00:00:01
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:04
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:36:28
+EXTRACT     RUNNING     TEST        359:17:21     00:23:44
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 49> !
+info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:06
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:11
+EXTRACT     RUNNING     E3PIMEXA    00:00:00      00:00:04
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:07
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:36:31
+EXTRACT     RUNNING     TEST        359:17:21     00:23:48
+
+
+GGSCI (ppdspimdbk01 as oggown@pimpds01) 50> exit
+oracle@ppdspimdbk01:/u01/app/ogg/12.2.0.1->cd /u01/oradata/oggdata/pimpds01/ext/
+oracle@ppdspimdbk01:/u01/oradata/oggdata/pimpds01/ext->date
+Thu May 30 21:42:17 PDT 2019
+oracle@ppdspimdbk01:/u01/oradata/oggdata/pimpds01/ext->ls -lrth
+total 165M
+-rw-r----- 1 oracle oinstall  2.9M Mar 23  2018 et000000
+-rw-r----- 1 oracle oinstall  5.5M Apr 23  2018 et000001
+-rw-r----- 1 oracle oinstall  549K May  6  2018 et000002
+-rw-r----- 1 oracle oinstall  1.5K May  6  2018 et000003
+-rw-r----- 1 oracle oinstall   22M Jun  1  2018 et000004
+-rw-r----- 1 oracle oinstall  4.9M Jun  1  2018 e3000000
+-rw-r----- 1 oracle oinstall  106K Jun  4  2018 et000005
+-rw-r----- 1 oracle oinstall  107K Jun  4  2018 e3000001
+-rw-r----- 1 oracle oinstall  6.6M Jun  4  2018 ex000000
+-rw-r----- 1 oracle oinstall  1.3M Jul  5  2018 ex000001
+-rw-r----- 1 oracle oinstall 1017K Jul  5  2018 et000006
+-rw-r----- 1 oracle oinstall 1023K Jul  5  2018 e3000002
+-rw-r----- 1 oracle oinstall   17M Oct  7  2018 ex000002
+-rw-r----- 1 oracle oinstall   16M Oct  7  2018 et000007
+-rw-r----- 1 oracle oinstall   16M Oct  7  2018 e3000003
+-rw-r----- 1 oracle oinstall  1.5K Oct  7  2018 ex000003
+-rw-r----- 1 oracle oinstall  1.5K Oct  7  2018 et000008
+-rw-r----- 1 oracle oinstall  1.5K Oct  7  2018 e3000004
+-rw-r----- 1 oracle oinstall  1.5K Oct  7  2018 ex000004
+-rw-r----- 1 oracle oinstall  1.5K Oct  7  2018 et000009
+-rw-r----- 1 oracle oinstall  1.5K Oct  7  2018 e3000005
+-rw-r----- 1 oracle oinstall   13M Oct 21  2018 ex000005
+-rw-r----- 1 oracle oinstall   13M Oct 21  2018 et000010
+-rw-r----- 1 oracle oinstall   13M Oct 21  2018 e3000006
+-rw-r----- 1 oracle oinstall  2.3M Nov 26  2018 ex000006
+-rw-r----- 1 oracle oinstall  2.1M Nov 26  2018 et000011
+-rw-r----- 1 oracle oinstall  2.1M Nov 26  2018 e3000007
+-rw-r----- 1 oracle oinstall  525K Dec  2 20:05 et000012
+-rw-r----- 1 oracle oinstall  1.5K Dec  2 21:02 et000013
+-rw-r----- 1 oracle oinstall  1.8M Dec 19 19:20 ex000007
+-rw-r----- 1 oracle oinstall  1.1M Dec 19 19:20 et000014
+-rw-r----- 1 oracle oinstall  1.7M Dec 19 19:28 e3000008
+-rw-r----- 1 oracle oinstall  1.5K Feb  4 13:09 et000015
+-rw-r----- 1 oracle oinstall  1.5K Feb  4 13:19 et000016
+-rw-r----- 1 oracle oinstall  1.5K Feb  4 13:36 et000017
+-rw-r----- 1 oracle oinstall  1.5K Feb  4 13:37 ex000008
+-rw-r----- 1 oracle oinstall  1.5K Feb  4 13:37 et000018
+-rw-r----- 1 oracle oinstall  3.5M Feb  4 13:37 e3000009
+-rw-r----- 1 oracle oinstall  1.5K Feb  4 13:39 et000019
+-rw-r----- 1 oracle oinstall  1.5K Feb  4 13:39 et000020
+-rw-r----- 1 oracle oinstall  1.5K Feb  4 13:59 et000021
+-rw-r----- 1 oracle oinstall  1.5K Feb  4 14:36 et000022
+-rw-r----- 1 oracle oinstall  1.5K Feb  4 14:36 et000023
+-rw-r----- 1 oracle oinstall  1.5K Feb  4 15:01 et000024
+-rw-r----- 1 oracle oinstall  1.5K May 16 05:08 ex000009
+-rw-r----- 1 oracle oinstall  8.2M May 16 05:08 et000025
+-rw-r----- 1 oracle oinstall  8.6M May 16 05:08 e3000010
+-rw-r----- 1 oracle oinstall   27K May 16 14:16 et000026
+-rw-r----- 1 oracle oinstall  1.5K May 16 15:30 et000027
+-rw-r----- 1 oracle oinstall  1.5K May 16 15:32 et000028
+-rw-r----- 1 oracle oinstall  1.5K May 27 03:42 ex000010
+-rw-r----- 1 oracle oinstall  525K May 27 03:42 et000029
+-rw-r----- 1 oracle oinstall  497K May 27 03:42 e3000011
+-rw-r----- 1 oracle oinstall  1.5K May 27 04:03 ex000011
+-rw-r----- 1 oracle oinstall  1.5K May 27 04:03 et000030
+-rw-r----- 1 oracle oinstall  1.5K May 27 04:05 e3000012
+-rw-r----- 1 oracle oinstall  1.5K May 27 21:26 e3000013
+-rw-r----- 1 oracle oinstall  1.5K May 27 21:26 e3000014
+-rw-r----- 1 oracle oinstall  7.6K May 27 22:36 E1PIMEXA.dsc
+-rw-r----- 1 oracle oinstall  2.9K May 27 22:36 E2PIMEXA.dsc
+-rw-r----- 1 oracle oinstall  1.5K May 27 22:36 ex000012
+-rw-r----- 1 oracle oinstall  1.5K May 27 22:36 ex000013
+-rw-r----- 1 oracle oinstall  1.5K May 27 22:37 et000031
+-rw-r----- 1 oracle oinstall  1.5K May 27 22:37 e3000015
+-rw-r----- 1 oracle oinstall  1.5K May 28 01:51 e3000016
+-rw-r----- 1 oracle oinstall  198K May 30 13:31 et000032_backup
+-rw-r----- 1 oracle oinstall  198K May 30 21:15 et000032_bak
+-rw-r----- 1 oracle oinstall  198K May 30 21:17 et000032
+-rw-r----- 1 oracle oinstall  1.8K May 30 21:17 et000033
+-rw-r----- 1 oracle oinstall  198K May 30 21:41 e3000017
+-rw-r----- 1 oracle oinstall  1.8K May 30 21:41 e3000018
+-rw-r----- 1 oracle oinstall  5.9K May 30 21:41 E3PIMEXA.dsc
+oracle@ppdspimdbk01:/u01/oradata/oggdata/pimpds01/ext->date
+Thu May 30 21:42:52 PDT 2019
+oracle@ppdspimdbk01:/u01/oradata/oggdata/pimpds01/ext->cd /u01/app/ogg/12.2.0.1
+oracle@ppdspimdbk01:/u01/app/ogg/12.2.0.1->./ggsci
+
+Oracle GoldenGate Command Interpreter for Oracle
+Version 12.2.0.1.1 OGGCORE_12.2.0.1.0_PLATFORMS_151211.1401_FBO
+Linux, x64, 64bit (optimized), Oracle 11g on Dec 12 2015 00:54:38
+Operating system character set identified as UTF-8.
+
+Copyright (C) 1995, 2015, Oracle and/or its affiliates. All rights reserved.
+
+
+
+GGSCI (ppdspimdbk01) 1> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:08
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:00
+EXTRACT     RUNNING     E3PIMEXA    351:40:53     00:02:35
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:11
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      67:39:22
+EXTRACT     RUNNING     TEST        359:17:21     00:26:39
+
+
+GGSCI (ppdspimdbk01) 2> stop P3PIMEXA
+EXTRACT P3PIMEXA is already stopped.
+
+
+GGSCI (ppdspimdbk01) 3> delete P3PIMEXA
+Deleted EXTRACT P3PIMEXA.
+
+
+GGSCI (ppdspimdbk01) 4> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:06
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:09
+EXTRACT     RUNNING     E3PIMEXA    351:40:53     00:03:06
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:12
+EXTRACT     RUNNING     TEST        359:17:21     00:27:10
+
+
+GGSCI (ppdspimdbk01) 5> ADD EXTRACT P3PIMEXA, EXTTRAILSOURCE /u01/oradata/oggdata/pimpds01/ext/e3
+EXTRACT added.
+
+
+GGSCI (ppdspimdbk01) 6> ADD RMTTRAIL /titu9o/ogg_trails/ext/pim_pds/p5, EXTRACT P3PIMEXA, MEGABYTES 500
+RMTTRAIL added.
+
+GGSCI (ppdspimdbk01) 7> ALTER P3PIMEXA extseqno 17 extrba 0
+EXTRACT altered.
+
+
+GGSCI (ppdspimdbk01) 8> START P3PIMEXA
+
+Sending START request to MANAGER ...
+EXTRACT P3PIMEXA starting
+
+
+GGSCI (ppdspimdbk01) 9> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:09
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:00
+EXTRACT     RUNNING     E3PIMEXA    351:40:53     00:03:51
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:06
+EXTRACT     RUNNING     P3PIMEXA    00:00:00      00:00:08
+EXTRACT     RUNNING     TEST        359:17:21     00:27:54
+
+
+GGSCI (ppdspimdbk01) 10> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:02
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:06
+EXTRACT     RUNNING     E3PIMEXA    351:40:53     00:03:56
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:01
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      00:00:13
+EXTRACT     RUNNING     TEST        359:17:21     00:28:00
+
+
+GGSCI (ppdspimdbk01) 11> view report P3PIMEXA
+
+
+***********************************************************************
+                 Oracle GoldenGate Capture for Oracle
+    Version 12.2.0.1.1 OGGCORE_12.2.0.1.0_PLATFORMS_151211.1401_FBO
+   Linux, x64, 64bit (optimized), Oracle 11g on Dec 12 2015 01:10:08
+
+Copyright (C) 1995, 2015, Oracle and/or its affiliates. All rights reserved.
+
+
+                    Starting at 2019-05-30 21:45:19
+***********************************************************************
+
+Operating System Version:
+Linux
+Version #2 SMP Thu Sep 27 22:10:16 PDT 2018, Release 4.1.12-124.19.6.el7uek.x86_64
+Node: ppdspimdbk01
+Machine: x86_64
+                         soft limit   hard limit
+Address Space Size   :    unlimited    unlimited
+Heap Size            :    unlimited    unlimited
+File Size            :    unlimited    unlimited
+CPU Time             :    unlimited    unlimited
+
+Process id: 107877
+
+Description:
+
+***********************************************************************
+**            Running with the following parameters                  **
+***********************************************************************
+
+2019-05-30 21:45:19  INFO    OGG-03059  Operating system character set identified as UTF-8.
+
+2019-05-30 21:45:19  INFO    OGG-02695  ANSI SQL parameter syntax is used for parameter parsing.
+EXTRACT P3PIMEXA
+PASSTHRU
+RMTHOST rmohsitutxd503.omcs.intuit.net, NOSTREAMING, MGRPORT 7809, COMPRESS, tcpbufsize 1000000, tcp
+flushbytes 1000000, ENCRYPT AES128, KEYNAME keypimsys
+DECRYPTTRAIL
+ENCRYPTTRAIL
+RMTTRAIL /titu9o/ogg_trails/ext/pim_pds/p5
+INCLUDE /u01/app/ogg/12.2.0.1/dirprm/E2EXAPIM_SourceTable_Mapping.inc
+TABLE BOM.BOM_COMPONENTS_B;
+TABLE BOM.BOM_COMPONENTS_EXT_B;
+TABLE BOM.BOM_STRUCTURES_B;
+TABLE BOM.BOM_STRUCTURES_EXT_B;
+TABLE BOM.BOM_STRUCTURE_TYPES_B;
+TABLE EGO.EGO_FND_DF_COL_USGS_EXT;
+TABLE EGO.EGO_FND_DSC_FLX_CTX_EXT;
+TABLE EGO.EGO_MTL_SY_ITEMS_EXT_B;
+TABLE EGO.EGO_MTL_SY_ITEMS_EXT_TL;
+TABLE EGO.EGO_OBJ_AG_ASSOCS_B;
+TABLE ENG.ENG_CHANGE_ACTIONS;
+TABLE ENG.ENG_CHANGE_ACTIONS_TL;
+TABLE ENG.ENG_CHANGE_CLASSIFICATIONS_B;
+TABLE ENG.ENG_CHANGE_CLASSIFICATIONS_TL;
+TABLE ENG.ENG_CHANGE_LINES;
+TABLE ENG.ENG_CHANGE_ORDER_TYPES;
+TABLE ENG.ENG_CHANGE_ORDER_TYPES_TL;
+TABLE ENG.ENG_CHANGE_PRIORITIES;
+TABLE ENG.ENG_CHANGE_ROUTES;
+TABLE ENG.ENG_CHANGE_ROUTES_TL;
+TABLE ENG.ENG_CHANGE_STATUSES;
+TABLE ENG.ENG_CHANGE_STATUSES_TL;
+TABLE ENG.ENG_CHANGE_TYPE_APPLICATIONS;
+TABLE ENG.ENG_ENGINEERING_CHANGES;
+TABLE ENG.ENG_REVISED_ITEMS;
+TABLE APPLSYS.FND_DESCR_FLEX_COLUMN_USAGES;
+TABLE APPLSYS.FND_DESCR_FLEX_COL_USAGE_TL;
+TABLE APPLSYS.FND_DESCR_FLEX_CONTEXTS;
+TABLE APPLSYS.FND_DESCR_FLEX_CONTEXTS_TL;
+TABLE APPLSYS.FND_FLEX_VALUES;
+TABLE APPLSYS.FND_FLEX_VALUES_TL;
+TABLE APPLSYS.FND_FLEX_VALUE_NORM_HIERARCHY;
+TABLE APPLSYS.FND_FLEX_VALUE_SETS;
+TABLE APPLSYS.FND_LOOKUP_VALUES;
+TABLE APPLSYS.FND_RESPONSIBILITY;
+TABLE APPLSYS.FND_USER;
+TABLE GL.GL_CODE_COMBINATIONS;
+TABLE GL.GL_LEDGERS;
+TABLE HR.HR_ALL_ORGANIZATION_UNITS;
+TABLE HR.HR_ALL_ORGANIZATION_UNITS_TL;
+TABLE HR.HR_ORGANIZATION_INFORMATION;
+TABLE AR.HZ_CODE_ASSIGNMENTS;
+TABLE AR.HZ_CUST_ACCOUNTS;
+TABLE AR.HZ_PARTIES;
+TABLE INV.MTL_CATEGORIES_B;
+TABLE INV.MTL_CATEGORY_SETS_B;
+TABLE INV.MTL_CATEGORY_SETS_TL;
+TABLE INV.MTL_ITEM_CATALOG_GROUPS_B;
+TABLE INV.MTL_ITEM_CATALOG_GROUPS_TL;
+TABLE INV.MTL_ITEM_CATEGORIES;
+TABLE INV.MTL_ITEM_REVISIONS_B;
+TABLE INV.MTL_ITEM_REVISIONS_TL;
+TABLE INV.MTL_PARAMETERS;
+TABLE INV.MTL_SYSTEM_ITEMS_B;
+TABLE PA.PA_PROJECTS_ALL;
+TABLE PA.PA_PROJ_ELEMENTS;
+TABLE HR.PER_ALL_PEOPLE_F;
+TABLE HR.PER_ORGANIZATION_STRUCTURES;
+
+2019-05-30 21:45:21  INFO    OGG-01851  filecaching started: thread ID: 140115982673664.
+
+2019-05-30 21:45:21  INFO    OGG-01815  Virtual Memory Facilities for: COM
+    anon alloc: mmap(MAP_ANON)  anon free: munmap
+    file alloc: mmap(MAP_SHARED)  file free: munmap
+    target directories:
+    /u01/app/ogg/12.2.0.1/dirtmp.
+
+CACHEMGR virtual memory values (may have been adjusted)
+CACHEPAGEOUTSIZE (default):               8M
+PROCESS VM AVAIL FROM OS (min):         128G
+CACHESIZEMAX (strict force to disk):     96G
+
+2019-05-30 21:45:21  INFO    OGG-06569  Remote Collector/Server version 12.3 receiving data is a dif
+ferent version than this Extract 12.2 sending data.
+
+Source Context :
+  SourceModule            : [ggnet.tcprtn]
+  SourceID                : [/scratch/aime/adestore/views/aime_adc4150408/oggcore/OpenSys/src/gglib/
+ggnet/tcprtn.c]
+  SourceFunction          : [opt_settle]
+  SourceLine              : [3405]
+  ThreadBacktrace         : [12] elements
+                          : [/u01/app/ogg/12.2.0.1/libgglog.so(CMessageContext::AddThreadContext()+0
+x1b) [0x7f6f622bbf1b]]
+                          : [/u01/app/ogg/12.2.0.1/libgglog.so(CMessageFactory::CreateMessage(CSourc
+eContext*, unsigned int, ...)+0x134) [0x7f6f622b60a4]]
+                          : [/u01/app/ogg/12.2.0.1/libgglog.so(_MSG_ERR_TCP_RECEIVE_PARAMS_ERROR(CSo
+urceContext*, char const*, CMessageFactory::MessageDisposition)+0x30) [0x7f6f62298432]]
+                          : [/u01/app/ogg/12.2.0.1/extract(opt_negotiate(int, char (&) [2048])+0x12d
+) [0x6bc9f1]]
+                          : [/u01/app/ogg/12.2.0.1/extract(Verify_Remote_Seq9d_Support(extract_def*,
+ bool)+0xc4) [0x57e964]]
+                          : [/u01/app/ogg/12.2.0.1/extract() [0x5f3d36]]
+                          : [/u01/app/ogg/12.2.0.1/extract(ggs::gglib::MultiThreading::MainThread::E
+xecMain()+0x60) [0x6d05b0]]
+                          : [/u01/app/ogg/12.2.0.1/extract(ggs::gglib::MultiThreading::Thread::RunTh
+read(ggs::gglib::MultiThreading::Thread::ThreadArgs*)+0x14d) [0x6d179d]]
+                          : [/u01/app/ogg/12.2.0.1/extract(ggs::gglib::MultiThreading::MainThread::R
+un(int, char**)+0xb1) [0x6d1881]]
+                          : [/u01/app/ogg/12.2.0.1/extract(main+0x3b) [0x5f50eb]]
+                          : [/lib64/libc.so.6(__libc_start_main+0xf5) [0x7f6f5afd73d5]]
+                          : [/u01/app/ogg/12.2.0.1/extract() [0x563159]]
+
+2019-05-30 21:45:26  ERROR   OGG-01232  Receive TCP params error: TCP/IP error 104 (Connection reset
+ by peer), endpoint: rmohsitutxd503.omcs.intuit.net:7814.
+
+2019-05-30 21:45:26  ERROR   OGG-01668  PROCESS ABENDING.
+
+
+GGSCI (ppdspimdbk01) 12>
+
+GGSCI (ppdspimdbk01) 12> 2019-05-30 21:45:26  ERROR   OGG-01232  Receive TCP params error: TCP/IP error 104 (Connection reset
+ by peer), endpoint: rmohsitutxd503.omcs.intuit.net:7814.
+
+2019-05-30 21:45:26  ERROR   OGG-01668  PROCESS ABENDING.
+ERROR: Invalid command.
+
+GGSCI (ppdspimdbk01) 13> ERROR: Invalid command.
+
+GGSCI (ppdspimdbk01) 14>
+GGSCI (ppdspimdbk01) 14> ERROR: Invalid command.
+
+GGSCI (ppdspimdbk01) 15> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:07
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:10
+EXTRACT     RUNNING     E3PIMEXA    351:40:53     00:04:55
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:09
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      00:01:12
+EXTRACT     RUNNING     TEST        359:17:21     00:28:58
+
+
+GGSCI (ppdspimdbk01) 16> view parma P3PIMEXA
+ERROR: Invalid command.
+
+GGSCI (ppdspimdbk01) 17> view param P3PIMEXA
+
+EXTRACT P3PIMEXA
+PASSTHRU
+RMTHOST rmohsitutxd503.omcs.intuit.net, NOSTREAMING, MGRPORT 7809, COMPRESS, tcpbufsize 1000000, tcp
+flushbytes 1000000, ENCRYPT AES128, KEYNAME keypimsys
+--RMTHOST rmohsitutxd503.omcs.intuit.net, NOSTREAMING, MGRPORT 7809
+DECRYPTTRAIL
+ENCRYPTTRAIL
+--RMTTRAIL /titu9o/ogg_trails/ext/pim_pds/p5 , FORMAT RELEASE 12.1
+RMTTRAIL /titu9o/ogg_trails/ext/pim_pds/p5
+INCLUDE /u01/app/ogg/12.2.0.1/dirprm/E2EXAPIM_SourceTable_Mapping.inc
+
+
+GGSCI (ppdspimdbk01) 18> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:00
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:01
+EXTRACT     RUNNING     E3PIMEXA    351:40:53     00:05:39
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:08
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      00:01:56
+EXTRACT     RUNNING     TEST        359:17:21     00:29:43
+
+
+GGSCI (ppdspimdbk01) 19> start P3PIMEXA
+
+Sending START request to MANAGER ...
+EXTRACT P3PIMEXA starting
+
+
+GGSCI (ppdspimdbk01) 20> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:01
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:01
+EXTRACT     RUNNING     E3PIMEXA    351:40:53     00:05:52
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:10
+EXTRACT     RUNNING     P3PIMEXA    00:00:00      00:02:09
+EXTRACT     RUNNING     TEST        359:17:21     00:29:55
+
+
+GGSCI (ppdspimdbk01) 21> !
+info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+JAGENT      RUNNING
+EXTRACT     RUNNING     E1PIMEXA    00:00:00      00:00:06
+EXTRACT     RUNNING     E2PIMEXA    00:00:00      00:00:06
+EXTRACT     RUNNING     E3PIMEXA    351:40:53     00:05:57
+EXTRACT     RUNNING     P1PIMEXA    00:00:00      00:00:00
+EXTRACT     ABENDED     P3PIMEXA    00:00:00      00:02:14
+EXTRACT     RUNNING     TEST        359:17:21     00:30:01
+
+
+GGSCI (ppdspimdbk01) 22>

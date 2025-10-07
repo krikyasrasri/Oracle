@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<configuration reset="true">
+<appender name="myAppender" class="RollingFileAppender">
+<param name="File" value="gglog-%I.log"/>
+<param name="MaxBackupIndex" value="9"/>
+<param name="BufferedIO" value="false"/>
+<param name="MaxFileSize" value="10MB" />
+<layout class="PatternLayout">
+<param name="Pattern" value="%d{%Y-%m-%d %H:%M:%S} %-5p|%-30.30c|%5L %-24.24C{2} | %m%n"/>
+</layout>
+</appender>
+<root>
+<level value="all"/>
+<appender-ref name="myAppender"/>
+</root>
+</configuration>

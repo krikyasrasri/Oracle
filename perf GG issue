@@ -1,0 +1,634 @@
+GGSCI (pprfebpdbk03) 10> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+EXTRACT     STOPPED     E1CDSCAS    00:00:06      22:27:59
+EXTRACT     STOPPED     P1CDSCAS    00:00:00      22:27:55
+REPLICAT    RUNNING     R1CRMCAS    00:00:00      00:00:12
+
+
+GGSCI (pprfebpdbk03) 11> info R1CRMCAS
+
+REPLICAT   R1CRMCAS  Last Started 2019-09-10 01:09   Status RUNNING
+Checkpoint Lag       00:00:00 (updated 00:00:02 ago)
+Process ID           90166
+Log Read Checkpoint  File /u01/app/ogg/dirdat/casds/sb000405
+                     First Record  RBA 901
+
+
+GGSCI (pprfebpdbk03) 12> exit
+oracle@pprfebpdbk03:/u01/app/ogg/12c->./logdump
+
+Oracle GoldenGate Log File Dump Utility for Oracle
+Version 12.1.2.1.0 OGGCORE_12.1.2.1.0_PLATFORMS_140727.2135.1
+
+Copyright (C) 1995, 2014, Oracle and/or its affiliates. All rights reserved.
+
+
+
+Logdump 1 >open /u01/app/ogg/dirdat/casds/sb000405
+Current LogTrail is /u01/app/ogg/dirdat/casds/sb000405
+Logdump 2 >pos 901
+Reading forward from RBA 901
+Logdump 3 >n
+Logdump 4 >exit
+oracle@pprfebpdbk03:/u01/app/ogg/12c->./ggsci
+
+Oracle GoldenGate Command Interpreter for Oracle
+Version 12.1.2.1.0 OGGCORE_12.1.2.1.0_PLATFORMS_140727.2135.1_FBO
+Linux, x64, 64bit (optimized), Oracle 11g on Aug  7 2014 09:14:25
+Operating system character set identified as UTF-8.
+
+Copyright (C) 1995, 2014, Oracle and/or its affiliates. All rights reserved.
+
+
+
+GGSCI (pprfebpdbk03) 1> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+EXTRACT     STOPPED     E1CDSCAS    00:00:06      22:34:12
+EXTRACT     STOPPED     P1CDSCAS    00:00:00      22:34:08
+REPLICAT    RUNNING     R1CRMCAS    00:00:00      00:00:10
+
+
+GGSCI (pprfebpdbk03) 2> exit
+oracle@pprfebpdbk03:/u01/app/ogg/12c->./logdump
+
+Oracle GoldenGate Log File Dump Utility for Oracle
+Version 12.1.2.1.0 OGGCORE_12.1.2.1.0_PLATFORMS_140727.2135.1
+
+Copyright (C) 1995, 2014, Oracle and/or its affiliates. All rights reserved.
+
+
+
+Logdump 4 >open /u01/app/ogg/dirdat/casds/sb000406
+Current LogTrail is /u01/app/ogg/dirdat/casds/sb000406
+Logdump 5 >pos n
+Error: Invalid file position (N)
+Logdump 6 >n
+
+2019/05/29 01:46:19.817.259 FileHeader           Len  1514 RBA 0
+Name: *FileHeader*
+ 3000 0365 3000 0008 4747 0d0a 544c 0a0d 3100 0002 | 0..e0...GG..TL..1...
+ 0004 3200 0004 2000 0000 3300 0008 02f2 b036 4574 | ..2... ...3......6Et
+ 752b 3400 003c 003a 7572 693a 7070 7266 7365 6c64 | u+4..<.:uri:pprfseld
+ 6265 3031 3a63 6f72 703a 696e 7475 6974 3a6e 6574 | be01:corp:intuit:net
+ 3a3a 7530 313a 6170 703a 6f67 673a 3132 633a 5031 | ::u01:app:ogg:12c:P1
+ 5342 4c43 4153 3500 003f 3500 003b 0039 7572 693a | SBLCAS5..?5..;.9uri:
+ 7070 7266 7365 6c64 6265 3031 3a63 6f72 703a 696e | pprfseldbe01:corp:in
+
+Logdump 7 >exit
+oracle@pprfebpdbk03:/u01/app/ogg/12c->./ggsci
+
+Oracle GoldenGate Command Interpreter for Oracle
+Version 12.1.2.1.0 OGGCORE_12.1.2.1.0_PLATFORMS_140727.2135.1_FBO
+Linux, x64, 64bit (optimized), Oracle 11g on Aug  7 2014 09:14:25
+Operating system character set identified as UTF-8.
+
+Copyright (C) 1995, 2014, Oracle and/or its affiliates. All rights reserved.
+
+
+
+GGSCI (pprfebpdbk03) 1> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+EXTRACT     STOPPED     E1CDSCAS    00:00:06      22:35:02
+EXTRACT     STOPPED     P1CDSCAS    00:00:00      22:34:58
+REPLICAT    RUNNING     R1CRMCAS    00:00:00      00:00:00
+
+
+GGSCI (pprfebpdbk03) 2> send R1CRMCAS,logend
+
+Sending LOGEND request to REPLICAT R1CRMCAS ...
+YES.
+
+
+GGSCI (pprfebpdbk03) 3> stop R1CRMCAS
+
+Sending STOP request to REPLICAT R1CRMCAS ...
+Request processed.
+
+
+GGSCI (pprfebpdbk03) 4> alter REPLICAT R1CRMCAS, etrollover
+ERROR: Invalid parameter specified for ALTER REPLICAT.
+
+
+GGSCI (pprfebpdbk03) 5> alter R1CRMCAS, etrollover
+ERROR: Invalid parameter specified for ALTER REPLICAT.
+
+
+GGSCI (pprfebpdbk03) 6> alter REPLICAT R1CRMCAS etrollover
+ERROR: Invalid parameter specified for ALTER REPLICAT.
+
+
+GGSCI (pprfebpdbk03) 7> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+EXTRACT     STOPPED     E1CDSCAS    00:00:06      22:36:37
+EXTRACT     STOPPED     P1CDSCAS    00:00:00      22:36:33
+REPLICAT    STOPPED     R1CRMCAS    00:00:00      00:00:59
+
+
+GGSCI (pprfebpdbk03) 8> alter R1CRMCAS etrollover
+ERROR: Invalid parameter specified for ALTER REPLICAT.
+
+
+GGSCI (pprfebpdbk03) 9> ALTER REPLICAT R1CRMCAS ETROLLOVER
+ERROR: Invalid parameter specified for ALTER REPLICAT.
+
+
+GGSCI (pprfebpdbk03) 10> dblogin userid oggown, password oggown
+Successfully logged into database.
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 11> ALTER REPLICAT R1CRMCAS ETROLLOVER
+ERROR: Invalid parameter specified for ALTER REPLICAT.
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 12> alter R1CRMCAS ETROLLOVER
+ERROR: Invalid parameter specified for ALTER REPLICAT.
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 13> alter R1CRMCAS, extseqno 406
+REPLICAT altered.
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 14> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+EXTRACT     STOPPED     E1CDSCAS    00:00:06      22:39:45
+EXTRACT     STOPPED     P1CDSCAS    00:00:00      22:39:41
+REPLICAT    STOPPED     R1CRMCAS    00:00:00      00:00:02
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 15> start R1CRMCAS
+
+Sending START request to MANAGER ...
+REPLICAT R1CRMCAS starting
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 16> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+EXTRACT     STOPPED     E1CDSCAS    00:00:06      22:39:53
+EXTRACT     STOPPED     P1CDSCAS    00:00:00      22:39:49
+REPLICAT    RUNNING     R1CRMCAS    00:00:00      00:00:00
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 17> info R1CRMCAS
+
+REPLICAT   R1CRMCAS  Last Started 2019-09-10 01:21   Status RUNNING
+Checkpoint Lag       00:00:00 (updated 00:00:05 ago)
+Process ID           123922
+Log Read Checkpoint  File /u01/app/ogg/dirdat/casds/sb000406
+                     First Record  RBA 901
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 18> !
+info R1CRMCAS
+
+REPLICAT   R1CRMCAS  Last Started 2019-09-10 01:21   Status RUNNING
+Checkpoint Lag       00:00:00 (updated 00:00:02 ago)
+Process ID           123922
+Log Read Checkpoint  File /u01/app/ogg/dirdat/casds/sb000406
+                     First Record  RBA 901
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 19> !
+info R1CRMCAS
+
+REPLICAT   R1CRMCAS  Last Started 2019-09-10 01:21   Status RUNNING
+Checkpoint Lag       00:00:00 (updated 00:00:04 ago)
+Process ID           123922
+Log Read Checkpoint  File /u01/app/ogg/dirdat/casds/sb000406
+                     First Record  RBA 901
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 20> view report R1CRMCAS
+
+
+***********************************************************************
+                 Oracle GoldenGate Delivery for Oracle
+   Version 12.1.2.1.0 OGGCORE_12.1.2.1.0_PLATFORMS_140727.2135.1_FBO
+   Linux, x64, 64bit (optimized), Oracle 11g on Aug  7 2014 09:38:29
+
+Copyright (C) 1995, 2014, Oracle and/or its affiliates. All rights reserved.
+
+
+                    Starting at 2019-09-10 01:21:52
+***********************************************************************
+
+Operating System Version:
+Linux
+Version #2 SMP Thu Sep 27 22:10:16 PDT 2018, Release 4.1.12-124.19.6.el7uek.x86_64
+Node: pprfebpdbk03
+Machine: x86_64
+                         soft limit   hard limit
+Address Space Size   :    unlimited    unlimited
+Heap Size            :    unlimited    unlimited
+File Size            :    unlimited    unlimited
+CPU Time             :    unlimited    unlimited
+
+Process id: 123922
+
+Description:
+
+2019-09-10 01:21:52  WARNING OGG-02904  Replication of PARTIAL XML containing NCHAR/NVARCHAR/NCLOB data may cause divergence.
+
+***********************************************************************
+**            Running with the following parameters                  **
+***********************************************************************
+
+2019-09-10 01:21:52  INFO    OGG-03059  Operating system character set identified as UTF-8.
+
+2019-09-10 01:21:52  INFO    OGG-02695  ANSI SQL parameter syntax is used for parameter parsing.
+REPLICAT R1CRMCAS
+ASSUMETARGETDEFS
+DISCARDFILE /u01/app/ogg/dirdat/casds/r1crmcas.dsc, append, megabytes 500,PURGE
+SETENV (NLS_LANG="AMERICAN_AMERICA.AL32UTF8")
+
+2019-09-10 01:21:52  INFO    OGG-02095  Successfully set environment variable NLS_LANG=AMERICAN_AMERICA.AL32UTF8.
+USERID oggown, PASSWORD ******
+DBOPTIONS SUPPRESSTRIGGERS
+GETTRUNCATES
+GROUPTRANSOPS 5000
+APPLYNOOPUPDATES
+HANDLECOLLISIONS
+MAP SIEBEL.S_ADDR_PER, target SIEBEL.S_ADDR_PER;
+MAP SIEBEL.S_ASSET, target SIEBEL.S_ASSET;
+MAP SIEBEL.S_ASSET_XA, target SIEBEL.S_ASSET_XA;
+MAP SIEBEL.S_ASSET_X, target SIEBEL.S_ASSET_X;
+MAP SIEBEL.S_CON_ADDR, target SIEBEL.S_CON_ADDR;
+MAP SIEBEL.S_CONTACT, target SIEBEL.S_CONTACT;
+MAP SIEBEL.S_CONTACT_X, target SIEBEL.S_CONTACT_X;
+MAP SIEBEL.S_INV_PROF, target SIEBEL.S_INV_PROF;
+MAP SIEBEL.S_ORDER_ITEM, target SIEBEL.S_ORDER_ITEM;
+MAP SIEBEL.S_ORDER_ITEM_X, target SIEBEL.S_ORDER_ITEM_X, KEYCOLS(ROW_ID);
+MAP SIEBEL.S_ORDER, target SIEBEL.S_ORDER;
+MAP SIEBEL.S_ORDER_X, target SIEBEL.S_ORDER_X, KEYCOLS(ROW_ID);
+MAP SIEBEL.S_ORG_EXT, target SIEBEL.S_ORG_EXT;
+MAP SIEBEL.S_ORG_EXT_X, target SIEBEL.S_ORG_EXT_X;
+MAP SIEBEL.S_PARTY_PER, target SIEBEL.S_PARTY_PER;
+MAP SIEBEL.S_PARTY_REL, target SIEBEL.S_PARTY_REL;
+MAP SIEBEL.S_PARTY, target SIEBEL.S_PARTY;
+MAP SIEBEL.S_PROD_INT, target SIEBEL.S_PROD_INT;
+MAP SIEBEL.S_PROD_LN, target SIEBEL.S_PROD_LN;
+MAP SIEBEL.S_PROMITM_TRMS, target SIEBEL.S_PROMITM_TRMS;
+
+2019-09-10 01:21:53  INFO    OGG-01815  Virtual Memory Facilities for: COM
+    anon alloc: mmap(MAP_ANON)  anon free: munmap
+    file alloc: mmap(MAP_SHARED)  file free: munmap
+    target directories:
+    /u01/app/ogg/12c/dirtmp.
+
+CACHEMGR virtual memory values (may have been adjusted)
+CACHESIZE:                                2G
+CACHEPAGEOUTSIZE (default):               8M
+PROCESS VM AVAIL FROM OS (min):           4G
+CACHESIZEMAX (strict force to disk):   3.41G
+
+Database Version:
+Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production
+PL/SQL Release 11.2.0.4.0 - Production
+CORE	11.2.0.4.0	Production
+TNS for Linux: Version 11.2.0.4.0 - Production
+NLSRTL Version 11.2.0.4.0 - Production
+
+Database Language and Character Set:
+NLS_LANGUAGE     = "AMERICAN"
+NLS_TERRITORY    = "AMERICA"
+NLS_CHARACTERSET = "AL32UTF8"
+
+***********************************************************************
+**                     Run Time Messages                             **
+***********************************************************************
+
+Opened trail file /u01/app/ogg/dirdat/casds/sb000406 at 2019-09-10 01:21:53
+
+2019-09-10 01:21:53  INFO    OGG-03522  Setting session time zone to source database time zone 'GMT'.
+
+Source Context :
+  SourceModule            : [er.replicat.processloop]
+  SourceID                : [/scratch/aime1/adestore/views/aime1_adc4150384/oggcore/OpenSys/src/app/er/replicat/processloop.cpp]
+  SourceFunction          : [process_replicat_loop]
+  SourceLine              : [701]
+  ThreadBacktrace         : [11] elements
+                          : [/u01/app/ogg/12c/libgglog.so(CMessageContext::AddThreadContext()+0x1e) [0x7f9fd8786dce]]
+                          : [/u01/app/ogg/12c/libgglog.so(CMessageFactory::CreateMessage(CSourceContext*, unsigned int, ...)+0x340) [0x7f9fd8781ae0]]
+                          : [/u01/app/ogg/12c/libgglog.so(_MSG_ERR_ER_GENERIC_FAILURE(CSourceContext*, char const*, CMessageFactory::MessageDisposition)+0x31) [0x7f9fd8766367]]
+                          : [/u01/app/ogg/12c/replicat(process_replicat_loop()+0x1f6a) [0x5a52ea]]
+                          : [/u01/app/ogg/12c/replicat(replicat_main(int, char**)+0x5ca) [0x5bd51a]]
+                          : [/u01/app/ogg/12c/replicat(ggs::gglib::MultiThreading::MainThread::ExecMain()+0x4f) [0x6905af]]
+                          : [/u01/app/ogg/12c/replicat(ggs::gglib::MultiThreading::Thread::RunThread(ggs::gglib::MultiThreading::Thread::ThreadArgs*)+0x104) [0x6908e4]]
+                          : [/u01/app/ogg/12c/replicat(ggs::gglib::MultiThreading::MainThread::Run(int, char**)+0x8b) [0x6909eb]]
+                          : [/u01/app/ogg/12c/replicat(main+0x3f) [0x5bc1af]]
+                          : [/lib64/libc.so.6(__libc_start_main+0xf5) [0x7f9fd169d3d5]]
+                          : [/u01/app/ogg/12c/replicat() [0x50da69]]
+
+2019-09-10 01:22:13  ERROR   OGG-01028  Incompatible record (101) in /u01/app/ogg/dirdat/casds/sb000406, rba 901 (getting header).
+
+***********************************************************************
+*                   ** Run Time Statistics **                         *
+***********************************************************************
+
+Reading /u01/app/ogg/dirdat/casds/sb000406, current RBA 901, 0 records
+
+Report at 2019-09-10 01:22:13 (activity since 2019-09-10 01:21:52)
+
+No records were replicated.
+
+
+2019-09-10 01:22:13  ERROR   OGG-01668  PROCESS ABENDING.
+
+CACHE OBJECT MANAGER statistics
+
+CACHE MANAGER VM USAGE
+vm current     =      0    vm anon queues =      0
+vm anon in use =      0    vm file        =      0
+vm used max    =      0    ==> CACHE BALANCED
+
+CACHE CONFIGURATION
+cache size            =   2G   cache force paging = 3.41G
+buffer min            =  64K   buffer max (soft)  =   8M
+pageout eligible size =   8M
+
+================================================================================
+RUNTIME STATS FOR SUPERPOOL
+
+CACHE Transaction Stats
+trans active    =      0    max concurrent =      0
+non-zero total  =      0    trans total    =      0
+
+CACHE File Caching
+filecache rqsts        =      0    bytes to disk      =      0
+file retrieves         =      0    objs filecached    =      0
+queue entries          =      0    queue processed    =      0
+queue entry not needed =      0    queue not signaled =      0
+fc requesting obj      =      0
+
+CACHE MANAGEMENT
+buffer links   =      0   anon gets   =      0
+forced unmaps  =      0   cnnbl try   =      0
+cached out     =      0
+
+Allocation Request Distribution
+< 128B:       0
+ 128B:        0         0     | 512B:        0         0
+   2K:        0         0     |   8K:        0         0
+  32K:        0         0     | 128K:        0         0
+ 512K:        0         0     |   2M:        0         0
+   8M:        0         0     |  32M:        0         0
+ 128M:        0         0
+
+Cached Transaction Size Distribution
+    0:        0
+ < 4K:        0
+   4K:        0         0     |  16K:        0         0
+  64K:        0         0     | 256K:        0         0
+   1M:        0         0     |   4M:        0         0
+  16M:        0         0     |  64M:        0         0
+ 256M:        0         0     |   1G:        0         0
+   4G:        0         0     |  16G:        0         0
+  64G:        0         0     | 256G:        0         0
+   1T:        0         0     |   4T:        0         0
+  16T:        0         0     |  64T:        0         0
+ 256T:        0         0     |1024T:        0         0
+
+
+QUEUE Statistics
+num queues =     10     q hits =      0      q misses =      0
+
+queue size  q hits  curlen  maxlen     cannibalized
+  0   64K      0       0       0       0
+  1  128K      0       0       0       0
+  2  256K      0       0       0       0
+  3  512K      0       0       0       0
+  4    1M      0       0       0       0
+  5    2M      0       0       0       0
+  6    4M      0       0       0       0
+  7    8M      0       0       0       0
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 21> history
+
+GGSCI Command History
+
+   12: alter R1CRMCAS ETROLLOVER
+   13: alter R1CRMCAS, extseqno 406
+   14: info all
+   15: start R1CRMCAS
+   16: info all
+   17: info R1CRMCAS
+   18: info R1CRMCAS
+   19: info R1CRMCAS
+   20: view report R1CRMCAS
+   21: history
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 22> h
+
+GGSCI Command History
+
+   13: alter R1CRMCAS, extseqno 406
+   14: info all
+   15: start R1CRMCAS
+   16: info all
+   17: info R1CRMCAS
+   18: info R1CRMCAS
+   19: info R1CRMCAS
+   20: view report R1CRMCAS
+   21: history
+   22: h
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 23> alter R1CRMCAS, extseqno 406,extrba 0
+REPLICAT altered.
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 24> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+EXTRACT     STOPPED     E1CDSCAS    00:00:06      22:41:27
+EXTRACT     STOPPED     P1CDSCAS    00:00:00      22:41:23
+REPLICAT    STOPPED     R1CRMCAS    00:00:00      00:00:02
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 25> start R1CRMCAS
+
+Sending START request to MANAGER ...
+REPLICAT R1CRMCAS starting
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 26> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+EXTRACT     STOPPED     E1CDSCAS    00:00:06      22:41:33
+EXTRACT     STOPPED     P1CDSCAS    00:00:00      22:41:29
+REPLICAT    RUNNING     R1CRMCAS    00:00:00      00:00:09
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 27> info R1CRMCAS
+
+REPLICAT   R1CRMCAS  Last Started 2019-09-10 01:23   Status RUNNING
+Checkpoint Lag       2817:56:17 (updated 00:00:04 ago)
+Process ID           124068
+Log Read Checkpoint  File /u01/app/ogg/dirdat/casds/sb000406
+                     2019-05-15 15:27:20.996420  RBA 7298
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 28> !
+info R1CRMCAS
+
+REPLICAT   R1CRMCAS  Last Started 2019-09-10 01:23   Status RUNNING
+Checkpoint Lag       2817:56:17 (updated 00:00:09 ago)
+Process ID           124068
+Log Read Checkpoint  File /u01/app/ogg/dirdat/casds/sb000406
+                     2019-05-15 15:27:20.996420  RBA 7298
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 29> !
+info R1CRMCAS
+
+REPLICAT   R1CRMCAS  Last Started 2019-09-10 01:23   Status RUNNING
+Checkpoint Lag       2817:56:17 (updated 00:00:14 ago)
+Process ID           124068
+Log Read Checkpoint  File /u01/app/ogg/dirdat/casds/sb000406
+                     2019-05-15 15:27:20.996420  RBA 7298
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 30> !
+info R1CRMCAS
+
+REPLICAT   R1CRMCAS  Last Started 2019-09-10 01:23   Status RUNNING
+Checkpoint Lag       2817:56:17 (updated 00:00:19 ago)
+Process ID           124068
+Log Read Checkpoint  File /u01/app/ogg/dirdat/casds/sb000406
+                     2019-05-15 15:27:20.996420  RBA 7298
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 31> send R1CRMCAS,status
+
+Sending STATUS request to REPLICAT R1CRMCAS ...
+  Current status: Processing data
+  Sequence #: 406
+  RBA: 66901
+  5 records in current transaction
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 32> !
+send R1CRMCAS,status
+
+Sending STATUS request to REPLICAT R1CRMCAS ...
+  Current status: Processing data
+  Sequence #: 406
+  RBA: 272282
+  137 records in current transaction
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 33> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+EXTRACT     STOPPED     E1CDSCAS    00:00:06      22:42:23
+EXTRACT     STOPPED     P1CDSCAS    00:00:00      22:42:19
+REPLICAT    RUNNING     R1CRMCAS    2817:55:49    00:00:01
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 34> !
+info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+EXTRACT     STOPPED     E1CDSCAS    00:00:06      22:43:45
+EXTRACT     STOPPED     P1CDSCAS    00:00:00      22:43:41
+REPLICAT    RUNNING     R1CRMCAS    2817:14:22    00:00:00
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 35> !
+info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+EXTRACT     STOPPED     E1CDSCAS    00:00:06      22:43:49
+EXTRACT     STOPPED     P1CDSCAS    00:00:00      22:43:45
+REPLICAT    RUNNING     R1CRMCAS    2817:12:00    00:00:01
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 36> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+EXTRACT     STOPPED     E1CDSCAS    00:00:06      22:44:35
+EXTRACT     STOPPED     P1CDSCAS    00:00:00      22:44:31
+REPLICAT    RUNNING     R1CRMCAS    2816:41:54    00:00:01
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 37> send R1CRMCAS, status
+
+Sending STATUS request to REPLICAT R1CRMCAS ...
+  Current status: Processing data
+  Sequence #: 410
+  RBA: 8274261
+  2823 records in current transaction
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 38> !
+send R1CRMCAS, status
+
+Sending STATUS request to REPLICAT R1CRMCAS ...
+  Current status: Processing data
+  Sequence #: 412
+  RBA: 75046131
+  3664 records in current transaction
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 39> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+EXTRACT     STOPPED     E1CDSCAS    00:00:06      22:46:54
+EXTRACT     STOPPED     P1CDSCAS    00:00:00      22:46:50
+REPLICAT    RUNNING     R1CRMCAS    2813:22:55    00:00:01
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 40> info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+EXTRACT     STOPPED     E1CDSCAS    00:00:06      22:49:24
+EXTRACT     STOPPED     P1CDSCAS    00:00:00      22:49:20
+REPLICAT    RUNNING     R1CRMCAS    2808:36:34    00:00:03
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 41> !
+info all
+
+Program     Status      Group       Lag at Chkpt  Time Since Chkpt
+
+MANAGER     RUNNING
+EXTRACT     STOPPED     E1CDSCAS    00:00:06      22:54:35
+EXTRACT     STOPPED     P1CDSCAS    00:00:00      22:54:31
+REPLICAT    RUNNING     R1CRMCAS    2806:36:09    00:00:01
+
+
+GGSCI (pprfebpdbk03 as oggown@cdsprfp) 42>
