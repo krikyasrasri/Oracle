@@ -1,0 +1,1 @@
+ps aux|head -1;ps aux |sort -rn +2|head -10

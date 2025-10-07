@@ -1,0 +1,80 @@
+
+Installing and configuring Csscan in 10g and 11g (Database Character Set Scanner) (Doc ID 745809.1)
+
+
+3)A) Installing Csscan in Oracle RDBMS 10.1.0.x , 10.2.0.x and 11.1.0.x
+
+For 11.1.0.6 please do install the patch for Bug 6460895 CSSCAN IS JUST HAGNING FROM LAST 60 + HRS IN 11GR1 UPGRADED DATABASE.
+The 11.1.0.6 (and 10.2.0.3) Patch 6460895 is available for some platforms. 
+Apply this patch manually, see Note 737155.1 Not Be Able To Patch 6460895 Error oracle.rdbms.csmig.
+Run csminst.sql AFTER applying this patch as the patch has an updated csminst.sql.
+
+The fix is included in the 11.1.0.7 (or higher) and 10.2.0.4 (or higher) patchset. 
+A workaround if the 11.1.0.6 patch is not available for your platform is to install a 11.1.0.6 client and then apply 11.1.0.7 (patch 6890831) on this client. After this run the csminst.sql and csscan from the 11.1.0.7 client .
+10.2 is less impacted but going to 10.2.0.4 may also speed up the initialisation of Csscan.
+The default tablespace is SYSTEM, if you plan to run csscan against a big database then we advice to create a separate tablespace and change the $ORACLE_HOME/rdbms/admin/csminst.sql script to use this tablespace. 
+
+Modify the following statement in csminst.sql to assign your preferred tablespace to CSMIG instead of SYSTEM:
+
+alter user csmig default tablespace SYSTEM
+/
+The amount of space needed depends mainly on the amount of exceptions found ( convertible and/or lossy data) and is impossible to predict upfront. It's useful to use on the first run of csscan a tablespace that is limited in size to avoid any disk space issues.
+
+The Csminst.sql file is doing two grants to SYSTEM
+
+grant READ on directory log_file_dir to system
+/
+grant READ on directory data_file_dir to system
+/
+These grants are not needed, this is removed from Csminst.sql in 11.2 and 10.2.0.5. You can safely remove these lines or revoke the grants if needed. Csscan also does not use those directory's, so if you have an "ORA-22930 directory does not exist" running Csminst.sql this can be ignored.
+
+Make a backup/copy of Csminst.sql and edit Csminst.sql and then run Csminst.sql using these commands using sqlplus of the server Oracle_Home (or when using a client, using the same base version for the client as the server):
+
+set oracle_sid=<your SID>
+sqlplus /nolog
+SQL> conn / as sysdba
+SQL> set TERMOUT ON
+SQL> set ECHO ON
+SQL> spool csminst.log
+SQL> @?/rdbms/admin/csminst.sql
+The password for the CSMIG user will be asked when running the csminst.sql script, this can be anything and we suggest to lock the CSMIG account . The actual csmig login is not used by Csscan.
+
+SQL> conn / as sysdba
+SQL> alter user csmig account lock;
+Check the csminst.log for errors.
+
+3)B) Installing Csscan in Oracle RDBMS 11.2.0.x
+
+The default tablespace is SYSTEM, if you plan to run csscan against a big database then we advice to create a separate tablespace and change the $ORACLE_HOME/rdbms/admin/csminst.sql script to use this tablespace.
+
+Modify the following statement in csminst.sql to assign your preferred tablespace to CSMIG instead of SYSTEM:
+
+alter user csmig default tablespace SYSTEM quota unlimited on SYSTEM
+/
+The amount of space needed depends mainly on the amount of exceptions found ( convertible and/or lossy data) and is impossible to predict upfront. It's useful to use on the first run of csscan a tablespace that is limited in size to avoid any disk space issues.
+
+Make a backup/copy of Csminst.sql and edit Csminst.sql and then run Csminst.sql using these commands using sqlplus of the server Oracle_Home (or when using a client, using the same base version for the client as the server):
+
+set oracle_sid=<your SID>
+sqlplus /nolog
+SQL> conn / as sysdba
+SQL> set TERMOUT ON
+SQL> set ECHO ON
+SQL> spool csminst.log
+SQL> -- note the drop user 
+SQL> drop user csmig cascade;
+SQL> @?/rdbms/admin/csminst.sql
+Check the csminst.log for errors. The Csmig user is by default locked.
+
+WINDOWS
+*******
+
+
+
+csscan TABLE=(SYS.SQL_VERSION$) FROMCHAR=WE8MSWIN1252 TOCHAR=AL32UTF8 LOG=instchkc CAPTURE=N PROCESS=5 ARRAY=1024000
+
+unix
+*****
+
+csscan TABLE='(SYS.SQL_VERSION$)' FROMCHAR=AL32UTF8 TOCHAR=WE8ISO8859P1 LOG=AL32UTF8TOWE8 CAPTURE=N PROCESS=5 ARRAY=1024000
+

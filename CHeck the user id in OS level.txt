@@ -1,0 +1,31 @@
+
+
+Login to ETC
+------------
+$ cd /etc
+
+searcvh for passwd file
+-------------------------
+ls -lrt *pass
+
+Grep to see id user is exist in that
+------------------------------------
+grep -i USER_ID passwd
+
+
+************************************************************
+
+
+
+dmcm1s @ cds0stl3:/oracle/home
+$ cd /etc
+dmcm1s @ cds0stl3:/etc
+$ ls -lrt pass*
+-rw-r--r--   1 root     sys          707 Jan  7  2008 passwd.JASS.20080107120817
+-rw-r--r--   1 root     sys          718 Jun 23  2009 passwd.backup.062609
+-rw-r--r--   1 root     root       18244 Jun 30  2009 passwd_aa.bak
+-r--r--r--   1 root     root       36748 May 31 02:19 passwd.rwy
+-rw-r--r--   1 root     root       37730 Oct 28 23:03 passwd
+dmcm1s @ cds0stl3:/etc
+$ grep -i security passwd
+dmcm1s @ cds0stl3:/etc

@@ -1,0 +1,41 @@
+$ cluvfy comp crs -display_status -n pdw2stl8,pdw2stl7,pdw2stl6
+
+Verifying CRS integrity
+Checking CRS integrity...
+CRS integrity check passed
+Verification of CRS integrity was successful.
+NODE_STATUS::pdw2stl8:SUCC
+NODE_STATUS::pdw2stl7:SUCC
+NODE_STATUS::pdw2stl6:SUCC
+OVERALL_STATUS::SUCC
+
+$ crsctl check crs
+
+CRS-4638: Oracle High Availability Services is online
+CRS-4537: Cluster Ready Services is online
+CRS-4529: Cluster Synchronization Services is online
+CRS-4533: Event Manager is online
+
++ASM3 @ pdw2stl6:/oracle/home
+
+$ srvctl status nodeapps
+
+VIP pdw2stl6_vip is enabled
+VIP pdw2stl6_vip is running on node: pdw2stl6
+VIP pdw2stl7_vip is enabled
+VIP pdw2stl7_vip is running on node: pdw2stl7
+VIP pdw2stl8_vip is enabled
+VIP pdw2stl8_vip is running on node: pdw2stl8
+Network is enabled
+Network is running on node: pdw2stl8
+Network is running on node: pdw2stl7
+Network is running on node: pdw2stl6
+GSD is disabled
+GSD is not running on node: pdw2stl8
+GSD is not running on node: pdw2stl7
+GSD is not running on node: pdw2stl6
+ONS is enabled
+ONS daemon is running on node: pdw2stl8
+ONS daemon is running on node: pdw2stl7
+ONS daemon is running on node: pdw2stl6
+

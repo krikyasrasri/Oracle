@@ -1,0 +1,287 @@
+export http_proxy=http://qy1prdproxy01.ie.intuit.net:80/
+export https_proxy=http://qy1prdproxy01.ie.intuit.net:80/
+export no_proxy='.intuit.net, .intuit.com, 10.*.*.*, localhost, 127.0.0.1'
+export AWS_ACCESS_KEY_ID=ASIAX4DMOVG3ACFTRF7A
+export AWS_SECRET_ACCESS_KEY=yAvKBOPy1xCMTz+z98b2MqOfSUQ8hRVDjA5ztS61
+export AWS_SECURITY_TOKEN=FQoGZXIvYXdzEAEaDBYTW5Sp3JNrE+wkdyKSAtfbtTcSpoaKSuXnzT71gntFljD6J4CStznTE8uCqBQXZK0kwK5lUCRLmbVV1SuhMz3zG0tFsGSuNzNdbIKyil5/yzxrnBulvyv4+SdvIp2bKsK5mDbB3meLu+6KohvmhjQDjEX2d11c9s251+TOHWFumoeCrpfwFDq1Am2usnwC4ivBz0Yff+1qciAAdFfe0VKNiFffFE2DpriTWLTOe6e2UxbjMr1yldYpl6S9yX6PfG8kjaSRIG1GjkBCQ+ElOtPm9AFUvXj8mFIzbkHjuxQZUqS6/55dNvTOJcbQLfoT9EUYhI/GBlWUygrguPsWWD7Ig2T2W9v2S/Yy3rjcom9d5B49mvrCkXYalWpSBUY/5gUov/6R7AU=
+export PATH=~/.local/bin:$PATH
+
+
+aws s3 sync . s3://cas-prod-db-export-dump/
+
+aws s3 cp s3://brm101-ppd-db-export/FACTOPS-4280_BRM104_01_01.dmp .
+
+expdp directory=EXPDP_DIR dumpfile=cassys_preprod_17sep19_%U.dmp logfile=cassys_preprod_17sep19.log compression=all full=y parallel=10 flashback_scn=426338904
+
+
+SELECT rdsadmin.rdsadmin_s3_tasks.download_from_s3(p_bucket_name => 'cas-prod-db-export-dump',p_directory_name =>'DATA_PUMP_DIR') AS TASK_ID FROM DUAL;
+
+
+create tablespace CASWKINDX ;
+create tablespace CASWKDATA;
+create tablespace MAPDATA;
+create tablespace MAPINDX;
+create tablespace CATALOG;
+create tablespace OGGDATA;
+create tablespace ACCOUNT;
+create tablespace ORDERS;
+create tablespace EXAMPLE;
+create tablespace BILLING;
+create tablespace USERS;
+create tablespace MDM;
+create tablespace ASSETS;
+create tablespace ACCOUNT;
+create tablespace WEBSINDX;
+create tablespace WEBSDATA;
+create tablespace WEBSITEM;
+create tablespace WEBSMIG;
+
+
+BEGIN
+  h1 := DBMS_DATAPUMP.OPEN('IMPORT','FULL',NULL,'EXAMPLE1');
+  DBMS_DATAPUMP.ADD_FILE(h1,'test1.dmp','DATA_PUMP_DIR');
+  DBMS_DATAPUMP.METADATA_REMAP(h1,'REMAP_SCHEMA','TEST_SCHEMA','TEST_SCHEMA_RDS');
+  DBMS_DATAPUMP.METADATA_REMAP(h1,'REMAP_TABLESPACE','TEST_SCHEMA','TEST_SCHEMA_RDS');
+  DBMS_DATAPUMP.SET_PARAMETER(h1,'TABLE_EXISTS_ACTION','REPLACE');
+  DBMS_DATAPUMP.START_JOB(h1);
+
+
+SELECT rdsadmin.rdsadmin_s3_tasks.download_from_s3(
+      p_bucket_name    =>  'cas-prod-db-export-dump', 
+      p_s3_prefix      =>  'casprd_20Sep19', 
+      p_directory_name =>  'DATA_PUMP_DIR') 
+      AS TASK_ID FROM DUAL; 
+
+
+
+SELECT text FROM table(rdsadmin.rds_file_util.read_text_file('DATAPUMP','dbtask-1568618409498-1926.log'));
+
+DECLARE
+hdnl NUMBER;
+BEGIN
+hdnl := DBMS_DATAPUMP.OPEN( operation => 'IMPORT', job_mode => 'SCHEMA', job_name=>null);
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'cds_preprod_13sep19_%U.dmp', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_dump_file);
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'import_files.log', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_log_file);
+DBMS_DATAPUMP.SET_PARAMETER(hdnl,'TABLE_EXISTS_ACTION','REPLACE') ;
+DBMS_DATAPUMP.METADATA_FILTER(hdnl,‘SCHEMA_EXPR’,’IN (''CASDS’’,'‘SIEBEL’’,'‘INTUIT_WORK_REP’’,'‘JMSUSER’’,'‘MASTER_REP’’,'‘MDMOFM’’,'‘OBOFM’’,'‘OTOFM’’,'‘PHOFM’’,'‘RTOFM’’)');
+DBMS_DATAPUMP.SET_PARALLEL(hdnl,5) ;
+DBMS_DATAPUMP.START_JOB(hdnl);
+END;
+
+
+
+DECLARE
+hdnl NUMBER;
+BEGIN
+hdnl := DBMS_DATAPUMP.OPEN( operation => 'IMPORT', job_mode => 'SCHEMA', job_name=>null);
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'cdsprf_preprod_16sep19_%U.dmp', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_dump_file);
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'import_files.log', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_log_file);
+DBMS_DATAPUMP.SET_PARAMETER(hdnl,'TABLE_EXISTS_ACTION','REPLACE') ;
+DBMS_DATAPUMP.METADATA_FILTER(hdnl,'SCHEMA_EXPR',’IN (''CASDS'',''SIEBEL'')');
+DBMS_DATAPUMP.SET_PARALLEL(hdnl,5) ;
+DBMS_DATAPUMP.START_JOB(hdnl);
+END;
+
+DBMS_DATAPUMP.METADATA_REMAP(hdnl,'REMAP_TABLESPACE','TEST_SCHEMA','TEST_SCHEMA_RDS');
+
+
+
+DECLARE
+hdnl NUMBER;
+BEGIN
+hdnl := DBMS_DATAPUMP.OPEN( operation => 'IMPORT', job_mode => 'SCHEMA', job_name=>null);
+dbms_output.put_line(hdnl);
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'cdsprd_20Sep19_%U.dmp', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_dump_file);
+DBMS_DATAPUMP.METADATA_REMAP (handle => hdnl,name => 'REMAP_TABLESPACE',old_value => 'SIEBEL_TDE',value => 'SIEBEL');
+DBMS_DATAPUMP.METADATA_REMAP (handle => hdnl,name => 'REMAP_TABLESPACE',old_value => 'CASDS_TDE',value => 'CASDS');
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'import_files.log', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_log_file);
+DBMS_DATAPUMP.METADATA_FILTER(hdnl,'SCHEMA_EXPR','IN (''CASDS'',''SIEBEL'')');
+--DBMS_DATAPUMP.METADATA_FILTER(hdnl,'SCHEMA_EXPR','IN (''RTOFM'')');
+DBMS_DATAPUMP.set_parallel(handle=>hdnl,degree=>10);
+DBMS_DATAPUMP.SET_PARAMETER(handle=>hdnl,name =>'TABLE_EXISTS_ACTION',value => 'REPLACE');
+DBMS_DATAPUMP.START_JOB(hdnl);
+END;
+
+DECLARE
+hdnl NUMBER;
+BEGIN
+hdnl := DBMS_DATAPUMP.OPEN( operation => 'IMPORT', job_mode => 'SCHEMA', job_name=>null);
+dbms_output.put_line(hdnl);
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'cassys_preprod_17sep19_%U.dmp', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_dump_file);
+DBMS_DATAPUMP.METADATA_REMAP (handle => hdnl,name => 'REMAP_TABLESPACE',old_value => 'ACCOUNT_TDE',value => 'ACCOUNT');
+DBMS_DATAPUMP.METADATA_REMAP (handle => hdnl,name => 'REMAP_TABLESPACE',old_value => 'BILLING_TDE',value => 'BILLING');
+DBMS_DATAPUMP.METADATA_REMAP (handle => hdnl,name => 'REMAP_TABLESPACE',old_value => 'ORDERS_TDE',value => 'ORDERS');
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'import_files.log', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_log_file);
+DBMS_DATAPUMP.METADATA_FILTER(hdnl,'SCHEMA_EXPR','IN (''DATA_GOVERNANCE'',''IDSOWN'',''IDSAPP'',''NEWEISE2E'',''EDSAPP'',''EDSOWN'',''PDSAPP'',''PDSOWN'',''ADSAPP'',''ADSOWN'',''MAP'',''MDM'',''BILLING'',''ASSET'',''ORDERS'',''CATALOG'',
+''ACCOUNT'',''APPSEC'',''BMYLARAPU'',''DGDEV'',''DGAPP'',''JLIAO'',''IAC_APP_SELECT'',''COMMUSER'',''READONLY'',''MAPAPP'',''EISP_READONLY'',''KVELHAL'',''EBS_IQUATE_PPD'',''SBIGGIE'',''PMERRINER'')');
+DBMS_DATAPUMP.set_parallel(handle=>hdnl,degree=>10);
+DBMS_DATAPUMP.SET_PARAMETER(handle=>hdnl,name =>'TABLE_EXISTS_ACTION',value => 'REPLACE');
+DBMS_DATAPUMP.START_JOB(hdnl);
+END;
+
+
+DECLARE
+hdnl NUMBER;
+BEGIN
+hdnl := DBMS_DATAPUMP.OPEN( operation => 'IMPORT', job_mode => 'SCHEMA', job_name=>null);
+dbms_output.put_line(hdnl);
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'cassys_preprod_17sep19_%U.dmp', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_dump_file);
+DBMS_DATAPUMP.METADATA_REMAP (handle => hdnl,name => 'REMAP_TABLESPACE',old_value => 'ACCOUNT_TDE',value => 'ACCOUNT');
+DBMS_DATAPUMP.METADATA_REMAP (handle => hdnl,name => 'REMAP_TABLESPACE',old_value => 'BILLING_TDE',value => 'BILLING');
+DBMS_DATAPUMP.METADATA_REMAP (handle => hdnl,name => 'REMAP_TABLESPACE',old_value => 'ORDERS_TDE',value => 'ORDERS');
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'import_files.log', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_log_file);
+DBMS_DATAPUMP.METADATA_FILTER(hdnl,'SCHEMA_EXPR','IN (''DATA_GOVERNANCE'',''IDSOWN'',''IDSAPP'',''NEWEISE2E'',''EDSAPP'',''EDSOWN'',''PDSAPP'',''PDSOWN'',''ADSAPP'',''ADSOWN'',''MAP'',''MDM'',''BILLING'',''ASSET'',''ORDERS'',''CATALOG'',
+''ACCOUNT'',''APPSEC'',''DGDEV'',''DGAPP'',''IAC_APP_SELECT'',''COMMUSER'',''READONLY'',''MAPAPP'',''EISP_READONLY'',''KVELHAL'',''EBS_IQUATE_PPD'',''SBIGGIE'','PMERRINER'')');
+DBMS_DATAPUMP.set_parallel(handle=>hdnl,degree=>10);
+DBMS_DATAPUMP.SET_PARAMETER(handle=>hdnl,name =>'TABLE_EXISTS_ACTION',value => 'REPLACE');
+DBMS_DATAPUMP.START_JOB(hdnl);
+END;
+
+
+
+
+
+
+
+
+CASOLTP_CASAWS_SYS
+
+DROP USER MDM CASCASE;
+DROP USER OGGOWN
+DROP USER SIEBEL
+DROP USER KVELHAL
+DROP USER CASDS
+DROP USER RDSADMIN
+DROP USER GRATHOD
+DROP USER READONLY_SYS
+DROP USER READONLY
+DROP USER CASOP
+DROP USER EISP_READONLY
+DROP USER EBS_IQUATE_PPD
+DROP USER DBADMIN
+DROP USER PMERRINER
+DROP USER DIP
+DROP USER DBSNMP
+DROP USER APPQOSSYS
+DROP USER CTXSYS
+DROP USER SYSTEM
+DROP USER SYS
+DROP USER OUTLN
+
+
+
+drop user DATA_GOVERNANCE  cascade;
+drop user IDSOWN cascade;
+drop user IDSAPP cascade;
+drop user NEWEISE2E cascade;
+drop user EDSAPP cascade;
+drop user EDSOWN cascade;
+drop user PDSAPP cascade;
+drop user PDSOWN cascade;
+drop user ADSAPP cascade;
+drop user ADSOWN cascade;
+drop user MAP cascade;
+drop user MDM cascade;
+drop user BILLING cascade;
+drop user ASSET cascade;
+drop user ORDERS cascade;
+drop user CATALOG cascade;
+drop user ACCOUNT cascade;
+drop user APPSEC cascade;
+drop user BMYLARAPU cascade;
+drop user DGDEV cascade;
+drop user DGAPP cascade;
+drop user JLIAO cascade;
+drop user IAC_APP_SELECT cascade;
+drop user COMMUSER cascade;
+drop user READONLY cascade;
+drop user MAPAPP cascade;
+drop user EISP_READONLY cascade;
+drop user KVELHAL cascade;
+drop user EBS_IQUATE_PPD cascade;
+drop user SBIGGIE cascade;
+drop user PMERRINER cascade;
+
+
+MAP CASDS.CUST_ENTITLED_OFFERING, TARGET ASSET.CUST_ENTITLED_OFFERING;
+MAP CASDS.CUST_ENTITLED_OFFERING_ATTR, TARGET ASSET.CUST_ENTITLED_OFFERING_ATTR;
+MAP CASDS.BILLING_PROFILE_STATUS_TYPE, TARGET BILLING.BILLING_PROFILE_STATUS_TYPE;
+MAP CASDS.PAYMENT_METHOD_TYPE, TARGET BILLING.PAYMENT_METHOD_TYPE;
+MAP CASDS.CREDIT_CARD_TYPE, TARGET BILLING.CREDIT_CARD_TYPE;
+MAP CASDS.BANK_ACCOUNT_TYPE, TARGET BILLING.BANK_ACCOUNT_TYPE;
+MAP CASDS.BILLING_PROFILE, TARGET BILLING.BILLING_PROFILE;
+MAP CASDS.BANK_ACCOUNT, TARGET BILLING.BANK_ACCOUNT;
+MAP CASDS.CREDIT_CARD, TARGET BILLING.CREDIT_CARD;
+
+
+exec utl_file.fremove('DATA_PUMP_DIR','expdp_cas_sys_31july_01.dmp';
+exec utl_file.fremove('DATA_PUMP_DIR','expdp_cas_sys_31july_02.dmp';
+exec utl_file.fremove('DATA_PUMP_DIR','expdp_cas_sys_31july_03.dmp';
+exec utl_file.fremove('DATA_PUMP_DIR','expdp_cas_sys_31july_04.dmp';
+exec utl_file.fremove('DATA_PUMP_DIR','expdp_cas_sys_31july_05.dmp';
+exec utl_file.fremove('DATA_PUMP_DIR','expdp_cas_sys_31july_06.dmp';
+exec utl_file.fremove('DATA_PUMP_DIR','expdp_cas_sys_31july_07.dmp';
+exec utl_file.fremove('DATA_PUMP_DIR','expdp_cas_sys_31july_08.dmp';
+
+
+exec utl_file.fremove('DATA_PUMP_DIR','casoltp_prod_13sep19_.log';
+exec utl_file.fremove('DATA_PUMP_DIR','casoltp_prod_13sep19_01.dmp';
+exec utl_file.fremove('DATA_PUMP_DIR','casoltp_prod_13sep19_02.dmp';
+exec utl_file.fremove('DATA_PUMP_DIR','casoltp_prod_13sep19_03.dmp';
+exec utl_file.fremove('DATA_PUMP_DIR','casoltp_prod_13sep19_04.dmp';
+
+
+
+DECLARE
+hdnl NUMBER;
+BEGIN
+hdnl := DBMS_DATAPUMP.OPEN( operation => 'IMPORT', job_mode => 'SCHEMA', job_name=>null);
+dbms_output.put_line(hdnl);
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'casprd_25Sep19_%U.dmp', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_dump_file);
+DBMS_DATAPUMP.METADATA_REMAP (handle => hdnl,name => 'REMAP_TABLESPACE',old_value => 'ACCOUNT_TDE',value => 'ACCOUNT');
+DBMS_DATAPUMP.METADATA_REMAP (handle => hdnl,name => 'REMAP_TABLESPACE',old_value => 'BILLING_TDE',value => 'BILLING');
+DBMS_DATAPUMP.METADATA_REMAP (handle => hdnl,name => 'REMAP_TABLESPACE',old_value => 'ORDERS_TDE',value => 'ORDERS');
+DBMS_DATAPUMP.ADD_FILE( handle => hdnl, filename => 'import_files.log', directory => 'DATA_PUMP_DIR', filetype => dbms_datapump.ku$_file_type_log_file);
+DBMS_DATAPUMP.METADATA_FILTER(hdnl,'SCHEMA_EXPR','IN (''MDM'',''BILLING'',''ASSET'',''ORDERS'',''CATALOG'',''ACCOUNT'',''COMMUSER'',''MAP'')');
+DBMS_DATAPUMP.set_parallel(handle=>hdnl,degree=>10);
+DBMS_DATAPUMP.SET_PARAMETER(handle=>hdnl,name =>'TABLE_EXISTS_ACTION',value => 'REPLACE');
+DBMS_DATAPUMP.START_JOB(hdnl);
+END;
+
+00 19 * * * /l/CDS_AWS_TO_CAS_AWS_PRF.sh > /l/log/CDS_AWS_TO_CAS_AWS_PRF.log 2>&1
+00 19 * * * /l/CDS_AWS_TO_CASOLTP_IHP_SYS.sh > /l/log/CDS_AWS_TO_CASOLTP_IHP_SYS.log 2>&1
+
+
+select 'alter sequence '||sequence_owner||'.'||sequence_name||' increment by '|| increment_by||';' from dba_sequences where sequence_owner in('ACCOUNT','IDSOWN','NEWEISE2E','ORDERS','COMMUSER','BILLING','DATA_GOVERNANCE','MDM','CATALOG','ASSET','ADSOWN','PDSOWN','EDSOWN','MAP') ORDER BY 1;
+
+select 'SELECT '||sequence_owner||'.'||sequence_name||'.nextval from dual;' from dba_sequences where sequence_owner in('ACCOUNT','IDSOWN','NEWEISE2E','ORDERS','COMMUSER','BILLING','DATA_GOVERNANCE','MDM','CATALOG','ASSET','ADSOWN','PDSOWN','EDSOWN','MAP') ORDER BY 1;
+
+
+
+select 'alter sequence '||sequence_owner||'.'||sequence_name||' increment by 1000000;' from dba_sequences where sequence_owner in('ACCOUNT','IDSOWN','NEWEISE2E','ORDERS','COMMUSER','BILLING','DATA_GOVERNANCE','MDM','CATALOG','ASSET','ADSOWN','PDSOWN','EDSOWN','MAP') ORDER BY 1;
+
+
+
+MAP,WEBSMIG,,WEBSMIGAPP,WEBS,WEBSITEMSYNC,WEBSITEM,MDM,ACCOUNT,ASSET,BILLING,ORDERS.*;
+,CATALOG.*;
+,OGGOWN.*;
+,PMERRINER.*;
+,KVELHAL.*;
+,PAIDI.*;
+,BPRAMANIK.*;
+,SJAIN.*;
+,RSCHUBERT.*;
+,RSANDEEP.*;
+,MSUN.*;
+,RDIACHUK.*;
+,EBS_IQUATE_PPD.*;
+,MAPAPP.*;
+,PCG_ANALYTICS.*;
+,COMMUSER.*;
+,METADATA_USER.*;
+,IAC_ETL_USER.*;
+,MDMAPP.*;
+,OBILL_PDV.*;
+,CASOP.*;
+,READ_ONLY.*;
+,EBS_IQUATE_PROD.*

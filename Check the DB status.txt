@@ -1,0 +1,11 @@
+SQL> select name,open_mode,database_role status from v$instance, v$database;
+
+NAME      OPEN_MODE            DATABASE_ROLE
+--------- -------------------- ----------------
+DMCM1S    READ WRITE           PRIMARY
+
+SQL> select status from v$instance;
+
+STATUS
+------------
+OPEN
