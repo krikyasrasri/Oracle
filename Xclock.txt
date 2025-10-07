@@ -1,0 +1,13 @@
++ASM @ cds4stl1:/oracle/home
+$ export DISPLAY=172.19.120.165:6
++ASM @ cds4stl1:/oracle/home
+$ xclock
+ksh: xclock:  not found
++ASM @ cds4stl1:/oracle/home
+$ uname -a
+AIX cds4stl1 1 6 00CE8EDA4C00
++ASM @ cds4stl1:/oracle/home
+$ cd /usr/bin/X11
++ASM @ cds4stl1:/usr/bin/X11
+$ ./xclock
++ASM @ cds4stl1:/usr/bin/X11

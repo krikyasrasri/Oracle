@@ -1,0 +1,23 @@
+sesudo oracle
+
+cd /oracle/admin/<sid>/ddl/streams
+
+NOTE:- If any of the below scripts prompts; just press enter
+
+sqlplus stradmin/<from sidinfo>
+@status.sql
+@stop_capture.sql
+@stop_propogation.sql
+@stop_apply.sql
+
+<No need to shutdown/startup the database>
+
+After the server reboot
+
+cd /oracle/admin/<sid>/ddl/streams
+
+sqlplus stradmin/<from sidinfo>
+@status.sql
+@start_capture.sql
+@start_propogation.sql
+@start_apply.sql

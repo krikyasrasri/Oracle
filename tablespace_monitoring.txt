@@ -1,0 +1,280 @@
+Tablespace Monitoring
+*********************
+
+SELECT /* + RULE */ df.tablespace_name "Tablespace",
+df.bytes / (1024 * 1024) "Size (MB)",
+SUM(fs.bytes) / (1024 * 1024) "Free (MB)",
+Nvl(Round(SUM(fs.bytes) * 100 / df.bytes),1) "% Free",
+Round((df.bytes - SUM(fs.bytes)) * 100 / df.bytes) "% Used"
+FROM dba_free_space fs,
+(SELECT tablespace_name,SUM(bytes) bytes
+FROM dba_data_files
+GROUP BY tablespace_name) df
+WHERE fs.tablespace_name (+) = df.tablespace_name
+GROUP BY df.tablespace_name,df.bytes
+UNION ALL
+SELECT /* + RULE */ df.tablespace_name tspace,
+fs.bytes / (1024 * 1024),
+SUM(df.bytes_free) / (1024 * 1024),
+Nvl(Round((SUM(fs.bytes) - df.bytes_used) * 100 / fs.bytes), 1),
+Round((SUM(fs.bytes) - df.bytes_free) * 100 / fs.bytes)
+FROM dba_temp_files fs,
+(SELECT tablespace_name,bytes_free,bytes_used
+FROM v$temp_space_header
+GROUP BY tablespace_name,bytes_free,bytes_used) df
+WHERE fs.tablespace_name (+) = df.tablespace_name
+GROUP BY df.tablespace_name,fs.bytes,df.bytes_free,df.bytes_used
+ORDER BY 4 DESC;
+
+List information about tablespace to which datafiles belong
+***********************************************************
+
+SELECT FILE_NAME,TABLESPACE_NAME,BYTES/1024/1024,AUTOEXTENSIBLE,MAXBYTES/1024/1024,INCREMENT_BY FROM DBA_DATA_FILES WHERE  TABLESPACE_NAME='SYSTEM';
+
+
+Single TABLESPACE
+*****************
+
+select
+a.tablespace_name, 
+round(b.bytes/(1024*1024)) as TOTAL, 
+round(b.bytes/(1024*1024)-a.bytes/(1024*1024)) as USED,
+round(a.bytes/(1024*1024)) "FREE" , 
+round((round(b.bytes/(1024*1024)-a.bytes/(1024*1024))/(b.bytes/(1024*1024)))*100) as "PCT Used" ,'%' 
+from sys.sm$ts_free a, sys.sm$ts_avail b where a.tablespace_name=b.tablespace_name and a.tablespace_name= 'VDV_DATA' order by 5
+/
+
+PCT FREE
+********
+set lines 200
+ SELECT df.tablespace_name TABLESPACE, df.total_space TOTAL_SPACE,
+ fs.free_space FREE_SPACE, df.total_space_mb TOTAL_SPACE_MB,
+ (df.total_space_mb - fs.free_space_mb) USED_SPACE_MB,
+ fs.free_space_mb FREE_SPACE_MB,
+ ROUND(100 * (fs.free_space / df.total_space),2) PCT_FREE
+ FROM (SELECT tablespace_name, SUM(bytes) TOTAL_SPACE,
+       ROUND(SUM(bytes) / 1048576) TOTAL_SPACE_MB
+       FROM dba_data_files
+       GROUP BY tablespace_name) df,
+      (SELECT tablespace_name, SUM(bytes) FREE_SPACE,
+        ROUND(SUM(bytes) / 1048576) FREE_SPACE_MB
+        FROM dba_free_space
+        GROUP BY tablespace_name) fs
+ WHERE df.tablespace_name = fs.tablespace_name(+) 
+ORDER BY fs.tablespace_name;  
+
+PCT
+*****
+
+column "PCT Used" format 9999
+break on report
+compute sum of TOTAL on report
+COMPUTE SUM Of USED on report
+COMPUTE SUM Of FREE on report
+select
+a.tablespace_name, 
+round(b.bytes/(1024*1024)) as TOTAL, 
+round(b.bytes/(1024*1024)-a.bytes/(1024*1024)) as USED,
+round(a.bytes/(1024*1024)) "FREE" ,  
+round((round(b.bytes/(1024*1024)-a.bytes/(1024*1024))/(b.bytes/(1024*1024)))*100) as "PCT Used" ,'%' 
+from sys.sm$ts_free a, sys.sm$ts_avail b where a.tablespace_name=b.tablespace_name order by 5;
+
+*******************************************************
+
+
+TEMP tablespace
+****************
+
+SELECT SUM (u.blocks * blk.block_size) / 1024 / 1024 "Mb. in sort segments"
+, (hwm.MAX * blk.block_size) / 1024 / 1024 "Mb. High Water Mark"
+FROM v$sort_usage u
+, (SELECT block_size
+FROM DBA_TABLESPACES
+WHERE CONTENTS = 'TEMPORARY') blk
+, (SELECT segblk# + blocks MAX
+FROM v$sort_usage
+WHERE segblk# = (SELECT MAX (segblk#)
+FROM v$sort_usage)) hwm
+GROUP BY hwm.MAX * blk.block_size / 1024 / 1024;
+
+SET PAUSE ON
+SET PAUSE 'Press Return to Continue'
+SET PAGESIZE 60
+SET LINESIZE 300
+ 
+COL TABLESPACE_SIZE FOR 999,999,999,999
+COL ALLOCATED_SPACE FOR 999,999,999,999
+COL FREE_SPACE FOR 999,999,999,999
+ 
+SELECT *
+FROM   dba_temp_free_space
+/
+
+2nd quey
+*********
+
+SET PAUSE ON
+SET PAUSE 'Press Return to Continue'
+SET PAGESIZE 60
+SET LINESIZE 300
+ 
+SELECT 
+   A.tablespace_name tablespace, 
+   D.mb_total,
+   SUM (A.used_blocks * D.block_size) / 1024 / 1024 mb_used,
+   D.mb_total - SUM (A.used_blocks * D.block_size) / 1024 / 1024 mb_free
+FROM 
+   v$sort_segment A,
+(
+SELECT 
+   B.name, 
+   C.block_size, 
+   SUM (C.bytes) / 1024 / 1024 mb_total
+FROM 
+   v$tablespace B, 
+   v$tempfile C
+WHERE 
+   B.ts#= C.ts#
+GROUP BY 
+   B.name, 
+   C.block_size
+) D
+WHERE 
+   A.tablespace_name = D.name
+GROUP by 
+   A.tablespace_name, 
+   D.mb_total
+/
+
+List information about tablespace to which datafiles belong
+***********************************************************
+
+SELECT file_id,FILE_NAME,TABLESPACE_NAME,BYTES/1024/1024,AUTOEXTENSIBLE,MAXBYTES/1024/1024,INCREMENT_BY FROM DBA_DATA_FILES WHERE  TABLESPACE_NAME='TEMP';
+
+
+List data file information
+**************************
+SELECT FILE#,T1.NAME,STATUS,ENABLED,BYTES,CREATE_BYTES,T2.NAME FROM V$DATAFILE T1, V$TABLESPACE T2 WHERE T1.TS# = T2.TS# ;
+
+
+
+Datafile adding
+***************
+
+alter tablespace USERS add datafile '/ORACLE/POD/base/dbs/users/users_4.dbf' size 5g;
+
+alter tablespace LHR_PR_TBL add datafile '/dbs03/dlwhr1s/lhr_pr_tbl_06.dbf' size 3500m;
+
+alter tablespace LHR_STD_TBL add datafile '/dbs07/plwhr2s/lhr_std_tbl_07.dbf' size 500m;
+
+alter tablespace LHR_INTRFC_STD_TBL  add datafile '/dbs08/plwhr2s/lhr_intrfc_std_tbl_07.dbf' size 500m;
+
+alter tablespace ADC_STD_IDX add datafile '/dbs11/msaf1/adc_std_idx_03.dbf' size 4000m;
+
+Datafile Resize
+***************
+
+alter database datafile '+DATA/avsodbp/datafile/rntdtl_indx.764.768968195' resize 10240m;
+
+alter database datafile '/ORACLE/VENDAVOP/base/dbs/vdv_data/vdv_data_2.dbf' resize 10240m;
+
+Query Monitoring
+****************
+
+col username format a10
+col status format a8
+col sql_text format a50
+col sid format 99999
+
+select buffer_gets, sql_text,sid,serial#,username,status
+from v$session s, v$sqlarea q
+where s.sql_hash_value = q.hash_value
+and s.sql_address = q.address
+and s.sid = &usrsid
+/
+
+
+Creation of tablespace
+**********************
+
+create tablespace DW_TBL_TPS datafile '+DATA01' size 20000m autoextend on next 2500m maxsize 5000m;
+
+create tablespace ts_something
+  logging
+  datafile '/dbf1/ts_sth.dbf' 
+  size 32m 
+  autoextend on 
+  next 32m maxsize 2048m
+  extent management local;
+
+
+Temp Tablespace
+****************
+
+select TABLESPACE_NAME,sum(BYTES_USED/1024/1024),sum(bytes_free/1024/1024) from V$TEMP_SPACE_HEADER where TABLESPACE_NAME='TEMP' group by TABLESPACE_NAME;
+
+List information about TEMP tablespace to which TEMPfiles belong
+***********************************************************
+
+SELECT TABLESPACE_NAME,BYTES/1024/1024,AUTOEXTENSIBLE,MAXBYTES/1024/1024,INCREMENT_BY FROM DBA_TEMP_FILES WHERE TABLESPACE_NAME='TEMP1';
+
+Tempfile Resize
+***************
+
+alter database tempfile '/u02/oradata/vtxsys01/temp1_01.dbf' resize 2000m;
+
+alter tablespace temp add tempfile '/ORACLE/BPMPRD/base/dbs/temp/temp_2.dbf' size 4240m;
+
+
+Undo Tablespace
+***************
+
+select tablespace_name, status, sum(blocks) * 8192/1024/1024/1024 GB from dba_undo_extents group by tablespace_name, status;
+
+drop tablepace
+**************
+
+SQL> DROP TABLESPACE RESDTL_DATA INCLUDING CONTENTS;
+
+Tablespace dropped.
+
+SQL> DROP TABLESPACE RESDTL_INDX INCLUDING CONTENTS;
+
+Tablespace dropped.
+
+
+to check UNDO
+-----------------------
+select a.tablespace_name,b.bytes/(1024*1024) "TOTAL",b.bytes/(1024*1024)-a.bytes/(1024*1024)
+"USED"  ,a.bytes/(1024*1024) "FREE" from sys.sm$ts_free a, sys.sm$ts_avail b where a.tablespace_name=b.tablespace_name
+and a.tablespace_name like 'UNDO%' order by 1
+;
+==============
+
+to check temp
+------------------------
+SELECT A.tablespace_name tablespace, D.mb_total,
+SUM (A.used_blocks * D.block_size) / 1024 / 1024 mb_used,
+D.mb_total - SUM (A.used_blocks * D.block_size) / 1024 / 1024 mb_free
+FROM v$sort_segment A,
+(
+SELECT B.name, C.block_size, SUM (C.bytes) / 1024 / 1024 mb_total
+FROM v$tablespace B, v$tempfile C
+WHERE B.ts#= C.ts#
+GROUP BY B.name, C.block_size
+) D
+WHERE A.tablespace_name = D.name
+GROUP by A.tablespace_name, D.mb_total; 
+
+user creation:
+**************
+
+create tablespace CUSTOMTB datafile '/ORACLE/BPMTST/base/dbs/CUSTOM/CUSTOM_1.dbf' size 1g;
+
+create user CUSTOM identified by J2drj23$1 default tablespace CUSTOMTB temp tablespace
+
+CREATE USER tivadmdb  
+PROFILE DEFAULT  
+IDENTIFIED BY itm_6_monitoring  
+DEFAULT TABLESPACE USERS  
+TEMPORARY TABLESPACE TEMP;  

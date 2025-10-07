@@ -1,0 +1,35 @@
+ export ORACLE_SID=(DATABASE NAME)
+
+cd /var/opt/oracle( TO FIND TEH PATH OF HOME)
+
+$ ls -lrt
+total 14
+-rw-rw-r--   1 oracle   dba           72 Oct 30  2009 oratab
+-rw-r--r--   1 oracle   dba           59 Nov  6  2009 oraInst.loc
+-rw-r--r--   1 oracle   dba          720 Nov 10  2009 listener.ora
+-rw-r--r--   1 oracle   dba         1234 Apr  1 14:20 tnsnames.ora.040110
+-rw-r--r--   1 oracle   dba         1255 Apr  1 14:21 tnsnames.ora
+
+
+$ cat oratab
+psdol1k:/oracle/product/v10.2.0.4:N
+psdol2k:/oracle/product/v10.2.0.4:N
+
+oNCE YOU FIND TEH PATH 
+sET THE ORACLE_HOME
+
+$ export ORACLE_HOME=/oracle/product/v10.2.0.4
+
+sET THE PATH.
+
+$ export PATH=/oracle/product/v10.2.0.4/bin:$PATH
+
+
+************************
+
+.profile
+
+export ORACLE_SID=PROD056
+export ORACLE_HOME=/opt/oracle/u01/app/oracle/product/11.1.0
+export PATH=/opt/oracle/u01/app/oracle/product/11.1.0/bin:$PATH
+

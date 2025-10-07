@@ -1,0 +1,28 @@
+SELECT instance_name,TO_CHAR (startup_time, 'dd-mon-yyyy hh24:mi:ss') start_time from GV$instance;
+
+ALTER DATABASE OPEN
+
+Starting ORACLE instance (normal)
+
+
+col ORIGINATING_TIMESTAMP for a40
+col MESSAGE_TEXT for a80
+set linesize 500
+SELECT
+originating_timestamp,
+message_text
+FROM
+sys.x$dbgalertext
+WHERE
+message_text LIKE '%ALTER DATABASE TEMPFILE%';
+
+col ORIGINATING_TIMESTAMP for a40
+col MESSAGE_TEXT for a80
+set linesize 500
+SELECT
+originating_timestamp,
+message_text
+FROM
+sys.x$dbgalertext
+WHERE
+message_text LIKE '%Starting ORACLE instance (normal)%';

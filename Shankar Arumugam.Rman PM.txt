@@ -1,0 +1,96 @@
+Shankar Arumugam	dwdb1s @ cds0stl3:/sys_apps_01/rman/scripts
+$ rman target /
+
+Recovery Manager: Release 10.2.0.4.0 - Production on Mon Aug 9 11:32:17 2010
+
+Copyright (c) 1982, 2007, Oracle.  All rights reserved.
+
+connected to target database: DWDB1S (DBID=1130911200, not open)
+
+RMAN> connect rcvcat rman/backup3#@drct0s
+
+connected to recovery catalog database
+
+RMAN> list backup of database summary;
+
+
+List of Backups
+===============
+Key     TY LV S Device Type Completion Time #Pieces #Copies Compressed Tag
+------- -- -- - ----------- --------------- ------- ------- ---------- ---
+5717770 B  F  A SBT_TAPE    17-JUL-09       1       1       NO         HOT DWDB1S 20090717-07-00
+5717771 B  F  A SBT_TAPE    17-JUL-09       1       1       NO         HOT DWDB1S 20090717-07-00
+5717772 B  F  A SBT_TAPE    17-JUL-09       1       1       NO         HOT DWDB1S 20090717-07-00
+5717773 B  F  A SBT_TAPE    17-JUL-09       1       1       NO         HOT DWDB1S 20090717-07-00
+5717774 B  F  A SBT_TAPE    17-JUL-09       1       1       NO         HOT DWDB1S 20090717-07-00
+5717775 B  F  A SBT_TAPE    17-JUL-09       1       1       NO         HOT DWDB1S 20090717-07-00
+5717795 B  F  A SBT_TAPE    24-JUL-09       1       1       NO         HOT DWDB1S 20090724-07-00
+5717796 B  F  A SBT_TAPE    24-JUL-09       1       1       NO         HOT DWDB1S 20090724-07-00
+5717797 B  F  A SBT_TAPE    24-JUL-09       1       1       NO         HOT DWDB1S 20090724-07-00
+5717798 B  F  A SBT_TAPE    24-JUL-09       1       1       NO         HOT DWDB1S 20090724-07-00
+5717799 B  F  A SBT_TAPE    24-JUL-09       1       1       NO         HOT DWDB1S 20090724-07-00
+5717800 B  F  A SBT_TAPE    24-JUL-09       1       1       NO         HOT DWDB1S 20090724-07-00
+5717826 B  F  A SBT_TAPE    07-AUG-09       1       1       NO         HOT DWDB1S 20090807-07-00
+5717827 B  F  A SBT_TAPE    07-AUG-09       1       1       NO         HOT DWDB1S 20090807-07-00
+5717828 B  F  A SBT_TAPE    07-AUG-09       1       1       NO         HOT DWDB1S 20090807-07-00
+5717829 B  F  A SBT_TAPE    07-AUG-09       1       1       NO         HOT DWDB1S 20090807-07-00
+5717830 B  F  A SBT_TAPE    07-AUG-09       1       1       NO         HOT DWDB1S 20090807-07-00
+5717831 B  F  A SBT_TAPE    07-AUG-09       1       1       NO         HOT DWDB1S 20090807-07-00
+17498619 B  F  A SBT_TAPE    22-JAN-10       1       1       NO         HOT DWDB1S 20100122-07-00
+17498620 B  F  A SBT_TAPE    22-JAN-10       1       1       NO         HOT DWDB1S 20100122-07-00
+17498621 B  F  A SBT_TAPE    22-JAN-10       1       1       NO         HOT DWDB1S 20100122-07-00
+17498622 B  F  A SBT_TAPE    22-JAN-10       1       1       NO         HOT DWDB1S 20100122-07-00
+17498623 B  F  A SBT_TAPE    22-JAN-10       1       1       NO         HOT DWDB1S 20100122-07-00
+17498624 B  F  A SBT_TAPE    22-JAN-10       1       1       NO         HOT DWDB1S 20100122-07-00
+22125145 B  F  A SBT_TAPE    02-APR-10       1       1       NO         HOT DWDB1S 20100402-07-00
+22125146 B  F  A SBT_TAPE    02-APR-10       1       1       NO         HOT DWDB1S 20100402-07-00
+22125147 B  F  A SBT_TAPE    02-APR-10       1       1       NO         HOT DWDB1S 20100402-07-00
+22125148 B  F  A SBT_TAPE    02-APR-10       1       1       NO         HOT DWDB1S 20100402-07-00
+22125149 B  F  A SBT_TAPE    02-APR-10       1       1       NO         HOT DWDB1S 20100402-07-00
+22125150 B  F  A SBT_TAPE    02-APR-10       1       1       NO         HOT DWDB1S 20100402-07-00
+23204088 B  F  A SBT_TAPE    16-APR-10       1       1       NO         HOT DWDB1S 20100416-07-00
+23204089 B  F  A SBT_TAPE    16-APR-10       1       1       NO         HOT DWDB1S 20100416-07-00
+23204090 B  F  A SBT_TAPE    16-APR-10       1       1       NO         HOT DWDB1S 20100416-07-00
+23204091 B  F  A SBT_TAPE    16-APR-10       1       1       NO         HOT DWDB1S 20100416-07-00
+23204092 B  F  A SBT_TAPE    16-APR-10       1       1       NO         HOT DWDB1S 20100416-07-00
+23204093 B  F  A SBT_TAPE    16-APR-10       1       1       NO         HOT DWDB1S 20100416-07-00
+26271940 B  F  A SBT_TAPE    21-MAY-10       1       1       NO         HOT DWDB1S 20100521-07-00
+26271941 B  F  A SBT_TAPE    21-MAY-10       1       1       NO         HOT DWDB1S 20100521-07-00
+26271942 B  F  A SBT_TAPE    21-MAY-10       1       1       NO         HOT DWDB1S 20100521-07-00
+26271943 B  F  A SBT_TAPE    21-MAY-10       1       1       NO         HOT DWDB1S 20100521-07-00
+26271944 B  F  A SBT_TAPE    21-MAY-10       1       1       NO         HOT DWDB1S 20100521-07-00
+26271945 B  F  A SBT_TAPE    21-MAY-10       1       1       NO         HOT DWDB1S 20100521-07-00
+28655538 B  F  A SBT_TAPE    22-JUN-10       1       1       NO         HOT DWDB1S 20100622-16-36
+28655539 B  F  A SBT_TAPE    22-JUN-10       1       1       NO         HOT DWDB1S 20100622-16-36
+28655540 B  F  A SBT_TAPE    22-JUN-10       1       1       NO         HOT DWDB1S 20100622-16-36
+28655541 B  F  A SBT_TAPE    22-JUN-10       1       1       NO         HOT DWDB1S 20100622-16-36
+28655542 B  F  A SBT_TAPE    22-JUN-10       1       1       NO         HOT DWDB1S 20100622-16-36
+28655543 B  F  A SBT_TAPE    22-JUN-10       1       1       NO         HOT DWDB1S 20100622-16-36
+29044122 B  F  A SBT_TAPE    25-JUN-10       1       1       NO         HOT DWDB1S 20100625-07-00
+29044123 B  F  A SBT_TAPE    25-JUN-10       1       1       NO         HOT DWDB1S 20100625-07-00
+29044124 B  F  A SBT_TAPE    25-JUN-10       1       1       NO         HOT DWDB1S 20100625-07-00
+29044125 B  F  A SBT_TAPE    25-JUN-10       1       1       NO         HOT DWDB1S 20100625-07-00
+29044126 B  F  A SBT_TAPE    25-JUN-10       1       1       NO         HOT DWDB1S 20100625-07-00
+29044127 B  F  A SBT_TAPE    25-JUN-10       1       1       NO         HOT DWDB1S 20100625-07-00
+40654616 B  F  A SBT_TAPE    07-AUG-10       1       1       NO         TAG20100807T101218
+40654617 B  F  A SBT_TAPE    07-AUG-10       1       1       NO         TAG20100807T101218
+40654618 B  F  A SBT_TAPE    07-AUG-10       1       1       NO         TAG20100807T101218
+40654619 B  F  A SBT_TAPE    07-AUG-10       1       1       NO         TAG20100807T101218
+40654620 B  F  A SBT_TAPE    07-AUG-10       1       1       NO         TAG20100807T101218
+40654621 B  F  A SBT_TAPE    07-AUG-10       1       1       NO         TAG20100807T101218
+40654622 B  F  A SBT_TAPE    07-AUG-10       1       1       NO         TAG20100807T101218
+40654623 B  F  A SBT_TAPE    07-AUG-10       1       1       NO         TAG20100807T101218
+40654624 B  F  A SBT_TAPE    07-AUG-10       1       1       NO         TAG20100807T101218
+40654625 B  F  A SBT_TAPE    07-AUG-10       1       1       NO         TAG20100807T101218
+40654626 B  F  A SBT_TAPE    07-AUG-10       1       1       NO         TAG20100807T101218
+40654627 B  F  A SBT_TAPE    07-AUG-10       1       1       NO         TAG20100807T101218
+40654628 B  F  A SBT_TAPE    07-AUG-10       1       1       NO         TAG20100807T101218
+40654629 B  F  A SBT_TAPE    07-AUG-10       1       1       NO         TAG20100807T101218
+40654630 B  F  A SBT_TAPE    07-AUG-10       1       1       NO         TAG20100807T101218
+40654631 B  F  A SBT_TAPE    07-AUG-10       1       1       NO         TAG20100807T101218
+
+RMAN> exit
+
+
+Recovery Manager complete.
+dwdb1s @ cds0stl3:/sys_apps_01/rman/scripts

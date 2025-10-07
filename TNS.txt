@@ -1,0 +1,213 @@
+Kumaravelu Asirvatham	hi prasanna
+Prasanna Radhakrishnan	Hi Kumaravelu 
+
+Kumaravelu Asirvatham	i am unable to connect to any oracle database even though  even firewall authenticated
+Kumaravelu Asirvatham	i sent a mail to ur team
+Kumaravelu Asirvatham	can you help me on this? 
+Prasanna Radhakrishnan	Yes i saw you rmail
+Prasanna Radhakrishnan	lemme chk
+Kumaravelu Asirvatham	tnx,i am oncall today
+Prasanna Radhakrishnan	ok
+Prasanna Radhakrishnan	i am able to connect to that database through diff Schema
+Prasanna Radhakrishnan	i dont have pwd for that schema SAFEBATCH
+Prasanna Radhakrishnan	updated in our SITE
+Prasanna Radhakrishnan	do you have t he pwd
+Kumaravelu Asirvatham	safebatch is pwd
+Prasanna Radhakrishnan	ok
+Prasanna Radhakrishnan	lemme chk from that schema 
+Prasanna Radhakrishnan	its not taking
+Prasanna Radhakrishnan	invalid user id and pwd
+Prasanna Radhakrishnan	error i am getting
+Kumaravelu Asirvatham	i m sorry
+Kumaravelu Asirvatham	it is risk66systems
+Prasanna Radhakrishnan	i am able to connect Kumar
+Kumaravelu Asirvatham	i was told that there could be a lock when try through Toad and it has to be unlocked
+Prasanna Radhakrishnan	with that pwd
+Kumaravelu Asirvatham	is that possible?
+Prasanna Radhakrishnan	if its locked, even i'll not able to login..
+Prasanna Radhakrishnan	and you'll get the error as account locked out..
+Prasanna Radhakrishnan	this is TNS error
+Kumaravelu Asirvatham	yes
+Prasanna Radhakrishnan	usually it comes for Firewall..
+Prasanna Radhakrishnan	can you please login to STL prod firewall again and try again
+Kumaravelu Asirvatham	i tried 5 times from mrng, but no luck
+Kumaravelu Asirvatham	i m very new for this account
+Prasanna Radhakrishnan	can you try now one last time.. please login to all the firewalls now and then try agian...
+Prasanna Radhakrishnan	belive me sometimes it works
+Kumaravelu Asirvatham	i m able login all other PROD  systems,putty etc
+Kumaravelu Asirvatham	who can help on this? do i need to contact 5 help? 
+Prasanna Radhakrishnan	so you dont want to login to firewall now and try again?
+Kumaravelu Asirvatham	i do one thing i log off my system and let me try again
+Kumaravelu Asirvatham	thanks prasanna...
+Prasanna Radhakrishnan	chk and let me know
+Prasanna Radhakrishnan	if its working
+Kumaravelu Asirvatham	sure
+Prasanna Radhakrishnan	if not we'll try something else
+Kumaravelu Asirvatham	ok
+Kumaravelu Asirvatham	no use. it throws the same error
+Prasanna Radhakrishnan	hmmm
+Prasanna Radhakrishnan	is this first time you are connecting
+Kumaravelu Asirvatham	no no, i connected even yesterday
+Prasanna Radhakrishnan	ok lemme chk
+Kumaravelu Asirvatham	plz
+Prasanna Radhakrishnan	Kumar i am chking with Infosec for any firewall related issues with your ID
+Kumaravelu Asirvatham	ok
+Prasanna Radhakrishnan	i'll update you once i get the info from them
+Kumaravelu Asirvatham	tnx.. ill wait
+Kumaravelu Asirvatham	did u get anything back from infosec
+Prasanna Radhakrishnan	hi you ther
+Kumaravelu Asirvatham	hi
+Prasanna Radhakrishnan	Do you have the problem still
+Kumaravelu Asirvatham	yes,did u get anything back from infosec
+Prasanna Radhakrishnan	I asked them to add 1 more firewall ruke to you
+Prasanna Radhakrishnan	*rule
+Prasanna Radhakrishnan	in the mean time can you do tnsping to psaf1
+Prasanna Radhakrishnan	I am still able to login to the schema
+Kumaravelu Asirvatham	can i do it from my local machine?
+Prasanna Radhakrishnan	sure ... go to cmd
+Kumaravelu Asirvatham	ok
+Prasanna Radhakrishnan	put the command tnsping psaf1
+Prasanna Radhakrishnan	let me know the output here
+Kumaravelu Asirvatham	
+Kumaravelu Asirvatham	
+Kumaravelu Asirvatham	
+Kumaravelu Asirvatham	tnsping psaf1
+Prasanna Radhakrishnan	get me the result pls
+Kumaravelu Asirvatham	C:\Documents and Settings\e033135>tnsping psaf1
+
+TNS Ping Utility for 32-bit Windows: Version 9.2.0.1.0 - Production on 12-JUN-20
+10 21:25:16
+
+Copyright (c) 1997 Oracle Corporation.  All rights reserved.
+
+Used parameter files:
+
+TNS-03505: Failed to resolve name
+Prasanna Radhakrishnan	can you check for tnsping psaf1.world
+Kumaravelu Asirvatham	C:\Documents and Settings\e033135> tnsping psaf1.world
+
+TNS Ping Utility for 32-bit Windows: Version 9.2.0.1.0 - Production on 12-JUN-20
+10 21:27:58
+
+Copyright (c) 1997 Oracle Corporation.  All rights reserved.
+
+Used parameter files:
+
+TNS-03505: Failed to resolve name
+Prasanna Radhakrishnan	what about the other databases in stl. are you able to login ?
+Kumaravelu Asirvatham	i m not able connect toany db
+Prasanna Radhakrishnan	hmm
+Prasanna Radhakrishnan	can you try tnsping pmch1s
+Kumaravelu Asirvatham	it throws the same error
+Prasanna Radhakrishnan	try tnsping pmol1s
+Kumaravelu Asirvatham	same error :(
+Prasanna Radhakrishnan	can you ping 10.154.145.23
+Kumaravelu Asirvatham	able to ping
+Kumaravelu Asirvatham	
+Kumaravelu Asirvatham	
+Kumaravelu Asirvatham	C:\Documents and Settings\e033135>ping 10.154.145.23
+
+Pinging 10.154.145.23 with 32 bytes of data:
+
+Reply from 10.154.145.23: bytes=32 time=51ms TTL=246
+Reply from 10.154.145.23: bytes=32 time=48ms TTL=246
+Reply from 10.154.145.23: bytes=32 time=48ms TTL=246
+Reply from 10.154.145.23: bytes=32 time=51ms TTL=246
+
+Ping statistics for 10.154.145.23:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 48ms, Maximum = 51ms, Average = 49ms
+Prasanna Radhakrishnan	so your machine is talking to host but not to databases. We need to get an update from infosec then.
+Prasanna Radhakrishnan	I will keep you updated
+Kumaravelu Asirvatham	what is that ip address? DB server IP?
+Prasanna Radhakrishnan	can you give the output of %TNS_ADMIN%
+Kumaravelu Asirvatham	in cmd?
+Prasanna Radhakrishnan	yes
+Kumaravelu Asirvatham	
+Kumaravelu Asirvatham	
+Kumaravelu Asirvatham	C:\Documents and Settings\e033135>%TNS_ADMIN%
+'%TNS_ADMIN%' is not recognized as an internal or external command,
+operable program or batch file.
+Prasanna Radhakrishnan	sorry please use echo %TNS_ADMIN%
+Kumaravelu Asirvatham	C:\Documents and Settings\e033135>echo %TNS_ADMIN%
+%TNS_ADMIN%
+Prasanna Radhakrishnan	set TNS_ADMIN=G:\ORACLE\ORANT\NETWORK\ADMIN
+Prasanna Radhakrishnan	can yo please execute the above in cmd prompt
+Kumaravelu Asirvatham	done
+Prasanna Radhakrishnan	now can you please ecxecute %TNS_ADMIN%
+Prasanna Radhakrishnan	echo %TNS_ADMIN%
+Kumaravelu Asirvatham	C:\Documents and Settings\e033135>echo %TNS_ADMIN%
+G:\ORACLE\ORANT\NETWORK\ADMIN
+Prasanna Radhakrishnan	now can you please give me the output of
+Prasanna Radhakrishnan	tnsping psaf1.world
+Kumaravelu Asirvatham	
+Kumaravelu Asirvatham	
+Kumaravelu Asirvatham	C:\Documents and Settings\e033135>tnsping psaf1.world
+
+TNS Ping Utility for 32-bit Windows: Version 9.2.0.1.0 - Production on 12-JUN-20
+10 21:48:16
+
+Copyright (c) 1997 Oracle Corporation.  All rights reserved.
+
+Used parameter files:
+
+TNS-03505: Failed to resolve name
+Prasanna Radhakrishnan	can you pinf some other production server
+Prasanna Radhakrishnan	ping*
+Prasanna Radhakrishnan	tnsping pcop1s.world
+Kumaravelu Asirvatham	same error
+Prasanna Radhakrishnan	is the G-drive mapped with your system
+Kumaravelu Asirvatham	no
+Kumaravelu Asirvatham	shall i map it?
+Prasanna Radhakrishnan	please map it
+Kumaravelu Asirvatham	any specific location?
+Kumaravelu Asirvatham	done
+Prasanna Radhakrishnan	please try now
+Prasanna Radhakrishnan	in the network drive, is it showing like G drive - apps on 'corp.mastercard.org\stlproj'
+Kumaravelu Asirvatham	you rock it  :))
+Kumaravelu Asirvatham	
+Kumaravelu Asirvatham	
+Kumaravelu Asirvatham	C:\Documents and Settings\e033135>tnsping pcop1s.world
+
+TNS Ping Utility for 32-bit Windows: Version 9.2.0.1.0 - Production on 12-JUN-20
+10 21:52:48
+
+Copyright (c) 1997 Oracle Corporation.  All rights reserved.
+
+Used parameter files:
+G:\ORACLE\ORANT\NETWORK\ADMIN\sqlnet.ora
+
+
+Used TNSNAMES adapter to resolve the alias
+Attempting to contact (DESCRIPTION= (ADDRESS_LIST= (ADDRESS= (PROTOCOL = TCP) (H
+OST = cds2stl9) (PORT = 1527))) (CONNECT_DATA= (SID = pcop1s)))
+OK (190 msec)
+
+C:\Documents and Settings\e033135>tnsping psaf1.world
+
+TNS Ping Utility for 32-bit Windows: Version 9.2.0.1.0 - Production on 12-JUN-20
+10 21:53:07
+
+Copyright (c) 1997 Oracle Corporation.  All rights reserved.
+
+Used parameter files:
+G:\ORACLE\ORANT\NETWORK\ADMIN\sqlnet.ora
+
+
+Used TNSNAMES adapter to resolve the alias
+Attempting to contact (DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (COMMUNITY = tcp
+.world) (PROTOCOL = TCP) (Host = cds2stl1718-oracle1) (Port = 1527))) (CONNECT_D
+ATA = (SID = psaf1)))
+OK (150 msec)
+Prasanna Radhakrishnan	thanks
+Prasanna Radhakrishnan	cool
+Kumaravelu Asirvatham	im able to connect to db
+Kumaravelu Asirvatham	is drive mapping the issue?
+Prasanna Radhakrishnan	Yup
+Kumaravelu Asirvatham	thank u very much
+Prasanna Radhakrishnan	there is a file in that G drive called TNS.ora
+Prasanna Radhakrishnan	that was not mapped..
+Prasanna Radhakrishnan	now its fixed..
+Kumaravelu Asirvatham	oh ok
+Kumaravelu Asirvatham	bye

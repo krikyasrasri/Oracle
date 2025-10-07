@@ -1,0 +1,23 @@
+NPE Databases:
+==============
+
+SQL> select count(*) from sys.aud$ where trunc(NTIMESTAMP# ) < trunc(sysdate -7); --10g
+
+
+SQL> delete from sys.aud$ where trunc(NTIMESTAMP# ) < trunc(sysdate -7); --10g
+
+or
+
+SQL> select count(*) from sys.aud$ where trunc(TIMESTAMP#) < trunc(sysdate -7); --9i
+
+
+SQL> delete from sys.aud$ where trunc(TIMESTAMP#) < trunc(sysdate -7); --9i
+
+=======================
+For prod databases:
+====================
+create table temp_aud as (select * from sys.aud$  where trunc(NTIMESTAMP# ) >= trunc(sysdate -7) );  
+truncate table sys.aud$;
+insert into sys.aud$ (select * from temp_aud);
+drop table temp_aud;
+commit; 

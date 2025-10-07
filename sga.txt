@@ -1,0 +1,84 @@
+SQL> set lines 1000
+SQL> col component for a40
+SQL> select * from v$sga_dynamic_components;
+
+COMPONENT                                                        CURRENT_SIZE   MIN_SIZE   MAX_SIZE USER_SPECIFIED_SIZE OPER_COUNT LAST_OPER_TYP LAST_OPER LAST_OPER GRANULE_SIZE
+---------------------------------------------------------------- ------------ ---------- ---------- ------------------- ---------- ------------- --------- --------- ------------
+shared pool                                                        1.5032E+10 1.5032E+10 1.5032E+10                   0          0 STATIC                               536870912
+large pool                                                         2147483648 2147483648 2147483648                   0          0 STATIC                               536870912
+java pool                                                           536870912  536870912  536870912                   0          0 STATIC                               536870912
+streams pool                                                       1073741824 1073741824 1073741824                   0          0 STATIC                               536870912
+DEFAULT buffer cache                                               1.3583E+11 1.3583E+11 1.3583E+11                   0          0 INITIALIZING                         536870912
+KEEP buffer cache                                                           0          0          0                   0          0 STATIC                               536870912
+RECYCLE buffer cache                                                        0          0          0                   0          0 STATIC                               536870912
+DEFAULT 2K buffer cache                                                     0          0          0                   0          0 STATIC                               536870912
+DEFAULT 4K buffer cache                                                     0          0          0                   0          0 STATIC                               536870912
+DEFAULT 8K buffer cache                                                     0          0          0                   0          0 STATIC                               536870912
+DEFAULT 16K buffer cache                                                    0          0          0                   0          0 STATIC                               536870912
+
+COMPONENT                                                        CURRENT_SIZE   MIN_SIZE   MAX_SIZE USER_SPECIFIED_SIZE OPER_COUNT LAST_OPER_TYP LAST_OPER LAST_OPER GRANULE_SIZE
+---------------------------------------------------------------- ------------ ---------- ---------- ------------------- ---------- ------------- --------- --------- ------------
+DEFAULT 32K buffer cache                                                    0          0          0                   0          0 STATIC                               536870912
+Shared IO Pool                                                              0          0          0                   0          0 STATIC                               536870912
+ASM Buffer Cache                                                            0          0          0                   0          0 STATIC                               536870912
+
+14 rows selected.
+
+
+SQL> select * from v_$MEMORY_DYNAMIC_COMPONENTS;
+
+COMPONENT                                CURRENT_SIZE   MIN_SIZE   MAX_SIZE USER_SPECIFIED_SIZE OPER_COUNT LAST_OPER_TYP LAST_OPER LAST_OPER GRANULE_SIZE
+---------------------------------------- ------------ ---------- ---------- ------------------- ---------- ------------- --------- --------- ------------
+shared pool                                1.5032E+10 1.5032E+10 1.5032E+10                   0          0 STATIC                               536870912
+large pool                                 2147483648 2147483648 2147483648                   0          0 STATIC                               536870912
+java pool                                   536870912  536870912  536870912                   0          0 STATIC                               536870912
+streams pool                               1073741824 1073741824 1073741824                   0          0 STATIC                               536870912
+SGA Target                                 1.5569E+11 1.5569E+11 1.5569E+11          1.5569E+11          0 STATIC                               536870912
+DEFAULT buffer cache                       1.3583E+11 1.3583E+11 1.3583E+11                   0          0 INITIALIZING                         536870912
+KEEP buffer cache                                   0          0          0                   0          0 STATIC                               536870912
+RECYCLE buffer cache                                0          0          0                   0          0 STATIC                               536870912
+DEFAULT 2K buffer cache                             0          0          0                   0          0 STATIC                               536870912
+DEFAULT 4K buffer cache                             0          0          0                   0          0 STATIC                               536870912
+DEFAULT 8K buffer cache                             0          0          0                   0          0 STATIC                               536870912
+
+COMPONENT                                CURRENT_SIZE   MIN_SIZE   MAX_SIZE USER_SPECIFIED_SIZE OPER_COUNT LAST_OPER_TYP LAST_OPER LAST_OPER GRANULE_SIZE
+---------------------------------------- ------------ ---------- ---------- ------------------- ---------- ------------- --------- --------- ------------
+DEFAULT 16K buffer cache                            0          0          0                   0          0 STATIC                               536870912
+DEFAULT 32K buffer cache                            0          0          0                   0          0 STATIC                               536870912
+Shared IO Pool                                      0          0          0                   0          0 STATIC                               536870912
+PGA Target                                 3.7581E+10 3.7581E+10 3.7581E+10          2.6844E+10          0 STATIC                               536870912
+ASM Buffer Cache                                    0          0          0                   0          0 STATIC                               536870912
+
+16 rows selected.
+
+
+SQL> break on report
+SQL> compute sum of current_size on report
+SQL> col current_size for 999,999,999,990
+SQL> /
+
+COMPONENT                                    CURRENT_SIZE   MIN_SIZE   MAX_SIZE USER_SPECIFIED_SIZE OPER_COUNT LAST_OPER_TYP LAST_OPER LAST_OPER GRANULE_SIZE
+---------------------------------------- ---------------- ---------- ---------- ------------------- ---------- ------------- --------- --------- ------------
+shared pool                                15,032,385,536 1.5032E+10 1.5032E+10                   0          0 STATIC                               536870912
+large pool                                  2,147,483,648 2147483648 2147483648                   0          0 STATIC                               536870912
+java pool                                     536,870,912  536870912  536870912                   0          0 STATIC                               536870912
+streams pool                                1,073,741,824 1073741824 1073741824                   0          0 STATIC                               536870912
+SGA Target                                155,692,564,480 1.5569E+11 1.5569E+11          1.5569E+11          0 STATIC                               536870912
+DEFAULT buffer cache                      135,828,340,736 1.3583E+11 1.3583E+11                   0          0 INITIALIZING                         536870912
+KEEP buffer cache                                       0          0          0                   0          0 STATIC                               536870912
+RECYCLE buffer cache                                    0          0          0                   0          0 STATIC                               536870912
+DEFAULT 2K buffer cache                                 0          0          0                   0          0 STATIC                               536870912
+DEFAULT 4K buffer cache                                 0          0          0                   0          0 STATIC                               536870912
+DEFAULT 8K buffer cache                                 0          0          0                   0          0 STATIC                               536870912
+
+COMPONENT                                    CURRENT_SIZE   MIN_SIZE   MAX_SIZE USER_SPECIFIED_SIZE OPER_COUNT LAST_OPER_TYP LAST_OPER LAST_OPER GRANULE_SIZE
+---------------------------------------- ---------------- ---------- ---------- ------------------- ---------- ------------- --------- --------- ------------
+DEFAULT 16K buffer cache                                0          0          0                   0          0 STATIC                               536870912
+DEFAULT 32K buffer cache                                0          0          0                   0          0 STATIC                               536870912
+Shared IO Pool                                          0          0          0                   0          0 STATIC                               536870912
+PGA Target                                 37,580,963,840 3.7581E+10 3.7581E+10          2.6844E+10          0 STATIC                               536870912
+ASM Buffer Cache                                        0          0          0                   0          0 STATIC                               536870912
+                                         ----------------
+sum                                       347,892,350,976
+
+16 rows selected.

@@ -1,0 +1,46 @@
+How to drop and recreate TEMP Tablespace in Oracle:
+****************************************************
+***************
+
+1. Create Temporary Tablespace Temp
+
+CREATE TEMPORARY TABLESPACE TEMP2 TEMPFILE '/u01/oradata/vtxsys01/temp02.tmp' SIZE 2000M';
+
+2. Move Default Database temp tablespace
+
+ALTER DATABASE DEFAULT TEMPORARY TABLESPACE temp2;
+
+3. Make sure No sessions are using your Old Temp tablespace
+
+   a.  Find Session Number from V$SORT_USAGE:
+       SELECT USERNAME, SESSION_NUM, SESSION_ADDR FROM V$SORT_USAGE;
+
+   b.  Find Session ID from V$SESSION:
+
+       If the resultset contains any tows then your next step will be to find the SID from the V$SESSION view. You can find session id by using SESSION_NUM or SESSION_ADDR from previous resultset.
+
+       SELECT SID, SERIAL#, STATUS FROM V$SESSION WHERE SERIAL#=5;
+       OR
+       SELECT SID, SERIAL#, STATUS FROM V$SESSION WHERE SADDR=SESSION_ADDR;
+
+    c.  Kill Session:
+
+    Now kill the session with IMMEDIATE.
+
+    ALTER SYSTEM KILL session '20,5' IMMEDIATE;
+
+4. Drop temp tablespace
+
+DROP TABLESPACE temp INCLUDING CONTENTS AND DATAFILES;
+
+5. Recreate Tablespace Temp
+
+CREATE TEMPORARY TABLESPACE TEMP TEMPFILE '/u01/oradata/vtxsys01/temp01.tmp' SIZE 2000M;
+
+6 Move Tablespace Temp, back to new temp tablespace
+
+ALTER DATABASE DEFAULT TEMPORARY TABLESPACE temp;
+
+7. Drop temporary for tablespace temp
+
+DROP TABLESPACE temp2 INCLUDING CONTENTS AND DATAFILES;

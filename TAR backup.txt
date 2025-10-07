@@ -1,0 +1,40 @@
+run this from home dir
+
+tar -cvf /u01/app/oraInventory_bck.tar .
+ 
+
+tar -cvf ----[tar cmd]
+
+/dbs_01/oraclehomebackup/------[Location in which tar has to place]
+
+
+10204.tar ---- tarback name..
+
+
+for inventory backup - take inventory location from opatch lsinventory output and cd one step before to that location
+
+Central Inventory : /u01/app/oracle/oraInventory
+
+(tar -cvf oraInventory_bgtedwd_bck.tar oraInventory)
+
+PRD:e2usabgprodba01:/u01/app/oracle> /u01/app/oracle
+tar -cvf oraInventory_bgtedwd_bck.tar oraInventory
+
+nohup
+*****
+
+
+nohup tar cvf - /oracle/product/v11.2.0.1 | gzip > /ora_exp_01/tarbk_CHG48873/Oracle_11_2_0_1_home.tar.gz & 
+
+
+*******************************
+
+Lnux
+
+
+oracle@e2psavctigdba02(crgcnrp):/c01/app/oracle/product $ cd old_9i_home_backup
+oracle@e2psavctigdba02(crgcnrp):/c01/app/oracle/product/old_9i_home_backup $ ls -lrt
+total 0
+oracle@e2psavctigdba02(crgcnrp):/c01/app/oracle/product/old_9i_home_backup $ tar -cvf old_9i_home.tar /c01/app/oracle/product/920
+
+

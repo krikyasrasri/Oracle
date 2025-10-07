@@ -1,0 +1,19 @@
+scp -P 4444 e028757@10.154.22.36:/ora_repository/v11gR2/scripts/*.sh .
+
+
+scp -P 22 oracle@161.178.233.134:/export/home/oracle/solaris.sparc64_11gR2_client.zip .
+
+
+11g april patch
+----------------
+scp -P 22 oracle@10.54.128.68:/u105/oradata/PASXPRD/archive/PASXPRD_0001_0000000042_0912399131.arc .
+
+
+10.2.0.5 april psu
+*******************
+scp -P 22 oracle@161.178.175.158:/u01/app/oracle/product/102/psuAPR13/p16056270_10205_SOLARIS64.zip .
+
+
+scp root@dehensve33:/ORACLE/FIRECTLP/archive/gap_fix/primary_db.ctl .
+
+

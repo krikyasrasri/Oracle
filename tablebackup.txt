@@ -1,0 +1,5 @@
+create table LCN_STATUS_CATEGORY_backup ( select * from LCN_STATUS_CATEGORY);
+
+create table LCN_STATUS_CAT_ASSN_backup ( select * from LCN_STATUS_CAT_ASSN);
+
+

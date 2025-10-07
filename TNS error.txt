@@ -1,0 +1,64 @@
+Ramanjaneyula Sriramdas	Hi
+Ramanjaneyula Sriramdas	this is ram
+Prasanna Radhakrishnan	Hi ram
+Ramanjaneyula Sriramdas	from today, i am not able to connect to DBPN1S and 2S DBs
+Ramanjaneyula Sriramdas	can u pls help me in connecting to those 
+Prasanna Radhakrishnan	sure
+Prasanna Radhakrishnan	lemme chk
+Ramanjaneyula Sriramdas	ok
+Ramanjaneyula Sriramdas	extn pls>
+Ramanjaneyula Sriramdas	?
+Ramanjaneyula Sriramdas	my user id :e033447
+Ramanjaneyula Sriramdas	other members of my team r able to access
+Ramanjaneyula Sriramdas	but i am not
+Prasanna Radhakrishnan	what the error are you getting?
+Ramanjaneyula Sriramdas	1 min
+Ramanjaneyula Sriramdas	ORA-12154: TNS:Could not resolve service name (DBPN2S)
+Prasanna Radhakrishnan	ok
+Ramanjaneyula Sriramdas	from java apln, i am able to connect
+Ramanjaneyula Sriramdas	but when i am connecting DB through TOAD, it is throwing the above error
+Prasanna Radhakrishnan	i'll look int oit and fix it
+Prasanna Radhakrishnan	BRB
+Ramanjaneyula Sriramdas	BRB?
+Ramanjaneyula Sriramdas	can u pls let me know once uj fiexed the same
+Ramanjaneyula Sriramdas	hi
+Prasanna Radhakrishnan	Hi ram
+Prasanna Radhakrishnan	sorry got stuck in Prod issue
+Ramanjaneyula Sriramdas	oh
+Ramanjaneyula Sriramdas	still i am facing that issue
+Prasanna Radhakrishnan	are you able to connect to any other DB?
+Ramanjaneyula Sriramdas	no
+Ramanjaneyula Sriramdas	SQLNET Editor,TNSNames Editor button are not highlighted in the toad
+Ramanjaneyula Sriramdas	i am not sure whether this may be the problem
+Prasanna Radhakrishnan	can you give the output of %TNS_ADMIN%
+Prasanna Radhakrishnan	from CMD
+Ramanjaneyula Sriramdas	it says G:\ORACLE\ORANT\NETWORK refersto a location that is unavailable
+Prasanna Radhakrishnan	ok 
+Prasanna Radhakrishnan	set TNS_ADMIN=G:\ORACLE\ORANT\NETWORK\ADMIN
+Prasanna Radhakrishnan	can yo please execute the above in cmd prompt
+Ramanjaneyula Sriramdas	where?in cmd
+Prasanna Radhakrishnan	Yes
+Ramanjaneyula Sriramdas	ok
+Ramanjaneyula Sriramdas	I have set the TNS_ADMIN
+Prasanna Radhakrishnan	ok
+Prasanna Radhakrishnan	echo %TNS_ADMIN%
+Prasanna Radhakrishnan	from CMD
+Ramanjaneyula Sriramdas	G:\ORACLE\ORANT\NETWORK\ADMIN
+Prasanna Radhakrishnan	gr8
+Prasanna Radhakrishnan	issue is almost fixed
+Prasanna Radhakrishnan	please try connecting DB now
+Ramanjaneyula Sriramdas	still the same error :(
+Prasanna Radhakrishnan	hmmm
+Prasanna Radhakrishnan	is the G-drive mapped with your system
+Ramanjaneyula Sriramdas	I think NO
+Ramanjaneyula Sriramdas	NO
+Prasanna Radhakrishnan	can u map it
+Ramanjaneyula Sriramdas	2 mins pls
+Prasanna Radhakrishnan	Be Right Back
+Ramanjaneyula Sriramdas	k
+Ramanjaneyula Sriramdas	The issue is resolved now..:-)
+Ramanjaneyula Sriramdas	thank you so much :)
+Prasanna Radhakrishnan	Hi ram
+Prasanna Radhakrishnan	good
+Prasanna Radhakrishnan	:)
+Ramanjaneyula Sriramdas	:-)

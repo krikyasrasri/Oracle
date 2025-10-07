@@ -1,0 +1,7 @@
+STL
+
+g: \Oracle\ORANT\NETWORK\ADMIN \tnsnames.ora  
+
+waterloo tns NAMES
+
+\\bruapp04\oracle$\Oracle\ORANT\NETWORK\ADMIN

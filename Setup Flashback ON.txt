@@ -1,0 +1,18 @@
+1) using sqlplus as sys 
+    shutdown immediate;
+    startup mount;
+
+2) set the required retention target 
+ALTER SYSTEM SET DB_FLASHBACK_RETENTION_TARGET=2880;
+
+3) Enable flashback feature on
+ALTER DATABASE FLASHBACK ON;
+alter database open;
+
+SELECT flashback_on, log_mode FROM v$database;
+
+4) Create a restore point 
+
+create restore point BEFORE_CHG_jun142010 guarantee flashback database;
+
+select * from v$restore_point;

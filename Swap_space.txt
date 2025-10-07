@@ -1,0 +1,4 @@
+#swap -l
+#swap -s
+
+swap -s|/usr/bin/tr -d /k/|awk '{u = $9}{a = $11}{t = u+a}END{print "Usage is "u/t*100"%""\n"a/t*100"% is Available"}'

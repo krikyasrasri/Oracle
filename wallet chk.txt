@@ -1,0 +1,41 @@
+SQL> desc v$encryption_wallet
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ WRL_TYPE                                           VARCHAR2(20)
+ WRL_PARAMETER                                      VARCHAR2(4000)
+ STATUS                                             VARCHAR2(18)
+
+SQL> select STATUS from  v$encryption_wallet;
+
+STATUS
+------------------
+OPEN
+
+
+ALTER SYSTEM SET ENCRYPTION KEY AUTHENTICATED BY "d01lock";
+
+************************************************************************************
+
+
+If it is close:
+************************
+
+
+SQL> select STATUS from  v$encryption_wallet;
+
+STATUS
+------------------
+Close 
+
+
+ALTER SYSTEM SET WALLET OPEN identified by "VSV1default"; 
+
+
+****************************************************************
+
+To check the tablespace for TDE
+
+select tablespace_name from dba_tablespaces where encrypted = 'YES';
+
+
+Read Note:1905607.1 SRDC - How to Collect Standard Information for Transparent Data Encryption (TDE) 

@@ -1,0 +1,48 @@
+TDP0-(Tivoli Data protector For Oracle)  is the tool which will take backup 
+
+TDPO clients need to be run in Oracle database to connect  TSM server
+
+
+
+from DBA prespective we need to ask the OPT file which we need to use 
+
+run {
+allocate channel t1 type 'sbt_tape'parms'ENV=(TDPO_OPTFILE=/opt/tivoli/tsm/client/oracle/bin64/tdpo.opt)';
+release channel t1;
+}
+
+To check whether we are pointing to the correct OPT file
+
+tdpoconf showenv -TDPO_Optfile=/opt/tivoli/tsm/client/oracle/bin64/tdpo.opt
+
+tdposync syncdb -TDPO_OPTfile=/opt/tivoli/tsm/client/oracle/bin64/tdpo.opt
+
+DSM.sys
+
+is the file where we get the details
+
+
+
+TDPOSYNC
+
+imp
+
+tdpoconf -help
+
+
+
+Tivoli
+
+To check whether Tivoli monitoring is  working in the Oracle server or not  
+
+
+
+cd/opt/ibm/ITM
+
+./cinfo -r
+
+
+configuration
+
+rz- oracle extended agent 
+ 

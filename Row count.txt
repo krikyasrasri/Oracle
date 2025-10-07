@@ -1,0 +1,6 @@
+SET HEAD OFF
+ SET HEADING OFF
+ SET PAGES 0
+
+
+select 'select count(*) '||TABLE_NAME||' from '||OWNER||'.'||table_name||';' from dba_tables where owner = 'AVISADMIN1';

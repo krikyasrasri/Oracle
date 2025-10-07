@@ -1,0 +1,238 @@
+ORA-27137: Unable To Allocate Large Pages To Create A Shared Memory Segment (Doc ID 2153647.1)	To BottomTo Bottom	
+
+In this Document
+Symptoms
+Changes
+Cause
+Solution
+References
+
+APPLIES TO:
+Oracle Database Cloud Schema Service - Version N/A and later
+Oracle Database Exadata Cloud Machine - Version N/A and later
+Oracle Cloud Infrastructure - Database Service - Version N/A and later
+Oracle Database Exadata Express Cloud Service - Version N/A and later
+Oracle Database Backup Service - Version N/A and later
+Information in this document applies to any platform.
+SYMPTOMS
+ORA-27137: unable to allocate large pages to create a shared memory segment
+
+
+Test case:
+
+$ grep Huge /proc/meminfo
+AnonHugePages:         0 kB
+HugePages_Total:      60
+HugePages_Free:       60
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+
+[oracle@localhost ~]$ . oraenv
+ORACLE_SID = [oracle] ? UPGR
+The Oracle base has been set to /u01/app/oracle
+[oracle@localhost ~]$ sqlplus / as sysdba
+
+SQL*Plus: Release 11.2.0.4.0 Production on Thu Feb 15 02:37:31 2018
+
+Copyright (c) 1982, 2013, Oracle.  All rights reserved.
+
+Connected to an idle instance.
+
+SQL> startup;
+ORA-27137: unable to allocate large pages to create a shared memory segment
+Linux-x86_64 Error: 12: Cannot allocate memory
+Additional information: 1
+
+ 
+
+SQL> create pfile from spfile;
+
+File created.
+
+View the Pfile to check the value of the sga_target and parameter use_large_pages
+
+SQL> ! cat /u01/app/oracle/product/11.2.0.4/dbs/initUPGR.ora
+
+UPGR.__db_cache_size=520093696
+UPGR.__java_pool_size=4194304
+UPGR.__large_pool_size=8388608
+UPGR.__oracle_base='/u01/app/oracle'#ORACLE_BASE set from environment
+UPGR.__pga_aggregate_target=125829120
+UPGR.__sga_target=734003200
+UPGR.__shared_io_pool_size=0
+UPGR.__shared_pool_size=188743680
+UPGR.__streams_pool_size=0
+*.audit_file_dest='/u01/app/oracle/admin/UPGR/adump'
+*.audit_trail='none'
+*.compatible='11.2.0.4.0'
+*.control_files='/u02/oradata/UPGR/control01.ctl','/u01/app/oracle/fast_recovery_area/UPGR/control02.ctl'
+*.db_block_size=8192
+*.db_domain=''
+*.db_name='UPGR'
+*.db_recovery_file_dest='/u01/app/oracle/fast_recovery_area'
+*.db_recovery_file_dest_size=5218762752
+*.diagnostic_dest='/u01/app/oracle'
+*.dispatchers='(PROTOCOL=TCP) (SERVICE=UPGRXDB)'
+*.open_cursors=300
+*.pga_aggregate_target=125829120
+*.processes=78
+*.remote_login_passwordfile='EXCLUSIVE'
+*.sessions=91
+*.sga_target=734003200...........................................................****value larger than the number of huge pages configured
+*.undo_tablespace='UNDOTBS1'
+*.use_large_pages='ONLY'.................................we see this parameter is set to only
+
+ 
+
+Reconfigure huge pages to a value large than the SGA_TARGET as below. In this test case, it will be  to a value larger than 700MB. So vm.nr_hugepage=370
+
+ 
+
+Run the hugepages_settings.sh script to compute the values for hugepages configuration(see Note 401749.1 ):
+
+$ ./hugepages_settings.sh
+Note:
+
+Before running this script, ensure that all the applications that use hugepages run.
+Set the following kernel parameter, where value is the HugePages value that you determined in the step above
+
+# sysctl -w vm.nr_hugepages=value
+To ensure that HugePages is allocated after system restarts, add the following entry to the /etc/sysctl.conf file, where value is the HugePages value that you determined in step above
+
+vm.nr_hugepages=value
+ 
+
+Login to the server  and  confirm the new value for huge pages was set;
+
+ 
+
+[oracle@localhost ~]$ . oraenv
+ORACLE_SID = [oracle] ? UPGR
+The Oracle base has been set to /u01/app/oracle
+[oracle@localhost ~]$ grep Huge /proc/meminfo
+AnonHugePages:         0 kB
+HugePages_Total:     370
+HugePages_Free:      144
+HugePages_Rsvd:      125
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+[oracle@localhost ~]$ sqlplus / as sysdba
+
+SQL*Plus: Release 11.2.0.4.0 Production on Thu Feb 15 03:01:28 2018
+
+Copyright (c) 1982, 2013, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production
+With the Partitioning, Oracle Label Security, OLAP, Data Mining
+and Real Application Testing options
+
+SQL> select status from v$instance;
+
+STATUS
+------------
+OPEN
+
+ 
+
+CHANGES
+ 
+
+CAUSE
+This issue occurs when the size of the SGA is larger than the amount of huge pages configured in system and parameter use_large_pages is set to only.
+ 
+
+SOLUTION
+Reconfigure huge pages to a value larger than your total SGA_MAX_SIZE
+
+OR
+
+Reduce the size of your SGA to a value equal to the amount of huge pages configured.
+
+ 
+
+REFERENCES
+NOTE:361468.1 - HugePages on Oracle Linux 64-bit
+NOTE:2010685.1 - OERR: ORA-27137 "unable to allocate large pages to create a shared memory segment" Reference Note
+NOTE:401749.1 - Oracle Linux: Shell Script to Calculate Values Recommended Linux HugePages / HugeTLB Configuration
+NOTE:2004397.1 - DGMGRL: Switchover Fails To Start New Standby with ORA-27137 When Database Configured To Use Large_pages='ONLY' 
+	
+ 	
+Was this document helpful?
+ 
+Yes
+No
+ 	 	 
+ 	
+Document Details
+ 
+Email link to this documentOpen document in new windowPrintable Page
+	
+Type:
+Status:
+Last Major Update:
+Last Update:
+PROBLEM
+PUBLISHED
+Sep 19, 2018
+Sep 19, 2018
+
+ 	 	 
+
+ 	
+Related Products
+ 
+	
+Oracle Database Cloud Schema Service
+Oracle Database Exadata Cloud Machine
+Oracle Cloud Infrastructure - Database Service
+Oracle Database Exadata Express Cloud Service
+Oracle Database Backup Service
+Show More
+ 	 	 
+ 	
+Information Centers
+ 
+			
+Platform as a Service (PaaS) and Oracle Cloud Infrastructure (OCI) Information Center [2048297.2]
+
+Index of Oracle Database Information Centers [1568043.2]
+
+Information Center: Overview Database Server/Client Installation and Upgrade/Migration [1351022.2]
+
+インフォメーション・センター: データベースおよび Enterprise Manager 日本語ドキュメント [1946305.2]
+
+Information Center: Overview of Database Security Products [1548952.2]
+
+ 	 	 
+ 	
+Document References
+ 
+			
+HugePages on Oracle Linux 64-bit [361468.1]
+
+OERR: ORA-27137 "unable to allocate large pages to create a shared memory segment" Reference Note [2010685.1]
+
+Oracle Linux: Shell Script to Calculate Values Recommended Linux HugePages / HugeTLB Configuration [401749.1]
+
+DGMGRL: Switchover Fails To Start New Standby with ORA-27137 When Database Configured To Use Large_pages='ONLY' [2004397.1]
+
+ 	 	 
+ 	
+Recently Viewed
+ 
+	Oracle Linux: Shell Script to Calculate Values Recommended Linux HugePages / HugeTLB Configuration [401749.1]	
+
+	ORA-27137: Unable To Allocate Large Pages To Create A Shared Memory Segment [2153647.1]	
+
+	OGG Register Integrated Extract Failed with OGG-01755 SQL Error: OCI Error 1,653 [1511362.1]	
+
+	OGG-02064 Oracle Compatibility Version 11.2.0 Has Limited Datatype Support For Integrated Capture. [1908299.1]	
+
+	ERROR OGG-00868 Error Code 1291, Error Message: ORA-01291: Missing Logfile [2231588.1]	
+
+Show More
+ 	 	 
+Didn't find what you are looking for?Ask in Community...

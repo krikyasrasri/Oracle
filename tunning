@@ -1,0 +1,97 @@
+select ss.snap_id,
+ss.instance_number node,
+begin_interval_time,
+sql_id,
+plan_hash_value,
+nvl(executions_delta,0) execs,
+round((elapsed_time_delta/decode(nvl(executions_delta,0),0,1,executions_delta))/1000000,2) avg_etime,
+round((buffer_gets_delta/decode(nvl(buffer_gets_delta,0),0,1,executions_delta)),2) avg_lio
+from DBA_HIST_SQLSTAT S,
+DBA_HIST_SNAPSHOT SS
+where sql_id = 'ft6wvcds5bddn'
+and ss.snap_id = S.snap_id
+and ss.instance_number = S.instance_number
+and executions_delta > 0
+order by 1 desc, 2, 3;
+
+  SNAP_ID       NODE BEGIN_INTERVAL_TIME                                                         SQL_ID        PLAN_HASH_VALUE      EXECS  AVG_ETIME    AVG_LIO
+---------- ---------- --------------------------------------------------------------------------- ------------- --------------- ---------- ---------- ----------
+      7081          1 19-APR-20 08.00.59.196 AM                                                   ft6wvcds5bddn      2895399353          2     570.34   18873342
+      7080          1 19-APR-20 07.00.16.446 AM                                                   ft6wvcds5bddn      2895399353          1     2958.6   93893813
+      7079          1 19-APR-20 06.00.15.725 AM                                                   ft6wvcds5bddn      1196136494          2      35.55    1773044
+      7078          1 19-APR-20 05.00.21.002 AM                                                   ft6wvcds5bddn      2895399353          2     509.05 16166982.5
+      7073          1 19-APR-20 12.00.17.296 AM                                                   ft6wvcds5bddn      1657260728          3       42.8 1557959.33
+      7027          1 17-APR-20 02.00.11.303 AM                                                   ft6wvcds5bddn      1657260728          2      32.49    1767328
+      7025          1 17-APR-20 12.00.00.998 AM                                                   ft6wvcds5bddn      1196136494          3      31.95 1771250.67
+      7024          1 16-APR-20 11.00.42.514 PM                                                   ft6wvcds5bddn      1657260728          2      30.61    1766253
+      7023          1 16-APR-20 10.00.23.891 PM                                                   ft6wvcds5bddn      2443957937          4      75.61  2276215.5
+      7011          1 16-APR-20 10.00.53.553 AM                                                   ft6wvcds5bddn      2443957937          5      81.62  2293838.6
+
+10 rows selected.
+
+var v_num number;
+exec :v_num:=dbms_spm.load_plans_from_cursor_cache(sql_id =>'ft6wvcds5bddn',plan_hash_value => 1657260728);
+
+SQL> select sql_handle, plan_name, enabled, accepted, fixed from dba_sql_plan_baselines;
+
+SQL_HANDLE                     PLAN_NAME                      ENA ACC FIX
+------------------------------ ------------------------------ --- --- ---
+SQL_2d4a279d0e110a8f           SQL_PLAN_2ukj7mn7122ng0121eedd YES YES YES
+SQL_2d4a279d0e110a8f           SQL_PLAN_2ukj7mn7122ng2c5eee9b YES YES YES
+SQL_2d4a279d0e110a8f           SQL_PLAN_2ukj7mn7122ng99ee2e57 YES YES NO
+
+
+var v_num number;
+exec :v_num:=dbms_spm.ALTER_SQL_PLAN_BASELINE (sql_handle =>'SQL_2d4a279d0e110a8f',plan_name => 'SQL_PLAN_2ukj7mn7122ng0121eedd', attribute_name=> 'FIXED',  attribute_value  => 'YES');
+
+BEGIN
+  DBMS_SQLTUNE.DROP_SQLSET(
+    sqlset_name => 'SAMPLE_TUNING_SET');
+END;
+
+
+BEGIN
+  DBMS_SQLTUNE.CREATE_SQLSET(
+    sqlset_name => 'SAMPLE_TUNING_SET',
+    description => 'SQL Tuning Set for loading plan into SQL Plan Baseline');
+END;
+
+
+DECLARE
+  cur sys_refcursor;
+BEGIN
+  OPEN cur FOR
+    SELECT VALUE(P)
+    FROM TABLE(
+       dbms_sqltune.select_workload_repository(begin_snap=>7023, end_snap=>7024,basic_filter=>'sql_id = ''ft6wvcds5bddn''',attribute_list=>'ALL')
+              ) p;
+     DBMS_SQLTUNE.LOAD_SQLSET( sqlset_name=> 'SAMPLE_TUNING_SET', populate_cursor=>cur);
+  CLOSE cur;
+END;
+/
+
+
+DECLARE
+my_plans pls_integer;
+BEGIN
+  my_plans := DBMS_SPM.LOAD_PLANS_FROM_SQLSET(
+    sqlset_name => 'SAMPLE_TUNING_SET',
+    basic_filter=>'plan_hash_value = ''1657260728'''
+    );
+END;
+/
+
+exec :v_num:=dbms_spm.ALTER_SQL_PLAN_BASELINE (sql_handle =>'SQL_2d4a279d0e110a8f',plan_name => 'SQL_PLAN_2ukj7mn7122ng0121eedd', attribute_name=> 'FIXED',  attribute_value  => 'YES');
+
+************
+declare
+drop_result pls_integer;
+begin
+drop_result := DBMS_SPM.DROP_SQL_PLAN_BASELINE(
+sql_handle => 'SQL_2d4a279d0e110a8f',
+plan_name => 'SQL_PLAN_2ukj7mn7122ng2c5eee9b');
+dbms_output.put_line(drop_result);
+end;
+/
+ 
+

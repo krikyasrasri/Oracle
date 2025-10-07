@@ -1,0 +1,5 @@
+ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY MM DD';
+select sysdate from dual;
+
+ALTER SESSION SET NLS_DATE_FORMAT = 'HH24:MI:SS';
+select sysdate from dual;

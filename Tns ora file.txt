@@ -1,0 +1,12 @@
+g:\ORACLE\ORANT\NETWORK\ADMIN\tnsnames.ora
+
+
+Please execute this during after stl business hours as there was a correction done by Kishore on teup1s entry on tnsnames.ora
+
+G:\oracle\REPTNS.bat
+
+Update to the new joinees
+
+When ever we make some changes to the tnsnames.ora on G drive, before you edit the file you must be aware that you should make a backup of the existing tnsnames.ora file by COPYING it to G:\oracle\orant\NETWORK\ADMIN\Bkup tnsnames.ora.
+
+Then, you should be running the above mentioned script (REPTNS.bat), by double clicking. This would push the modified file to various locations. Please run this after peak hrs/business hrs as it would lock the tnsnames.ora file until the .bat gets over.
