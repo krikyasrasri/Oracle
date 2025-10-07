@@ -1,0 +1,40 @@
+There are 4 entries with this db link name
+
+OWNER DB_LINK USERNAME HOST CREATED
+------------------------------ -------------------- -------------------- ---------------------------------------------------------------------- ---------
+BRM01 RPT_BRM_CRM RPT crmpds01 25-OCT-19
+BRM01 RPT_BRM_CRM RPT crmpds01 25-OCT-19
+BRMPDS100 RPT_BRM_CRM RPT crmpds01 08-FEB-20
+PUBLIC RPT_BRM_CRM RPT
+
+So we would have to clear entries from link$ dictionary table.
+
+Please follow the below instructions:
+
+1- Take a backup of the database, so that you can restore and recover the database to the current point in time in case the dictionary patching goes wrong
+
+2- Take backup of the link$ table
+
+SQL> Create table link_salvage as select * from link$ ;
+
+3- Run the next query to list the owner# for RPT_BRM_CRM link
+
+SQL> select owner#, name from link$ where name='RPT_BRM_CRM_1';
+
+4- Note the user# returned for the user BRM01
+
+SQL> select user#, name from user$ where name='BRM01';
+
+5- Delete the problematic dblink
+
+SQL> delete from sys.link$ where name='RPT_BRM_CRM_1' and owner#=from step 4;
+This should delete two rows based on the select statement output. If its deleting more rows update the SR do a rollback immediately.
+If its reporting same number of rows as select go to next step
+6- Verify if it is deleted
+SQL> select * from dba_db_links where db_link like '%RPT_BRM_CRM%' and host='prod';
+
+SQL> commit;
+
+------
+
+SQL> select * from dba_db_links where db_link like '%RPT_BRM_CRM%';

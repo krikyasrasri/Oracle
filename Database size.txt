@@ -1,0 +1,1 @@
+select round((sum(bytes)/1024/1024),2) "Database Size : Mb" from dba_data_files

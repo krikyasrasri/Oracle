@@ -1,0 +1,45 @@
+select job, last_date,what, broken  from dba_jobs where broken = 'Y';
+Vineesh Veluthodan	       JOB LAST_DATE
+---------- ---------
+WHAT
+----------------------------------------------------------------------------------------------------
+B
+-
+         1 08-MAY-08
+ETADMIN.SCHEMA_ACC_CLS_PRC;
+
+execute DBMS_JOB.RUN(jobid);
+
+SQL> execute DBMS_JOB.RUN(322);
+
+PL/SQL procedure successfully completed.
+
+SQL> select job, last_date,what, broken  from dba_jobs where broken = 'Y';
+
+no rows selected
+
+
+*****************
+**************
+
+Tamil scripts:
+
+**************
+*****************
+
+
+set lines 100
+
+col user format a10
+
+col jobname format a35
+
+select job ,to_char(next_date,'dd-mm-yy hh:mi:ss AM') "NEXT EXECUETION",what "JOBNAME",schema_user "USER",failures "FAIL#"  from dba_jobs;
+
+select job ,to_char(last_date,'dd-mm-yy hh:mi:ss AM') "Last EXECUETION",what "JOBNAME",schema_user "USER",failures "FAIL#"  from dba_jobs;
+
+******************************************************************
+dba_scheduler jobs
+==================
+
+SELECT owner, program_name, enabled FROM dba_scheduler_programs;

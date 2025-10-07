@@ -1,0 +1,126 @@
+On Standby
+---------------------------------------------------------
+Check the database sync.
+
+SQL> SELECT PROCESS, STATUS FROM V$MANAGED_STANDBY;
+
+If log apply services are running, cancel them as shown in the following example: 
+SQL> ALTER DATABASE RECOVER MANAGED STANDBY DATABASE CANCEL;
+Shut down the standby database. 
+SQL> SHUTDOWN IMMEDIATE;
+
+On Primary to Enable the flashback
+----------------------------------------------------------
+1) using sqlplus as sys 
+    shutdown immediate;
+    startup mount;
+
+2) set the required retention target 
+ALTER SYSTEM SET DB_FLASHBACK_RETENTION_TARGET=2880;
+
+3) Enable flashback feature on
+ALTER DATABASE FLASHBACK ON;
+alter database open;
+
+SELECT flashback_on, log_mode FROM v$database;
+
+4) Create a restore point 
+
+create restore point BEFORE_CHG_CHG24866 guarantee flashback database;
+
+select * from v$restore_point;
+
+==========================
+To Enable the flasback: Incase of reverting back: On failure of Apps implementation.
+---------------
+shutdown immediate;
+startup mount;
+Flashback database to restore point BEFORE_CHG_CHG24866;
+alter database open;
+
+
+
+To Disable the flashback incase of successfull Apps Implementation
+-----------------------------------------------------------
+shutdown immediate;
+startup mount exclusive;
+alter database flashback off;
+alter database open;
+
+
+To start the Standby database
+-----------------------------------------------------------
+startup mount;
+Start MRP
+
+Useful URL-- for flashback
+
+**************************************************************
+http://dbaforums.org/oracle/index.php?showtopic=16916
+**************************************************************
+
+**************************************************************
+
+in 11g there no need to mount the DB.. for enabling flashback
+ 
+
+*************************************************
+
+ALTER DATABASE FLASHBACK off;
+
+SELECT flashback_on, log_mode FROM v$database;
+
+ALTER DATABASE FLASHBACK ON;
+
+SELECT flashback_on, log_mode FROM v$database;
+
+
+
+select * from v$restore_point;
+
+create restore point BEFORE_Sep_01 guarantee flashback database;
+
+select * from v$restore_point;
+
+
+DROP RESTORE POINT BEFORE_CHG_27515;
+
+
+********************************************
+to find usage of The flash_recovery_area 
+********************************************
+
+SQL> select * from v$flash_recovery_area_usage;
+
+
+
+SQL> select * from V$FLASHBACK_DATABASE_LOG;
+
+OLDEST_FLASHBACK_SCN OLDEST_FL RETENTION_TARGET FLASHBACK_SIZE ESTIMATED_FLASHBACK_SIZE
+-------------------- --------- ---------------- -------------- ------------------------
+          5.7539E+12 03-SEP-10             2880      237420544               9453895680
+
+
+please monitor the logs and flashback
+-------------------------------------
+
+
+select name,space_limit/(1024*1024*1024) "Space Limit (GB)", round(space_used/(1024*1024*1024),4) "Space Used (GB)",space_reclaimable,number_of_files
+from V$recovery_file_dest;
+
+
+col name form a10
+SELECT substr(name, 1, 30) name, space_limit AS quota,
+       space_used        AS used,
+        space_reclaimable AS reclaimable,
+        number_of_files   AS files
+  FROM  v$recovery_file_dest ;
+
+************************************************************
+
+Resize the Flash recovey area
+-----------------------------
+
+ALTER SYSTEM SET DB_RECOVERY_FILE_DEST_SIZE = 40G;
+
+

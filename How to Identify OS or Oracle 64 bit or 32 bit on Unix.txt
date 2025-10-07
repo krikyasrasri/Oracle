@@ -1,0 +1,93 @@
+How to Identify OS or Oracle 64 bit or 32 bit on Unix
+---------------------------------------------------------------
+It is very common question which version of oracle I need to install. 32 bit or 64 bit? As a 64-bit operating system can support either a 32-bit database or a 64-bit database. A 32-bit operating system cannot support a 64-bit database. So, version identification of the OS is necessary prior to install oracle. The following procedure will hopefully help you.
+
+Check whether OS is 64 bit or 32 bit.
+-----------------------------------------
+On Solaris,
+
+SQL> !/usr/bin/isainfo -kv
+64-bit amd64 kernel modules
+
+SQL> !/usr/bin/isainfo -v
+64-bit amd64 applications
+cx16 mon sse3 pause sse2 sse fxsr mmx cmov amd_sysc cx8 tsc fpu
+32-bit i386 applications
+cx16 mon sse3 pause sse2 sse fxsr mmx cmov sep cx8 tsc fpu
+
+This output tells us that solaris operating systems allow co-existence of 32-bit and 64-bit files.
+
+On AIX,
+$ getconf -a | grep KERN
+$ file /usr/lib/boot/unix*
+On Linux,
+
+On HP-UX,
+/usr/bin/ getconf KERNEL_BITS
+/usr/bin/file /stand/vmunix
+
+On linux,
+
+$uname -a
+Linux debian 2.6.18-4-686 #1 SMP Wed May 9 23:03:12 UTC 2007 i686 GNU/Linux
+
+If the output is x86_64 then 64-bit and i686 or similar for 32-bit.
+
+On windows,
+
+Start>All Programs>accessories> System Tools>System Information>look for under System summary.
+
+Or start>run>dixdiag>Then check for WHQL digital signature.
+
+Determine of whether Oracle Software is 32 bit or 64 bit.
+--------------------------------------------------------------------------------
+Method 1:
+--------------
+Go to $ORACLE_HOME/bin and see.
+
+# cd $ORACLE_HOME/bin
+# file oracle
+oracle: ELF 64-bit LSB executable AMD64 Version 1, dynamically linked, not stripped
+
+Here it comes 64 bit and hence oracle software is 64 bit. If the output of the "file oracle" command does not say 64-bit explicitly then you are running 32-bit Oracle.
+
+If you had 32 bit oracle software installed then output will be like,
+
+oracle@sol:/db/oracle/bin$ file oracle
+oracle: setuid setgid ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked (uses shared libs), not stripped
+
+Method 2:
+----------------------
+Log on to SQL*plus and see the banner.
+
+-bash-3.00$ sqlplus / as sysdba
+
+SQL*Plus: Release 10.2.0.2.0 - Production on Thu May 15 02:50:37 2008
+
+Copyright (c) 1982, 2005, Oracle. All Rights Reserved.
+
+Connected to:
+Oracle Database 10g Enterprise Edition Release 10.2.0.2.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+Method 3:Query from v$version.
+-------------------------------------
+sys@THERAP> select * from v$version;
+
+BANNER
+----------------------------------------------------------------
+Oracle Database 10g Enterprise Edition Release 10.2.0.2.0 - Prod
+PL/SQL Release 10.2.0.2.0 - Production
+CORE 10.2.0.2.0 Production
+TNS for Solaris: Version 10.2.0.2.0 - Production
+NLSRTL Version 10.2.0.2.0 - Production
+
+Method 4: Check for lib, lib32
+--------------------------------------
+
+1) $ORACLE_HOME/lib32
+2) $ORACLE_HOME/lib
+
+If the two directories $ORACLE_HOME/lib32 and $ORACLE_HOME/lib are existing then it is 64 bit.
+
+If there is only an ORACLE_HOME/lib directory then it is 32 bit client.

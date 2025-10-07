@@ -1,0 +1,21 @@
+Checked the standby alert log and found  the below error
+
+Sat Sep 25 13:30:06 2010
+Errors in file /oracle/admin/pcmdb1k/bdump/pcmdb1k_mrp0_6619370.trc:
+ORA-01111: name for data file 15 is unknown - rename to correct file
+ORA-01110: data file 15: '/oracle/product/v10.2.0.4/dbs/UNNAMED00015'
+ORA-01157: cannot identify/lock data file 15 - see DBWR trace file
+ORA-01111: name for data file 15 is unknown - rename to correct file
+ORA-01110: data file 15: '/oracle/product/v10.2.0.4/dbs/UNNAMED00015'
+Managed Standby Recovery not using Real Time Apply
+Sat Sep 25 13:30:06 2010
+
+Checked the filesize on primary for datafile 15 and executed the below commands for fixing the issue
+
+alter system set standby_file_management=manual;
+alter database create datafile '/oracle/product/v10.2.0.4/dbs/UNNAMED00015' as '+DATA1' size 16106127360; 
+alter system set standby_file_management=auto;
+
+RECOVER MANAGED STANDBY DATABASE  DISCONNECT  USING CURRENT LOGFILE
+
+Checked in the alert log  to check the status of the sink process.

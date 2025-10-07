@@ -1,0 +1,43 @@
+For changing the diagnostic dest below is an example 
+
+Example on pmoc2s db
+
+a) Copy diag directory to /ora_trc_01/pmoc2s/
+
+cp -R /oracle/admin/pmoc2s/diag /ora_trc_01/pmoc2s/.
+
+
+b) Edit the diagnostic_dest param dynamically to /ora_trc_01/pmoc2s
+
+sql> alter system set diagnostic_dest='/ora_trc_01/pmoc2s' scope=memory;
+
+
+c) Check if alert_pmoc2s.log on the new location is getting appended, it should work as we had changed it to new location on above step
+
+/ora_trc_01/pmoc2s/diag/rdbms/pmoc2s/pmoc2s/trace/alert_pmoc2s.log
+
+
+d) Remove /oracle/admin/pmoc2s/diag
+
+cd /oracle/admin/pmoc2s/
+
+rm -rf diag
+
+f) Create link file on /oracle/admin/pmoc2s
+
+
+cd /oracle/admin/pmoc2s
+
+ln -s /ora_trc_01/pmoc2s/diag
+
+
+g) Change the param on dictionary
+
+alter system set diagnostic_dest='/oracle/admin/pmoc2s' scope=both;
+
+
+h) check if alert_pmoc2s.log is getting appended
+
+
+3) Backup of these databases should be taken care as they should fall into regular TWS job schedules.
+

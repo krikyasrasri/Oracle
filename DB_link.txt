@@ -1,0 +1,70 @@
+List the DB link from Database
+*******************************
+
+COL OWNER FORMAT a10
+COL USERNAME FORMAT A8 HEADING "USER"
+COL DB_LINK FORMAT A30
+COL HOST FORMAT A7 HEADING "SERVICE"
+SELECT * FROM DBA_DB_LINKS
+/
+
+
+
+List of Views
+*************
+
+View Purpose 
+DBA_DB_LINKS Lists all database links in the database. 
+ALL_DB_LINKS Lists all database links accessible to the connected user. 
+USER_DB_LINKS Lists all database links owned by the connected user. 
+View Purpose 
+V$DBLINK Lists all open database links in your session, that is, all database links with the IN_TRANSACTION column set to YES. 
+GV$DBLINK Lists all open database links in your session along with their corresponding instances. This view is useful in an Oracle Real Application Clusters configuration. 
+
+
+Check DB link
+*************
+
+Select * from Username@DBLINK;
+
+Select * dual@DBLINK;
+
+
+SET LONG 9000 — to print the complete string
+SELECT DBMS_METADATA.GET_DDL(‘DB_LINK’,a.db_link,a.owner) FROM dba_db_links a;
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+UNDEF ENTER_OWNER_NAME
+UNDEF ENTER_LINK_NAME
+SET long 1000
+SET serveroutput on
+SET verify off lines 132
+
+DECLARE
+   v_output      CLOB          := NULL;
+   v_owner       VARCHAR2 (30) := '&&ENTER_OWNER_NAME';
+   v_link_name   VARCHAR2 (30) := '&&ENTER_LINK_NAME';
+BEGIN
+   DBMS_OUTPUT.put_line ('DDL For Database Links');
+
+   FOR tt IN (SELECT owner, db_link
+                FROM dba_db_links
+               WHERE owner LIKE v_owner AND db_link LIKE v_link_name)
+   LOOP
+      SELECT DBMS_METADATA.get_ddl ('DB_LINK', tt.db_link, tt.owner)
+        INTO v_output
+        FROM DUAL;
+
+      DBMS_OUTPUT.put_line (v_output);
+   END LOOP;
+END;
+/
+
+
+
+
+
+

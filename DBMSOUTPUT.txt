@@ -1,0 +1,3 @@
+SQL> set serveroutput on buffer 2560000
+ 
+ SQL> exec dbms_output.enable(1000000);

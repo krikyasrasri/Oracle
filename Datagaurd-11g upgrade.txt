@@ -1,0 +1,18 @@
+0) Take a backup of current spfile on both primary and standby
+1) Check if DG is in sync
+2) Do the pre upgrade steps on  the primary and change the parms on pfile on both primary and standby as part of the pre upgrade
+3) alter system set log_archive_dest_state_2=defer scope=both;
+5) Remove DG broker configuration
+3) alter system set dg_broker_start=FALSE scope=both; on both primary and standby
+6) Bring down the standby database 
+7) Perform the cold backup as part of the upgrade doc on  the primary
+7) copy  the password files from 10g home to 11g home ob both primary and standby
+8) Start the upgrade on the primary
+9) start the standby on 11.2.0.1
+10) Enable log_Archive_dest_state_2 on primary
+11) Make dg_broker_start = TRUE
+12) Restart the instances
+13) Make spfile from pfile
+14) Restart the instances
+15) Create DG broker configuration
+16) Create link files for spfile on 11.2.0.1 home /dbs

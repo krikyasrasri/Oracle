@@ -1,0 +1,1 @@
+select to_char(creation_time, 'RRRR Month') "Month", sum(bytes)/1024/1024/1024 "Growth in GB" from sys.v_$datafile where creation_time > SYSDATE-730 group by to_char(creation_time, 'RRRR Month'); 

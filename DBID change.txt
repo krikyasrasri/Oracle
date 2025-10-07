@@ -1,0 +1,5 @@
+Database ID for database PSDX3K changed to 1698845984.
+All previous backups and archived redo logs for this database are unusable.
+Database has been shutdown, open database with RESETLOGS option.
+Succesfully changed database ID.
+DBNEWID - Completed succesfully.

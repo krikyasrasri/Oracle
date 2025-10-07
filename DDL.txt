@@ -1,0 +1,37 @@
+set long 100000;
+
+set pages 10000;
+
+SELECT DBMS_METADATA.GET_DDL('OBJECT_TYPE','OBJECT_NAME','OWNER') FROM DUAL;
+
+SELECT DBMS_METADATA.GET_DDL('TABLE','S_INV_PROF','SIEBEL') FROM DUAL;
+
+
+
+
+SQL> select OWNER,TABLE_NAME,TABLESPACE_NAME,STATUS from dba_tables where OWNER='EDW100' and TABLE_NAME='EVENT_INTU_ITEM_TRANSFER_T';
+
+OWNER			       TABLE_NAME		      TABLESPACE_NAME		     STATUS
+------------------------------ ------------------------------ ------------------------------ --------
+EDW100			       EVENT_INTU_ITEM_TRANSFER_T     PIN00			     VALID
+
+SQL> col SEGMENT_NAME format a40
+SQL> select segment_name,segment_type,bytes/1024/1024 MB from dba_segments where segment_type='TABLE' and segment_name='EVENT_INTU_ITEM_TRANSFER_T' and owner='EDW100';
+
+SEGMENT_NAME				 SEGMENT_TYPE		    MB
+---------------------------------------- ------------------ ----------
+EVENT_INTU_ITEM_TRANSFER_T		 TABLE			  .125
+
+
+SQL> select to_char(current_scn) from gv$database;
+
+TO_CHAR(CURRENT_SCN)
+----------------------------------------
+2441729879
+
+
+nohup expdp "'/ as sysdba '" directory=EXPDP_DIR dumpfile=expdp_FACTOPS-4024.dmp logfile=expdp_FACTOPS-4024.log parallel=5 schemas=EWD100 FLASHBACK_SCN=12939266386189  compression=all &
+
+
+nohup expdp "'/ as sysdba '" directory=EXPDP_DIR dumpfile=expdp_FACTOPS-4024.dmp logfile=expdp_FACTOPS-4024.log tables=EDW100.EVENT_INTU_ITEM_TRANSFER_T FLASHBACK_SCN=2441729879  compression=all &
+

@@ -1,0 +1,116 @@
+exp epg_owner/mistry312$ file=exp_BUSN_PRTNR_USER_20100430.dmp log=exp_BUSN_PRTNR_USER_20100430.log tables=EPG_OWNER.BUSN_PRTNR_USER statistics=none
+
+
+
+pepg2s @ wdb2stl2:/ora_exp_01/pepg2s/20100430
+$ SetDb
+Select $ORACLE_SID:
+1) +ASM
+2) pepg2s
+3) ppvl2s
+4) pwbl1s
+5) pwdb1s
+6) pwmb1s
+7) pwmb3s
+8) *Exit*
+#? 2
+ksh[32]: /tmp/ver: cannot create
+
+HOSTNAME = [wdb2stl2]      USERNAME = [oracle]
+ORACLE_SID = [pepg2s]      ORACLE_HOME = [/oracle/product/v10.2.0.4]
+
+ksh[32]: /tmp/ver: cannot create
+pepg2s @ wdb2stl2:/ora_exp_01/pepg2s/20100430
+$ exp epg_owner/mistry312$ file=exp_BUSN_PRTNR_USER_20100430.dmp log=exp_BUSN_PRTNR_USER_20100430.log tables=EPG_OWNER.BUSN_PRTNR_USER statistics=none
+
+Export: Release 10.2.0.4.0 - Production on Fri Apr 30 13:50:59 2010
+
+Copyright (c) 1982, 2007, Oracle.  All rights reserved.
+
+
+Connected to: Oracle Database 10g Enterprise Edition Release 10.2.0.4.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+Export done in US7ASCII character set and AL16UTF16 NCHAR character set
+server uses UTF8 character set (possible charset conversion)
+
+About to export specified tables via Conventional Path ...
+. . exporting table                BUSN_PRTNR_USER        295 rows exported
+Export terminated successfully without warnings.
+
+
+
+
+pepg2s @ wdb2stl2:/ora_exp_01/pepg2s/20100430
+$ pwd
+/ora_exp_01/pepg2s/20100430
+pepg2s @ wdb2stl2:/ora_exp_01/pepg2s/20100430
+$ mkdir CHG19242
+pepg2s @ wdb2stl2:/ora_exp_01/pepg2s/20100430
+$ cd CHG19242
+pepg2s @ wdb2stl2:/ora_exp_01/pepg2s/20100430/CHG19242
+$ cd
+
+$ cd /home
+pepg2s @ wdb2stl2:/home
+$ ls
+a014178/      e014805/      e019243/      e022373/      e025940/      e028033/      e029120/      e031239/      e032247/      e032984/      fdb3957/
+abc3682/      e014989/      e019256/      e022459/      e025946/      e028149/      e029306/      e031241/      e032256/      e032993/      fkw1016/
+ags3795/      e015221/      e019628/      e022574/      e026211/      e028151/      e030098/      e031319/      e032261/      e033011/      frs3570/
+b016850/      e015325/      e019827/      e023666/      e026212/      e028156/      e030202/      e031395/      e032277/      e033029/      ipremote/
+b018348/      e015411/      e019877/      e023686/      e026305/      e028206/      e030209/      e031417/      e032289/      e033030/      l201112/
+bjb2188/      e015412/      e020031/      e023793/      e026364/      e028208/      e030245/      e031450/      e032292/      e033128/      l201157/
+bjt2393/      e015587/      e020044/      e023914/      e026404/      e028221/      e030452/      e031454/      e032368/      e033150/      l201263/
+blt3321/      e015723/      e020064/      e023932/      e026655/      e028224/      e030474/      e031540/      e032473/      e033174/      l201425/
+btv2045/      e015987/      e020154/      e024011/      e026686/      e028243/      e030480/      e031551/      e032497/      e033175/      l201427/
+ccc2780/      e016200/      e020166/      e024012/      e026820/      e028312/      e030481/      e031562/      e032549/      e033185/      l201444/
+cjc2754/      e016510/      e020258/      e024186/      e026910/      e028428/      e030522/      e031584/      e032587/      e033199/      l201737/
+cjd2642/      e017047/      e020265/      e024251/      e027057/      e028526/      e030553/      e031593/      e032614/      e033220/      l290680/
+cmd2648/      e018036/      e020275/      e024390/      e027098/      e028528/      e030752/      e031752/      e032644/      e033255/      lost+found/
+d016896/      e018141/      e020276/      e024678/      e027241/      e028543/      e030759/      e031755/      e032658/      ebd3667/      mad9299/
+d018793/      e018423/      e020277/      e024703/      e027349/      e028566/      e030932/      e031795/      e032702/      edb3652/      mc/
+dag3799/      e018447/      e020375/      e025052/      e027398/      e028589/      e030933/      e031886/      e032728/      ejb3949/      mjs9360/
+dwa2010/      e018451/      e020545/      e025101/      e027409/      e028647/      e030934/      e031924/      e032729/      ejc3120/      operator/
+e003286/      e018781/      e020565/      e025167/      e027526/      e028693/      e030952/      e031927/      e032750/      emh3887/      oracleaudit/
+e003974/      e018790/      e020583/      e025168/      e027536/      e028757/      e031059/      e031942/      e032777/      epb3884/      perseus/
+e013735/      e018803/      e021041/      e025233/      e027644/      e028833/      e031114/      e032003/      e032876/      etadmin/      socadm/
+e014151/      e019223/      e021233/      e025369/      e027728/      e028840/      e031153/      e032090/      e032907/      f015798/      tdmusr/
+e014316/      e019240/      e021839/      e025537/      e027813/      e029079/      e031203/      e032172/      e032942/      fbb3336/      www/
+pepg2s @ wdb2stl2:/home
+$ cd e028833
+pepg2s @ wdb2stl2:/home/e028833
+$ ls -lrt
+total 12
+-rw-r--r--   1 e028833  dbaoper     5221 Apr 30 13:19 fix_mol_registration.sql
+pepg2s @ wdb2stl2:/home/e028833
+$ echo $ORACLE_SID
+pepg2s
+pepg2s @ wdb2stl2:/home/e028833
+$ sqlplus epg_owner/mistry312$
+
+SQL*Plus: Release 10.2.0.4.0 - Production on Fri Apr 30 14:02:45 2010
+
+Copyright (c) 1982, 2007, Oracle.  All Rights Reserved.
+
+
+Connected to:
+Oracle Database 10g Enterprise Edition Release 10.2.0.4.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> define
+DEFINE _DATE           = "30-APR-10" (CHAR)
+DEFINE _CONNECT_IDENTIFIER = "pepg2s" (CHAR)
+DEFINE _USER           = "EPG_OWNER" (CHAR)
+DEFINE _PRIVILEGE      = "" (CHAR)
+DEFINE _SQLPLUS_RELEASE = "1002000400" (CHAR)
+DEFINE _EDITOR         = "vi" (CHAR)
+DEFINE _O_VERSION      = "Oracle Database 10g Enterprise Edition Release 10.2.0.4.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options" (CHAR)
+DEFINE _O_RELEASE      = "1002000400" (CHAR)
+SQL> show user
+USER is "EPG_OWNER"
+SQL> !ls
+fix_mol_registration.sql
+
+SQL> spool /ora_exp_01/pepg2s/20100430/fix_mol_registration.log
+SQL> @fix_mol_registration.sql
+ 46  /

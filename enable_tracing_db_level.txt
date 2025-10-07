@@ -1,0 +1,5 @@
+Being a dynamic parameter you can use ALTER SYSTEM to enable and disable the database level tracing
+
+SQL> ALTER SYSTEM SET SQL_TRACE=TRUE;
+
+SQL> ALTER SYSTEM SET SQL_TRACE=FALSE;

@@ -1,0 +1,17 @@
+SELECT 'GRANT SELECT, UPDATE, DELETE, INSERT ON ' || table_name || ' TO other_user;'
+      FROM all_tables WHERE owner = 'other_user';
+UNION ALL
+SELECT 'GRANT EXECUTE ON ' || object_name || ' TO other_user;'
+    FROM all_objects 
+    WHERE owner = 'other_user' 
+    AND object_type IN ('FUNCTION', 'PROCEDURE', 'PACKAGE');
+    
+    *************************************************************************8
+    
+    spool grant_objects_niku.sql
+    select  'grant select,update,insert,delete on ' ||owner ||'.'
+    	|| object_name 
+    	|| ' to CLAIM;'
+    	from 	dba_objects 
+where owner ='TIGCOM'; 
+spool off;  

@@ -1,0 +1,14 @@
+select /*+ FULL(ARDSXMLLOG) PARALLEL(ARDSXMLLOG, 100) */ XMLMSGTYPE, count(*) from ARDSXMLLOG 
+where LOGTIMESTAMP >= TO_DATE('1-July-2010') 
+and LOGTIMESTAMP <= TO_DATE('31-July-2010') group by XMLMSGTYPE;
+
+
+SELECT /* + FULL(ARDSXMLLOG) PARALLEL (ARDSXMLLOG,100) */ COUNT(*), ACSURL FROM ARDSXMLLOG WHERE XMLMSGTYPE = 'VERes' and LOGTIMESTAMP >= TO_DATE('1-September-2010') and LOGTIMESTAMP <= TO_DATE('30-September-2010') GROUP BY ACSURL;
+
+
+/*+ FULL(ARDSXMLLOG) PARALLEL(ARDSXMLLOG,100) */
+
+
+select /*+ PARALLEL(charge) */ count(*)
+from mcb.charge
+where charge_date = to_date('03/10/2010','mm/dd/yyyy')

@@ -1,0 +1,44 @@
+SQL> select count(*),object_type from dba_objects where owner='EPG_OWNER' group by object_type;
+
+  COUNT(*) OBJECT_TYPE
+---------- -------------------
+       248 INDEX
+       194 TABLE
+         1 TRIGGER
+         5 MATERIALIZED VIEW
+         2 DATABASE LINK
+        94 SEQUENCE
+        24 LOB
+
+7 rows selected.
+
+
+dynamic drop script for Table with cascade
+*******************************************
+
+select 'drop '||object_type||' EPG_OWNER.'|| object_name ||' '||'cascade constraints'||';'
+from dba_objects where object_type='TABLE' and owner='EPG_OWNER';
+
+
+dynamic drop script for objects
+*******************************
+
+select 'drop '||object_type||' EPG_OWNER.'|| object_name ||';'
+from dba_objects where object_type='TRIGGER' and owner='EPG_OWNER' ;
+
+select 'drop '||object_type||' EPG_OWNER.'|| object_name ||';'
+from dba_objects where object_type='MATERIALIZED VIEW' and owner='EPG_OWNER' ;
+
+select 'drop '||object_type||' EPG_OWNER.'|| object_name ||';'
+from dba_objects where object_type='SEQUENCE' and owner='EPG_OWNER' ;
+
+select 'drop '||object_type||' EPG_OWNER.'|| object_name ||';'
+from dba_objects where object_type='LOB' and owner='EPG_OWNER' ;
+
+Import cmd
+**********
+
+
+imp file=/ora_exp_02/tepg2s/exp/EPG_OWNER.08112011.dmp log=/ora_exp_02/tepg2s/exp/imp_EPG_OWNER.log fromuser=EPG_OWNER touser=EPG_OWNER
+
+

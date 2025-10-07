@@ -1,0 +1,117 @@
+--Invalid check
+for i in drct0s doem1s
+do
+SetDb $i
+sqlplus -s "/ as sysdba" <<EOF
+select name,open_mode,database_role from v\$database;
+select logins from v\$instance;
+select * from v\$encryption_wallet;
+show parameter fal
+exit
+EOF
+done
+
+
+
+for i in drct0s doem1s
+do
+SetDb $i
+sqlplus -s "/ as sysdba" <<EOF
+startup;
+exit
+EOF
+done
+
+--Shutdown database
+
+for i in drct0s doem1s
+do
+SetDb $i
+sqlplus -s "/ as sysdba" <<EOF
+shutdown immediate;
+exit
+EOF
+done
+
+--Catbundle
+for i in drct0s doem1s
+do
+SetDb $i
+cd $ORACLE_HOME/rdbms/admin
+sqlplus -s "/ as sysdba" <<EOF
+startup
+@catbundle.sql cpu apply
+exit
+EOF
+done
+
+--To validate View recompilation
+
+for i in drct0s doem1s
+do
+SetDb $i
+cd $ORACLE_HOME/rdbms/admin
+sqlplus -s "/ as sysdba" <<EOF
+@utlrp.sql
+exit
+EOF
+done
+
+
+--DB status check
+
+for i in drct0s doem1s
+do
+SetDb $i
+sqlplus -s "/ as sysdba" <<EOF
+select name,open_mode,database_role from v\$database;
+select logins from v\$instance;
+select owner,object_type,count(1) from dba_objects
+where status = 'INVALID'
+group by owner,object_type;
+exit
+EOF
+done
+
+
+
+--Check registrt
+for i in drct0s doem1s
+do
+SetDb $i
+sqlplus -s "/ as sysdba" <<EOF
+set lines 1000
+set pages 1000
+column comp_id format a10
+column comp_name format a30
+column status format a10
+select comp_id,comp_name,version, status from dba_registry;
+select * from registry\$history;
+exit
+EOF
+done
+
+
+
+
+for i in drct0s doem1s
+do
+SetDb $i
+cd $ORACLE_HOME/rdbms/admin
+sqlplus -s "/ as sysdba" <<EOF
+SELECT * FROM registry\$history where ID = '6452863';
+exit
+EOF
+done
+
+to start and shut immediate
+
+for i in mfcn1s mifw1s mipv1s mpxp1s
+do
+SetDb $i
+sqlplus "/ as sysdba"<<EOF
+shutdown immediate;
+startup;
+exit
+EOF
+done
