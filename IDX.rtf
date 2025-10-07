@@ -1,0 +1,193 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;\f2\fnil\fcharset0 Menlo-Regular;
+\f3\fmodern\fcharset0 CourierNewPSMT;\f4\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue255;\red127\green0\blue128;
+\red64\green11\blue217;\red180\green36\blue25;}
+{\*\expandedcolortbl;;\csgray\c0;\cssrgb\c1680\c19835\c100000;\cssrgb\c57919\c12801\c57269;
+\cssrgb\c32308\c18668\c88227;\cssrgb\c76409\c21698\c12524;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww36760\viewh22260\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs36 \cf0 \ul \ulc0 IDX - Identity Data eXchange
+\f1\b0\fs24 \ulnone \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs26 \cf2 \CocoaLigature0 IDXOWN\
+IDPROFILEOWN
+\f1\fs24 \cf0 \CocoaLigature1 \
+
+\f2\fs26 \cf2 \CocoaLigature0 PZOWN
+\f1\fs24 \cf0 \CocoaLigature1 \
+\
+\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f3\fs30 \cf0 \expnd0\expndtw0\kerning0
+select owner,OBJECT_NAME,OBJECT_TYPE,status,LAST_DDL_TIME from dba_objects where owner like '%
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 PZOWN
+\f3\fs30 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 %' and OBJECT_TYPE='TABLE' and OBJECT_NAME not like '%_EX'  order by OBJECT_TYPE, OBJECT_NAME;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs24 \cf0 \kerning1\expnd0\expndtw0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs26 \cf2 \CocoaLigature0 IDXOWN    IDX_ASSOCIATION_ATTRIBUTE    TABLE          VALID     2018-07-11 04:42:22    \
+IDXOWN    IDX_ATTRIBUTE_NAME           TABLE          VALID     2018-07-11 04:42:22    \
+IDXOWN    IDX_ATTRIBUTE_TYPE           TABLE          VALID     2018-07-11 04:42:22    \
+IDXOWN    IDX_PROFILE                  TABLE          VALID     2018-08-10 16:18:59    \
+IDXOWN    IDX_STD_ADDRESS              TABLE          VALID     2018-07-11 04:42:22    \
+IDXOWN    QBN_SERVICE_ID_MAP           TABLE          VALID     2018-07-11 04:42:22    \
+IDXOWN    REALM_BANK_ACCOUNT           TABLE          VALID     2018-07-11 04:42:22    \
+IDXOWN    REALM_EIN                    TABLE          VALID     2018-07-11 04:42:07    \
+IDXOWN    REALM_PROFILE                TABLE          VALID     2018-07-11 04:42:22    \
+IDXOWN    REPTEST                      TABLE          VALID     2018-07-10 07:39:06    \
+IDXOWN    TAX_IDENTIFIER               TABLE          VALID     2018-07-11 04:42:22    \
+IDXOWN    USER_SSN                     TABLE          VALID     2018-07-11 04:42:07  \
+\
+IDPROFILEOWN    COURSES                       TABLE          VALID     2018-07-10 07:39:06    \
+IDPROFILEOWN    DBERRORMAP                    TABLE          VALID     2018-07-11 04:42:07    \
+IDPROFILEOWN    DROP_IDP_DEACTIVATION_CODE    TABLE          VALID     2018-07-11 04:42:22    \
+IDPROFILEOWN    DROP_IDP_PRODUCT_ACCOUNT      TABLE          VALID     2018-07-11 04:42:22    \
+IDPROFILEOWN    DROP_MIGRATE_DATA_CRE         TABLE          VALID     2018-07-10 07:39:06    \
+IDPROFILEOWN    DROP_MIGRATE_DATA_OLD         TABLE          VALID     2018-07-10 07:39:06    \
+IDPROFILEOWN    EMPLOYEE                      TABLE          VALID     2018-07-10 07:39:06    \
+IDPROFILEOWN    EMPLOYEEDETAIL                TABLE          VALID     2018-07-10 07:39:06    \
+IDPROFILEOWN    IDP_ADDRESS                   TABLE          VALID     2018-07-11 04:42:22    \
+IDPROFILEOWN    IDP_COMPANY                   TABLE          VALID     2018-07-11 04:42:22    \
+IDPROFILEOWN    IDP_PHONE                     TABLE          VALID     2018-09-17 16:58:35    \
+IDPROFILEOWN    IDP_SERVICE_USER              TABLE          VALID     2018-07-11 04:42:22    \
+IDPROFILEOWN    MIGRATE_DATA_CRE              TABLE          VALID     2018-07-10 07:39:06    \
+IDPROFILEOWN    MIGRATE_DATA_OLD              TABLE          VALID     2018-07-10 07:39:06    \
+IDPROFILEOWN    SCHEMAVERSION                 TABLE          VALID     2018-07-10 07:39:06    \
+IDPROFILEOWN    SERVICE                       TABLE          VALID     2018-07-10 07:39:06    \
+IDPROFILEOWN    SERVICE_ACCOUNT               TABLE          VALID     2018-07-10 07:39:06    \
+IDPROFILEOWN    SERVICE_ATTRIBUTE             TABLE          VALID     2018-07-10 07:39:06    \
+IDPROFILEOWN    SERVICE_SUBSCRIPTION          TABLE          VALID     2018-07-10 07:39:06    \
+IDPROFILEOWN    TAB_CUSTOMER                  TABLE          VALID     2018-07-10 07:39:06    \
+IDPROFILEOWN    TOAD_PLAN_SQL                 TABLE          VALID     2018-07-10 08:38:24 \
+\
+\
+\pard\pardeftab720\sl340\partightenfactor0
+PZOWN.PZ_CONTACT\
+select count(*) from PZOWN.PZ_CONTACT;
+\f1\fs24 \cf0 \CocoaLigature1 \
+
+\f2\fs26 \cf2 \CocoaLigature0 select count(*) from PZOWN.PZ_CONTACT where LAST_MOD_TIME > sysdate-5;
+\f1\fs24 \cf0 \CocoaLigature1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs26 \cf3 \CocoaLigature0 PZOWN.IDX_GLOBAL_PREFERENCE\
+UK - COMPANY_AUTH_ID & USER_AUTH_ID\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf2 \
+\
+#######################################################################################################################\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 2020-01-20 20:38:27  WARNING OGG-01154  Oracle GoldenGate Delivery for Oracle, 
+\f4\b ra001idx
+\f2\b0 .prm:  SQL error 2291 mapping PZOWN.PZ_ADDRESS to PZOWN.PZ_ADDRESS OCI Error ORA-02291: integrity constraint (PZOWN.PZ_ADDRESS_FK1) violated - parent key not found (status = 2291), SQL <INSERT INTO "PZOWN"."PZ_ADDRESS" ("ADDRESS_ID","COMPANY_AUTH_ID","USER_AUTH_ID","ALIAS","TYPE","SHARED","ADDRESS1","ADDRESS2","ADDRESS3","CITY","STATE","POSTAL_CODE","POSTAL_CODE_EXTENSION","COUNTRY_CODE","PHONE_COUNTRY_CODE","PHONE_AREA_CODE","PHONE_NUMBER","PHONE_EXTENSION","CREATE_DATE","CREATE_USER_ID","MODIFY_DATE","MODIFY_USER_ID","EDIT_SEQUENCE","RECIPIENT_NAME","ACTIVE","CCS_ENTRY_ID","PRS_ADDRESS_ID","COUNTY","VALIDATION_LEVEL","LAST_MOD_TIME","FREEFORM_ADDRESS","FORMATTED_ADDRESS","PLACE_ID","GEOCODE_STATUS","ADDRESS_COMPONENTS","FIRST_NAME","LAST_NAME","COMPANY_NAME") VALUES (:a0,:a1,:a2,:a3,:a4,:a5,:a6,:a7,:a8,:a9,:a10,:a11,:a12,:a13,:a14,:a15,:a16,:a17,:a18,:a19,:a20,:a21,:a22,:a23,:a24,:a25,:a26,:a27,:a28,:a29,:a30,:a31,:a32,:a33,:a34,:a35,:a36,:a37)>.\
+\
+Aborted compressed update from PZOWN.PZ_CONTACT to PZOWN.PZ_CONTACT (target format)...\
+*\
+COMPANY_AUTH_ID = 60089999\
+000000: 36 30 30 38 39 39 39 39                         |60089999        |\
+\
+USER_AUTH_ID = 0\
+000000: 30                                              |0               |\
+\
+\
+\
+PZ_ADDRESS - PZ_ADDRESS_FK1 - COMPANY_AUTH_ID & USER_AUTH_ID\
+\pard\pardeftab720\sl340\partightenfactor0
+\cf4 PZ_CONTACT - PZ_CONTACT_PK\
+\
+select * from PZOWN.PZ_CONTACT where COMPANY_AUTH_ID= 60089999 and USER_AUTH_ID=0;\
+select * from PZOWN.PZ_ADDRESS where COMPANY_AUTH_ID= 60089999 and USER_AUTH_ID=0;\
+\
+Insert into PZOWN.PZ_CONTACT (COMPANY_AUTH_ID,USER_AUTH_ID,PHONE_COUNTRY_CODE,DAY_PHONE_AREA_CODE,DAY_PHONE_NUMBER,DAY_PHONE_EXTENSION,EVE_PHONE_AREA_CODE,EVE_PHONE_NUMBER,EVE_PHONE_EXTENSION,FAX_COUNTRY_CODE,FAX_AREA_CODE,FAX_NUMBER,FAX_EXTENSION,DEFAULT_CC_ID,DEFAULT_BILLING_ID,DEFAULT_SHIPPING_ID,CREATE_DATE,CREATE_USER_ID,MODIFY_DATE,MODIFY_USER_ID,EDIT_SEQUENCE,LAST_MOD_TIME) values (60089999,0,null,null,null,null,null,null,null,null,null,null,null,null,993630631,993630631,to_date('17-01-20','DD-MM-RR'),77,to_date('20-01-20','DD-MM-RR'),77,5,to_timestamp('20-01-20 10:36:34.948406000 AM','DD-MM-RR HH12:MI:SSXFF AM'));\
+\pard\pardeftab720\sl340\partightenfactor0
+\cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\
+#######################################################################################################################\
+\
+\pard\pardeftab720\sl360\partightenfactor0
+\cf3 2020-09-03 00:38:48  WARNING OGG-01004  Oracle GoldenGate Delivery for Oracle, rp200idx.prm:  Aborted grouped transaction on 'PZOWN.IDX_GLOBAL_PREFERENCE', Database error 1 (OCI Error ORA-00001: unique constraint (PZOWN.IDX_GLOBAL_PREFERENCE_INDEX1) violated (status = 1), SQL <INSERT INTO "PZOWN"."IDX_GLOBAL_PREFERENCE" ("GLOBAL_PREFERENCE_ID","USER_AUTH_ID","COMPANY_AUTH_ID","BUSINESS_REGION","REGION","COUNTRY","TIME_ZONE","POSTAL_CODE_FORMAT","DATE_FORMAT","NUMBER_FORMAT","PREFERRED_LOCALE","ALTERNATE_LOCALES","HOME_CURRENCY","BILLING_CURRENCY","MULTI_CURRENCIES","TRANSACTION_CURRENCY","ACCOUNTING_STANDARD","CREATE_DATE","MODIFY_DATE","LAST_MOD_TIME") VALUES (:a0,:a1,:a2,:a3,:a4,:a5,:a6,:a7,:a8,:a9,:a10,:a11,:a12,:a13,:a14,:a15,:a16,:a17,:a18,:a19)>).\
+\pard\pardeftab720\sl440\partightenfactor0
+\cf3 \
+GLOBAL_PREFERENCE_ID = 38473293\
+000000: 33 38 34 37 33 32 39 33                         |38473293        |\
+\
+USER_AUTH_ID = 0\
+000000: 30                                              |0               |\
+\
+COMPANY_AUTH_ID = 123146334285379\
+000000: 31 32 33 31 34 36 33 33 34 32 38 35 33 37 39    |123146334285379 |\
+\
+\pard\pardeftab720\sl360\partightenfactor0
+\cf3 PZOWN.IDX_GLOBAL_PREFERENCE_INDEX1: "COMPANY_AUTH_ID", "USER_AUTH_ID"\
+\pard\pardeftab720\partightenfactor0
+\cf3 \
+\pard\pardeftab720\sl380\partightenfactor0
+\cf3 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
+
+\f1\fs28 \cf0 \CocoaLigature1 ksh /ogg_data/sql/satya/get_discard_entries.ksh 
+\f2\fs26 \cf2 \CocoaLigature0 rp200idx
+\f1\fs28 \cf0 \CocoaLigature1 \
+\pard\pardeftab720\sl380\partightenfactor0
+
+\f2\fs26 \cf3 \CocoaLigature0 \
+Check records in East/West and In Reporting\
+\pard\pardeftab720\sl360\partightenfactor0
+\cf3 select * from "PZOWN"."IDX_GLOBAL_PREFERENCE" where GLOBAL_PREFERENCE_ID = \cf2 34821672\cf3 ;\cf2 \
+\cf3 select * from "PZOWN"."IDX_GLOBAL_PREFERENCE" where COMPANY_AUTH_ID='\cf2 556263490\cf3 ' and USER_AUTH_ID='0';\
+\
+In 
+\f4\b reporting
+\f2\b0  database, delete with 
+\f4\b \cf5 DBADMIN
+\f2\b0  \cf3 user\cf2 \
+\cf3 delete from "PZOWN"."IDX_GLOBAL_PREFERENCE" where COMPANY_AUTH_ID='\cf2 556263490\cf3 ' and USER_AUTH_ID='0'; \
+\pard\pardeftab720\sl360\partightenfactor0
+\cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+#######################################################################################################################\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf3 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf2 2020-10-21 20:57:53  WARNING OGG-01154  Oracle GoldenGate Delivery for Oracle, 
+\f4\b \cf6 rp100idx
+\f2\b0 \cf2 .prm:  SQL error 1403 mapping PZOWN.IDX_GLOBAL_PREFERENCE to PZOWN.IDX_GLOBAL_PREFERENCE OCI Error ORA-01403: no data found, SQL <UPDATE "PZOWN"."IDX_GLOBAL_PREFERENCE" x SET x."USER_AUTH_ID" = :a1,x."COMPANY_AUTH_ID" = :a2,x."BUSINESS_REGION" = :a3,x."REGION" = :a4,x."COUNTRY" = :a5,x."TIME_ZONE" = :a6,x."POSTAL_CODE_FORMAT" = :a7,x."DATE_FORMAT" = :a8,x."NUMBER_FORMAT" = :a9,x."PREFERRED_LOCALE" = :a10,x."ALTERNATE_LOCALES" = :a11,x."HOME_CURRENCY" = :a12,x."BILLING_CURRENCY" = :a13,x."MULTI_CURRENCIES" = :a14,x."TRANSACTION_CURRENCY" = :a15,x."ACCOUNTING_STANDARD" = :a16,x."CREATE_DATE" = :a17,x."MODIFY_DATE" = :a18,x."LAST_MOD_TIME" = :a19 WHERE x."GLOBAL_PREFERENCE_ID" = :b0 AND x."USER_AUTH_ID" = :b1 AND x."COMPANY_AUTH_ID" = :b2 AND x."BUSINESS_REGION" is NULL AND x."REGION" = :b4 AND x."COUNTRY" = :b5 AND x."TIME_ZONE" = :b6 AND x."POSTAL_CODE_FORMAT" is NULL AND x."DATE_FORMAT" is NULL AND x."NUMBER_FORMAT" is NULL AND x."PREFERRED_LOCALE" is NULL AND x."ALTERNATE_LOCALES" is NULL AND x."HOME_CURRENCY" is NULL AND x."BILLING_CURRENCY" is NULL AND x."MULTI_CURRENCIES" is NULL AND x."TRANSACTION_CURRENCY" is NULL AND x."ACCOUNTING_STANDARD" is NULL AND x."CREATE_DATE" = :b17 AND x."MODIFY_DATE" = :b18 AND x."LAST_MOD_TIME" = :b19>.\cf3 \
+\
+\cf2 Aborting transaction on /ogg/12.2.0.1/trail/idx/ogg-idx-prd_ogg-idx-prd/ea beginning at seqno 5026 rba 338837591\
+                         error at seqno 5026 rba 338841236\
+Problem replicating PZOWN.IDX_GLOBAL_PREFERENCE to PZOWN.IDX_GLOBAL_PREFERENCE\
+Record not found\
+Mapping problem with compressed update record (target format)...\
+*\
+GLOBAL_PREFERENCE_ID = 136991751\
+000000: 31 33 36 39 39 31 37 35 31                      |136991751       |\
+\
+USER_AUTH_ID = 0\
+000000: 30                                              |0               |\
+\
+COMPANY_AUTH_ID = 123146136885594\
+000000: 31 32 33 31 34 36 31 33 36 38 38 35 35 39 34    |123146136885594 |\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf3 \
+\
+[[ could be because of above PZOWN.IDX_GLOBAL_PREFERENCE_INDEX1 error ]]\
+While trying to update a record based on column: GLOBAL_PREFERENCE_ID=50684708 - this is having unique keys: COMPANY_AUTH_ID='123145975176979' and user_auth_id='0' - GG replication fails.\
+\
+Search a record in table: PZOWN.IDX_GLOBAL_PREFERENCE with GLOBAL_PREFERENCE_ID=50684708 - having COMPANY_AUTH_ID='123145975176979' and user_auth_id='0'\
+\
+\
+select * from PZOWN.IDX_GLOBAL_PREFERENCE where GLOBAL_PREFERENCE_ID='30042901' ;\cf2 \
+#######################################################################################################################\
+}

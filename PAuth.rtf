@@ -1,0 +1,1227 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;\f2\froman\fcharset0 Times-Roman;
+\f3\fmodern\fcharset0 CourierNewPSMT;\f4\fnil\fcharset0 Menlo-Regular;\f5\fnil\fcharset0 Tahoma;
+\f6\fnil\fcharset0 Menlo-Bold;\f7\fnil\fcharset0 HelveticaNeue;\f8\fnil\fcharset0 Monaco;
+\f9\fswiss\fcharset0 ArialMT;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue233;\red155\green44\blue3;\red127\green0\blue128;
+\red41\green0\blue130;\red43\green71\blue20;\red168\green24\blue75;\red0\green0\blue0;\red29\green184\blue14;
+\red38\green38\blue38;\red153\green102\blue51;\red230\green87\blue141;\red100\green14\blue47;\red0\green0\blue0;
+\red18\green31\blue60;\red255\green255\blue255;\red22\green21\blue22;\red22\green21\blue22;\red122\green117\blue3;
+\red32\green0\blue99;\red110\green5\blue2;\red0\green0\blue255;\red63\green105\blue30;\red7\green60\blue82;
+\red102\green57\blue2;\red77\green0\blue105;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c93333;\csgenericrgb\c60784\c17255\c1176;\cssrgb\c57919\c12801\c57269;
+\csgenericrgb\c16078\c0\c50980;\cssrgb\c21795\c34243\c10019;\csgenericrgb\c65882\c9412\c29412;\csgray\c0;\csgenericrgb\c11373\c72157\c5490;
+\cssrgb\c20000\c20000\c20000;\cssrgb\c66800\c47512\c25860;\cssrgb\c93000\c44193\c62103;\cssrgb\c47318\c10151\c24130;\cssrgb\c0\c0\c0;
+\cssrgb\c9020\c16863\c30196;\cssrgb\c100000\c100000\c100000;\cssrgb\c11373\c10980\c11373;\cssrgb\c11373\c10980\c11373\c3922;\cssrgb\c55206\c52547\c0;
+\cssrgb\c17067\c7357\c46453;\cssrgb\c51239\c6511\c0;\cssrgb\c1680\c19835\c100000;\cssrgb\c30831\c47797\c15540;\cssrgb\c0\c30219\c39596;
+\cssrgb\c47914\c28845\c0;\cssrgb\c37964\c9215\c48780;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww35380\viewh25240\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs36 \cf0 PAuth - Partner Authentication      	and PASS - 
+\fs22 \expnd0\expndtw0\kerning0
+PARTNER AUTH SELF SERVICE
+\fs36 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b0\fs30 \cf0 \
+PAUTHOWN\
+PAUTHAPPL01\
+PAUTHAPPL02		(only in Perf/Prod)\
+PAUTH_READ_ONLY\
+DEPLOY_PAUTH 	(only in Perf/E2E)\
+PAUTH_READER	(only in E2E)\
+\
+OGG processes names will be ending with PTH\
+\
+\pard\pardeftab720\sl280\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://wiki.intuit.com/display/ctodevdba/PAuth+OGG+replication+diagrams"}}{\fldrslt 
+\f2\fs34 \cf2 \expnd0\expndtw0\kerning0
+\ul \ulc2 https://wiki.intuit.com/display/ctodevdba/PAuth+OGG+replication+diagrams}}
+\f2\fs34 \cf2 \expnd0\expndtw0\kerning0
+\ul \ulc2 \
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 \ulnone \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ri-15015\partightenfactor0
+
+\fs32 \cf3 sqlplus dbadmin/`sudo python $OGG_HOME/dirsql/get_creds.py dbadmin idxpfe2b`@idxpfe2b.c4ik1tjadzub.us-east-2.rds.amazonaws.com:1526/idxpfe2b\
+sqlplus dbadmin/`sudo python $OGG_HOME/dirsql/get_creds.py dbadmin idxpfw2b`@idxpfw2b.cjzdkv6oy3dy.us-west-2.rds.amazonaws.com:1526/idxpfw2b\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ri-12026\partightenfactor0
+
+\fs30 \cf5 sqlplus dbadmin/`sudo python $OGG_HOME/dirsql/get_creds.py dbadmin idxeee2b`@idxeee2b.c4ik1tjadzub.us-east-2.rds.amazonaws.com:1526/idxeee2b\
+sqlplus dbadmin/`sudo python $OGG_HOME/dirsql/get_creds.py dbadmin idxeew2b`@idxeew2b.cjzdkv6oy3dy.us-west-2.rds.amazonaws.com:1526/idxeew2b
+\fs23 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ri-12026\pardirnatural\partightenfactor0
+
+\fs32 \cf4 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tx23030\pardeftab720\ri-13081\partightenfactor0
+
+\fs30 \cf6 sqlplus dbadmin/`sudo python $OGG_HOME/dirsql/get_creds.py dbadmin idxpde2a`@idxpde2a.ckuhna5r497j.us-east-2.rds.amazonaws.com:1527/idxpde2a\
+sqlplus dbadmin/`sudo python $OGG_HOME/dirsql/get_creds.py dbadmin idxpdw2a`@idxpdw2a.cu5mq75rq1cp.us-west-2.rds.amazonaws.com:1527/idxpdw2a\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tx40666\pardeftab720\partightenfactor0
+
+\fs28 \cf7 set lines 333 pages 44444 time on\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tx40666\pardeftab720\pardirnatural\partightenfactor0
+
+\f3 \cf0 \expnd0\expndtw0\kerning0
+select * from dba_users where username like '%PAUT%' order by 1;\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 select * from dba_users where username in ('PAUTHOWN','PAUTHAPPL01','PAUTH_READ_ONLY','PAUTHAPPL02') order by 1;\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tx40666\pardeftab720\partightenfactor0
+\cf0 set lines 333 pages 44444\
+\pard\pardeftab720\ri-30069\partightenfactor0
+\cf0 col OWNER for a20\
+col OBJECT_NAME for a30\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 select owner,OBJECT_NAME,OBJECT_TYPE from dba_objects where owner like '%PAU%' order by owner, OBJECT_TYPE;\
+select owner,OBJECT_NAME,OBJECT_TYPE,status,LAST_DDL_TIME from dba_objects where owner like '%PAU%' order by owner, OBJECT_TYPE;\
+select owner,OBJECT_NAME,OBJECT_TYPE,status,LAST_DDL_TIME from dba_objects where owner like '%PAUTH%' and OBJECT_TYPE='TABLE' order by owner, OBJECT_NAME;\
+select owner,OBJECT_NAME,OBJECT_TYPE,status,LAST_DDL_TIME from dba_objects where owner like '%PAUTH%' and OBJECT_TYPE='TABLE' and OBJECT_NAME not like '%_EX%' order by owner, OBJECT_NAME;\
+select owner,OBJECT_NAME,OBJECT_TYPE,status,LAST_DDL_TIME from dba_objects where owner like '%PAU%' and status='
+\f4\fs26 \cf8 \kerning1\expnd0\expndtw0 \CocoaLigature0 INVALID
+\f3\fs28 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 ' order by owner, OBJECT_TYPE;\
+\
+select owner, table_name, privilege, grantee from dba_tab_privs where owner like upper('%PAUTH%') order by grantee, table_name, privilege;\
+select owner, table_name, privilege, grantee from dba_tab_privs where owner like upper('%PAUTH%') and table_name like '%DATA%' order by grantee, privilege, table_name;\
+\
+\pard\pardeftab720\li1080\fi-1080\ri-340\partightenfactor0
+\cf0 select * from sys.dba_roles where role like '%PAU%';\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 select * from dba_role_privs where GRANTEE in ('PAUTHOWN','PAUTHAPPL01','PAUTHAPPL02','PAUTH_READ_ONLY') order by 1,2;\
+\
+set lines 333 pages 44444\
+col owner for a16\
+select owner,OBJECT_TYPE,status,count(*) from dba_objects where owner in ('PAUTHOWN','PAUTHAPPL01','PAUTHAPPL02','PAUTH_READ_ONLY') group by owner,OBJECT_TYPE,status order by 1,2,3;\
+\
+select * from sys.dba_sequences where sequence_owner in ('PAUTHOWN','PAUTHAPPL01','PAUTH_READ_ONLY','PAUTHAPPL02');\
+\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\fs32 \cf0 select owner,synonym_name,table_name from dba_synonyms where owner like upper('%PAUTH%') order by synonym_name, table_name;\
+\
+col owner for a20\
+col TABLE_NAME for a30\
+select owner,TABLE_NAME,NUM_ROWS,LAST_ANALYZED from dba_tables where owner like upper('%PAUTH%') order by 4;\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
+
+\f4\fs28 \cf9 select inst_id, username,status,sid,serial#,logon_time,SQL_ID from gv$session where username like 'PAUTH%' order by logon_time;
+\fs20 \cf0 \
+
+\fs28 \cf9 select inst_id, username,status,sid,serial#,logon_time,SQL_ID from gv$session where status='ACTIVE' and username like 'PAUTH%' order by logon_time;\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf9 grep -i IDXPD /ogg_data/oem_metrics.out\
+grep -i PAUTH /ogg_data/oem_metrics.out\
+grep -i PAUTHAPPL01 /ogg_data/dirsql/
+\fs26 \cf8 \kerning1\expnd0\expndtw0 \CocoaLigature0 ashmetrics_idxpd?2a.log
+\fs28 \cf9 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+grep -i PAUTHAPPL01 /ogg_data/dirsql/
+\fs26 \cf8 \kerning1\expnd0\expndtw0 \CocoaLigature0 ashmetrics_idxpd?2a.log | wc -l
+\fs28 \cf9 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+\pard\pardeftab720\partightenfactor0
+\cf9 \
+index=ogg-prdidx sourcetype=oem report=oemperf | regex instance="IDXPD(E|W)2A" | timechart span=1m avg(avgactsess) BY instance\
+index=ogg-prdidx sourcetype=oem report=ash | regex instance="IDXPD(E|W)2A" | timechart span=1m avg(aas) BY instance\
+index=ogg-prdidx sourcetype=oem report=ash | regex instance="IDXPD(E|W)2A" | timechart span=1m count(dbuser) BY instance\
+index=ogg-prdidx sourcetype=oem report=ash | regex instance="IDXPD(E|W)2A" | regex dbuser="PAUTHAPPL01" | timechart span=1m count(dbuser) BY instance\
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs32 \cf0 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+\cf0 select owner, round(sum(bytes)/1024/1024/1024) schema_size_GB from dba_segments where owner in 
+\fs28 ('PAUTHOWN','PAUTHAPPL01','PAUTHAPPL02','PAUTH_READ_ONLY')
+\fs32  group by owner;\
+select owner, round(sum(bytes)/1024/1024) schema_size_MB from dba_segments where owner in 
+\fs28 ('PAUTHOWN','PAUTHAPPL01','PAUTHAPPL02','PAUTH_READ_ONLY')
+\fs32  group by owner;\
+select segment_name, round(max(bytes)/1024/1024) size_MB from dba_segments where owner='
+\fs28 PAUTHOWN
+\fs32 ' group by segment_name order by 1,2;\
+select segment_name, round(max(bytes)/1024/1024) size_MB from dba_segments where owner='
+\fs28 PAUTHOWN
+\fs32 ' group by segment_name order by 2;\
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+col TABLE_NAME for a30\
+col COLUMN_NAME for a30\
+col INDEX_NAME for a30\
+\pard\pardeftab720\ri-30069\partightenfactor0
+\cf0 select INDEX_NAME,TABLE_NAME,NUM_ROWS,LAST_ANALYZED,STATUS,BLEVEL,LEAF_BLOCKS from dba_indexes where OWNER ='PAUTHOWN' order by TABLE_NAME;\
+select INDEX_NAME,TABLE_NAME,NUM_ROWS,LAST_ANALYZED,STATUS,BLEVEL,LEAF_BLOCKS from dba_indexes where OWNER ='PAUTHOWN' order by LAST_ANALYZED;\
+select OWNER,INDEX_NAME,TABLE_NAME,INDEX_TYPE,NUM_ROWS,LAST_ANALYZED,STATUS,TABLESPACE_NAME from dba_indexes where OWNER ='PAUTHOWN' order by TABLE_NAME;\
+select INDEX_NAME,TABLE_NAME,INDEX_TYPE,NUM_ROWS,LAST_ANALYZED,STATUS,TABLESPACE_NAME,
+\f4\fs26 \cf8 \kerning1\expnd0\expndtw0 \CocoaLigature0 LOGGING,
+\f3\fs32 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 BLEVEL,LEAF_BLOCKS,
+\f4\fs26 \cf8 \kerning1\expnd0\expndtw0 \CocoaLigature0 PARTITIONED
+\f3\fs32 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  from dba_indexes where OWNER ='PAUTHOWN' order by TABLE_NAME;\
+\
+select table_name,column_name,index_name,COLUMN_POSITION from dba_ind_columns where table_name=upper('
+\f4\fs26 \cf8 \kerning1\expnd0\expndtw0 \CocoaLigature0 PARTNER_CONNECTION_HISTORY
+\f3\fs32 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 ') order by 3,4;\
+select owner, table_name, column_name from dba_tab_columns where owner = 'PAUTHOWN' and column_name ='LAST_MOD_TIME';\
+\
+stats EE100PTH\
+stats EE001PTH hourly\
+stats RW001PTH hourly reportcdr\
+	\
+PROD					East		West\
+Schema size				30000 MB	40000 MB\
+TOKEN table size		13403 MB	20649 MB\
+USER_CONNECTION size	 5678 MB	 5664 MB\
+REQUEST_DATA size		 4224 MB	 6656 MB\
+\
+E2E\
+Schema size				779 MB		781 MB\
+TOKEN table size		288			288\
+USER_CONNECTION size	104			104\
+REQUEST_DATA size		 20			 21\
+\
+Perf\
+Schema size				6267 MB		8421 MB\
+TOKEN table size		3136		6276\
+USER_CONNECTION size	 856		 840\
+REQUEST_DATA size		 960		   6\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f4\fs30 \cf0 \kerning1\expnd0\expndtw0 \
+\pard\pardeftab720\ri-340\partightenfactor0
+\cf0 @/ogg_data/sql/satya/pauth_table_count.sql\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f3\fs36 \cf0 \expnd0\expndtw0\kerning0
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ri-340\partightenfactor0
+
+\f4\fs30 \cf0 \kerning1\expnd0\expndtw0 select count(*) from PAUTHOWN.ASSET;\
+select count(*) from PAUTHOWN.ASSET_HISTORY;\
+select count(*) from PAUTHOWN.GLOBAL_HISTORY;\
+select count(*) from PAUTHOWN.PARTNER;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ri-2758\partightenfactor0
+\cf0 select count(*) from PAUTHOWN.PARTNER_ASSET_MAPPING;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ri-340\partightenfactor0
+\cf0 select count(*) from PAUTHOWN.PARTNER_CERTIFICATE;\
+select count(*) from PAUTHOWN.PARTNER_CONNECTION;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ri-5557\partightenfactor0
+\cf0 select count(*) from PAUTHOWN.PARTNER_CONNECTION_HISTORY;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ri-340\partightenfactor0
+\cf0 select count(*) from PAUTHOWN.PARTNER_HISTORY;\
+select count(*) from PAUTHOWN.REQUEST_DATA;\
+select count(*) from PAUTHOWN.TOKEN;\
+\pard\pardeftab720\ri-340\partightenfactor0
+\cf0 select count(*) from PAUTHOWN.USER_CONNECTION;
+\f1\fs28 \
+
+\f4\fs30 select count(*) from PAUTHOWN.PC_EVENTS;
+\f1\fs28 \
+
+\f4\fs30 select count(*) from PAUTHOWN.PC_NOTIFICATION;\
+\
+grep -i PAUTHOWN *.prm\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1 \cf0 $\{OGG_HOME\}/ggsci <<-EOF |grep "PTH"\
+info all\
+EOF\
+
+\f4 \
+
+\f1 $\{OGG_HOME\}/ggsci <<-EOF\
+info *pth\
+EOF\
+\
+$\{OGG_HOME\}/ggsci <<-EOF\
+stop *pth\
+EOF\
+
+\fs28 \
+
+\fs30 $\{OGG_HOME\}/ggsci <<-EOF\
+start *pth\
+EOF\
+
+\f3\fs32 \expnd0\expndtw0\kerning0
+\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 ========================================================================================================================\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\fs34 \cf10 \expnd0\expndtw0\kerning0
+\
+ffjzsuxb1vu6c - delete from TOKEN where TOKEN_ID=:1\
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs42 \cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f4\fs30 \cf0 2q9j114ab5cun\
+select userconnec0_.USER_CONNECTION_ID as USER_CON1_5_,\
+userconnec0_.CREATED as CREATED2_5_, userconnec0_.DATACENTER as\
+DATACENT3_5_, userconnec0_.INTUIT_PROPERTY as INTUIT_P4_5_,\
+userconnec0_.MODIFIED as MODIFIED5_5_, userconnec0_.ORIGIN_ID as\
+ORIGIN_I6_5_, userconnec0_.OWNER_TYPE as OWNER_TY7_5_,\
+userconnec0_.PARTNER_UID as PARTNER_8_5_, userconnec0_.EMAIL as\
+EMAIL9_5_, userconnec0_.PARTNER_USER_ID as PARTNER10_5_,\
+userconnec0_.REALM_ID as REALM_I11_5_, userconnec0_.STATE as\
+STATE12_5_, userconnec0_.STATUS as STATUS13_5_, userconnec0_.TOKEN_ID\
+as TOKEN_I16_5_, userconnec0_.PA_TOKEN_ID as PA_TOKE14_5_,\
+userconnec0_.USER_ID as USER_ID15_5_ from USER_CONNECTION userconnec0_\
+where userconnec0_.REALM_ID=:1\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs42 \cf0 g4d2x07r9pdw6 select * from PAUTHOWN.user_connection where realm_id='123146478057769'\
+\
+3bwmvm0kmysvq  select /*+ all_rows */ count(1) from "PAUTHOWN"."USER_CONNECTION" where "TOKEN_ID" = :1\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 ========================================================================================================================\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf11 \
+set lines 333 pages 44444\
+col TOKEN_ID for a40\
+\
+select count(*) from PAUTHOWN.TOKEN where (token_id) in (\
+select token_id from PAUTHOWN.TOKEN\
+minus \
+select token_id from PAUTHOWN.TOKEN@IDXPFE2B);\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 update PAUTHOWN.token set LAST_MOD_TIME=sysdate where \cf11 (token_id, LAST_MOD_TIME) in (\
+select token_id,LAST_MOD_TIME from PAUTHOWN.TOKEN\
+minus \
+select token_id,LAST_MOD_TIME from PAUTHOWN.TOKEN@idxpfe2b);\cf4 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf12 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf11 select count(*) from PAUTHOWN.USER_CONNECTION where (USER_CONNECTION_ID, LAST_MOD_TIME) in (\cf12 \
+\cf11 select USER_CONNECTION_ID,LAST_MOD_TIME from PAUTHOWN.USER_CONNECTION@IDXPDE2A\
+minus \
+select USER_CONNECTION_ID,LAST_MOD_TIME from PAUTHOWN.USER_CONNECTION@IDXPDW2A);\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 update PAUTHOWN.USER_CONNECTION set LAST_MOD_TIME =sysdate\cf11  where (USER_CONNECTION_ID, LAST_MOD_TIME) in (\cf12 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf11 select USER_CONNECTION_ID,LAST_MOD_TIME from PAUTHOWN.USER_CONNECTION\
+minus \
+select USER_CONNECTION_ID,LAST_MOD_TIME from PAUTHOWN.USER_CONNECTION@idxpfe2b);\
+\
+select USER_CONNECTION_ID,LAST_MOD_TIME from PAUTHOWN.USER_CONNECTION@IDXPDE2A\
+minus \
+select USER_CONNECTION_ID,LAST_MOD_TIME from PAUTHOWN.USER_CONNECTION@IDXPDW2A;\
+\
+select token_id,LAST_MOD_TIME from PAUTHOWN.TOKEN@IDXPDE2A\
+minus \
+select token_id,LAST_MOD_TIME from PAUTHOWN.TOKEN@IDXPDW2A;\cf13 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+========================================================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs32 \cf0 PAUTHOWN.TOKEN\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b0 \cf0 	TOKEN_ID - PK\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+\cf0 	No foreign keys\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 col TOKEN_ID for a38\
+select count(*) from PAUTHOWN.TOKEN;\
+\pard\pardeftab720\ri-30069\partightenfactor0
+\cf0 select count(*) from PAUTHOWN.TOKEN@IDXPDW2A;\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 select count(*) from PAUTHOWN.TOKEN where 
+\f5\fs23\fsmilli11667 \cf14 \expnd0\expndtw0\kerning0
+KEY_VERSION is null
+\f1\fs32 \cf0 \kerning1\expnd0\expndtw0 ;\
+select token_id,CREATED,LAST_MOD_TIME from PAUTHOWN.TOKEN where rownum<5;\
+select * from PAUTHOWN.token where token_id='
+\f5\fs21\fsmilli10667 \cf14 \expnd0\expndtw0\kerning0
+3b3d054a-7174-48af-b2cd-327314586e5c
+\fs23\fsmilli11667 '
+\f1\fs32 \cf0 \kerning1\expnd0\expndtw0 ;\
+select * from PAUTHOWN.token where token_id in ('46869306-66f1-4cbe-afbe-901b5fe1f51b','71a56947-f302-48d5-b3b0-cd94e660ca03');\
+select token_id ,CREATED,MODIFIED from PAUTHOWN.token where token_id='e552b402-c84d-4a66-99a9-57c541c14cc9';\
+select token_id ,CREATED,MODIFIED,LAST_MOD_TIME from PAUTHOWN.token where token_id='
+\f4\fs26 \cf8 \CocoaLigature0 b94ff534-a0dc-4935-b6e4-066996698a1d
+\f5\fs21\fsmilli10667 \cf14 \expnd0\expndtw0\kerning0
+\CocoaLigature1 ';
+\f1\fs32 \cf0 \kerning1\expnd0\expndtw0 \
+update PAUTHOWN.token set LAST_MOD_TIME=sysdate where token_id='
+\f4\fs26 \cf8 \CocoaLigature0 b94ff534-a0dc-4935-b6e4-066996698a1d
+\f5\fs21\fsmilli10667 \cf14 \expnd0\expndtw0\kerning0
+\CocoaLigature1 ';
+\f1\fs32 \cf0 \kerning1\expnd0\expndtw0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+\cf0 select count(*) from PAUTHOWN.token where MODIFIED between to_date('22-MAR-19 20:28:00','DD-MON-YY HH24:MI:SS') and  to_date('22-MAR-19 21:00:00','DD-MON-YY HH24:MI:SS') ; \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+alter table PAUTHOWN.TOKEN modify (TOKEN_ENC_FLAG default 1);\
+select count(*) from PAUTHOWN.TOKEN where TOKEN_ENC_FLAG=0;
+\fs30 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf4 PAUTHOWN.USER_CONNECTION\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b0 \cf4 	USER_CONNECTION_ID - PK\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 	INTUIT_CONNECTION_FK1	- FK ==> TOKEN_ID\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 col USER_CONNECTION_ID for a40\
+select * from PAUTHOWN.USER_CONNECTION where rownum < 10;\
+select count(*) from PAUTHOWN.USER_CONNECTION;\
+select USER_CONNECTION_ID, USER_ID,REALM_ID from PAUTHOWN.USER_CONNECTION where rownum<5;\
+select * from PAUTHOWN.USER_CONNECTION where USER_ID='9130346814584296' ;\
+select USER_ID, LAST_MOD_TIME from PAUTHOWN.USER_CONNECTION where REALM_ID='50000003' ;\
+select USER_CONNECTION_ID, LAST_MOD_TIME  from PAUTHOWN.USER_CONNECTION where USER_CONNECTION_ID in ('3964d673-addd-41fa-890b-26750a8ed1c9','fa7571d8-681b-4cad-ba08-f1b8b55def33');\
+select * from PAUTHOWN.USER_CONNECTION where USER_ID='123150591975509' and partner_user_id='111835404716909254157' and status='ACTIVE';\
+select USER_ID, partner_user_id, origin_id , LAST_MOD_TIME from PAUTHOWN.USER_CONNECTION where USER_ID='123150591975509' and partner_user_id='111835404716909254157' and status='ACTIVE';\
+select USER_CONNECTION_ID ,USER_ID, MODIFIED, LAST_MOD_TIME from PAUTHOWN.USER_CONNECTION where USER_CONNECTION_ID ='00036723-afd9-4ee5-ae76-6e78564398d0';\
+select * from PAUTHOWN.USER_CONNECTION where USER_CONNECTION_ID ='3f7684de-15f4-4042-ab13-b83ca54b59dd' ;\
+select USER_CONNECTION_ID ,USER_ID,CREATED, MODIFIED from PAUTHOWN.USER_CONNECTION where USER_CONNECTION_ID ='00014c15-d124-4c04-b58b-b69f54af386d' ;\
+update PAUTHOWN.USER_CONNECTION set LAST_MOD_TIME=sysdate where USER_CONNECTION_ID ='3964d673-addd-41fa-890b-26750a8ed1c9';\
+update PAUTHOWN.USER_CONNECTION set LAST_MOD_TIME=LAST_MOD_TIME where USER_CONNECTION_ID in ('3964d673-addd-41fa-890b-26750a8ed1c9','fa7571d8-681b-4cad-ba08-f1b8b55def33');\
+\
+select * from PAUTHOWN.USER_CONNECTION where REALM_ID='123146506944994';\
+select * from PAUTHOWN.USER_CONNECTION where user_id='123146506944014';\
+\
+ALTER TABLE PAUTHOWN.USER_CONNECTION ADD ORIGIN_ID VARCHAR2(20);\cf0 \
+\cf4 ALTER TABLE PAUTHOWN.USER_CONNECTION MODIFY PA_TOKEN_ID VARCHAR2(1024);\
+\
+select USER_ID, intuit_property, CREATED,MODIFIED from PAUTHOWN.USER_CONNECTION where partner_uid='capitalone' and status='ACTIVE' and CREATED < (sysdate-510);\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f3\fs32 \cf4                  Name       Null?              Type\
+_____________________ ___________ _________________\
+USER_CONNECTION_ID    NOT NULL    VARCHAR2(200)\
+USER_ID                           VARCHAR2(100)\
+REALM_ID              NOT NULL    VARCHAR2(100)\
+STATE                 NOT NULL    VARCHAR2(20)\
+TOKEN_TYPE                        VARCHAR2(40)\
+OWNER_TYPE                        VARCHAR2(20)\
+DATACENTER                        VARCHAR2(20)\
+TOKEN_ID              NOT NULL    VARCHAR2(100)\
+PARTNER_USER_ID                   VARCHAR2(250)\
+PA_TOKEN_ID           NOT NULL    VARCHAR2(1024)\
+STATUS                            VARCHAR2(20)\
+EMAIL                             VARCHAR2(100)\
+CREATED                           TIMESTAMP(6)\
+MODIFIED                          TIMESTAMP(6)\
+PARTNER_UID                       VARCHAR2(100)\
+INTUIT_PROPERTY                   VARCHAR2(20)\
+ORIGIN_ID                         VARCHAR2(20)\
+LAST_MOD_TIME                     TIMESTAMP(6)\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f4\fs26 \cf8 \CocoaLigature0 select distinct STATUS from PAUTHOWN.USER_CONNECTION;\
+      
+\f6\b \ul STATUS
+\f4\b0 \ulnone  \
+____________ \
+IN_ACTIVE    \
+ACTIVE       \
+\
+\
+select distinct STATE from PAUTHOWN.USER_CONNECTION;\
+       
+\f6\b \ul STATE
+\f4\b0 \ulnone  \
+____________ \
+LINKED       \
+REVOKED      \
+UN_LINKED    \
+DUPLICATE    \
+OAUTH 
+\f3\fs32 \cf4 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\fs30 \cf4 select partner_user_id ,count(*) from PAUTHOWN.USER_CONNECTION group by partner_user_id having count(*) > 1;\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f7\fs28 \cf15 \cb16 \expnd0\expndtw0\kerning0
+ALTER TABLE PAUTHOWN.TOKEN ADD USER_CONNECTION_ID VARCHAR2(200);\
+\pard\pardeftab720\ri-30069\sl240\partightenfactor0
+\cf15 create index PAUTHOWN.TOKEN_USER_CONN_ID_IDX on PAUTHOWN.TOKEN (USER_CONNECTION_ID) tablespace PAUTH_INDX online;\
+\pard\pardeftab720\sl340\partightenfactor0
+\cf15 ALTER TABLE PAUTHOWN.USER_CONNECTION modify TOKEN_ID NULL;\
+\
+Select count(*) from PAUTHOWN.TOKEN where USER_CONNECTION_ID is not null;
+\f1\fs30 \cf4 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f8\fs24 \cf17 \cb18 \expnd0\expndtw0\kerning0
+select count(*) from (select uc.user_id,uc1.partner_user_id\cb1  \cb18 from pauthown.user_connection uc, pauthown.user_connection uc1\cb1 \
+\cb18 where uc.partner_user_id=uc1.partner_user_id and\cb1  \cb18 uc.user_id<>uc1.user_id );\
+\
+select count(*) from (select uc.user_id,uc1.partner_user_id\cb1  \cb18 from pauthown.user_connection uc, pauthown.user_connection uc1\cb1 \
+\cb18 where uc.partner_user_id=uc1.partner_user_id and\cb1  \cb18 uc.user_id<>uc1.user_id and uc.partner_user_id not like '%
+\f4\fs26 \cf8 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 userIdFlow.driver_id%
+\f8\fs24 \cf17 \cb18 \expnd0\expndtw0\kerning0
+\CocoaLigature1 ' and uc.state = '
+\f4\fs26 \cf8 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 OAUTH
+\f8\fs24 \cf17 \cb18 \expnd0\expndtw0\kerning0
+\CocoaLigature1 ');\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1\fs30 \cf4 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f8\fs24 \cf17 \cb18 \expnd0\expndtw0\kerning0
+select uc.user_id,uc1.partner_user_id\cb1  \cb18 from pauthown.user_connection uc, pauthown.user_connection uc1\cb1 \
+\cb18 where uc.partner_user_id=uc1.partner_user_id and\cb1  \cb18 uc.user_id<>uc1.user_id;\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\fs30 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f8\fs24 \cf17 \cb18 \expnd0\expndtw0\kerning0
+select uc.user_id,uc1.partner_user_id\cb1  \cb18 from pauthown.user_connection uc, pauthown.user_connection uc1\cb1 \
+\cb18 where uc.partner_user_id=uc1.partner_user_id and\cb1  \cb18 uc.user_id<>uc1.user_id and uc.partner_user_id not like '%
+\f4\fs26 \cf8 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 userIdFlow.driver_id%
+\f8\fs24 \cf17 \cb18 \expnd0\expndtw0\kerning0
+\CocoaLigature1 ' and uc.state = '
+\f4\fs26 \cf8 \cb1 \kerning1\expnd0\expndtw0 \CocoaLigature0 OAUTH
+\f8\fs24 \cf17 \cb18 \expnd0\expndtw0\kerning0
+\CocoaLigature1 ';\
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f1\fs30 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\pardeftab720\sl360\partightenfactor0
+
+\f8\fs24 \cf17 \cb18 \expnd0\expndtw0\kerning0
+select uc.user_id,uc1.partner_user_id\cb1  \cb18 from pauthown.user_connection uc, pauthown.user_connection uc1\cb1 \
+\cb18 where uc.partner_user_id=uc1.partner_user_id and\cb1  (\cb18 uc.user_id<>uc1.user_id or uc.
+\f3\fs32 \cf4 \cb1 \kerning1\expnd0\expndtw0 REALM_ID 
+\f8\fs24 \cf17 \cb18 \expnd0\expndtw0\kerning0
+<>uc1. 
+\f3\fs32 \cf4 \cb1 \kerning1\expnd0\expndtw0 REALM_ID
+\f8\fs24 \cf17 \cb18 \expnd0\expndtw0\kerning0
+);
+\f1\fs30 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf19 PAUTHOWN.PARTNER
+\f1\b0 \cf0 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+\cf19 SET LONGC 999999\
+SET LONG 999999\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf19 select count(*) from PAUTHOWN.PARTNER;\
+select PARTNER_ID from PAUTHOWN.PARTNER where rownum<5;\
+select PARTNER_ID,CREATED,MODIFIED,LAST_MOD_TIME
+\f4\fs26 \cf8 \CocoaLigature0  
+\f1\fs30 \cf19 \CocoaLigature1 from PAUTHOWN.PARTNER where PARTNER_ID ='
+\f4\fs26 \cf8 \CocoaLigature0 avatar
+\f1\fs30 \cf19 \CocoaLigature1 ';\
+select PARTNER_ID,CREATED,MODIFIED,LAST_MOD_TIME
+\f4\fs26 \cf8 \CocoaLigature0 , 
+\f1\fs30 \cf19 \CocoaLigature1 PROTOCOL_FEATURES,
+\f4\fs26 \cf8 \CocoaLigature0  
+\f1\fs30 \cf19 \CocoaLigature1 PROTOCOL_FEATURES_CLOB
+\f4\fs26 \cf8 \CocoaLigature0  
+\f1\fs30 \cf19 \CocoaLigature1 from PAUTHOWN.PARTNER where PARTNER_ID ='
+\f4\fs26 \cf8 \CocoaLigature0 avatar
+\f1\fs30 \cf19 \CocoaLigature1 ';\
+update PAUTHOWN.PARTNER set LAST_MOD_TIME=sysdate where PARTNER_ID ='
+\f4\fs26 \cf8 \CocoaLigature0 avatar
+\f1\fs30 \cf19 \CocoaLigature1 ';\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf20 PAUTHOWN.PARTNER_CONNECTION
+\f1\b0 \
+	PARTNER_CONNECTION_ID - PK\
+select count(*) from PAUTHOWN.PARTNER_CONNECTION;\
+select PARTNER_CONNECTION_ID,CLIENT_ID,PARTNER_ID from PAUTHOWN.PARTNER_CONNECTION where rownum<5;\
+select PARTNER_CONNECTION_ID,CLIENT_ID,PARTNER_ID,CREATED,MODIFIED,LAST_MOD_TIME from PAUTHOWN.PARTNER_CONNECTION where PARTNER_CONNECTION_ID='
+\f4\fs26 \cf8 \CocoaLigature0 pass_pcidoauth2test0xefmx3d
+\f1\fs30 \cf20 \CocoaLigature1 ';\
+select PARTNER_CONNECTION_ID,CREATED,MODIFIED,LAST_MOD_TIME from PAUTHOWN.PARTNER_CONNECTION where PARTNER_CONNECTION_ID='
+\f4\fs26 \cf8 \CocoaLigature0 pass_pcidoauth2testpmfoikbn
+\f1\fs30 \cf20 \CocoaLigature1 ';\
+update PAUTHOWN.PARTNER_CONNECTION set LAST_MOD_TIME=sysdate where PARTNER_CONNECTION_ID='
+\f4\fs26 \cf8 \CocoaLigature0 pass_pcidoauth2testv5i7pxfz
+\f1\fs30 \cf20 \CocoaLigature1 ';\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf21 PAUTHOWN.PARTNER_CERTIFICATE
+\f1\b0 \
+select count(*) from PAUTHOWN.PARTNER_CERTIFICATE;\
+select PARTNER_CERT_ID from PAUTHOWN.PARTNER_CERTIFICATE where rownum<5;\
+select * from PAUTHOWN.PARTNER_CERTIFICATE where PARTNER_CERT_ID=\cf17 \cb16 \expnd0\expndtw0\kerning0
+'7e660b2b-e835-4d5b-a8a4-b68daa6ebf7a';\cf21 \cb1 \kerning1\expnd0\expndtw0 \
+select PARTNER_CERT_ID,CERTIFICATE_ID,CREATED,MODIFIED, LAST_MOD_TIME from PAUTHOWN.PARTNER_CERTIFICATE where PARTNER_CERT_ID='
+\f5\fs21\fsmilli10667 \cf14 \expnd0\expndtw0\kerning0
+8d993f89-12a7-4671-bb08-b6aa766477a3
+\f1\fs30 \cf21 \kerning1\expnd0\expndtw0 ';\
+select PARTNER_CERT_ID,CERTIFICATE_ID,CREATED,MODIFIED from PAUTHOWN.PARTNER_CERTIFICATE where PARTNER_CERT_ID='37681418-7db9-4558-9ddf-fc17eef29295';\
+update PAUTHOWN.PARTNER_CERTIFICATE set LAST_MOD_TIME=sysdate where PARTNER_CERT_ID='
+\f5\fs21\fsmilli10667 \cf14 \expnd0\expndtw0\kerning0
+8d993f89-12a7-4671-bb08-b6aa766477a3
+\f1\fs30 \cf21 \kerning1\expnd0\expndtw0 ';\
+update PAUTHOWN.PARTNER_CERTIFICATE set MODIFIED=sysdate where PARTNER_CERT_ID='
+\f5\fs21\fsmilli10667 \cf14 \expnd0\expndtw0\kerning0
+8d993f89-12a7-4671-bb08-b6aa766477a3
+\f1\fs30 \cf21 \kerning1\expnd0\expndtw0 ';\
+update PAUTHOWN.PARTNER_CERTIFICATE set status='ACTIVE',MODIFIED=sysdate where PARTNER_CERT_ID=\cf17 \cb16 \expnd0\expndtw0\kerning0
+'7e660b2b-e835-4d5b-a8a4-b68daa6ebf7a';\
+update PAUTHOWN.partner_certificate set fi_name='apib2b.citi.com-expired',MODIFIED=sysdate where fi_name='apib2b.citi.com';\cf21 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf22 PAUTHOWN.PARTNER_ASSET_MAPPING
+\f1\b0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f4\fs26 \cf8 \CocoaLigature0 	PTH_ASS_MAP_PK		PARTNER_ID, ASSET_ID
+\f1\fs30 \cf0 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf22 select count(*) from pauthown.PARTNER_ASSET_MAPPING;\
+select PARTNER_ID,ASSET_ID from pauthown.PARTNER_ASSET_MAPPING where rownum<5;\
+select PARTNER_ID,ASSET_ID,CREATED,MODIFIED,LAST_MOD_TIME from pauthown.PARTNER_ASSET_MAPPING where PARTNER_ID='
+\f4\fs26 \cf8 \CocoaLigature0 152b509b-8a21-47bc-b00b-171843d3a757
+\f1\fs30 \cf22 \CocoaLigature1 ' and ASSET_ID='
+\f4\fs26 \cf8 \CocoaLigature0 2667274471607521900
+\f1\fs30 \cf22 \CocoaLigature1 ';\
+update pauthown.PARTNER_ASSET_MAPPING set LAST_MOD_TIME=sysdate where PARTNER_ID='
+\f4\fs26 \cf8 \CocoaLigature0 152b509b-8a21-47bc-b00b-171843d3a757
+\f1\fs30 \cf22 \CocoaLigature1 ' and ASSET_ID='
+\f4\fs26 \cf8 \CocoaLigature0 2667274471607521900
+\f1\fs30 \cf22 \CocoaLigature1 ';\
+select PARTNER_ID,ASSET_ID,
+\f4\fs26 \CocoaLigature0 MODIFIED
+\f1\fs30 \CocoaLigature1  from pauthown.PARTNER_ASSET_MAPPING where ASSET_ID='
+\f4\fs26 \CocoaLigature0 2667274471607521900
+\f1\fs30 \CocoaLigature1 ' and PARTNER_ID='
+\f4\fs26 \CocoaLigature0 TestCapitalOneQA17813
+\f1\fs30 \CocoaLigature1 ';\
+update pauthown.PARTNER_ASSET_MAPPING set 
+\f4\fs26 \CocoaLigature0 MODIFIED
+\f1\fs30 \CocoaLigature1 =sysdate where ASSET_ID='
+\f4\fs26 \CocoaLigature0 2667274471607521900
+\f1\fs30 \CocoaLigature1 ' and PARTNER_ID='
+\f4\fs26 \CocoaLigature0 TestCapitalOneQA17813
+\f1\fs30 \CocoaLigature1 ';\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b \cf23 PAUTHOWN.ASSET
+\f1\b0 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+\cf23 select asset_id from PAUTHOWN.ASSET where instr(asset_id,' ') <> 0;    \
+select asset_id,INTUIT_ASSET_ID from pauthown.asset where rownum < 5;\
+select asset_id,INTUIT_ASSET_ID,CREATED,MODIFIED,LAST_MOD_TIME from pauthown.asset where asset_id ='intuit_openid941';\
+update pauthown.asset set LAST_MOD_TIME=sysdate where asset_id ='intuit_openid941';\
+update pauthown.asset set MODIFIED=sysdate where asset_id ='Intuit.google.test';\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b \cf0 PAUTHOWN.ASSET_HISTORY
+\f1\b0 \
+	VERSION  - PK\
+	No foreign keys	\
+col VERSION for a30\
+col ASSET_ID for a70\
+select count(*) from PAUTHOWN.ASSET_HISTORY;\
+select count(*) from PAUTHOWN.ASSET_HISTORY where ASSET_ID is null;\
+select ASSET_ID from PAUTHOWN.ASSET_HISTORY where rownum < 5;\
+select asset_id from pauthown.Asset_history where instr(asset_id,' ') <> 0;\
+select ASSET_ID,VERSION,LAST_MOD_TIME from PAUTHOWN.ASSET_HISTORY where ASSET_ID='TestCapitalOneQA801_qbo_9009468646743120861';\
+select ASSET_ID,VERSION,MODIFICATION_TYPE,MODIFIED,MODIFIED_BY,LAST_MOD_TIME from PAUTHOWN.ASSET_HISTORY where ASSET_ID='TestCapitalOneQA801_qbo_9009468646743120861';\
+select ASSET_ID,VERSION,MODIFICATION_TYPE,CREATED,MODIFIED,MODIFIED_BY,LAST_MOD_TIME from PAUTHOWN.ASSET_HISTORY where VERSION='PREHISTORIC-9331910' order by LAST_MOD_TIME;\
+update PAUTHOWN.ASSET_HISTORY set LAST_MOD_TIME=sysdate where ASSET_ID='TestCapitalOneQA801_qbo_9009468646743120861';\
+update PAUTHOWN.ASSET_HISTORY set LAST_MOD_TIME=sysdate where ASSET_ID='TestCapitalOneQA801_qbo_74326986041369810' and VERSION='PREHISTORIC-49190';\
+update PAUTHOWN.ASSET_HISTORY set LAST_MOD_TIME=sysdate where VERSION='PREHISTORIC-9331910';\
+update PAUTHOWN.ASSET_HISTORY set MODIFIED=sysdate where VERSION='PREHISTORIC-9331910';\cf20 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b \cf20 PAUTHOWN.PARTNER_HISTORY
+\f1\b0 \
+	VERSION - PK\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+\cf0 	No foreign keys	\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+\cf20 select PARTNER_ID from PAUTHOWN.PARTNER_HISTORY where rownum < 5;\
+select PARTNER_ID,VERSION,MODIFIED,LAST_MOD_TIME from PAUTHOWN.PARTNER_HISTORY where PARTNER_ID='intuit_openid_628';\
+select PARTNER_ID,VERSION,MODIFIED,LAST_MOD_TIME from PAUTHOWN.PARTNER_HISTORY where VERSION ='PREHISTORIC-26220';\
+update PAUTHOWN.PARTNER_HISTORY set LAST_MOD_TIME=sysdate where VERSION ='
+\f4\fs26 \cf8 \CocoaLigature0 PREHISTORIC-39550
+\f1\fs30 \cf20 \CocoaLigature1 ';\
+update PAUTHOWN.PARTNER_HISTORY set LAST_MOD_TIME=sysdate where PARTNER_ID='intuit_openid_628';\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b \cf24 PAUTHOWN.PARTNER_CONNECTION_HISTORY
+\f1\b0 \
+	PCH_PK		VERSION\
+	No foreign keys\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tx40666\pardeftab720\partightenfactor0
+
+\fs28 \cf24 set lines 333 pages 44444\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+
+\fs30 \cf24 col VERSION for a30\
+col PARTNER_ID for a30\
+col PARTNER_CONNECTION_ID for a30\
+select count(*) from PAUTHOWN.PARTNER_CONNECTION_HISTORY;\
+select count(*) from PAUTHOWN.PARTNER_CONNECTION_HISTORY where 
+\f4\fs26 \cf8 \CocoaLigature0 DISPLAY_NAME
+\f1\fs30 \cf24 \CocoaLigature1  is null;\
+select PARTNER_ID from PAUTHOWN.PARTNER_CONNECTION_HISTORY where rownum < 5;\
+select * from PAUTHOWN.partner_connection_history where partner_id = 'pass_oauth2testa3edzomj';\
+select PARTNER_ID, PARTNER_CONNECTION_ID, VERSION,MODIFICATION_TYPE,CREATED,MODIFIED,LAST_MOD_TIME from PAUTHOWN.partner_connection_history where partner_id = '
+\f4\fs26 \cf8 \CocoaLigature0 pass_oauth2testoptv0e8b
+\f1\fs30 \cf24 \CocoaLigature1 ';\
+select PARTNER_ID, PARTNER_CONNECTION_ID, VERSION,MODIFICATION_TYPE,CREATED,MODIFIED,LAST_MOD_TIME from PAUTHOWN.partner_connection_history where VERSION = 'PREHISTORIC-9409340';\
+update PAUTHOWN.partner_connection_history set LAST_MOD_TIME=sysdate where VERSION ='PREHISTORIC-9409340';\
+update PAUTHOWN.partner_connection_history set LAST_MOD_TIME=sysdate where partner_id = '
+\f4\fs26 \cf8 \CocoaLigature0 pass_oauth2testoptv0e8b
+\f1\fs30 \cf24 \CocoaLigature1 ' and VERSION='b97772b5-276a-4eb7-beb3-dc66ad5454ee';\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b \cf25 PAUTHOWN.GLOBAL_HISTORY
+\f1\b0 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+\cf25 col GLOBAL_VERSION for a38\
+col PARTNER_ID for a30\
+col PARTNER_VERSION for a36\
+col PC_MAP for a50\
+col ASSETS_MAP for a60\
+col LAST_MOD_TIME for a30\
+select count(*) from PAUTHOWN.GLOBAL_HISTORY;\
+select GLOBAL_VERSION  from PAUTHOWN.GLOBAL_HISTORY where PC_MAP is null order by 1;\
+select PARTNER_ID from PAUTHOWN.global_history where rownum < 5;\
+select * from PAUTHOWN.global_history where GLOBAL_VERSION='
+\f5\fs21\fsmilli10667 \cf14 \expnd0\expndtw0\kerning0
+PREHISTORIC-9341550
+\f1\fs30 \cf25 \kerning1\expnd0\expndtw0 ';\
+select * from PAUTHOWN.global_history where GLOBAL_VERSION in ('
+\f5\fs21\fsmilli10667 \cf14 \expnd0\expndtw0\kerning0
+PREHISTORIC-9341550
+\f1\fs30 \cf25 \kerning1\expnd0\expndtw0 ', '
+\f5\fs21\fsmilli10667 \cf14 \expnd0\expndtw0\kerning0
+PREHISTORIC-9341690
+\f1\fs30 \cf25 \kerning1\expnd0\expndtw0 ','
+\f5\fs21\fsmilli10667 \cf14 \expnd0\expndtw0\kerning0
+PREHISTORIC-9341800
+\f1\fs30 \cf25 \kerning1\expnd0\expndtw0 ');\
+select PARTNER_ID,GLOBAL_VERSION,PARTNER_VERSION,LAST_MOD_TIME from PAUTHOWN.global_history where GLOBAL_VERSION='
+\f5\fs21\fsmilli10667 \cf14 \expnd0\expndtw0\kerning0
+PREHISTORIC-9341510
+\f1\fs30 \cf25 \kerning1\expnd0\expndtw0 ';\
+select * from PAUTHOWN.global_history where partner_id='cf7e5055-408a-4bd6-a8e0-ac06948cd79c';\
+select PARTNER_ID,GLOBAL_VERSION,PARTNER_VERSION,LAST_MOD_TIME from PAUTHOWN.global_history where PARTNER_ID = '
+\f4\fs26 \cf8 \CocoaLigature0 pass_oauth2testvvzqtda9
+\f1\fs30 \cf25 \CocoaLigature1 ';\
+update PAUTHOWN.global_history set LAST_MOD_TIME=sysdate where PARTNER_ID = 'boa_qa';\
+update PAUTHOWN.global_history set LAST_MOD_TIME=sysdate where PARTNER_ID = 'cibc_oauth' and GLOBAL_VERSION='PREHISTORIC-9346600';\
+update PAUTHOWN.global_history set LAST_MOD_TIME=sysdate where GLOBAL_VERSION='
+\f5\fs21\fsmilli10667 \cf14 \expnd0\expndtw0\kerning0
+PREHISTORIC-9341700
+\f1\fs30 \cf25 \kerning1\expnd0\expndtw0 ';\
+update PAUTHOWN.global_history set PC_MAP=PC_MAP where GLOBAL_VERSION in ('
+\f5\fs21\fsmilli10667 \cf14 \expnd0\expndtw0\kerning0
+PREHISTORIC-9341550
+\f1\fs30 \cf25 \kerning1\expnd0\expndtw0 ', '
+\f5\fs21\fsmilli10667 \cf14 \expnd0\expndtw0\kerning0
+PREHISTORIC-9341690
+\f1\fs30 \cf25 \kerning1\expnd0\expndtw0 ','
+\f5\fs21\fsmilli10667 \cf14 \expnd0\expndtw0\kerning0
+PREHISTORIC-9341800
+\f1\fs30 \cf25 \kerning1\expnd0\expndtw0 ');\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+
+\f0\b \cf26 REQUEST_DATA
+\f1\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+\cf25 	\cf26 UUID - PK\
+	No foreign keys\
+select UUID, CREATED,LAST_MOD_TIME from PAUTHOWN.REQUEST_DATA where rownum < 5;\
+select UUID, CREATED,LAST_MOD_TIME from PAUTHOWN.REQUEST_DATA where UUID = '
+\f4\fs26 \cf8 \CocoaLigature0 f64a6c98-9da5-44d1-be0b-98f44126ae1a
+\f1\fs30 \cf26 \CocoaLigature1 ';\
+select count(*) from PAUTHOWN.REQUEST_DATA where LAST_MOD_TIME between to_date('22-MAR-19 20:27:00','DD-MON-YY HH24:MI:SS') and  to_date('22-MAR-19 22:00:00','DD-MON-YY HH24:MI:SS') ; \
+update PAUTHOWN.REQUEST_DATA set LAST_MOD_TIME=sysdate where UUID =  '
+\f4\fs26 \cf8 \CocoaLigature0 f64a6c98-9da5-44d1-be0b-98f44126ae1a
+\f1\fs30 \cf26 \CocoaLigature1 ';\
+select uuid from PAUTHOWN.REQUEST_DATA where LAST_MOD_TIME between to_date('22-MAR-19 20:27:00','DD-MON-YY HH24:MI:SS') and  to_date('22-MAR-19 22:00:00','DD-MON-YY HH24:MI:SS')  and rownum < 5;\
+update PAUTHOWN.REQUEST_DATA set LAST_MOD_TIME=sysdate where LAST_MOD_TIME between to_date('22-MAR-19 
+\f4\fs26 \CocoaLigature0 20:27
+\f1\fs30 \CocoaLigature1 :00','DD-MON-YY HH24:MI:SS') and  to_date('22-MAR-19 22:00:00','DD-MON-YY HH24:MI:SS') ;
+\f4\fs26 \CocoaLigature0  
+\f1\fs30 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+PAUTHOWN.PC_NOTIFICATION\
+\
+========================================================================================================================\
+\
+STATS REPLICAT RA_Q_PTH\
+STATS REPLICAT 
+\f4\fs26 \cf8 \CocoaLigature0 RA_L_PTH
+\f1\fs30 \cf0 \CocoaLigature1  table \cf26 PAUTHOWN.REQUEST_DATA\cf0 \
+STATS REPLICAT RA_Q_PTH REPORTCDR\
+STATS REPLICAT RA_Q_PTH table \cf26 PAUTHOWN.REQUEST_DATA\cf0  REPORTCDR hourly\
+STATS REPLICAT 
+\f4\fs26 \cf8 \CocoaLigature0 RA_L_PTH
+\f1\fs30 \cf0 \CocoaLigature1  table \cf26 PAUTHOWN.REQUEST_DATA\cf0  REPORTCDR\
+\
+STATS EA_L_PTH table PAUTHOWN.partner_connection_history\
+STATS REPLICAT RA_L_PTH\
+STATS REPLICAT EA_L_PTH table PAUTHOWN.partner_connection_history REPORTCDR hourly\
+STATS REPLICAT RA_L_PTH table PAUTHOWN.USER_CONNECTION REPORTCDR hourly\
+\
+select owner, table_name, privilege, grantee,GRANTOR from dba_tab_privs where table_name='PARTNER_CERTIFICATE' order by grantee, privilege;\
+grant SELECT on "PAUTHOWN"."PARTNER_CERTIFICATE" to PAUTHOWN_READONLY_ROLE;\
+grant INSERT,UPDATE,DELETE,SELECT on "PAUTHOWN"."PARTNER_CERTIFICATE" to PAUTH_APP_ROLE;\
+grant SELECT on "PAUTHOWN"."PARTNER_CERTIFICATE" to PAUTH_READ_ONLY;\
+\
+select owner,synonym_name,table_name,TABLE_OWNER from dba_synonyms where owner like upper('%PAUTH%') order by synonym_name;\
+CREATE SYNONYM PAUTH_READ_ONLY.PARTNER_CERTIFICATE FOR "PAUTHOWN"."PARTNER_CERTIFICATE";\
+CREATE SYNONYM PAUTHAPPL01.PARTNER_CERTIFICATE FOR "PAUTHOWN"."PARTNER_CERTIFICATE";\
+CREATE SYNONYM PAUTHAPPL02.PARTNER_CERTIFICATE FOR "PAUTHOWN"."PARTNER_CERTIFICATE";\
+\
+CREATE TABLE PAUTHOWN.REQUEST_DATA\
+(\
+  UUID VARCHAR2(100) NOT NULL,\
+  STATE_PARAM VARCHAR2(4000) NOT NULL,\
+  IUX_STATE VARCHAR2(4000),\
+  CREATED DATE ,\
+  LAST_MOD_TIME date,\
+  CONSTRAINT request_data_pk PRIMARY KEY (UUID)\
+);\
+\
+select owner, table_name, privilege, grantee,GRANTOR from dba_tab_privs where table_name='REQUEST_DATA' order by grantee, privilege;\
+\
+grant SELECT on "PAUTHOWN"."REQUEST_DATA" to PAUTHOWN_READONLY_ROLE;\
+grant INSERT,UPDATE,DELETE,SELECT on "PAUTHOWN"."REQUEST_DATA" to PAUTH_APP_ROLE;\
+grant SELECT on "PAUTHOWN"."REQUEST_DATA" to PAUTH_READ_ONLY;\
+\
+select owner,synonym_name,table_name,TABLE_OWNER from dba_synonyms where owner like upper('%PAUTH%') order by synonym_name;\
+CREATE SYNONYM PAUTH_READ_ONLY.REQUEST_DATA FOR "PAUTHOWN"."REQUEST_DATA";\
+CREATE SYNONYM PAUTHAPPL01.REQUEST_DATA FOR "PAUTHOWN"."REQUEST_DATA";\
+CREATE SYNONYM PAUTHAPPL02.REQUEST_DATA FOR "PAUTHOWN"."REQUEST_DATA";\
+\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f4\fs26 \cf8 \CocoaLigature0   CREATE OR REPLACE PROCEDURE "PAUTHOWN"."AUDIT_GLOBALHISTORY_PCMAP_PROC" is\
+\
+    type g_rec is record ( partner_id	pauthown.global_history.partner_id%type,\
+    misc	 varchar2(4000) );\
+    type g_tab is\
+	table of g_rec index by pls_integer;\
+    v_tab	 g_tab;\
+begin\
+    select\
+	gh.partner_id,\
+	'\{'\
+	|| rtrim(regexp_replace( (\
+\
+	    listagg(pch.partner_connection_id\
+		      || ':'\
+		      || pch.version,',') within group(\
+		order by\
+		    gh.partner_id\
+	    )\
+	),'([^,]*)(,\\1)+($|,)','\\1\\3'),',')\
+	|| '\}' pc_map\
+    bulk collect\
+    into v_tab\
+    from\
+	pauthown.partner_connection_history pch,\
+	pauthown.global_history gh\
+\
+    where\
+	pch.partner_id = gh.partner_id\
+    group by\
+	gh.partner_id;\
+\
+    forall i in 1..v_tab.count\
+	update pauthown.global_history\
+	set\
+	    pc_map = v_tab(i).misc\
+	where\
+	    partner_id = v_tab(i).partner_id;\
+\
+    select\
+\
+	gh.partner_id,\
+	'\{'\
+	|| rtrim(regexp_replace( (\
+	    listagg(ah.asset_id\
+		      || ':'\
+		      || ah.version,',') within group(\
+		order by\
+		    gh.partner_id\
+	    )\
+	),'([^,]*)(,\\1)+($|,)','\\1\\3'),',')\
+	|| '\}' assets_map\
+    bulk collect\
+    into v_tab\
+\
+    from\
+	pauthown.partner_connection_history pch,\
+	pauthown.global_history gh,\
+	pauthown.asset_history ah\
+    where\
+	pch.partner_id = gh.partner_id\
+	and pch.partner_connection_id = ah.partner_connection_id\
+    group by\
+	gh.partner_id;\
+\
+    forall i in 1..v_tab.count\
+	update pauthown.global_history\
+	set\
+\
+	    assets_map = v_tab(i).misc\
+	where\
+	    partner_id = v_tab(i).partner_id;\
+\
+    commit;\
+exception\
+    when others then\
+	dbms_output.put_line(sqlerrm\
+			       || ','\
+			       || sqlcode);\
+end audit_globalhistory_pcmap_proc;\
+/
+\f3\fs30 \cf0 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1 \cf0 \
+select owner,OBJECT_NAME,OBJECT_TYPE,status,LAST_DDL_TIME from dba_objects where OBJECT_NAME like '%PCMAP%';\
+\
+set serveroutput on;\
+exec PAUTHOWN.AUDIT_GLOBALHISTORY_PCMAP_PROC;\
+\
+select pch.partner_connection_id, pch.version, pch.partner_id, gh.pc_map from PAUTHOWN.partner_connection_history pch, PAUTHOWN.global_history gh where pch.partner_id = gh.partner_id;\
+select pch.partner_connection_id, pch.version, pch.partner_id, gh.pc_map, ah.asset_id, ah.version asset_version, gh.assets_map \
+from PAUTHOWN.partner_connection_history pch, PAUTHOWN.global_history gh, PAUTHOWN.asset_history ah \
+where pch.partner_id = gh.partner_id and pch.partner_connection_id = ah.partner_connection_id;\
+\
+\
+\pard\pardeftab720\sl320\partightenfactor0
+
+\f9\fs28 \cf10 \cb16 \expnd0\expndtw0\kerning0
+INSERT INTO 
+\f1\fs30 \cf0 \cb1 \kerning1\expnd0\expndtw0 PAUTHOWN.
+\f9\fs28 \cf10 \cb16 \expnd0\expndtw0\kerning0
+partner_history (PARTNER_ID, PARTNER_UID, DISPLAY_NAME, STATUS, PROTOCOL_FEATURES, CREATED, MODIFIED, LAST_MOD_TIME, CREATED_BY, MODIFIED_BY) SELECT PARTNER_ID, PARTNER_UID, DISPLAY_NAME, STATUS,PROTOCOL_FEATURES, CREATED, MODIFIED, LAST_MOD_TIME, CREATED_BY, MODIFIED_BY FROM 
+\f1\fs30 \cf0 \cb1 \kerning1\expnd0\expndtw0 PAUTHOWN.
+\f9\fs28 \cf10 \cb16 \expnd0\expndtw0\kerning0
+partner;\
+\
+\
+\pard\pardeftab720\ri-30069\sl240\partightenfactor0
+
+\f3\fs32 \cf0 \cb1 create index PAUTHOWN.USER_CONNECTION_RID_IDX on PAUTHOWN.USER_CONNECTION (REALM_ID) tablespace PAUTH_INDX online;\
+\pard\pardeftab720\ri-30069\sl240\partightenfactor0
+
+\f9\fs28 \cf10 \cb16 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\fs30 \cf0 \cb1 \kerning1\expnd0\expndtw0 ========================================================================================================================\
+\pard\pardeftab720\ri-30069\sl240\partightenfactor0
+
+\f9\fs28 \cf10 \cb16 \expnd0\expndtw0\kerning0
+\
+\
+\pard\pardeftab720\ri-30069\sl240\partightenfactor0
+
+\fs34 \cf10 PAUTH prod\
+###########\
+\
+USER_CONNECTION:\
+select count(1) from pauthown.user_connection where user_id like 'SSO_USER_ID%' and state='UN_LINKED' and created<sysdate-1;\
+TOKEN\
+select count(1) from pauthown.token where token_id in(select token_id from pauthown.user_connection where user_id like 'SSO_USER_ID%' and state='UN_LINKED' and created<sysdate-1);\
+ \
+-----------------------\
+--Take backup of records to be purged\
+create table pauthown.user_connection_bkp as select * from pauthown.user_connection where user_id like 'SSO_USER_ID%' and state='UN_LINKED' and created<sysdate-1;\
+create table pauthown.token_bkp as select * from pauthown.token where token_id in(select token_id from pauthown.user_connection where user_id like 'SSO_USER_ID%' and state='UN_LINKED' and created<sysdate-1);\
+\
+22:18:25 DBADMIN@IDXPDE2A> create table pauthown.user_connection_bkp as select * from pauthown.user_connection where user_id like 'SSO_USER_ID%' and state='UN_LINKED' and created<sysdate-1;\
+\
+Table PAUTHOWN.USER_CONNECTION_BKP created.\
+\
+22:20:01 DBADMIN@IDXPDE2A> create table pauthown.token_bkp as select * from pauthown.token where token_id in(select token_id from pauthown.user_connection where user_id like 'SSO_USER_ID%' and state='UN_LINKED' and created<sysdate-1);\
+\
+Table PAUTHOWN.TOKEN_BKP created.\
+\
+\
+22:20:44 DBADMIN@IDXPDE2A> select count(1) from pauthown.user_connection_bkp;\
+   COUNT(1)\
+___________\
+    1425282\
+    \
+22:58:06 DBADMIN@IDXPDE2A> select count(1) from pauthown.token_bkp;\
+   COUNT(1)\
+___________\
+    1425284    \
+\
+\
+\
+\
+set timing on\
+set time on\
+set serveroutput on\
+DECLARE\
+  i NUMBER := 0;\
+  ic NUMBER := 0;\
+  CURSOR G1 IS select USER_CONNECTION_ID from PAUTHOWN.user_connection_bkp ;\
+BEGIN\
+  FOR C1 IN G1 LOOP\
+  delete from PAUTHOWN.user_connection where USER_CONNECTION_ID=c1.USER_CONNECTION_ID;\
+      i := i + 1;\
+      ic:= ic + 1;\
+      IF i >= 200 THEN\
+         COMMIT;\
+         dbms_output.put_line('commit completed  '||ic);\
+         i := 0;\
+     IF ic >= 12500000  THEN\
+     exit;\
+    END IF;\
+   END IF;\
+  END LOOP;\
+  COMMIT;\
+END;\
+/\
+\
+\
+set timing on\
+set time on\
+set serveroutput on\
+DECLARE\
+  i NUMBER := 0;\
+  ic NUMBER := 0;\
+  CURSOR G1 IS select TOKEN_ID from PAUTHOWN.TOKEN where token_id in(select token_id from pauthown.user_connection_bkp );\
+BEGIN\
+  FOR C1 IN G1 LOOP\
+  delete from PAUTHOWN.TOKEN where TOKEN_ID=c1.TOKEN_ID;\
+      i := i + 1;\
+      ic:= ic + 1;\
+      IF i >= 200 THEN\
+         COMMIT;\
+         dbms_output.put_line('commit completed  '||ic);\
+         i := 0;\
+     IF ic >= 12500000  THEN\
+     exit;\
+    END IF;\
+   END IF;\
+  END LOOP;\
+  COMMIT;\
+END;\
+/\
+\
+EAST\
+nohup sqlplus dbadmin/`sudo python $OGG_HOME/dirsql/get_creds.py dbadmin idxpde2a`@idxpde2a.ckuhna5r497j.us-east-2.rds.amazonaws.com:1527/idxpde2a @user_connection.sql &\
+nohup sqlplus dbadmin/`sudo python $OGG_HOME/dirsql/get_creds.py dbadmin idxpde2a`@idxpde2a.ckuhna5r497j.us-east-2.rds.amazonaws.com:1527/idxpde2a @token.sql &\
+\
+\
+USER_CONNECTION:\
+select count(*) from pauthown.user_connection where user_id like 'SSO_USER_ID%' and state='UN_LINKED' and created<sysdate-1;\
+TOKEN\
+select count(*) from pauthown.token where token_id in(select token_id from pauthown.user_connection_bkp where user_id like 'SSO_USER_ID%' and state='UN_LINKED' and created<sysdate-1);\
+\
+\
+select owner,segment_name, round(sum(bytes)/1024/1024) size_MB from dba_segments where segment_name in (select index_name from dba_indexes where owner='PAUTHOWN' ) group by owner,segment_name order by 2;\
+\
+select INDEX_NAME,INDEX_TYPE,num_rows,LAST_ANALYZED,STATUS,BLEVEL,LEAF_BLOCKS from dba_indexes where OWNER ='PAUTHOWN' order by INDEX_NAME;\
+\
+23:32:48 DBADMIN@IDXPDE2A> select owner,segment_name, round(sum(bytes)/1024/1024) size_MB from dba_segments where segment_name in (select index_name from dba_indexes where owner='PAUTHOWN' ) group by owner,segment_name order by 2;\
+      OWNER                     SEGMENT_NAME    SIZE_MB\
+___________ ________________________________ __________\
+PAUTHOWN    ASSET_HISTORY_PK                          1\
+PAUTHOWN    ASSET_PK                                  1\
+PAUTHOWN    GLOBAL_HISTORY_PK                         1\
+PAUTHOWN    INTUIT_CONNECTION_PK                   1008\
+PAUTHOWN    PARTNER_AUTH_TOKEN_PK                  1009\
+PAUTHOWN    PARTNER_CERTIFICATE_PK                    1\
+PAUTHOWN    PARTNER_CONNECTION_HISTORY_PK             1\
+PAUTHOWN    PARTNER_CONNECTION_PK                     1\
+PAUTHOWN    PARTNER_HISTORY_PK                        1\
+PAUTHOWN    PARTNER_ID                                1\
+PAUTHOWN    PTH_ASS_MAP_PK                            0\
+PAUTHOWN    REQUEST_DATA_PK                         296\
+PAUTHOWN    STATS_TABLE                               2\
+PAUTHOWN    SYS_IL0000071929C00013$$                  0\
+PAUTHOWN    SYS_IL0000071931C00013$$                  0\
+PAUTHOWN    SYS_IL0000071938C00026$$                  0\
+PAUTHOWN    UC_INTUIT_PROPERTY_INDX                 256\
+PAUTHOWN    UC_PARTNER_UID_INDX                     289\
+PAUTHOWN    UC_PARTNER_USER_ID_INDX                1729\
+PAUTHOWN    UC_PTID_INDX                           4930\
+PAUTHOWN    UC_STATUS_INDX                          293\
+PAUTHOWN    UC_USER_ID_INDX                         607\
+PAUTHOWN    USER_CONNECTION_RID_IDX                 352\
+PAUTHOWN    USER_CONNECTION_TID_IDX                1152\
+\
+23:33:41 DBADMIN@IDXPDE2A>  select INDEX_NAME,INDEX_TYPE,num_rows,LAST_ANALYZED,STATUS,BLEVEL,LEAF_BLOCKS from dba_indexes where OWNER ='PAUTHOWN' order by INDEX_NAME;\
+                      INDEX_NAME    INDEX_TYPE    NUM_ROWS          LAST_ANALYZED    STATUS    BLEVEL    LEAF_BLOCKS\
+________________________________ _____________ ___________ ______________________ _________ _________ ______________\
+ASSET_HISTORY_PK                 NORMAL               2089 2019-10-30 19:01:38    VALID             1             16\
+ASSET_PK                         NORMAL               1386 2019-10-18 19:01:05    VALID             1             17\
+GLOBAL_HISTORY_PK                NORMAL               4756 2019-11-01 19:02:59    VALID             1             39\
+INTUIT_CONNECTION_PK             NORMAL           13035033 2019-11-06 19:03:24    VALID             2         130481\
+PARTNER_AUTH_TOKEN_PK            NORMAL           12981481 2019-11-06 19:02:45    VALID             2         129233\
+PARTNER_CERTIFICATE_PK           NORMAL                 47 2019-09-26 19:00:16    VALID             0              1\
+PARTNER_CONNECTION_HISTORY_PK    NORMAL               1625 2019-10-25 19:00:21    VALID             1             13\
+PARTNER_CONNECTION_PK            NORMAL                474 2019-11-01 19:02:58    VALID             1              3\
+PARTNER_HISTORY_PK               NORMAL               1451 2019-10-10 19:05:23    VALID             1             12\
+PARTNER_ID                       NORMAL                441 2019-10-21 19:02:45    VALID             1              3\
+PC_EVENTS_PK                     NORMAL                                           VALID\
+PC_NOTIFICATION_PK               NORMAL                                           VALID\
+PTH_ASS_MAP_PK                   NORMAL                419 2019-09-29 21:47:31    VALID             1              4\
+REQUEST_DATA_PK                  NORMAL            4116743 2019-11-06 19:01:54    VALID             2          36045\
+STATS_TABLE                      NORMAL               1006 2018-08-01 22:00:09    VALID             1             11\
+SYS_IL0000071929C00013$$         LOB                                              VALID\
+SYS_IL0000071931C00013$$         LOB                                              VALID\
+SYS_IL0000071938C00026$$         LOB                                              VALID\
+UC_INTUIT_PROPERTY_INDX          NORMAL           12346932 2019-11-06 19:03:26    VALID             2          30537\
+UC_PARTNER_UID_INDX              NORMAL           12615387 2019-11-06 19:03:27    VALID             2          36049\
+UC_PARTNER_USER_ID_INDX          NORMAL           11613435 2019-11-06 19:03:28    VALID             3         203255\
+UC_PTID_INDX                     NORMAL           12998020 2019-11-06 19:03:25    VALID             3         634144\
+UC_STATUS_INDX                   NORMAL           12482147 2019-11-06 19:03:29    VALID             2          35978\
+UC_USER_ID_INDX                  NORMAL           12618155 2019-11-06 19:03:24    VALID             2          75860\
+USER_CONNECTION_RID_IDX          NORMAL           12340048 2019-11-06 19:03:23    VALID             2          42702\
+USER_CONNECTION_TID_IDX          NORMAL           12771278 2019-11-06 19:03:24    VALID             2         142377\
+\
+\
+\
+select 'ALTER INDEX '|| OWNER || '.' || index_name ||' rebuild online;' from dba_indexes where OWNER ='PAUTHOWN' and index_type='NORMAL' order by INDEX_NAME;\
+\
+\
+set echo on\
+set timing on\
+alter session set nls_date_format = 'DD-Mon-YY hh24:mi:ss';\
+select sysdate datetime from dual;\
+ALTER INDEX PAUTHOWN.ASSET_HISTORY_PK rebuild ;\
+ALTER INDEX PAUTHOWN.ASSET_PK rebuild online;\
+ALTER INDEX PAUTHOWN.GLOBAL_HISTORY_PK rebuild ;\
+ALTER INDEX PAUTHOWN.INTUIT_CONNECTION_PK rebuild online;\
+ALTER INDEX PAUTHOWN.PARTNER_AUTH_TOKEN_PK rebuild online;\
+ALTER INDEX PAUTHOWN.PARTNER_CERTIFICATE_PK rebuild online;\
+ALTER INDEX PAUTHOWN.PARTNER_CONNECTION_HISTORY_PK rebuild ;\
+ALTER INDEX PAUTHOWN.PARTNER_CONNECTION_PK rebuild online;\
+ALTER INDEX PAUTHOWN.PARTNER_HISTORY_PK rebuild;\
+ALTER INDEX PAUTHOWN.PARTNER_ID rebuild online;\
+ALTER INDEX PAUTHOWN.PC_EVENTS_PK rebuild online;\
+ALTER INDEX PAUTHOWN.PC_NOTIFICATION_PK rebuild online;\
+ALTER INDEX PAUTHOWN.PTH_ASS_MAP_PK rebuild online;\
+ALTER INDEX PAUTHOWN.REQUEST_DATA_PK rebuild online;\
+ALTER INDEX PAUTHOWN.STATS_TABLE rebuild online;\
+ALTER INDEX PAUTHOWN.UC_INTUIT_PROPERTY_INDX rebuild online;\
+ALTER INDEX PAUTHOWN.UC_PARTNER_UID_INDX rebuild online;\
+ALTER INDEX PAUTHOWN.UC_PARTNER_USER_ID_INDX rebuild online;\
+ALTER INDEX PAUTHOWN.UC_PTID_INDX rebuild online;\
+ALTER INDEX PAUTHOWN.UC_STATUS_INDX rebuild online;\
+ALTER INDEX PAUTHOWN.UC_USER_ID_INDX rebuild online;\
+ALTER INDEX PAUTHOWN.USER_CONNECTION_RID_IDX rebuild online;\
+ALTER INDEX PAUTHOWN.USER_CONNECTION_TID_IDX rebuild online;\
+alter session set nls_date_format = 'DD-Mon-YY hh24:mi:ss';\
+select sysdate datetime from dual;\
+exit\
+\
+nohup sqlplus dbadmin/`sudo python $OGG_HOME/dirsql/get_creds.py dbadmin idxpde2a`@idxpde2a.ckuhna5r497j.us-east-2.rds.amazonaws.com:1527/idxpde2a @index_rebuild.sql &\
+\
+\
+\
+\
+23:54:10 DBADMIN@IDXPDE2A> set timing on\
+23:54:17 DBADMIN@IDXPDE2A> ALTER INDEX PAUTHOWN.ASSET_HISTORY_PK rebuild ;\
+\
+Index PAUTHOWN.ASSET_HISTORY_PK altered.\
+\
+Elapsed: 00:00:00.037\
+23:54:19 DBADMIN@IDXPDE2A> ALTER INDEX PAUTHOWN.GLOBAL_HISTORY_PK rebuild ;\
+\
+Index PAUTHOWN.GLOBAL_HISTORY_PK altered.\
+\
+Elapsed: 00:00:00.031\
+23:54:19 DBADMIN@IDXPDE2A> ALTER INDEX PAUTHOWN.PARTNER_CONNECTION_HISTORY_PK rebuild ;\
+\
+Index PAUTHOWN.PARTNER_CONNECTION_HISTORY_PK altered.\
+\
+Elapsed: 00:00:00.018\
+23:54:19 DBADMIN@IDXPDE2A> ALTER INDEX PAUTHOWN.PARTNER_HISTORY_PK rebuild;\
+\
+Index PAUTHOWN.PARTNER_HISTORY_PK altered.\
+\
+Elapsed: 00:00:00.019\
+\
+\
+\
+\
+EXECUTE DBMS_STATS.GATHER_SCHEMA_STATS(ownname => 'PAUTHOWN');\
+\
+nohup sqlplus dbadmin/`sudo python $OGG_HOME/dirsql/get_creds.py dbadmin idxpde2a`@idxpde2a.ckuhna5r497j.us-east-2.rds.amazonaws.com:1527/idxpde2a @gather_stats.sql &\
+\
+
+\fs40 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs30 \cf0 \cb1 select t.access_token_expiry,t.refresh_token_expiry_time,t.partner_user_id, uc.user_id,uc.realm_id, t.created crt, uc.created\
+from 
+\f9\fs34 \cf10 \cb16 PAUTHOWN.
+\f1\fs30 \cf0 \cb1 token t, 
+\f9\fs34 \cf10 \cb16 PAUTHOWN.
+\f1\fs30 \cf0 \cb1 user_connection uc\
+where t.token_id=uc.token_id and t.status='active' and uc.partner_uid='citi'\
+\pard\pardeftab720\partightenfactor0
+
+\fs28 \cf0 and uc.status='active' and ROWNUM < 1000;\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs30 \cf0 select t.access_token_expiry,t.refresh_token_expiry_time,t.partner_user_id, uc.user_id,uc.realm_id, t.created crt, uc.created\
+from 
+\f9\fs34 \cf10 \cb16 PAUTHOWN.
+\f1\fs30 \cf0 \cb1 token t, 
+\f9\fs34 \cf10 \cb16 PAUTHOWN.
+\f1\fs30 \cf0 \cb1 user_connection uc\
+where t.token_id=uc.token_id and lower(t.status)='active' and lower(uc.partner_uid)='citi'\
+\pard\pardeftab720\partightenfactor0
+
+\fs28 \cf0 and lower(uc.status)='active' and ROWNUM < 1000;\
+}

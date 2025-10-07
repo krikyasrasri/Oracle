@@ -1,0 +1,656 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;\f2\fswiss\fcharset0 ArialMT;
+\f3\fmodern\fcharset0 CourierNewPSMT;\f4\fnil\fcharset0 Menlo-Regular;\f5\fmodern\fcharset0 CourierNewPS-BoldMT;
+\f6\fnil\fcharset0 Menlo-Bold;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;\red255\green255\blue255;\red0\green0\blue0;
+\red255\green255\blue255;\red64\green11\blue217;\red47\green180\blue29;\red180\green36\blue25;\red0\green0\blue255;
+\red153\green102\blue51;\red43\green71\blue20;\red127\green0\blue128;}
+{\*\expandedcolortbl;;\cssrgb\c20000\c20000\c20000;\cssrgb\c100000\c100000\c100000;\csgray\c0;
+\csgray\c100000;\cssrgb\c32308\c18668\c88227;\cssrgb\c20238\c73898\c14947;\cssrgb\c76409\c21698\c12524;\cssrgb\c1680\c19835\c100000;
+\cssrgb\c66800\c47512\c25860;\cssrgb\c21795\c34243\c10019;\cssrgb\c57919\c12801\c57269;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww35640\viewh19380\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs36 \cf0 \ul \ulc0 IDM - Identity Manager
+\f1\b0\fs24 \ulnone \
+\
+
+\fs34 AUTHOWN AUTHAPPL01 AUTHAPPL02\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f2\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+AUTHOROWN\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f1\fs30 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\tx40666\pardeftab720\partightenfactor0
+
+\f3 \cf0 \expnd0\expndtw0\kerning0
+set lines 333 pages 44444\
+\pard\pardeftab720\ri-30069\partightenfactor0
+\cf0 col OWNER for a20\
+col OBJECT_NAME for a30
+\f4\fs28 \cf4 \cb5 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+
+\f3\fs30 \cf0 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1 select owner,OBJECT_NAME,OBJECT_TYPE,status,LAST_DDL_TIME from dba_objects where owner like '%
+\f1\fs32 \kerning1\expnd0\expndtw0 AUTHOWN
+\f3\fs30 \expnd0\expndtw0\kerning0
+%' order by OBJECT_TYPE, OBJECT_NAME;\
+select owner,OBJECT_NAME,OBJECT_TYPE,status,LAST_DDL_TIME from dba_objects where owner like '%
+\f1\fs32 \kerning1\expnd0\expndtw0 AUTHOWN
+\f3\fs30 \expnd0\expndtw0\kerning0
+%' and OBJECT_TYPE='TABLE' order by OBJECT_TYPE, OBJECT_NAME;\
+select owner,OBJECT_NAME,OBJECT_TYPE,status,LAST_DDL_TIME from dba_objects where owner like '%
+\f2\fs28 \cf2 \cb3 AUTHOROWN
+\f3\fs30 \cf0 \cb1 %' and OBJECT_TYPE='TABLE' and OBJECT_NAME not like '%_EX'  order by OBJECT_TYPE, OBJECT_NAME;\
+\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\fs38 \cf0 AUTHOWN       AUTH_OFFERING_USAGE         2018-11-14 17:54:45\
+AUTHOWN       CONFIGURABLE_LIST           2018-07-03 09:22:54\
+AUTHOWN       CONFIRMATION_STATUS         2018-07-03 09:22:52\
+AUTHOWN       IDENTITY                    2018-07-03 09:22:52\
+AUTHOWN       IDENTITY_EXTENSION          2019-04-18 12:53:30\
+AUTHOWN       IDENTITY_EXTRA_INFO         2018-07-03 09:22:52\
+AUTHOWN       IDENTITY_LIFECYCLE          2018-07-03 09:22:53\
+AUTHOWN       IDENTITY_LIFECYCLE_STATE    2018-10-09 10:53:35\
+AUTHOWN       IDEN_ASSURANCE_LEVEL        2018-07-03 09:22:53\
+AUTHOWN       IDEN_PROOFING_EVENT         2018-07-03 09:22:54\
+AUTHOWN       ID_ASSOCIATION              2019-04-26 13:18:38\
+AUTHOWN       LONG_AUTHID_OFFERING        2018-07-03 09:22:54\
+AUTHOWN       MEMBERSHIP                  2018-07-03 09:22:52\
+AUTHOWN       PASSWORD_HISTORY            2018-07-03 09:22:53\
+AUTHOWN       SCHEMA_VERSION              2018-07-03 09:22:52\
+AUTHOWN       SERVICE_AUTHENTICATION      2018-07-03 09:22:52\
+AUTHOWN       USER_ATTRIBUTE              2018-07-03 09:22:53
+\fs28 \
+\
+
+\fs38 \
+select * from AUTHOWN.AUTH_OFFERING_USAGE where rownum <29;\
+select * from AUTHOWN.AUTH_OFFERING_USAGE where AUTH_ID='123146176343094' order by OFFERING_ID;\
+select distinct OFFERING_ID from AUTHOWN.AUTH_OFFERING_USAGE where OFFERING_ID like '%Intuit%accountant%';\
+\
+select * from AUTHOWN.CONFIGURABLE_LIST where rownum <19;\
+select * from AUTHOWN.CONFIGURABLE_LIST where ITEM_ID like '%Intuit%accountant%';\
+\
+select * from AUTHOWN.CONFIRMATION_STATUS where rownum <19;\
+select * from AUTHOWN.CONFIRMATION_STATUS where AUTH_ID='123146176343094';\
+\
+
+\f5\b AUTHOWN.IDENTITY
+\f3\b0  (PK - 
+\f4\fs26 \cf4 \kerning1\expnd0\expndtw0 \CocoaLigature0 AUTH_ID)\
+		FK - PARENT_ID
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+select * from AUTHOWN.IDENTITY where rownum <9;\
+select * from AUTHOWN.IDENTITY where AUTH_ID='123146176343094';\
+select AUTH_ID,INTUIT_ID,IDENTITY_TYPE,PARENT_ID,UMROLE,QBNROLE from AUTHOWN.IDENTITY where AUTH_ID='123146176343094';\
+select distinct UMROLE from AUTHOWN.IDENTITY;\
+select distinct QBNROLE from AUTHOWN.IDENTITY;\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 Insert into AUTHOWN.IDENTITY (AUTH_ID,INTUIT_ID,IDENTITY_TYPE,IDENTITY_SUBTYPE,PARENT_ID,INVALID,LIFECYCLE_REALM_ID,LIFECYCLE_STATUS,LIFECYCLE_EXPIRE_DATE,LIFECYCLE_ASSIGNED_AUTH_ID,LOGIN_NAME,MAIL,MAIL_VALID_FLAG,PASSWORD,CHALLENGE_ANSWER,CHALLENGE_PHRASE,SECURITY_LEVEL,UMROLE,QBNROLE,AUTH_DISABLED,AUTH_LAST_TIME_DISABLED,AUTH_FAILED_COUNT,AUTH_LAST_TIME_FAILED,PWR_CONFIRMATION_ID,PWR_DISABLED,PWR_LAST_TIME_DISABLED,PWR_FAILED_COUNT,PWR_LAST_TIME_FAILED,PWR_RESET_DATE,PWR_TEMP_PASSWORD,TEST_DATA_FLAG,TEST_DATA_SOURCE,TEST_DATA_COMMENT,TEST_EXPIRE_DATE,CREATE_DATE,MODIFY_DATE,LAST_MOD_TIME) \
+values ('51181962','1a7c5cfeb3a5045888b6fbb9cf9575c59',3,0,'50000001',0,null,0,null,null,'crmagent','s51181962@test.intuit.com',0,'500:WyZMvD/pRYGjn9oAU4mLLVAQEVCa/NZp:JvaGKuk9Lh2bBClcKvJZ1SCPsCN03hIx',null,null,2,1,null,0,null,0,null,0,0,null,0,null,null,null,0,null,null,null,to_timestamp('2011-09-23 15:55:36','YYYY-MM-DD HH24:MI:SS'),to_timestamp('2014-07-24 06:42:21','YYYY-MM-DD HH24:MI:SS'),to_timestamp('19-OCT-20 08.10.00','DD-MON-YY HH.MI.SS'));\
+\pard\pardeftab720\ri-30069\partightenfactor0
+\cf0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f4\fs26 \cf6 \kerning1\expnd0\expndtw0 \CocoaLigature0 DBADMIN\cf4 @\cf7 IDMPFW2B\cf8 >\cf4  select distinct UMROLE from AUTHOWN.IDENTITY;\
+      
+\f6\b \ul \ulc4 UMROLE
+\f4\b0 \ulnone  \
+____________ \
+           1 \
+           2 \
+           4 \
+           3 \
+           0 \
+   999999999 
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+\cf0 \
+select * from AUTHOWN.IDENTITY_EXTENSION where rownum <19;\
+select * from AUTHOWN.IDENTITY_EXTENSION where AUTH_ID='123146176343094';\
+\
+select * from AUTHOWN.IDENTITY_EXTRA_INFO where rownum <19;\
+select * from AUTHOWN.IDENTITY_EXTRA_INFO where AUTH_ID='123146176343094';\
+\
+select * from AUTHOWN.IDENTITY_LIFECYCLE where rownum <19;\
+select * from AUTHOWN.IDENTITY_LIFECYCLE where AUTH_ID='123146176343094';\
+\
+select * from AUTHOWN.IDENTITY_LIFECYCLE_STATE;\
+\
+select * from AUTHOWN.IDEN_ASSURANCE_LEVEL where rownum <19;\
+select * from AUTHOWN.IDEN_ASSURANCE_LEVEL where AUTH_ID='123146176343094';\
+\
+select * from AUTHOWN.IDEN_PROOFING_EVENT where rownum <19;\
+select * from AUTHOWN.IDEN_PROOFING_EVENT where AUTH_ID='123146176343094';\
+\
+select * from AUTHOWN.ID_ASSOCIATION where rownum <30;\
+\
+select count(*) from AUTHOWN.LONG_AUTHID_OFFERING;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 select * from AUTHOWN.LONG_AUTHID_OFFERING order by OFFERING_ID;\
+\pard\pardeftab720\ri-30069\partightenfactor0
+\cf0 select * from AUTHOWN.LONG_AUTHID_OFFERING where rownum <9;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 select * from AUTHOWN.LONG_AUTHID_OFFERING where OFFERING_ID like '%accountant%';\
+
+\f4\fs26 \cf4 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f5\b\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 AUTHOWN.MEMBERSHIP
+\f3\b0  (PK - 
+\f4\fs26 \cf4 \kerning1\expnd0\expndtw0 \CocoaLigature0 USER_ID & PERSONA_ID)\
+	FK - PERSONA_ID\
+	FK - REALM_ID\
+	FK - USER_ID\
+\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 select * from AUTHOWN.MEMBERSHIP where rownum <9;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f4\fs26 \cf4 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 select * from AUTHOWN.PASSWORD_HISTORY where rownum <9;\
+select * from AUTHOWN.PASSWORD_HISTORY where AUTH_ID='123146176343094';\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f4\fs26 \cf4 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 select * from AUTHOWN.SERVICE_AUTHENTICATION where rownum <9;\
+select * from AUTHOWN.SERVICE_AUTHENTICATION where AUTH_ID='123146176343094';\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f4\fs26 \cf4 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 select * from AUTHOWN.USER_ATTRIBUTE where rownum <30;\
+\
+==========================================================================================\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f4\fs26 \cf4 \kerning1\expnd0\expndtw0 \CocoaLigature0 AUTHOROWN    EXTERNAL_GROUP_ASSIGNMENT         TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    GROUP_REALM_ROLE_ASSIGNMENT       TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    GROUP_ROLE_ASSIGNMENT             TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    GROUP_TYPE                        TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    IDENTITY_REALM_GROUP_ASSIGN       TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    IDENTITY_REALM_ROLE_ASSIGNMENT    TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    OFFERING                          TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    OFFERING_TOKEN                    TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    PERMISSION                        TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    PROVIDER                          TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    REALM                             TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    REALM_RELATIONSHIP                TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    REALM_ROLE_ASSIGNMENT             TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    REALM_TYPE                        TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    ROLE                              TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    ROLE_ASSIGNMENT_HISTORY           TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    ROLE_CATEGORY                     TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    ROLE_COMPONENT                    TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    ROLE_PERMISSION                   TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    ROLE_TYPE                         TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    SUBJECT_RESOURCE_ACTION_ASSIGN    TABLE          VALID     2019-06-24 16:09:45    \
+AUTHOROWN    USER_GROUP                        TABLE          VALID     2019-06-24 16:09:45 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f3\fs36 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+\pard\pardeftab720\partightenfactor0
+
+\f0\b \cf9 authorown.offering
+\f1\b0\fs34 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f4\fs26 \cf9 \kerning1\expnd0\expndtw0 \CocoaLigature0 	OFFERING_ID      NOT NULL    VARCHAR2(256)    \
+	ACTIVE           NOT NULL    NUMBER(1)        \
+	LAST_MOD_TIME                TIMESTAMP(6)   
+\f1\fs34 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f3\fs36 \cf9 select count(*) from AUTHOROWN.OFFERING;\
+select * from AUTHOROWN.OFFERING where rownum <9;\
+select * from AUTHOROWN.OFFERING order by LAST_MOD_TIME;\
+select distinct ACTIVE from AUTHOROWN.OFFERING;\
+select * from AUTHOROWN.OFFERING where lower(OFFERING_ID) like '%intuit.tax.%' order by OFFERING_ID;\
+\
+insert into AUTHOROWN.OFFERING values ('Intuit.tax.services.servicesselfserveportal',1,sysdate);\
+\pard\pardeftab720\sl360\partightenfactor0
+\cf9 insert into AUTHOROWN.OFFERING values ('Intuit.return.idproof',1,sysdate);\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f1\fs34 \cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs36 \cf10 authorown.role
+\f3\b0 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+\cf10 select * from AUTHOROWN.ROLE where rownum <9;\
+select * from AUTHOROWN.ROLE where OFFERING_ID like '%intuit%' order by OFFERING_ID;\
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs34 \cf0 \
+\cf11 authorown.permission\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f3\fs36 \cf11 select * from AUTHOROWN.PERMISSION where rownum <9;\
+select * from AUTHOROWN.PERMISSION where OFFERING_ID like '%intuit%' order by OFFERING_ID;\
+\pard\pardeftab720\sl360\partightenfactor0
+\cf11 select * from authorown.permission where permission_id in ('Intuit.ems.employee.editProfile','Intuit.ems.employee.editBank','Intuit.ems.employee.editTaxSetup','Intuit.ems.employee.editTaxId','Intuit.ems.employee.editHomeAddress');\
+\
+\pard\pardeftab720\ri-30069\partightenfactor0
+\cf11 select * from AUTHOROWN.PERMISSION where rownum <9;\
+select count(*) from AUTHOROWN.PERMISSION;\
+select PERMISSION_NAME,OFFERING_ID from AUTHOROWN.PERMISSION order by NAME;\
+select distinct p.name PERMISSION, r.name ROLE, p.OFFERING_ID OFFERING from AUTHOROWN.PERMISSION p, AUTHOROWN.ROLE r where p.OFFERING_ID = r.OFFERING_ID;\
+select distinct p.name PERMISSION, r.name ROLE, p.OFFERING_ID OFFERING from AUTHOROWN.PERMISSION p, AUTHOROWN.OFFERING r where p.OFFERING_ID = r.OFFERING_ID;\
+\pard\pardeftab720\ri-30069\partightenfactor0
+\cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f1\fs32 \cf0 authorown.role_permission\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f3\fs36 \cf0 select * from AUTHOROWN.
+\f4\fs26 \cf4 \kerning1\expnd0\expndtw0 \CocoaLigature0 ROLE_PERMISSION
+\f3\fs36 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where rownum <9;\
+select * from AUTHOROWN.
+\f4\fs26 \cf4 \kerning1\expnd0\expndtw0 \CocoaLigature0 ROLE_PERMISSION;\
+
+\f3\fs36 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+select * from AUTHOROWN.EXTERNAL_GROUP_ASSIGNMENT where rownum <19;\
+select * from AUTHOROWN.GROUP_ROLE_ASSIGNMENT;\
+select * from AUTHOROWN.GROUP_TYPE;\
+\
+select * from AUTHOROWN.IDENTITY_REALM_GROUP_ASSIGN where rownum <19;\
+\
+select * from AUTHOROWN.IDENTITY_REALM_ROLE_ASSIGNMENT where rownum <19;\
+select * from AUTHOROWN.IDENTITY_REALM_ROLE_ASSIGNMENT where AUTH_ID='123146176343094' order by ROLE_ID;\
+\
+select * from AUTHOROWN.PROVIDER where rownum <9;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+\cf0 select * from AUTHOROWN.ROLE;\
+select * from AUTHOROWN.ROLE where rownum <9;\
+select count(*) from AUTHOROWN.ROLE;\
+select ROLE_NAME,OFFERING_ID from AUTHOROWN.ROLE order by NAME;\
+\
+select * from AUTHOROWN.ROLE_ASSIGNMENT_HISTORY where rownum <9;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs38 \cf0 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\fs36 \cf0 select * from AUTHOROWN.
+\f4\fs26 \cf4 \kerning1\expnd0\expndtw0 \CocoaLigature0 ROLE_CATEGORY
+\f3\fs36 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where rownum <9;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs38 \cf0 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\fs36 \cf0 select * from AUTHOROWN.
+\f4\fs26 \cf4 \kerning1\expnd0\expndtw0 \CocoaLigature0 ROLE_COMPONENT
+\f3\fs36 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where rownum <9;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\fs38 \cf0 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\fs36 \cf0 select * from AUTHOROWN.
+\f4\fs26 \cf4 \kerning1\expnd0\expndtw0 \CocoaLigature0 ROLE_TYPE
+\f3\fs36 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where rownum <9;\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\fs28 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 grep -i AUTHOWN *.prm\
+grep -i AUTHOWN rb*idm.prm\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f3\fs28 \cf0 \expnd0\expndtw0\kerning0
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 ########################################################################################################################################\
+\pard\pardeftab720\ri-30069\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 "AUTHOWN"."IDENTITY"\
+select count(*) from \cf11 AUTHOWN.IDENTITY;\cf0 \
+select * from "AUTHOWN"."IDENTITY" where LOGIN_NAME = 'aron.turner';\
+update "AUTHOWN"."IDENTITY" set last_mod_time = last_mod_time where auth_id = '1063843115';\
+\
+OCI Error ORA-01403: no data found, SQL <UPDATE "AUTHOWN"."IDENTITY" x SET x."INTUIT_ID" = :a1,x."IDENTITY_TYPE" = :a2,x."IDENTITY_SUBTYPE" = :a3,x."PARENT_ID" = :a4,x."INVALID" = :a5,x."LIFECYCLE_REALM_ID" = :a6,x."LIFECYCLE_STATUS" = :a7,x."LIFECYCLE_EXPIRE_DATE" = :a8,x."LIFECYCLE_ASSIGNED_AUTH_ID" = :a9,x."LOGIN_NAME" = :a10,x."MAIL" = :a11,x."MAIL_VALID_FLAG" = :a12,x."SECURITY_LEVEL" = :a13,x."UMROLE" = :a14,x."QBNROLE" = :a15,x."AUTH_DISABLED" = :a16,x."AUTH_LAST_TIME_DISABLED" = :a17,x."AUTH_FAILED_COUNT" = :a18,x."AUTH_LAST_TIME_FAILED" = :a19,x."PWR_CONFIRMATION_ID" = :a20,x."PWR_DISABLED" = :a21,x."PWR_LAST_TIME_DISABLED" = :a22,x."PWR_FAILED_COUNT" = :a23,x."PWR_LAST_TIME_FAILED" = :a24,x."PWR_RESET_DATE" = :a25,x."TEST_DATA_FLAG" = :a26,x."TEST_DATA_SOURCE" = :a27,x."TEST_DATA_COMMENT" = :a28,x."TEST_EXPIRE_DATE" = :a29,x."CREATE_DATE" = :a30,x."MODIFY_DATE" = :a31,x."LAST_MOD_TIME" = :a32 WHERE x."AUTH_ID" = :b0 AND x."INTUIT_ID" = :b1 AND x."IDENTITY_TYPE" = :b2 AND x."IDENTITY_SUBTYPE" = :b3\
+Aborting transaction on /ogg/trail/idm/ogg-east-2_pprddbrep300/rm beginning at seqno 104 rba 422911307\
+                         error at seqno 104 rba 422912102\
+Problem replicating AUTHOWN.IDENTITY to AUTHOWN.IDENTITY\
+\
+\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f3\fs28 \cf0 \expnd0\expndtw0\kerning0
+AUTHOWN.AUTH_OFFERING_USAGE
+\f1\fs30 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f3\fs28 \cf0 \expnd0\expndtw0\kerning0
+AUTHOWN.USER_ATTRIBUTE
+\f1\fs30 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+########################################################################################################################################\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf11 Oracle GoldenGate Delivery for Oracle process started, group RD102IDM discard file opened: 2020-10-06 21:48:46.329177\
+Current time: 2020-10-06 21:50:47\
+Discarded record from action RETRYOP on error 1\
+\
+OCI Error ORA-00001: unique constraint (AUTHOWN.LOGIN_NAME_UK) violated (status = 1), SQL <INSERT INTO "AUTHOWN"."IDENTITY" ("AUTH_ID","INTUIT_ID","IDENTITY_TYPE","IDENTITY_SUBTYPE","PARENT_ID","INVALID","LIFECYCLE_REALM_ID","LIFECYCLE_STATUS","LIFECYCLE_EXPIRE_DATE","LIFECYCLE_ASSIGNED_AUTH_ID","LOGIN_NAME","MAIL","MAIL_VALID_FLAG","PASSWORD","CHALLENGE_ANSWER","CHALLENGE_PHRASE","SECURITY_LEVEL","UMROLE","QBNROLE","AUTH_DISABLED","AUTH_LAST_TIME_DISABLED","AUTH_FAILED_COUNT","AUTH_LAST_TIME_FAILED","PWR_CONFIRMATION_ID","PWR_DISABLED","PWR_LAST_TIME_DISABLED","PWR_FAILED_COUNT","PWR_LAST_TIME_FAILED","PWR_RESET_DATE","PWR_TEMP_PASSWORD","TEST_DATA_FLAG","TEST_DATA_SOURCE","TEST_DATA_COMMENT","TEST_EXPIRE_DATE","CREATE_DATE","MODIFY_DATE","LAST_MOD_TIME") VALUES (:a0,:a1,:a2,:a3,:a4,:a5,:a6,:a7,:a8,:a9,:a10,:a11,:a12,:a13,:a14,:a15,:a16,:a17,:a18,:a19,:a20,:a21,:a22,:a23,:a24,:a25,:a26,:a27,:a28,:a29,:a30,:a31,:a32,:a33,:a34,:a35,:a36)>\
+Aborting transaction on /ogg/12.2.0.1/trail/idm/prf-east-2_prf-west-2/rd beginning at seqno 1927 rba 223623785\
+                         error at seqno 1927 rba 223623785\
+Problem replicating AUTHOWN.IDENTITY to AUTHOWN.IDENTITY\
+Mapping problem with insert record (target format)...\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf11 *\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf11 AUTH_ID = 13633952389468952\
+000000: 31 33 36 33 33 39 35 32 33 38 39 34 36 38 39 35 |1363395238946895|\
+000010: 32                                              |2               |\
+\
+INTUIT_ID = 1933a7b02979eb4481ebbe9db7ff7c89178\
+000000: 31 39 33 33 61 37 62 30 32 39 37 39 65 62 34 34 |1933a7b02979eb44|\
+000010: 38 31 65 62 62 65 39 64 62 37 66 66 37 63 38 39 |81ebbe9db7ff7c89|\
+000020: 31 37 38                                        |178             |\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf11 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf11 LOGIN_NAME = OGGCDR_fdp0d2af5ed-b660-426f-86ea-731cf40d7668_iamtestpass@intuit.com952\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf11 \
+\
+select AUTH_ID, LOGIN_NAME, last_mod_time from AUTHOWN.IDENTITY where AUTH_ID = '
+\f4\fs26 \cf4 \CocoaLigature0 51181962
+\f1\fs30 \cf11 \CocoaLigature1 ';\
+select AUTH_ID, LOGIN_NAME, last_mod_time from AUTHOWN.IDENTITY where LOGIN_NAME = '
+\f4\fs26 \cf4 \CocoaLigature0 crmagent
+\f1\fs30 \cf11 \CocoaLigature1 ';\
+select * from AUTHOWN.IDENTITY where AUTH_ID = '
+\f4\fs26 \cf4 \CocoaLigature0 51181962
+\f1\fs30 \cf11 \CocoaLigature1 ';\
+select AUTH_ID, LOGIN_NAME, last_mod_time from AUTHOWN.IDENTITY where AUTH_ID = '13633952389472952';\
+\
+update AUTHOWN.IDENTITY set LOGIN_NAME='invalid.13633952389472952.fdp0d2af5ed-b660-426f-86ea-731cf40d7668_iamtestpass@intuit.com' where AUTH_ID = '13633952389472952';\
+\
+select * from AUTHOWN.IDENTITY where AUTH_ID = '13633952389468952';\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+########################################################################################################################################\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf12 2019-02-05 05:30:08  WARNING OGG-00869  Oracle GoldenGate Delivery for Oracle, rc103idm.prm:  OCI Error ORA-02291: integrity constraint (AUTHOWN.SVC_AUTH_AUTH_ID_FK) violated - parent key not found (status = 2291), SQL <INSERT INTO "AUTHOWN"."SERVICE_AUTHENTICATION" ("AUTH_ID","SERVICE_ID","HASHED_VALUE","CREATE_DATE","MODIFY_DATE","LAST_MOD_TIME") VALUES (:a0,:a1,:a2,:a3,:a4,:a5)>.\
+2019-02-05 05:30:08  WARNING OGG-01004  Oracle GoldenGate Delivery for Oracle, rc103idm.prm:  Aborted grouped transaction on 'AUTHOWN.SERVICE_AUTHENTICATION', Database error 2291 (OCI Error ORA-02291: integrity constraint (AUTHOWN.SVC_AUTH_AUTH_ID_FK) violated - parent key not found (status = 2291), SQL <INSERT INTO "AUTHOWN"."SERVICE_AUTHENTICATION" ("AUTH_ID","SERVICE_ID","HASHED_VALUE","CREATE_DATE","MODIFY_DATE","LAST_MOD_TIME") VALUES (:a0,:a1,:a2,:a3,:a4,:a5)>).\
+\
+OCI Error ORA-02291: integrity constraint (AUTHOWN.SVC_AUTH_AUTH_ID_FK) violated - parent key not found (status = 2291), SQL <INSERT INTO "AUTHOWN"."SERVICE_AUTHENTICATION" ("AUTH_ID","SERVICE_ID","HASHED_VALUE","CREATE_DATE","MODIFY_DATE","LAST_MOD_TIME") VALUES (:a0,:a1,:a2,:a3,:a4,:a5)>\
+Aborting transaction on /ogg/trail/idm/ogg-east-2_pprdiamdba-qy-ogg/rc beginning at seqno 723 rba 465281796\
+                         error at seqno 723 rba 465281796\
+Problem replicating AUTHOWN.SERVICE_AUTHENTICATION to AUTHOWN.SERVICE_AUTHENTICATION\
+Mapping problem with insert record (target format)...\
+*\
+AUTH_ID = 13563577492764809\
+000000: 31 33 35 36 33 35 37 37 34 39 32 37 36 34 38 30 |1356357749276480|\
+000010: 39                                              |9               |\
+\
+SERVICE_ID = 2040\
+000000: 32 30 34 30                                     |2040            |\
+\
+\
+select AUTH_ID, last_mod_time from "AUTHOWN"."IDENTITY" where AUTH_ID = '13563577492764809';\
+update "AUTHOWN"."IDENTITY" set last_mod_time = sysdate where auth_id = '13563577492764809';\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\
+########################################################################################################################################\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf11 OCI Error ORA-02291: integrity constraint (AUTHOWN.CONFIRMATION_STATUS_FK) violated - parent key not found (status = 2291), SQL <INSERT INTO "AUTHOWN"."CONFIRMATION_STATUS" ("AUTH_ID","CHANNEL_ID","CHANNEL_TYPE","STATUS","CONFIRMATION_ID","STATUS_MODIFY_DATE","REQUEST_CONFIRM_DATE","ATTEMPT_COUNT","LAST_MOD_TIME") VALUES (:a0,:a1,:a2,:a3,:a4,:a5,:a6,:a7,:a8)>\
+Aborting transaction on /ogg/trail/idm/ogg-east-2_pprdiamdba-qy-ogg/rc beginning at seqno 724 rba 256352209\
+                         error at seqno 724 rba 256352209\
+Problem replicating AUTHOWN.CONFIRMATION_STATUS to AUTHOWN.CONFIRMATION_STATUS\
+Mapping problem with insert record (target format)...\
+*\
+AUTH_ID = 13563577492765609\
+000000: 31 33 35 36 33 35 37 37 34 39 32 37 36 35 36 30 |1356357749276560|\
+000010: 39                                              |9               |\
+\
+CHANNEL_ID = 06f8582f-f0ac-49cc-929b-87d79321a1a9\
+000000: 30 36 66 38 35 38 32 66 2d 66 30 61 63 2d 34 39 |06f8582f-f0ac-49|\
+000010: 63 63 2d 39 32 39 62 2d 38 37 64 37 39 33 32 31 |cc-929b-87d79321|\
+000020: 61 31 61 39                                     |a1a9            |\
+\
+\
+select AUTH_ID, last_mod_time from AUTHOWN.IDENTITY where AUTH_ID = '4620745996240394026';\
+update AUTHOWN.IDENTITY set last_mod_time = sysdate where auth_id = '13563577492765609';\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf11 select AUTH_ID, last_mod_time from AUTHOWN.IDENTITY@IDMPFE2A where AUTH_ID = '4620745996240394026';\cf0 \
+\cf11 insert into AUTHOWN.IDENTITY select * from AUTHOWN.IDENTITY@IDMPFE2A where AUTH_ID = '4620745996240394026';\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+########################################################################################################################################\
+\
+CI Error ORA-02291: integrity constraint (AUTHOWN.MEMBERSHIP_PERSONA_ID_FK) violated - parent key not found (status = 2291), SQL <INSERT INTO "AUTHOWN"."MEMBERSHIP" ("USER_ID","PERSONA_ID","REALM_ID","CREATE_DATE","MODIFY_DATE","LAST_MOD_TIME") VALUES (:a0,:a1,:a2,:a3,:a4,:a5)>\
+Aborting transaction on /ogg/trail/aut/rs beginning at seqno 9517 rba 215682375\
+                        error at seqno 9517 rba 215682375\
+Problem replicating AUTHOWN.MEMBERSHIP to AUTHOWN.MEMBERSHIP\
+Mapping problem with insert record (target format)...\
+*\
+USER_ID = 123151477365104\
+000000: 31 32 33 31 35 31 34 37 37 33 36 35 31 30 34    |123151477365104 |\
+\
+PERSONA_ID = 123151477365119\
+000000: 31 32 33 31 35 31 34 37 37 33 36 35 31 31 39    |123151477365119 |\
+\
+REALM_ID = 123151477365114\
+000000: 31 32 33 31 35 31 34 37 37 33 36 35 31 31 34    |123151477365114 |\
+\
+CREATE_DATE = 2019-04-13 21:37:59\
+000000: 32 30 31 39 2d 30 34 2d 31 33 20 32 31 3a 33 37 |2019-04-13 21:37|\
+000010: 3a 35 39                                        |:59             |\
+\
+MODIFY_DATE = 2019-04-13 21:37:59\
+000000: 32 30 31 39 2d 30 34 2d 31 33 20 32 31 3a 33 37 |2019-04-13 21:37|\
+000010: 3a 35 39                                        |:59             |\
+\
+LAST_MOD_TIME = 2019-04-13 21:37:59.859333000\
+000000: 32 30 31 39 2d 30 34 2d 31 33 20 32 31 3a 33 37 |2019-04-13 21:37|\
+000010: 3a 35 39 2e 38 35 39 33 33 33 30 30 30          |:59.859333000   |\
+\
+Under AUTHOWN\
+IDENTITY.AUTH_ID -> MEMBERSHIP.PERSONA_ID\
+\
+select * from AUTHOWN.IDENTITY where AUTH_ID='123151477365119' ;\
+update AUTHOWN.IDENTITY set LAST_MOD_TIME=sysdate where AUTH_ID='123151477365119' ;\
+\
+########################################################################################################################################\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf10 OCI Error ORA-02291: integrity constraint (AUTHOWN.MEMBERSHIP_USER_ID_FK) violated - parent key not found (status = 2291), SQL <INSERT INTO "AUTHOWN"."MEMBERSHIP" ("USER_ID","PERSONA_ID","REALM_ID","CREATE_DATE","MODIFY_DATE","LAST_MOD_TIME") VALUES (:a0,:a1,:a2,:a3,:a4,:a5)>\
+Aborting transaction on /ogg/trail/aut/rs beginning at seqno 9517 rba 215716155\
+                        error at seqno 9517 rba 215716155\
+Problem replicating AUTHOWN.MEMBERSHIP to AUTHOWN.MEMBERSHIP\
+Mapping problem with insert record (target format)...\
+*\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f4\fs26 \cf4 \CocoaLigature0 USER_ID = 51181962\
+000000: 35 31 31 38 31 39 36 32                         |51181962        |\
+\
+PERSONA_ID = 9130358237565185\
+000000: 39 31 33 30 33 35 38 32 33 37 35 36 35 31 38 35 |9130358237565185|\
+\
+REALM_ID = 9130358237565105\
+000000: 39 31 33 30 33 35 38 32 33 37 35 36 35 31 30 35 |9130358237565105|\
+\
+CREATE_DATE = 2020-10-19 15:15:53\
+000000: 32 30 32 30 2d 31 30 2d 31 39 20 31 35 3a 31 35 |2020-10-19 15:15|\
+000010: 3a 35 33                                        |:53             |\
+\
+MODIFY_DATE = 2020-10-19 15:15:53\
+000000: 32 30 32 30 2d 31 30 2d 31 39 20 31 35 3a 31 35 |2020-10-19 15:15|\
+000010: 3a 35 33                                        |:53             |\
+\
+LAST_MOD_TIME = 2020-10-19 15:15:53.699841000\
+000000: 32 30 32 30 2d 31 30 2d 31 39 20 31 35 3a 31 35 |2020-10-19 15:15|\
+000010: 3a 35 33 2e 36 39 39 38 34 31 30 30 30          |:53.699841000   |
+\f1\fs30 \cf10 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf10 \
+\
+** This may resolve automatically ***\
+1)\
+select AUTH_ID,INTUIT_ID,PARENT_ID,LOGIN_NAME,LAST_MOD_TIME from AUTHOWN.IDENTITY where AUTH_ID='51181962' ;  -- USER_ID\
+select AUTH_ID,INTUIT_ID,PARENT_ID,LOGIN_NAME,LAST_MOD_TIME from AUTHOWN.IDENTITY where AUTH_ID='9130358237565185' ;  -- PERSONA_ID\
+select AUTH_ID,INTUIT_ID,PARENT_ID,LOGIN_NAME,LAST_MOD_TIME from AUTHOWN.IDENTITY where AUTH_ID='9130358237565105' ; -- REALM_ID\
+update AUTHOWN.IDENTITY set LAST_MOD_TIME=sysdate where AUTH_ID='51181962' ;\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf10 2) \
+SET SQLFORMAT INSERT\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf10 select * from AUTHOWN.IDENTITY where AUTH_ID='51181962' ;  -- USER_ID\
+\
+Insert into AUTHOWN.IDENTITY (AUTH_ID,INTUIT_ID,IDENTITY_TYPE,IDENTITY_SUBTYPE,PARENT_ID,INVALID,LIFECYCLE_REALM_ID,LIFECYCLE_STATUS,LIFECYCLE_EXPIRE_DATE,LIFECYCLE_ASSIGNED_AUTH_ID,LOGIN_NAME,MAIL,MAIL_VALID_FLAG,PASSWORD,CHALLENGE_ANSWER,CHALLENGE_PHRASE,SECURITY_LEVEL,UMROLE,QBNROLE,AUTH_DISABLED,AUTH_LAST_TIME_DISABLED,AUTH_FAILED_COUNT,AUTH_LAST_TIME_FAILED,PWR_CONFIRMATION_ID,PWR_DISABLED,PWR_LAST_TIME_DISABLED,PWR_FAILED_COUNT,PWR_LAST_TIME_FAILED,PWR_RESET_DATE,PWR_TEMP_PASSWORD,TEST_DATA_FLAG,TEST_DATA_SOURCE,TEST_DATA_COMMENT,TEST_EXPIRE_DATE,CREATE_DATE,MODIFY_DATE,LAST_MOD_TIME) \
+values ('51181962','1a7c5cfeb3a5045888b6fbb9cf9575c59',3,0,'50000001',0,null,0,null,null,'crmagent','s51181962@test.intuit.com',0,'500:WyZMvD/pRYGjn9oAU4mLLVAQEVCa/NZp:JvaGKuk9Lh2bBClcKvJZ1SCPsCN03hIx',null,null,2,1,null,0,null,0,null,0,0,null,0,null,null,null,0,null,null,null,to_timestamp('2011-09-23 15:55:36','YYYY-MM-DD HH24:MI:SS'),to_timestamp('2014-07-24 06:42:21','YYYY-MM-DD HH24:MI:SS'),to_timestamp('19-OCT-20 08.10.00','DD-MON-YY HH.MI.SS'));\
+\
+\pard\pardeftab720\sl360\partightenfactor0
+\cf10 3) \
+set lines 220 pages 5000\
+select * from authown.identity where auth_id='51181962';\
+select * from authown.identity where auth_id='60000012';\
+\
+select * from AUTHOWN.IDENTITY where LOGIN_NAME='crmagent' and PARENT_ID='50000001' ;\
+select * from AUTHOWN.IDENTITY where LOGIN_NAME='dalemoran56' and PARENT_ID='50000003' ;\
+\
+sl-a\
+update AUTHOWN.IDENTITY set LOGIN_NAME='dalemoran56', PARENT_ID='50000003' where auth_id='60000012';\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+########################################################################################################################################\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf11 \
+OCI Error ORA-02291: integrity constraint (AUTHOWN.MEMBERSHIP_REALM_ID_FK) violated - parent key not found (status = 2291), SQL <INSERT INTO "AUTHOWN"."MEMBERSHIP" ("USER_ID","PERSONA_ID","REALM_ID","CREATE_DATE","MODIFY_DATE","LAST_MOD_TIME") VALUES (:a0,:a1,:a2,:a3,:a4,:a5)>\
+Aborting transaction on /ogg/12.2.0.1/trail/idm/prf-east-2_prf-west-2/eb beginning at seqno 80 rba 32817391\
+                         error at seqno 80 rba 32817391\
+Problem replicating AUTHOWN.MEMBERSHIP to AUTHOWN.MEMBERSHIP\
+Mapping problem with insert record (target format)...\
+\
+USER_ID = 13633951187031712\
+000000: 31 33 36 33 33 39 35 31 31 38 37 30 33 31 37 31 |1363395118703171|\
+000010: 32                                              |2               |\
+\
+PERSONA_ID = 13633951187031722\
+000000: 31 33 36 33 33 39 35 31 31 38 37 30 33 31 37 32 |1363395118703172|\
+000010: 32                                              |2               |\
+\
+REALM_ID = 123150925004034\
+000000: 31 32 33 31 35 30 39 32 35 30 30 34 30 33 34    |123150925004034 |\
+\
+\
+\
+select AUTH_ID, last_mod_time from AUTHOWN.IDENTITY where AUTH_ID = '123150925004034';\
+update AUTHOWN.IDENTITY set last_mod_time = sysdate where auth_id = '123150925004034';\
+\
+select AUTH_ID, last_mod_time from AUTHOWN.IDENTITY@IDMPFE2B where AUTH_ID = '123150925004034';\
+insert into AUTHOWN.IDENTITY select * from AUTHOWN.IDENTITY@IDMPFE2B where AUTH_ID = '123150925004034';\cf0 \
+\
+########################################################################################################################################\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf9 OCI Error ORA-02291: integrity constraint (AUTHOWN.IDENTITY_EX_FK3) violated - parent key not found (status = 2291), SQL <INSERT INTO "AUTHOWN"."IDENTITY_EXTENSION" ("AUTH_ID","AUTHORIZED_BY_AUTH_ID","AUTHORIZED_BY_REALM_ID","CREATE_DATE","MODIFY_DATE","LAST_MOD_TIME") VALUES (:a0,:a1,:a2,:a3,:a4,:a5)>\
+Aborting transaction on /ogg/12.2.0.1/trail/idm/prf-west-2_prf-east-2/rd beginning at seqno 458 rba 31016182\
+                         error at seqno 458 rba 31017835\
+Problem replicating AUTHOWN.IDENTITY_EXTENSION to AUTHOWN.IDENTITY_EXTENSION\
+Mapping problem with insert record (target format)...\
+*\
+AUTH_ID = 9130351595483475\
+000000: 39 31 33 30 33 35 31 35 39 35 34 38 33 34 37 35 |9130351595483475|\
+\
+select AUTH_ID, last_mod_time from AUTHOWN.IDENTITY where AUTH_ID = '9130351595483475';\
+update AUTHOWN.IDENTITY set last_mod_time = sysdate where auth_id = '123150925004034';\cf11 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+########################################################################################################################################\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f4\fs26 \cf4 \CocoaLigature0 OCI Error ORA-02291: integrity constraint (AUTHOWN.IDENTITY_EX_FK2) violated - parent key not found (status = 2291), SQL <INSERT INTO "AUTHOWN"."IDENTITY_EXTENSION" ("AUTH_ID","AUTHORIZED_BY_AUTH_ID","AUTHORIZED_BY_REALM_ID","CREATE_DATE","MODIFY_DATE","LAST_MOD_TIME") VALUES (:a0,:a1,:a2,:a3,:a4,:a5)>\
+Aborting transaction on /ogg/12.2.0.1/trail/idm/prf-west-2_prf-east-2/rd beginning at seqno 7206 rba 336702330\
+                         error at seqno 7206 rba 336703386\
+Problem replicating AUTHOWN.IDENTITY_EXTENSION to AUTHOWN.IDENTITY_EXTENSION\
+Mapping problem with insert record (target format)...\
+*\
+AUTH_ID = 9130355192889515\
+000000: 39 31 33 30 33 35 35 31 39 32 38 38 39 35 31 35 |9130355192889515|\
+\
+AUTHORIZED_BY_AUTH_ID = 123151810029024\
+000000: 31 32 33 31 35 31 38 31 30 30 32 39 30 32 34    |123151810029024 |\
+\
+AUTHORIZED_BY_REALM_ID = 123151810028874\
+000000: 31 32 33 31 35 31 38 31 30 30 32 38 38 37 34    |123151810028874 |\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs30 \cf0 \CocoaLigature1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f4\fs26 \cf4 \CocoaLigature0 IDENTITY_EXTENSION    AUTHORIZED_BY_REALM_ID
+\f1\fs30 \cf0 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf9 select AUTH_ID, last_mod_time from AUTHOWN.IDENTITY where AUTH_ID = '
+\f4\fs26 \cf4 \CocoaLigature0 9130355192889515
+\f1\fs30 \cf9 \CocoaLigature1 ';\
+update AUTHOWN.IDENTITY set last_mod_time = sysdate where auth_id = '
+\f4\fs26 \cf4 \CocoaLigature0 123151810028874
+\f1\fs30 \cf9 \CocoaLigature1 ';\cf0 \
+\
+\cf9 select AUTH_ID, 
+\f4\fs26 \cf4 \CocoaLigature0 CREATE_DATE,
+\f1\fs30 \cf9 \CocoaLigature1 last_mod_time from 
+\f4\fs26 \cf4 \CocoaLigature0 AUTHOWN.IDENTITY_EXTENSION
+\f1\fs30 \cf9 \CocoaLigature1  where AUTH_ID = '
+\f4\fs26 \cf4 \CocoaLigature0 9130355192944185
+\f1\fs30 \cf9 \CocoaLigature1 ';\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+########################################################################################################################################\
+\
+\
+########################################################################################################################################\
+}

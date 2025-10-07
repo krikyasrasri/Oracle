@@ -1,0 +1,101 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fmodern\fcharset0 CourierNewPSMT;\f2\fswiss\fcharset0 Helvetica;
+}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\csgray\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww40360\viewh20740\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs26 \cf2 \CocoaLigature0 \
+
+\fs28 i) Make sure table doesn't exists.\
+
+\f1 desc PAUTHOWN.PC_EVENTS
+\f0 \
+\
+ii) Make sure LAST_MOD_TIME column and Primary Key are present in DDL.\
+\
+iii) create table\
+\
+
+\f1 CREATE TABLE PAUTHOWN.PC_EVENTS\
+( "ID" VARCHAR2(200 BYTE) NOT NULL ENABLE,  "EVENT_CERT_ID" VARCHAR2(200 BYTE), "PARTNER_CERT_ID" VARCHAR2(200 BYTE) NOT NULL ENABLE,  "FI_NAME" VARCHAR2(400 BYTE) NOT NULL ENABLE,  "EVENT_TYPE" VARCHAR2(200 BYTE) NOT NULL ENABLE,  "EXPIRY" TIMESTAMP (6),  "START_TIME" TIMESTAMP (6),  "END_TIME" TIMESTAMP (6),  "STATUS" VARCHAR2(100 BYTE),  "CREATED" TIMESTAMP (6),  "MODIFIED" TIMESTAMP (6),  "RETRY_COUNT" NUMBER(*,0),  "LAST_MOD_TIME" TIMESTAMP (6),\
+CONSTRAINT PC_EVENTS_pk PRIMARY KEY (ID)\
+);
+\f0 \
+\
+\pard\pardeftab720\partightenfactor0
+iv) Create trigger on LAST_MOD_TIME\
+
+\f1 CREATE OR REPLACE TRIGGER PAUTHOWN.PC_EVENTS_CDR_IU BEFORE INSERT OR UPDATE ON PAUTHOWN.PC_EVENTS REFERENCING NEW AS NEW OLD AS OLD FOR EACH ROW BEGIN IF (USER != 'OGGOWN') THEN :NEW.LAST_MOD_TIME := SYSTIMESTAMP; END IF; END;\
+/\
+\
+
+\f0 v) Provide privileges to APP users\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1 grant SELECT on PAUTHOWN.PC_EVENTS to PAUTHOWN_READONLY_ROLE, PAUTH_READ_ONLY;\
+grant SELECT on PAUTHOWN.PC_EVENTS to PAUTH_READ_ONLY;\
+grant INSERT,UPDATE,DELETE,SELECT on PAUTHOWN.PC_EVENTS to PAUTH_APP_ROLE;\
+\
+select owner,synonym_name,table_name,TABLE_OWNER from dba_synonyms where owner like upper('%PAUTH%') order by synonym_name;\
+CREATE SYNONYM PAUTH_READ_ONLY.PC_EVENTS FOR PAUTHOWN.PC_EVENTS;\
+CREATE SYNONYM PAUTHAPPL01.PC_EVENTS FOR PAUTHOWN.PC_EVENTS;\
+\pard\pardeftab720\partightenfactor0
+
+\f0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+vi) Add table name in getbeforecols_****.inc \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1 cd /ogg/12.2.0.1/dirprm/include\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\
+vi getbeforecols_PAUTHOWN.inc\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+TABLE PAUTHOWN.PC_EVENTS,\
+GETBEFORECOLS (\
+ON UPDATE  ALL,\
+ON DELETE  ALL);
+\f0 \
+\
+vii) Add table name in table_map_****.inc\
+\
+
+\f1 vi table_map_PAUTHOWN.inc\
+MAP PAUTHOWN.PC_EVENTS, TARGET PAUTHOWN.PC_EVENTS,\
+COMPARECOLS (ON UPDATE KEYINCLUDING (LAST_MOD_TIME), ON DELETE KEYINCLUDING (LAST_MOD_TIME)),\
+RESOLVECONFLICT (UPDATEROWEXISTS, (DEFAULT, USEMAX (LAST_MOD_TIME))),\
+RESOLVECONFLICT (INSERTROWEXISTS, (DEFAULT, USEMAX (LAST_MOD_TIME))),\
+RESOLVECONFLICT (DELETEROWEXISTS, (DEFAULT, OVERWRITE)),\
+RESOLVECONFLICT (UPDATEROWMISSING, (DEFAULT, OVERWRITE)),\
+RESOLVECONFLICT (DELETEROWMISSING, (DEFAULT, DISCARD));
+\f0 \
+\
+viii) if needed, add exception table entry in exception_map_****.inc (e.g. exception_map_PAUTHOWN.inc)\
+\
+ix) Bounce related OGG processes\
+\
+
+\f1 $\{OGG_HOME\}/ggsci <<-EOF |grep "PTH"\
+info all\
+EOF\
+\
+$\{OGG_HOME\}/ggsci <<-EOF\
+stop *pth\
+EOF\
+\
+$\{OGG_HOME\}/ggsci <<-EOF\
+start *pth\
+EOF\
+\
+$\{OGG_HOME\}/ggsci <<-EOF |grep "PTH"\
+info all\
+EOF
+\f2\fs30 \cf0 \CocoaLigature1 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs28 \cf2 \CocoaLigature0 x) Add this new table in Veridata comparison jobs\
+}

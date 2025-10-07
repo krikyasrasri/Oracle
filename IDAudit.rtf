@@ -1,0 +1,147 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue255;\red153\green102\blue51;}
+{\*\expandedcolortbl;;\cssrgb\c1680\c19835\c100000;\cssrgb\c66800\c47512\c25860;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww39020\viewh24580\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 `
+\f1\b\fs34 Identity Auditing
+\f0\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 prd_audit_entry\
+e2e_audit_entry\
+prf_audit_entry\
+\
+aws dynamodb list-tables\
+aws dynamodb describe-table --table-name prf_audit_entry\
+sudo aws dynamodb describe-table --table-name prd_audit_entry\
+\
+sudo aws dynamodb get-item --table-name prd_audit_entry --key '\{"audit_key":\{"S":"123145817308374$USER_ID$0"\},"range_key":\{"S":"2018-08-26T05:14:45.000000Z$5225c2db-621b-405b-8353-be7fd6c76cf0"\}\}'\
+sudo aws dynamodb get-item --table-name prd_audit_entry --key ' \{"audit_key":\{"S":"123145817308374$USER_ID$0"\},"range_key":\{"S":"2018-10-03T19:29:29.000000Z$124c4542-eefc-4edc-b550-43d4bcb9f472"\}\}'\
+sudo aws dynamodb get-item --table-name prd_audit_entry --key '\{"audit_key":\{"S":"123145817308374$USER_ID$0"\},"range_key":\{"S":"2018-07-16T06:51:45.000000Z$a8197fba-a668-41b7-83cb-78ec6b2cc834"\}\}' --region us-west-2\
+sudo aws dynamodb get-item --table-name prd_audit_entry --key '\{"audit_key":\{"S":"123145817308374$USER_ID$0"\},"range_key":\{"S":"2018-10-12T22:43:25.000000Z$0050ffdf-4638-4531-b174-281fbc86b125"\}\}' --region us-east-2\
+sudo aws dynamodb get-item --table-name e2e_audit_entry --key '\{"audit_key":\{"S":"9130350512959196$USER_ID$0"\},"range_key":\{"S":"2020-08-04T08:24:34.680000Z$0124a3f8-b689-47c6-957c-75c544414e59"\}\}' --region us-west-2\
+sudo aws dynamodb get-item --table-name prf_audit_entry --key '\{"audit_key":\{"S":"4625249595868235280$USER_ID$0"\},"range_key":\{"S":"2019-07-13T13:36:28.154000Z"\}\}'\
+aws dynamodb get-item --table-name qa_audit_entry --key '\{"audit_key": \{"S":"9130348736213286$USER_ID$0"\}, "range_key": \{"S":"2018-11-21T16:29:23.043000Z"\}\}'\
+aws dynamodb get-item --table-name prf_audit_entry --projection-expression "audit_key,range_key,#ttlive" --expression-attribute-names '\{"#ttlive": "ttl"\}' --key '\{"audit_key": \{"S":"9130351662553195$USER_ID$0"\}, "range_key": \{"S":"2019-07-13T01:15:45.863000Z"\}\}'\
+\
+sudo aws dynamodb scan --table-name prd_audit_entry --max-items 5 --filter-expression "range_key < :oldest_date" --expression-attribute-values '\{":oldest_date":\{"S":"2018-02-01"\}\}'\
+sudo aws dynamodb scan --table-name prd_audit_entry --projection-expression "audit_key,range_key" --max-items 5 --filter-expression "range_key < :oldest_date" --expression-attribute-values '\{":oldest_date":\{"S":"2018-02-01"\}\}'\
+sudo aws dynamodb scan --table-name prf_audit_entry --max-items 5 --filter-expression "create_date > :oldest_date" --expression-attribute-values '\{":oldest_date":\{"S":"2020-03-27"\}\}'\
+\
+sudo aws dynamodb scan --table-name prd_audit_entry --max-items 5 --filter-expression "range_key > :oldest_date" --expression-attribute-values '\{":oldest_date":\{"S":"2020-08-22"\}\}'\
+sudo aws dynamodb scan --table-name prd_audit_entry --max-items 5 --filter-expression "range_key < :oldest_date" --expression-attribute-values '\{":oldest_date":\{"S":"2018-02-01"\}\}'\
+sudo aws dynamodb scan --table-name prd_audit_entry --projection-expression "audit_key,range_key" --max-items 5 --filter-expression "range_key > :oldest_date" --expression-attribute-values '\{":oldest_date":\{"S":"2020-08-22"\}\}'\
+sudo aws dynamodb scan --table-name prd_audit_entry --projection-expression "audit_key,range_key" --max-items 5 --filter-expression "range_key < :oldest_date" --expression-attribute-values '\{":oldest_date":\{"S":"2018-02-01"\}\}'\
+\
+aws dynamodb scan --table-name e2e_audit_entry --projection-expression "audit_key,range_key" --expression-attribute-names '\{"#ttlive":"ttl"\}' --max-items 50 --filter-expression "#ttlive <> :ttzero" --expression-attribute-values '\{":ttzero":\{"N":"0"\}\}'\
+aws dynamodb scan --table-name e2e_audit_entry --projection-expression "audit_key,range_key" --expression-attribute-names '\{"#ttlive":"ttl"\}' --max-items 50 --filter-expression "#ttlive = :ttzero AND create_date < :oldest_date" --expression-attribute-values '\{":ttzero":\{"N":"0"\}, ":oldest_date":\{"S":"2019-06-01"\}\}'\
+aws dynamodb scan --table-name e2e_audit_entry --projection-expression "audit_key,range_key" --expression-attribute-names '\{"#ttlive":"ttl"\}' --max-items 50 --filter-expression "#ttlive = :ttzero AND create_date < :oldest_date" --expression-attribute-values '\{":ttzero":\{"N":"0"\}, ":oldest_date":\{"S":"2019-06-01"\}\}' --region us-east-2\
+aws dynamodb scan --table-name e2e_audit_entry --projection-expression "audit_key,range_key" --expression-attribute-names '\{"#ttlive":"ttl"\}' --max-items 50 --filter-expression "#ttlive = :ttzero" --expression-attribute-values '\{":ttzero":\{"N":"0"\}\}' > output_e2e_keys.json\
+aws dynamodb scan --table-name qa_audit_entry --projection-expression "audit_key,range_key" --expression-attribute-names '\{"#ttlive":"ttl"\}' --max-items 50 --filter-expression "#ttlive = :ttzero" --expression-attribute-values '\{":ttzero":\{"N":"0"\}\}' > output_prf_keys.json\
+\
+aws dynamodb scan --table-name prf_audit_entry --region us-west-2 --max-items 10 --query 'Items' --output text | awk '\{print $1\}' | sort | uniq\
+aws dynamodb scan --table-name e2e_audit_entry --projection-expression "audit_key,range_key" --max-items 1000 > output_e2e_keys.json\
+aws dynamodb scan --table-name e2e_audit_entry --region us-west-2 --page-size 5 --max-items 90 --query 'Items' --output text | awk '\{print $1\}' | sort | uniq\
+\
+\
+aws dynamodb update-item --table-name e2e_audit_entry --key '\{"audit_key": \{"S":"4620816365607753029$USER_ID$0"\}, "range_key": \{"S":"2019-07-09T12:02:16.402000Z"\}\}' --update-expression "SET #ttlive = :ttvalue" --condition-expression "#ttlive = :ttzero" --expression-attribute-names '\{"#ttlive": "ttl"\}' --expression-attribute-values '\{":ttvalue": \{"N":"1575263900"\},":ttzero": \{"N":"0"\}\}'\
+aws dynamodb update-item --table-name qa_audit_entry --key '\{"audit_key": \{"S":"123146214006069$REALM_ID$0"\}, "range_key": \{"S":"2019-07-01T18:04:58.310Z"\}, "audit_key": \{"S":"4620816365076156520$USER_ID$0"\}, "range_key": \{"S":"2019-06-30T01:54:47.213Z"\}\}' --update-expression "SET #ttlive = :ttvalue" --condition-expression "#ttlive = :ttzero" --expression-attribute-names '\{"#ttlive": "ttl"\}' --expression-attribute-values '\{":ttvalue": \{"N":"1575873228"\},":ttzero": \{"N":"0"\}\}'\
+\
+aws dynamodb delete-item --table-name prf_audit_entry --key '\{"audit_key":\{"S":"4620745998049209295$USER_ID$0"\},"range_key":\{"S":"2019-06-26T20:11:18.774Z"\}\}' --condition-expression "create_date < :oldest_date" --expression-attribute-values '\{":oldest_date":\{"S":"2019-07-01"\}\}'\
+\
+\
+sudo aws dynamodb describe-limits\
+\
+\
+select * from ued_idaudit_prd_dwh.prd_audit_entry_ingest limit 100;\
+select * from ued_idaudit_prd_dwh.prd_audit_entry_ingest where create_date > '2020-08-03' limit 100;\
+\
+\
+CREATE EXTERNAL TABLE hive_perf_audit_entry (audit_key string, range_key string, action_code string, agent_auth_id string, attributes string, audit_id string, company_auth_id string, create_date string, detail string, event_code string, local_ip string, modifier_user_id string, offering_id string, subject_id string, subject_type string, ttl bigint, application_id string, remote_ip string)\
+STORED BY 'org.apache.hadoop.hive.dynamodb.DynamoDBStorageHandler'\
+TBLPROPERTIES ("dynamodb.table.name" = "prf_audit_entry",\
+"dynamodb.deletion.mode" = "true",\
+"dynamodb.column.mapping" = "audit_key:audit_key,range_key:range_key,action_code:action_code,agent_auth_id:agent_auth_id,attributes:attributes,audit_id:audit_id,company_auth_id:company_auth_id,create_date:create_date,detail:detail,event_code:event_code,local_ip:local_ip,modifier_user_id:modifier_user_id,offering_id:offering_id,subject_id:subject_id,subject_type:subject_type,ttl:ttl,application_id:application_id,remote_ip:remote_ip");\
+\
+\
+CREATE EXTERNAL TABLE hive_e2e_audit_entry (audit_key string, range_key string, create_date string, ttl bigint)\
+STORED BY 'org.apache.hadoop.hive.dynamodb.DynamoDBStorageHandler'\
+TBLPROPERTIES ("dynamodb.table.name" = "e2e_audit_entry",\
+"dynamodb.column.mapping" = "audit_key:audit_key,range_key:range_key,create_date:create_date,ttl:ttl");\cf3 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf3 =========================================================================================================\
+Incremental data, in Datalake, available from - 2020-06-29\
+historydata partition is having data till - 2020-08-12\
+MODIFY operations should not be there after - 2020-08-22  (range_key has been appended with audit_id)\
+TTL in prod, changed to 90 days - 2020-11-09\
+=========================================================================================================\
+1) Open https://datacatalog.intuit.com/table/384108/ and click on Compose\
+2) Select IDP Hive (or IIP Analytics) connection and provide your Corp credentials\
+3) Run Hive/SQL queries\
+e.g.\
+select * from ued_idaudit_prd_dwh.prd_audit_entry_ingest limit 100;\
+select * from ued_idaudit_prd_dwh.prd_audit_entry_ingest where create_date > '2020-08-03' limit 100;\
+=========================================================================================================\
+1) Open https://datacatalog.intuit.com/table/375147/ and click on Compose\
+2) Select IDP Hive (or IIP Analytics) connection and provide your Corp credentials\
+3) Run Hive/SQL queries\
+e.g.\
+select * from ued_idaudit_dwh.e2e_audit_entry_ingest limit 100;\
+select * from ued_idaudit_dwh.e2e_audit_entry_ingest where create_date < '2020-10-01' limit 100;\
+=========================================================================================================\cf0 \
+Clone EMR cluster\
+Increase RCUs of DynamoDB table (in US West region) to 1500000\
+eiamCli login; eiamCli aws_ssh -a 3163-1797-4279 -p id_rsa.pub -d ~/.ssh/;\
+ssh -i ~/idaudit-prod.pem hadoop@10.81.105.214\
+tail nohup.out\
+\
+hive\
+=========================================================================================================\
+export acct_id=1501-4782-1790; eiamCli login; eiamCli aws_ssh -a $acct_id -p id_rsa.pub -d ~/.ssh/;  #IIP Analytics\
+ssh iipa-emr-m1-prd     (iipa-emr-prd-kerberos)\
+sudo su - hadoop\
+cd /home/hadoop/satya; ls -tlr; date\
+\
+hive\
+show partitions ued_idaudit_prd_dwh.prd_audit_entry_ingest;\
+\
+vi idaudit_rowcount_check.sql\
+\
+set tez.am.resource.memory.mb=8192;\
+set tez.am.java.opts=-server -Xmx8192m -Djava.net.preferIPv4Stack=true -XX:+UseNUMA -XX:+UseParallelGC;\
+set hive.tez.container.size=8192;\
+set hive.tez.java.opts=-server -Xmx8192m -Djava.net.preferIPv4Stack=true -XX:+UseNUMA -XX:+UseParallelGC;\
+set mapred.child.java.opts=-Xmx8G -XX:+UseConcMarkSweepGC -XX:-UseGCOverheadLimit;\
+\
+select count(1) from prd_audit_entry_ingest where partition_date = '20200702052729' and date(create_date) < '2019-06-01';\
+select create_date from prd_audit_entry_ingest where partition_date = '20200702052729' limit 2;\
+select * from ued_idaudit_prd_dwh.prd_audit_entry_ingest where create_date < '2019-06-01' limit 100;\
+--select * from ued_idaudit_prd_dwh.prd_audit_entry_ingest where partition_date = 'historydata' and create_date < '2019-06-01' limit 100;\
+select TO_DATE(create_date) create_date, count(*) as NumberOfItems FROM ued_idaudit_prd_dwh.prd_audit_entry_ingest where partition_date != 'historydata' and create_date > "2020-10-05 23:59:59" GROUP BY TO_DATE(create_date) order by 1 desc;\
+select TO_DATE(create_date) create_date, count(*) as NumberOfItems FROM ued_idaudit_prd_dwh.prd_audit_entry_ingest where partition_date != 'historydata' and partition_date > '20201201045318' and create_date > "2020-11-21 23:59:59" GROUP BY TO_DATE(create_date) order by 1 desc;\
+\
+select * from ued_idaudit_prd_dwh.prd_audit_entry_ingest where partition_date > '20201020032330' and partition_date < '20201022032117' and range_key = '2020-10-20T08:37:11.558000Z$2b9f71c7-1818-4522-9590-6edb549343c2';\
+select * from ued_idaudit_prd_dwh.prd_audit_entry_ingest where partition_date > '20200702052729' and partition_date < '20200720031911' and range_key = '2020-06-30T07:37:14.857000Z';\
+\
+select count(*) as NumberOfItems FROM ued_idaudit_prd_dwh.prd_audit_entry_ingest where partition_date > '20200924205209' and create_date >= '2020-10-16' and create_date < '2020-10-17';\
+select count(*) as NumberOfItems FROM ued_idaudit_prd_dwh.prd_audit_entry_ingest where create_date >= '2020-01-13' and create_date < '2020-01-14';\
+\
+-----------------------------------------------------------------\
+nohup hive -S -f idaudit_202009_rowcount.sql >idaudit_202009_rwcnt.txt 2>idaudit_202009_rwcnt.out &\
+nohup hive -f idaudit_rowcount_check.sql &\
+=========================================================================================================\
+=========================================================================================================\
+Instance	    vCPU 	Memory  Instance       Network    EBS\
+ Size                           (GiB)  Storage (GiB)   Bandwidth (Gbps) Bandwidth (Mbps)\
+m5.24xlarge	  96	 384	  EBS-Only	    25   19,000\
+m5n.24xlarge	  96	 384	  EBS-Only	   100  19,000\
+r5.24xlarge	  96	 768	  EBS-Only	    25   19,000\
+r5n.24xlarge	  96	 768	  EBS-Only	    100 19,000\
+c5.24xlarge	  96	 192	  EBS-Only	    25   19,000\
+x1.32xlarge	 128	1,952	  2 x 1,920	    14,000   25 Gigabit\
+x1e.32xlarge    128	3,904	  2 x 1,920    	14,000    25 Gigabit\
+=========================================================================================================\
+}

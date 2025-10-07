@@ -1,0 +1,150 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;\f2\fnil\fcharset0 Menlo-Regular;
+\f3\fmodern\fcharset0 CourierNewPSMT;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\csgray\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww40560\viewh22100\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs34 \cf0 \ul \ulc0 IUS/IRM
+\f1\b0 \ulnone \
+\
+Schemas: AUTHOROWN AUTHORAPPL AUTHORAPPL01 AUTHORAPPL02     IUSUSEROWN IUSAPPL01 IUSAPPL02\
+\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs26 \cf2 \CocoaLigature0 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f3\fs30 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 select owner,OBJECT_NAME,OBJECT_TYPE,status,LAST_DDL_TIME from dba_objects where owner like '%
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 IUSUSEROWN
+\f3\fs30 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 %' and OBJECT_TYPE='TABLE' and OBJECT_NAME not like '%_EX'  order by OBJECT_TYPE, OBJECT_NAME;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+IUSUSEROWN    ALT_AUTH_INFO              TABLE          VALID     2018-08-02 14:38:55    \
+IUSUSEROWN    CONSENT                    TABLE          VALID     2018-07-10 22:04:16    \
+IUSUSEROWN    CONSENT_CONTEXT            TABLE          VALID     2018-07-10 22:04:16    \
+IUSUSEROWN    CONSENT_PURPOSE            TABLE          VALID     2018-07-10 22:04:16    \
+IUSUSEROWN    CONSENT_RESOURCE           TABLE          VALID     2018-07-10 22:04:16    \
+IUSUSEROWN    GUEST_ACCOUNT              TABLE          VALID     2018-06-29 03:37:46    \
+IUSUSEROWN    MERGED_IDENTITY            TABLE          VALID     2018-06-29 03:37:46    \
+IUSUSEROWN    MERGED_IDENTITY_PRODUCT    TABLE          VALID     2018-06-29 03:37:46    \
+IUSUSEROWN    PROFILE_HISTORY            TABLE          VALID     2018-07-10 22:04:16    \
+IUSUSEROWN    SECURITY_PREF              TABLE          VALID     2018-07-10 22:04:16    \
+IUSUSEROWN    TAX_IDENTIFIER             TABLE          VALID     2018-07-10 22:04:16    \
+IUSUSEROWN    TOKEN_INFO                 TABLE          VALID     2018-07-10 22:04:16 \
+\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 select * from 
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 IUSUSEROWN.ALT_AUTH_INFO
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where rownum <9;\
+select * from 
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 IUSUSEROWN.ALT_AUTH_INFO
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where AUTH_ID='123146176343094';\
+\
+select * from 
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 IUSUSEROWN.CONSENT
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where rownum <9;
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 select * from 
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 IUSUSEROWN.CONSENT_CONTEXT
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where rownum <29;\
+select * from 
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 IUSUSEROWN.CONSENT_PURPOSE
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where rownum <29;\
+select * from 
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 IUSUSEROWN.CONSENT_RESOURCE
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where rownum <29;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf0 \kerning1\expnd0\expndtw0 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+select * from 
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 IUSUSEROWN.GUEST_ACCOUNT
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where rownum <9;\
+select * from 
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 IUSUSEROWN.MERGED_IDENTITY
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where rownum <9;\
+select * from 
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 IUSUSEROWN.MERGED_IDENTITY_PRODUCT
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where rownum <29;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf0 \kerning1\expnd0\expndtw0 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+select * from 
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 IUSUSEROWN.PROFILE_HISTORY
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where rownum <9;\
+select * from 
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 IUSUSEROWN.PROFILE_HISTORY
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where AUTH_ID='123146176343094';\
+\
+select * from 
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 IUSUSEROWN.SECURITY_PREF
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where rownum <9;\
+select * from 
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 IUSUSEROWN.SECURITY_PREF
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where AUTH_ID='123146176343094';\
+\
+select * from 
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 IUSUSEROWN.TAX_IDENTIFIER
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where rownum <9;\
+select * from 
+\f2\fs26 \cf2 \kerning1\expnd0\expndtw0 \CocoaLigature0 IUSUSEROWN.TOKEN_INFO
+\f3\fs38 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1  where rownum <9;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs34 \cf0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 select co.consent_type, cr.resource_id, cp.purpose, co.app_asset_id, count(*) from IUSUSEROWN.consent co join IUSUSEROWN.consent_resource cr on co.consent_id=cr.consent_id join IUSUSEROWN.consent_purpose cp on co.consent_id=cp.consent_id \
+where co.auth_id=\'914697113939640860\'92 group by co.consent_type, cr.resource_id, cp.purpose, co.app_asset_id;\
+\
+select cr.resource_id, cp.purpose, co.*\
+from IUSUSEROWN.consent co join IUSUSEROWN.consent_resource cr on co.consent_id=cr.consent_id join IUSUSEROWN.consent_purpose cp on co.consent_id=cp.consent_id\
+where co.auth_id in ('4697113939640860','4616312763785769759','4616383132370608064', '4616383132370607114', '4616312763785809774', '4616383132370617509', '4616383132370608064');\
+\
+\
+\
+============================================================\
+child: AUTHOROWN.IDENTITY_REALM_ROLE_ASSIGNMENT\
+parent: AUTHOROWN.REALM\
+\
+re001aut: AUTHOROWN.IDENTITY_REALM_ROLE_ASSIGNMENT to AUTHOROWN.IDENTITY_REALM_ROLE_ASSIGNMENT OCI Error ORA-02291: integrity constraint (AUTHOROWN.IDENTITY_REALM_FK) violated - parent key not found (status = 2291), SQL <INSERT INTO "AUTHOROWN"."IDENTITY_REALM_ROLE_ASSIGNMENT" ("AUTH_ID","ROLE_ID","REALM_ID","LAST_MOD_TIME") VALUES (:a0,:a1,:a2,:a3)>.\
+idmeee2a\
+\
+select * from AUTHOROWN.IDENTITY_REALM_ROLE_ASSIGNMENT\
+where AUTH_ID='9130346939714616' and role_id='Intuit.sb.accountant.qbo' and realm_id='9130346938973346' ;\
+\
+select * from AUTHOROWN.REALM where realm_id='9130346938973346' ;\
+\
+insert into AUTHOROWN.REALM values ('9130346938973346',1,'ORG','qbonewcompanya-lhp4ylq404zyavervtwrd47ux8nhc82ayye',sysdate) ;\
+\
+============================================================\
+}

@@ -1,0 +1,801 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;\f2\froman\fcharset0 Times-Roman;
+\f3\fnil\fcharset0 Menlo-Regular;\f4\fmodern\fcharset0 CourierNewPSMT;\f5\fnil\fcharset0 Menlo-Bold;
+\f6\fnil\fcharset0 Tahoma;}
+{\colortbl;\red255\green255\blue255;\red127\green0\blue128;\red0\green0\blue233;\red155\green44\blue3;
+\red41\green0\blue130;\red43\green71\blue20;\red0\green0\blue0;\red255\green255\blue255;\red29\green184\blue14;
+\red18\green79\blue146;\red246\green246\blue246;\red13\green57\blue121;\red0\green0\blue0;\red0\green0\blue255;
+\red153\green102\blue51;\red180\green36\blue25;}
+{\*\expandedcolortbl;;\cssrgb\c57919\c12801\c57269;\cssrgb\c0\c0\c93333;\csgenericrgb\c60784\c17255\c1176;
+\csgenericrgb\c16078\c0\c50980;\cssrgb\c21795\c34243\c10019;\csgray\c0;\csgray\c100000;\csgenericrgb\c11373\c72157\c5490;
+\cssrgb\c7059\c39216\c63922;\cssrgb\c97255\c97255\c97255;\cssrgb\c4314\c29804\c54902;\cssrgb\c0\c0\c0;\cssrgb\c1680\c19835\c100000;
+\cssrgb\c66800\c47512\c25860;\cssrgb\c76409\c21698\c12524;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww35020\viewh23840\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs48 \cf0 IDFed - Identity Federation    And ID Mapper
+\f1\b0\fs30 \
+\
+IDMAPOWN\
+IDMAPAPPL\
+IDMAPPER_READ_ONLY\
+IDMAPOWN_RO_USER  		(only in PERF)\
+IDMAPOWN_READ_ONLY    	(only in PERF)\
+DEPLOY_IDFED\
+\
+OGG processes - ending with IDF\
+\
+\pard\pardeftab720\li1080\fi-1080\ri-15770\partightenfactor0
+
+\fs28 \cf0 select * from dba_users where username in ('IDMAPOWN','IDMAPAPPL','IDMAPPER_READ_ONLY','IDMAPOWN_RO_USER','IDMAPOWN_READ_ONLY','DEPLOY_IDFED') order by 1;
+\fs30 \expnd0\expndtw0\kerning0
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \kerning1\expnd0\expndtw0 \
+\pard\pardeftab720\sl280\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "https://wiki.intuit.com/display/ctodevdba/IDFed+OGG+replication+diagrams"}}{\fldrslt 
+\f2\fs34 \cf3 \expnd0\expndtw0\kerning0
+\ul \ulc3 https://wiki.intuit.com/display/ctodevdba/IDFed+OGG+replication+diagrams}}
+\fs40 \cf2 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\fs30 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ri-15015\partightenfactor0
+\cf4 sqlplus dbadmin/`sudo python $OGG_HOME/dirsql/get_creds.py dbadmin idxpfe2b`@idxpfe2b.c4ik1tjadzub.us-east-2.rds.amazonaws.com:1526/idxpfe2b\
+sqlplus dbadmin/`sudo python $OGG_HOME/dirsql/get_creds.py dbadmin idxpfw2b`@idxpfw2b.cjzdkv6oy3dy.us-west-2.rds.amazonaws.com:1526/idxpfw2b\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ri-12026\partightenfactor0
+
+\fs28 \cf5 sqlplus dbadmin/`sudo python $OGG_HOME/dirsql/get_creds.py dbadmin idxeee2b`@idxeee2b.c4ik1tjadzub.us-east-2.rds.amazonaws.com:1526/idxeee2b\
+sqlplus dbadmin/`sudo python $OGG_HOME/dirsql/get_creds.py dbadmin idxeew2b`@idxeew2b.cjzdkv6oy3dy.us-west-2.rds.amazonaws.com:1526/idxeew2b
+\fs21 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ri-12026\pardirnatural\partightenfactor0
+
+\fs30 \cf2 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\ri-11169\partightenfactor0
+
+\fs28 \cf6 sqlplus dbadmin/`sudo python $OGG_HOME/dirsql/get_creds.py dbadmin idxpde2a`@idxpde2a.ckuhna5r497j.us-east-2.rds.amazonaws.com:1527/idxpde2a\
+sqlplus dbadmin/`sudo python $OGG_HOME/dirsql/get_creds.py dbadmin idxpdw2a`@idxpdw2a.cu5mq75rq1cp.us-west-2.rds.amazonaws.com:1527/idxpdw2a
+\fs21 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\fs30 \cf2 \
+\pard\pardeftab720\ri-340\partightenfactor0
+
+\fs32 \cf0 @/ogg_data/sql/satya/idfed_table_count.sql\
+\pard\pardeftab720\ri-340\partightenfactor0
+
+\fs28 \cf0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ri-340\partightenfactor0
+
+\f3\fs30 \cf0 select count(*) from IDMAPOWN.CONNECTION;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\tx12921\pardeftab720\ri-3032\partightenfactor0
+\cf0 select count(*) from IDMAPOWN.CONNECTION_ATTRIBUTE_MAP;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ri-340\partightenfactor0
+\cf0 select count(*) from IDMAPOWN.DBERRORMAP;\
+select count(*) from IDMAPOWN.EXTERNAL_REALM_MAP;\
+select count(*) from IDMAPOWN.EXTERNAL_USER_MAP;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\tx12624\pardeftab720\ri-3621\partightenfactor0
+\cf0 select count(*) from IDMAPOWN.INBOUND_ATTRIBUTE_MAP;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ri-340\partightenfactor0
+\cf0 select count(*) from IDMAPOWN.INTUIT_ATTRIBUTE_MAP;\
+select count(*) from IDMAPOWN.INTUIT_REALM_MAP;\
+select count(*) from IDMAPOWN.INTUIT_USER_MAP;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ri-3151\partightenfactor0
+\cf0 select count(*) from IDMAPOWN.OUTBOUND_ATTRIBUTE_MAP;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\ri-340\partightenfactor0
+\cf0 select count(*) from IDMAPOWN.PROVIDER;
+\f1 \cf2 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+\cf0 \expnd0\expndtw0\kerning0
+col OWNER for a30\
+col OBJECT_NAME for a50\cf7 \cb8 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\cf0 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1 select owner,OBJECT_NAME,OBJECT_TYPE,status,LAST_DDL_TIME from dba_objects where owner like '%\cf7 \kerning1\expnd0\expndtw0 \CocoaLigature0 IDMAP\cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 %' order by OBJECT_TYPE, OBJECT_NAME;\
+select owner,OBJECT_NAME,OBJECT_TYPE,status,LAST_DDL_TIME from dba_objects where owner like '%\cf7 \kerning1\expnd0\expndtw0 \CocoaLigature0 IDMAP\cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 %' and OBJECT_TYPE='
+\f3\fs26 \cf7 \kerning1\expnd0\expndtw0 \CocoaLigature0 TABLE
+\f1\fs30 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 ' order by OBJECT_TYPE, OBJECT_NAME;\
+\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f4\fs32 \cf0 col owner for a20\
+col TABLE_NAME for a30\
+select owner,TABLE_NAME,NUM_ROWS,LAST_ANALYZED from dba_tables where owner like upper('%
+\f3\fs30 \kerning1\expnd0\expndtw0 IDMAPOWN
+\f4\fs32 \expnd0\expndtw0\kerning0
+%') order by 4;\
+\
+select segment_name, round(max(bytes)/1024/1024) partition_size from dba_segments where owner like upper('%
+\f3\fs30 \kerning1\expnd0\expndtw0 IDMAPOWN
+\f4\fs32 \expnd0\expndtw0\kerning0
+%') group by segment_name order by 1,2;\
+select segment_name, round(max(bytes)/1024/1024) partition_size from dba_segments where owner like upper('%
+\f3\fs30 \kerning1\expnd0\expndtw0 IDMAPOWN
+\f4\fs32 \expnd0\expndtw0\kerning0
+%') group by segment_name order by 2;\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 col TABLE_NAME for a30\
+col COLUMN_NAME for a30\
+col INDEX_NAME for a30\
+\pard\pardeftab720\ri-30069\partightenfactor0
+\cf0 select INDEX_NAME,TABLE_NAME,NUM_ROWS,LAST_ANALYZED,STATUS from dba_indexes where OWNER like upper('%
+\f1\fs30 \cf7 \kerning1\expnd0\expndtw0 \CocoaLigature0 OAUTH2
+\f4\fs32 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 %') order by LAST_ANALYZED;\
+select OWNER,INDEX_NAME,TABLE_NAME,INDEX_TYPE,NUM_ROWS,LAST_ANALYZED,STATUS,TABLESPACE_NAME from dba_indexes where OWNER like upper('%
+\f1\fs30 \cf7 \kerning1\expnd0\expndtw0 \CocoaLigature0 OAUTH2
+\f4\fs32 \cf0 \expnd0\expndtw0\kerning0
+\CocoaLigature1 %') order by 4;\
+\
+1) Capture table/index segments information\
+	select segment_name, round(sum(bytes)/1024/1024) size_MB from dba_segments where owner like upper('%IDMAPOWN%') group by segment_name order by 1;\
+	select INDEX_NAME,partition_name,num_rows,LAST_ANALYZED,STATUS,BLEVEL,LEAF_BLOCKS from dba_ind_partitions where INDEX_OWNER like upper('%IDMAPOWN%') order by INDEX_NAME,PARTITION_POSITION;\
+	etc.\
+2) Rebuild indexes in East (then in West)\
+	select 'ALTER INDEX '|| INDEX_OWNER || '.' || index_name ||' rebuild online;' from dba_indexes where INDEX_OWNER like upper('%IDMAPOWN%') order by INDEX_NAME,PARTITION_POSITION;\
+\
+3) Capture table/index segments information\
+	select segment_name, round(sum(bytes)/1024/1024) size_MB from dba_segments where owner like upper('%IDMAPOWN%') group by segment_name order by 1;\
+	select INDEX_NAME,partition_name,num_rows,LAST_ANALYZED,STATUS,BLEVEL,LEAF_BLOCKS from dba_ind_partitions where INDEX_OWNER like upper('%IDMAPOWN%') order by INDEX_NAME,PARTITION_POSITION;\
+	etc.\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f3\fs28 \cf9 grep -i IDXPD /ogg_data/oem_metrics.out\
+grep -i 
+\fs26 \cf7 \kerning1\expnd0\expndtw0 \CocoaLigature0 IDXAPPL01
+\fs28 \cf9 \expnd0\expndtw0\kerning0
+\CocoaLigature1  /ogg_data/oem_metrics.out\
+grep -i 
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 IDMAP
+\f3\fs28 \cf9 \expnd0\expndtw0\kerning0
+ /ogg_data/dirsql/
+\fs26 \cf7 \kerning1\expnd0\expndtw0 \CocoaLigature0 ashmetrics_idxpd?2a.log
+\fs28 \cf9 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+grep -i 
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 IDMAP
+\f3\fs28 \cf9 \expnd0\expndtw0\kerning0
+ /ogg_data/dirsql/
+\fs26 \cf7 \kerning1\expnd0\expndtw0 \CocoaLigature0 ashmetrics_idxpd?2a.log | wc -l
+\fs28 \cf9 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \
+\pard\pardeftab720\partightenfactor0
+\cf9 \
+index=ogg-prdidx sourcetype=oem report=oemperf | regex instance="IDXPD(E|W)2A" | timechart span=1m avg(avgactsess) BY instance\
+index=ogg-prdidx sourcetype=oem report=ash | regex instance="IDXPD(E|W)2A" | timechart span=1m avg(aas) BY instance\
+index=ogg-prdidx sourcetype=oem report=ash | regex instance="IDXPD(E|W)2A" | timechart span=1m count(dbuser) BY instance\
+index=ogg-prdidx sourcetype=oem report=ash | regex instance="IDXPD(E|W)2A" | regex dbuser="
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 IDMAP
+\f3\fs28 \cf9 \expnd0\expndtw0\kerning0
+" | timechart span=1m count(dbuser) BY instance\
+\
+\pard\pardeftab720\ri-13492\partightenfactor0
+
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 set lines 333 pages 44444\
+set numw 13\
+col SEQUENCE_OWNER for a10\
+col SEQUENCE_NAME for a40\
+select * from sys.dba_sequences where sequence_owner in ('IDMAPOWN','IDMAPAPPL','IDMAPPER_READ_ONLY','IDMAPOWN_RO_USER','IDMAPOWN_READ_ONLY');\
+select * from sys.dba_sequences where sequence_owner in ('IDMAPOWN','IDMAPAPPL','IDMAPPER_READ_ONLY','IDMAPOWN_RO_USER','IDMAPOWN_READ_ONLY') and SEQUENCE_NAME not like '%OGG%';\
+select 
+\f5\b\fs26 \cf7 \ul \ulc7 \CocoaLigature0 SEQUENCE_OWNER,SEQUENCE_NAME,LAST_NUMBER
+\f1\b0\fs30 \cf0 \ulnone \CocoaLigature1  from sys.dba_sequences where sequence_owner in ('IDMAPOWN','IDMAPAPPL','IDMAPPER_READ_ONLY','IDMAPOWN_RO_USER','IDMAPOWN_READ_ONLY') and SEQUENCE_NAME not like '%OGG%';\
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs28 \cf9 \expnd0\expndtw0\kerning0
+\
+\
+\pard\pardeftab720\ri-30069\partightenfactor0
+
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 ================================================================================================================================================\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs36 \cf2 provider
+\f1\b0\fs30 \
+	PROVIDER_PK  Primary Key 		PROVIDER_ID\
+	PROVIDER_AK	Unique key index on	EXTERNAL_PROVIDER_ID\
+	No foreign key\
+\
+col PROVIDER_ID for a36\
+col EXTERNAL_PROVIDER_ID for a35\
+col INITIAL_OFFERING_ROLE_ID for a5\
+col SECONDARY_OFFERING_ROLE_ID for a5\
+col OWNER for a35\
+\
+select count(*) from IDMAPOWN.PROVIDER;\
+select * from idmapown.provider where EXTERNAL_PROVIDER_ID like 'Open%' and rownum < 10;\
+select * from idmapown.provider where EXTERNAL_PROVIDER_ID='
+\f3\fs26 \cf7 \CocoaLigature0 OpenID-AABNNBTMIGVJKYNXOOUT
+\f1\fs30 \cf2 \CocoaLigature1 ';\
+select * from idmapown.provider where EXTERNAL_PROVIDER_ID like '{\field{\*\fldinst{HYPERLINK "http://openid-test120200210084658.com/"}}{\fldrslt \cf10 \cb11 \expnd0\expndtw0\kerning0
+OpenID-Test120200210084658}}\cf12 \cb11 \expnd0\expndtw0\kerning0
+\ul \ulc12 %'\cf2 \cb1 \kerning1\expnd0\expndtw0 \ulnone ;\
+select * from idmapown.provider where PROVIDER_ID='
+\f3\fs26 \cf7 \CocoaLigature0 4656aff9-bdd4-4da1-94c2-5445f0ea43b5
+\f1\fs30 \cf2 \CocoaLigature1 ';\
+select PROVIDER_ID,EXTERNAL_PROVIDER_ID,DATE_CREATED,DATE_LAST_UPDATED,LAST_MOD_TIME from idmapown.provider where EXTERNAL_PROVIDER_ID ='onboardingtestIDPqdc';\
+update idmapown.provider set LAST_MOD_TIME=sysdate where PROVIDER_ID ='0074798c-f23a-40ce-8de8-be0b3f9cd81d';\
+update idmapown.provider set LAST_MOD_TIME=LAST_MOD_TIME where PROVIDER_ID ='1e44d45c-b924-4473-bec6-788b638bcda8';\
+update idmapown.provider set LAST_MOD_TIME=sysdate where EXTERNAL_PROVIDER_ID='OpenID-Test120181211114435.com';\
+\
+select count(*) from idmapown.provider where LAST_MOD_TIME between to_date('17-JUN-19 23:00:00','DD-MON-YY HH24:MI:SS') and  to_date('18-JUN-19 23:00:00','DD-MON-YY HH24:MI:SS') ;\
+update idmapown.provider set LAST_MOD_TIME=sysdate where LAST_MOD_TIME between to_date('17-JUN-19 23:00:00','DD-MON-YY HH24:MI:SS') and  to_date('18-JUN-19 23:00:00','DD-MON-YY HH24:MI:SS') ;\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf2 insert into idmapown.provider select * from idmapown.provider@IDXPFE2B where EXTERNAL_PROVIDER_ID='OpenID-Test120181211114352.com';\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 select count(*) from IDMAPOWN.PROVIDER_EX;\
+select * from IDMAPOWN.PROVIDER_EX order by CDR_DATE;\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\b\fs32 \cf6 CONNECTION
+\f1\b0\fs30 \
+IDMAPOWN	CONNECTION_PK		 	 CONNECTION_ID\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf6 IDMAPOWN       CONNECTION_FK1			SERVICE_PROVIDER_ID  =>     PROVIDER_PK\
+IDMAPOWN       CONNECTION_FK2			IDENTITY_PROVIDER_ID =>     PROVIDER_PK\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx9852\tx12616\pardirnatural\partightenfactor0
+\cf6 IDMAPOWN	CONNECTION_AK	     unique index  CONNECTION_NAME\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf6 \
+select * from idmapown.connection where rownum < 10;\
+select * from idmapown.connection where CONNECTION_ID= 
+\f3\fs26 \cf7 \CocoaLigature0 6127411
+\f1\fs30 \cf6 \CocoaLigature1 ;\
+select * from idmapown.connection where CONNECTION_ID in (100924593,100925098);\
+select CONNECTION_ID,SERVICE_PROVIDER_ID,IDENTITY_PROVIDER_ID,ACTIVE,LAST_MOD_TIME from idmapown.connection where CONNECTION_ID=6101496;   \
+update idmapown.connection set LAST_MOD_TIME=sysdate where CONNECTION_ID= 1085519;\
+update idmapown.connection set LAST_MOD_TIME=sysdate where CONNECTION_ID in (6127336,6127411,6058491);\
+\
+select * from idmapown.connection where SERVICE_PROVIDER_ID='3b5a4fd1-a517-47b4-bf0a-e8fb86de72fc';\
+select * from idmapown.connection where IDENTITY_PROVIDER_ID='ef16c511-e7d3-481a-9e11-fff9ae00425f' and CONNECTION_ID=6101008;\
+select * from idmapown.connection where IDENTITY_PROVIDER_ID='ef16c511-e7d3-481a-9e11-fff9ae00425f' and CONNECTION_ID=51016;\
+update idmapown.connection set LAST_MOD_TIME=sysdate where IDENTITY_PROVIDER_ID='ef16c511-e7d3-481a-9e11-fff9ae00425f' and CONNECTION_ID=51016;\
+update idmapown.connection set LAST_MOD_TIME=sysdate where CONNECTION_ID= 
+\f3\fs26 \cf7 \CocoaLigature0 5439080
+\f1\fs30 \cf6 \CocoaLigature1 ;\
+\
+select * from idmapown.connection where CONNECTION_NAME like '
+\f6\fs21\fsmilli10667 \cf13 \expnd0\expndtw0\kerning0
+sts.Pel%.dev-intuit.onboardingtest
+\f1\fs30 \cf6 \kerning1\expnd0\expndtw0 ';\
+update idmapown.connection set LAST_MOD_TIME=sysdate where CONNECTION_NAME='
+\f6\fs21\fsmilli10667 \cf13 \expnd0\expndtw0\kerning0
+OpenID-SPID0209040222202582530694
+\f1\fs30 \cf6 \kerning1\expnd0\expndtw0 ';\
+\
+select count(*) from idmapown.connection where DATE_LAST_UPDATED between to_date('17-MAR-19 23:00:00','DD-MON-YY HH24:MI:SS') and  to_date('18-MAR-19 05:00:00','DD-MON-YY HH24:MI:SS') ;\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf6 insert into idmapown.connection select * from idmapown.connection@IDXPFE2B where CONNECTION_ID in (100924573,100924593,100925098);\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf6 select CONNECTION_NAME from IDMAPOWN.CONNECTION@IDXEEE2B\
+minus \
+select CONNECTION_NAME from IDMAPOWN.CONNECTION@IDXEEW2B;\cf2 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+intuit_user_map	\cf7 \CocoaLigature0 INTUIT_USER_MAP_PK		INTUIT_USER_ID  & SERVICE_PROVIDER_ID\
+			       \cf0 \CocoaLigature1 INTUIT_USER_MAP_AK - Unique key index  on LINKED_USER_ID\
+				\cf7 \CocoaLigature0 INTUIT_USER_ID => AUTH_ID\cf0 \CocoaLigature1 \
+select * from idmapown.INTUIT_USER_MAP where rownum<5;\
+select * from idmapown.INTUIT_USER_MAP where INTUIT_USER_ID='
+\f6\fs21\fsmilli10667 \cf13 \expnd0\expndtw0\kerning0
+101891841
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 ';\
+select * from idmapown.INTUIT_USER_MAP where INTUIT_USER_ID in ('110852377','1203948615','123145687617372');\
+select * from idmapown.INTUIT_USER_MAP where SERVICE_PROVIDER_ID='ef1a832b-43c8-441d-8609-7adb26de2d79';\
+select * from idmapown.INTUIT_USER_MAP where INTUIT_USER_ID='
+\f6\fs21\fsmilli10667 \cf13 \expnd0\expndtw0\kerning0
+193514749582934
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 ' and SERVICE_PROVIDER_ID='
+\f6\fs21\fsmilli10667 \cf13 \expnd0\expndtw0\kerning0
+95a7a47f-0c74-4a98-ae08-884020e04212
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 ';\
+update idmapown.INTUIT_USER_MAP set LAST_MOD_TIME=sysdate where INTUIT_USER_ID='
+\f6\fs21\fsmilli10667 \cf13 \expnd0\expndtw0\kerning0
+123146047591394
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 ' and SERVICE_PROVIDER_ID='
+\f6\fs21\fsmilli10667 \cf13 \expnd0\expndtw0\kerning0
+439001a7-9386-4a3f-997d-bae18c50c902
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 ';\
+update idmapown.INTUIT_USER_MAP set LAST_MOD_TIME=sysdate where INTUIT_USER_ID='
+\f6\fs21\fsmilli10667 \cf13 \expnd0\expndtw0\kerning0
+123147372412309
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 ';\
+select * from idmapown.INTUIT_USER_MAP where 
+\f3\fs26 \cf7 \CocoaLigature0 LINKED_USER_ID 
+\f1\fs30 \cf0 \CocoaLigature1 ='
+\f6\fs21\fsmilli10667 \cf13 \expnd0\expndtw0\kerning0
+0a6c0c54-de4b-40eb-af57-3f6dcb8b9451
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 ';\
+update idmapown.INTUIT_USER_MAP set LAST_MOD_TIME=sysdate where 
+\f3\fs26 \cf7 \CocoaLigature0 LINKED_USER_ID 
+\f1\fs30 \cf0 \CocoaLigature1 ='
+\f6\fs21\fsmilli10667 \cf13 \expnd0\expndtw0\kerning0
+4fcdAiVIPNENRSHJGPMRJKVAVFDLCUDY
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 ';\
+\
+intuit_realm_map   	INTUIT_REALM_MAP_PK  	INTUIT_REALM_ID & SERVICE_PROVIDER_ID\
+select * from idmapown.INTUIT_REALM_MAP where rownum<5;\
+select * from idmapown.INTUIT_REALM_MAP where INTUIT_REALM_ID='
+\f6\fs21\fsmilli10667 \cf13 \expnd0\expndtw0\kerning0
+123145780617557
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 '  order by 1,2;\
+select * from idmapown.INTUIT_REALM_MAP where SERVICE_PROVIDER_ID='ef1a832b-43c8-441d-8609-7adb26de2d79';\
+select * from idmapown.INTUIT_REALM_MAP where INTUIT_REALM_ID='
+\f6\fs21\fsmilli10667 \cf13 \expnd0\expndtw0\kerning0
+123145780617557
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 ' and SERVICE_PROVIDER_ID='
+\f6\fs21\fsmilli10667 \cf13 \expnd0\expndtw0\kerning0
+9c80b7d7-b75a-4b61-b719-2d44e9b12cd6
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 ';\
+update idmapown.INTUIT_REALM_MAP set LAST_MOD_TIME=sysdate where INTUIT_REALM_ID='
+\f3\fs26 \cf7 \CocoaLigature0 123150789007799
+\f1\fs30 \cf0 \CocoaLigature1 ' and SERVICE_PROVIDER_ID='
+\f3\fs26 \cf7 \CocoaLigature0 3b5a4fd1-a517-47b4-bf0a-e8fb86de72fc
+\f1\fs30 \cf0 \CocoaLigature1 ';\
+update idmapown.INTUIT_REALM_MAP set LAST_MOD_TIME=sysdate where INTUIT_REALM_ID='
+\f6\fs21\fsmilli10667 \cf13 \expnd0\expndtw0\kerning0
+123146559883869
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 ';\
+update idmapown.INTUIT_REALM_MAP set DATE_LAST_UPDATED=sysdate where INTUIT_REALM_ID='
+\f6\fs21\fsmilli10667 \cf13 \expnd0\expndtw0\kerning0
+123146559883869
+\f1\fs30 \cf0 \kerning1\expnd0\expndtw0 ';\
+\
+select count(*) from IDMAPOWN.INTUIT_REALM_MAP_EX;\
+select * from IDMAPOWN.INTUIT_REALM_MAP_EX;\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf14 external_user_map	 EXTERNAL_USER_MAP_PK        EXTERNAL_USER_ID  & IDENTITY_PROVIDER_ID\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx20467\pardirnatural\partightenfactor0
+\cf14 	 EXTERNAL_USER_MAP_AK   - Unique key index  on IDENTITY_PROVIDER_ID & INTUIT_USER_ID\
+	 EXTERNAL_USER_MAP_FK1\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf14 	 EXTERNAL_USER_ID => Corp ID\
+select * from idmapown.EXTERNAL_USER_MAP where rownum<5;\
+select * from idmapown.EXTERNAL_USER_MAP where EXTERNAL_USER_ID='IndiaBank1.test.com.bafbba984ff5b88a';\
+select * from idmapown.EXTERNAL_USER_MAP where IDENTITY_PROVIDER_ID='ef1a832b-43c8-441d-8609-7adb26de2d79';\
+select * from idmapown.EXTERNAL_USER_MAP where EXTERNAL_USER_ID='
+\f6\fs21\fsmilli10667 \cf13 \expnd0\expndtw0\kerning0
+BKQGANDJEVWBJHLYPACMPHSYJWUKGRMU
+\f1\fs30 \cf14 \kerning1\expnd0\expndtw0 ' and IDENTITY_PROVIDER_ID='05b25df9-754e-4f2a-9ca3-58b8b4d6fce4';\
+update idmapown.EXTERNAL_USER_MAP set LAST_MOD_TIME=sysdate where EXTERNAL_USER_ID='TFDXPTYOBXHVMVVSDCGUFDNOJJDVJCXE' and IDENTITY_PROVIDER_ID='e2584daa-373e-4cf1-8814-9874133e1e93';\
+update idmapown.EXTERNAL_USER_MAP set LAST_MOD_TIME=sysdate where EXTERNAL_USER_ID='XGHRSYMTAUNFVICXFIWJEPDVTQLPINPF';\
+select * from idmapown.EXTERNAL_USER_MAP where IDENTITY_PROVIDER_ID='
+\f6\fs21\fsmilli10667 \cf13 \expnd0\expndtw0\kerning0
+05b25df9-754e-4f2a-9ca3-58b8b4d6fce4
+\f1\fs30 \cf14 \kerning1\expnd0\expndtw0 ' and INTUIT_USER_ID='
+\f6\fs21\fsmilli10667 \cf13 \expnd0\expndtw0\kerning0
+123148834169414
+\f1\fs30 \cf14 \kerning1\expnd0\expndtw0 ';\
+update idmapown.EXTERNAL_USER_MAP set LAST_MOD_TIME=sysdate where IDENTITY_PROVIDER_ID='c80dfce6-a795-4d5f-8206-4e68e7936c27' and INTUIT_USER_ID='106671850';\
+\
+external_realm_map	 EXTERNAL_REALM_MAP_PK     EXTERNAL_REALM_ID & IDENTITY_PROVIDER_ID\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx20467\pardirnatural\partightenfactor0
+\cf14 	 EXTERNAL_REALM_MAP_AK   - Unique key index  on IDENTITY_PROVIDER_ID & INTUIT_REALM_ID\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf14 select count(*) from IDMAPOWN.external_realm_map ;\
+select * from IDMAPOWN.external_realm_map where rownum<5;\
+select * from IDMAPOWN.EXTERNAL_REALM_MAP where EXTERNAL_REALM_ID='KIDVLABTQOSQTBYOUWYKFWVFNFJUYFJG';\
+select * from idmapown.EXTERNAL_REALM_MAP where IDENTITY_PROVIDER_ID='ef1a832b-43c8-441d-8609-7adb26de2d79';\
+select * from IDMAPOWN.EXTERNAL_REALM_MAP where EXTERNAL_REALM_ID='NHXMJJCQFINSNOIBOYXTTLDVLFBTQNEL' and IDENTITY_PROVIDER_ID='dfc7acd0-0908-44d2-a973-9b8347d41bb6';\
+update IDMAPOWN.EXTERNAL_REALM_MAP set LAST_MOD_TIME=sysdate where EXTERNAL_REALM_ID='WYAHEHXFPHANOATNMRJOQVCKLXVWLBEF' and IDENTITY_PROVIDER_ID='7a63e658-3abb-48ad-92ec-6308bf990ad2';\
+update IDMAPOWN.EXTERNAL_REALM_MAP set LAST_MOD_TIME=sysdate where EXTERNAL_REALM_ID='KIDVLABTQOSQTBYOUWYKFWVFNFJUYFJG';\
+select * from IDMAPOWN.EXTERNAL_REALM_MAP where IDENTITY_PROVIDER_ID='dfc7acd0-0908-44d2-a973-9b8347d41bb6' and INTUIT_REALM_ID='251655536';\
+\
+select count(*) from IDMAPOWN.external_realm_map_ex;\
+select * from IDMAPOWN.external_realm_map_ex order by LAST_MOD_TIME_A;\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf15 \CocoaLigature0 OUTBOUND_ATTRIBUTE_MAP\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf15 \CocoaLigature1 select * from idmapown.\CocoaLigature0 OUTBOUND_ATTRIBUTE_MAP\CocoaLigature1  where rownum<5;\
+select * from idmapown.\CocoaLigature0 OUTBOUND_ATTRIBUTE_MAP\CocoaLigature1  where CONNECTION_ID=6101008;\
+update idmapown.\CocoaLigature0 OUTBOUND_ATTRIBUTE_MAP\CocoaLigature1  set LAST_MOD_TIME=sysdate where CONNECTION_ID=6101008;\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \expnd0\expndtw0\kerning0
+\
+\
+\pard\pardeftab720\ri-10894\partightenfactor0
+\cf0 \kerning1\expnd0\expndtw0 grant select on IDMAPOWN.CONNECTION_SEQ to IDMAPAPPL,IDMAPPER_READ_ONLY,IDMAPOWN_RO_USER,IDMAPOWN_READ_ONLY;\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 CREATE SYNONYM IDMAPAPPL.CONNECTION_SEQ FOR IDMAPOWN.CONNECTION_SEQ;\
+\
+\pard\pardeftab720\li1080\fi-1080\ri-8089\partightenfactor0
+\cf0 select * from DBA_TAB_PRIVS where GRANTEE like '%IDMAP%' and \cf7 \CocoaLigature0 TABLE_NAME like '%_SEQ'\cf0 \CocoaLigature1  order by 1;\
+\pard\tx17540\pardeftab720\li1080\fi-1080\ri-8990\partightenfactor0
+\cf0 select * from sys.dba_synonyms where table_owner = 'IDMAPOWN' and \cf7 \CocoaLigature0 TABLE_NAME like '%_SEQ'\cf0 \CocoaLigature1 ;\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\pardeftab720\ri-30069\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+IDMAPOWN		  CONNECTION_ATTRIBUTE_MAP_CIU	      TRIGGER		  VALID   31-JUL-17\
+IDMAPOWN		  CONNECTION_CDR_IU		      TRIGGER		  VALID   31-JUL-17\
+IDMAPOWN		  CONNECTION_TRIG		      TRIGGER		  VALID   04-SEP-17\
+\
+select dbms_metadata.get_ddl('TRIGGER','CONNECTION_TRIG','IDMAPOWN') from dual;\
+\
+================================================================================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf14 2018-09-21 01:48:33  WARNING OGG-01154  Oracle GoldenGate Delivery for Oracle, ra_l_idf.prm:  SQL error 1 mapping IDMAPOWN.PROVIDER to IDMAPOWN.PROVIDER OCI Error \
+ORA-00001: unique constraint (IDMAPOWN.PROVIDER_AK) violated (status = 1), SQL <INSERT INTO "IDMAPOWN"."PROVIDER" ("PROVIDER_ID","EXTERNAL_PROVIDER_ID","INITIAL_OFFERING_ROLE_ID",\
+"SECONDARY_OFFERING_ROLE_ID","ACTIVE","DATE_CREATED","DATE_LAST_UPDATED","OTK_TOKEN_LIFETIME","OWNER","CAPACITY_LIMIT","LAST_MOD_TIME") VALUES (:a0,:a1,:a2,:a3,:a4,:a5,:a6,:a7,:a8,:a9,:a10)>.\
+\
+OCI Error ORA-00001: unique constraint (IDMAPOWN.PROVIDER_AK) violated (status = 1), SQL <INSERT INTO "IDMAPOWN"."PROVIDER" ("PROVIDER_ID","EXTERNAL_PROVIDER_ID","INITIAL_OFFERING_ROLE_ID","SECONDARY_OFFERING_ROLE_ID","ACTIVE","DATE_CREATED","DATE_LAST_UPDATED",\
+"OTK_TOKEN_LIFETIME","OWNER","CAPACITY_LIMIT","LAST_MOD_TIME") VALUES (:a0,:a1,:a2,:a3,:a4,:a5,:a6,:a7,:a8,:a9,:a10)>\
+Aborting transaction on /ogg/trail/idf/ra beginning at seqno 240 rba 68252200\
+                         error at seqno 240 rba 68252200\
+Problem replicating IDMAPOWN.PROVIDER to IDMAPOWN.PROVIDER\
+Mapping problem with insert record (target format)...\
+*\
+PROVIDER_ID = 6b8c2e93-88cb-4bf6-97e6-be913de6d645\
+000000: 36 62 38 63 32 65 39 33 2d 38 38 63 62 2d 34 62 |6b8c2e93-88cb-4b|\
+000010: 66 36 2d 39 37 65 36 2d 62 65 39 31 33 64 65 36 |f6-97e6-be913de6|\
+000020: 64 36 34 35                                     |d645            |\
+\
+EXTERNAL_PROVIDER_ID = OpenID-external.idg.431a4882-bf72-4708-b1b8-c5ad9deca3fe\
+000000: 4f 70 65 6e 49 44 2d 65 78 74 65 72 6e 61 6c 2e |OpenID-external.|\
+000010: 69 64 67 2e 34 33 31 61 34 38 38 32 2d 62 66 37 |idg.431a4882-bf7|\
+000020: 32 2d 34 37 30 38 2d 62 31 62 38 2d 63 35 61 64 |2-4708-b1b8-c5ad|\
+000030: 39 64 65 63 61 33 66 65                         |9deca3fe        |\
+\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
+
+\fs28 \cf0 ksh /ogg_data/sql/satya/get_discard_entries.ksh 
+\f3\fs26 \cf7 \CocoaLigature0 RE100IDF
+\f5\b \cf16 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
+
+\f1\b0\fs28 \cf16 ksh /ogg_data/sql/satya/get_discard_entries.ksh RW100IDF\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
+\cf0 \CocoaLigature1 ksh /ogg_data/sql/satya/get_discard_entries.ksh 
+\f3\fs26 \cf7 \CocoaLigature0 RP100IDF
+\f5\b \cf16 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
+
+\f1\b0\fs30 \cf14 \CocoaLigature1 \
+PROVIDER_ID = 725afe28-ea2e-459f-951b-9aa625cf20b3\
+000000: 37 32 35 61 66 65 32 38 2d 65 61 32 65 2d 34 35 |725afe28-ea2e-45|\
+000010: 39 66 2d 39 35 31 62 2d 39 61 61 36 32 35 63 66 |9f-951b-9aa625cf|\
+000020: 32 30 62 33                                     |20b3            |\
+\
+EXTERNAL_PROVIDER_ID = OpenID-Test120200108083719.com\
+000000: 4f 70 65 6e 49 44 2d 54 65 73 74 31 32 30 32 30 |OpenID-Test12020|\
+000010: 30 31 30 38 30 38 33 37 31 39 2e 63 6f 6d       |0108083719.com  |\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf14 select * from idmapown.provider where EXTERNAL_PROVIDER_ID='
+\f3\fs26 \cf7 \CocoaLigature0 OpenID-external.idg.3ee02109-50b5-482a-aac6-b77a5abbbb6c
+\f1\fs30 \cf14 \CocoaLigature1 ';\
+select * from idmapown.connection where service_provider_id = '
+\f3\fs26 \cf7 \CocoaLigature0 68b6a606-24a0-4246-aab2-bb0cca989253
+\f1\fs30 \cf14 \CocoaLigature1 ';\
+\
+Run below script wherever you are getting error, 
+\f0\b with OGGOWN in East/West
+\f1\b0  and as DBADMIN In Reporting database.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 set serveroutput on;\
+declare\
+v_out varchar2(4000);\
+begin\
+oggown.cdr_provider_id('<\cf14 EXTERNAL_PROVIDER_ID>\cf0 ',v_out);\
+dbms_output.put_line(v_out);\
+end;\
+/\
+\
+e.g.\cf14 \
+\cf0 set serveroutput on;\
+declare\
+v_out varchar2(4000);\
+begin\
+oggown.cdr_provider_id('
+\f5\b\fs26 \cf7 \CocoaLigature0 OpenID-
+\f3\b0 external.idg.3ee02109-50b5-482a-aac6-b77a5abbbb6c
+\f1\fs30 \cf0 \CocoaLigature1 ',v_out);\
+dbms_output.put_line(v_out);\
+end;\
+/\
+\
+set serveroutput on;\
+declare\
+v_out varchar2(4000);\
+begin\
+oggown.cdr_provider_id('
+\f3\fs26 \cf7 \CocoaLigature0 OpenID-Test120200108083825.com
+\f1\fs30 \cf0 \CocoaLigature1 ',v_out);\
+dbms_output.put_line(v_out);\
+end;\
+/\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf14 \
+select * from idmapown.provider where EXTERNAL_PROVIDER_ID='
+\f3\fs26 \cf7 \CocoaLigature0 OpenID-external.idg.3ee02109-50b5-482a-aac6-b77a5abbbb6c
+\f1\fs30 \cf14 \CocoaLigature1 ';\
+select * from idmapown.connection where service_provider_id = '
+\f3\fs26 \cf7 \CocoaLigature0 68b6a606-24a0-4246-aab2-bb0cca989253
+\f1\fs30 \cf14 \CocoaLigature1 ';\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \
+update idmapown.provider set LAST_MOD_TIME=sysdate where \cf14 EXTERNAL_PROVIDER_ID\cf2  ='OpenID-external.idg.3ee02109-50b5-482a-aac6-b77a5abbbb6c';\
+update idmapown.connection set LAST_MOD_TIME=sysdate where service_provider_id = '68b6a606-24a0-4246-aab2-bb0cca989253';\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf14 \
+[ or remove manually ]\
+select * from idmapown.connection where service_provider_id = '
+\f3\fs26 \cf7 \CocoaLigature0 68b6a606-24a0-4246-aab2-bb0cca989253
+\f1\fs30 \cf14 \CocoaLigature1 ';\
+\
+select count(1) from idmapown.intuit_realm_map where service_provider_id = '
+\f3\fs26 \cf7 \CocoaLigature0 67dd4238-08d0-4104-a5b3-9e4db588fdd5
+\f1\fs30 \cf14 \CocoaLigature1 '; \
+select count(1) from idmapown.intuit_user_map  where service_provider_id = '
+\f3\fs26 \cf7 \CocoaLigature0 67dd4238-08d0-4104-a5b3-9e4db588fdd5
+\f1\fs30 \cf14 \CocoaLigature1 '; \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf14 connect oggown
+\f1\b0 \
+--delete from idmapown.connection where service_provider_id = '
+\f3\fs26 \cf7 \CocoaLigature0 67dd4238-08d0-4104-a5b3-9e4db588fdd5
+\f1\fs30 \cf14 \CocoaLigature1 '; \
+--delete from idmapown.provider where external_provider_id = 'OpenID-external.idg.636cc620-a168-4e6f-a989-95091c98bf22'; \
+commit;\cf0 \
+\
+================================================================================================================================================\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf6 DBERRMSG = OCI Error ORA-00001: unique constraint (IDMAPOWN.EXTERNAL_USER_MAP_PK) violated (status = 1), SQL <INSERT INTO "IDMAPOWN"."EXTERNAL_USER_MAP" ("EXTERNAL_USER_ID","IDENTITY_PROVIDER_ID",\
+"INTUIT_USER_ID","ACTIVE","DATE_CREATED","DATE_LAST_UPDATED","LAST_MOD_TIME") VALUES (:a0,:a1,:a2,:a3,:a4,:a5,:a6)>\
+000000: 4f 43 49 20 45 72 72 6f 72 20 4f 52 41 2d 30 30 |OCI Error ORA-00|\
+000010: 30 30 31 3a 20 75 6e 69 71 75 65 20 63 6f 6e 73 |001: unique cons|\
+000020: 74 72 61 69 6e 74 20 28 49 44 4d 41 50 4f 57 4e |traint (IDMAPOWN|\
+000030: 2e 45 58 54 45 52 4e 41 4c 5f 55 53 45 52 5f 4d |.EXTERNAL_USER_M|\
+000040: 41 50 5f 50 4b 29 20 76 69 6f 6c 61 74 65 64 20 |AP_PK) violated |\
+000050: 28 73 74 61 74 75 73 20 3d 20 31 29 2c 20 53 51 |(status = 1), SQ|\
+000060: 4c 20 3c 49 4e 53 45 52 54 20 49 4e 54 4f 20 22 |L <INSERT INTO "|\
+000070: 49 44 4d 41 50 4f 57 4e 22 2e 22 45 58 54 45 52 |IDMAPOWN"."EXTER|\
+000080: 4e 41 4c 5f 55 53 45 52 5f 4d 41 50 22 20 28 22 |NAL_USER_MAP" ("|\
+000090: 45 58 54 45 52 4e 41 4c 5f 55 53 45 52 5f 49 44 |EXTERNAL_USER_ID|\
+0000A0: 22 2c 22 49 44 45 4e 54 49 54 59 5f 50 52 4f 56 |","IDENTITY_PROV|\
+0000B0: 49 44 45 52 5f 49 44 22 2c 22 49 4e 54 55 49 54 |IDER_ID","INTUIT|\
+0000C0: 5f 55 53 45 52 5f 49 44 22 2c 22 41 43 54 49 56 |_USER_ID","ACTIV|\
+0000D0: 45 22 2c 22 44 41 54 45 5f 43 52 45 41 54 45 44 |E","DATE_CREATED|\
+0000E0: 22 2c 22 44 41 54 45 5f 4c 41 53 54 5f 55 50 44 |","DATE_LAST_UPD|\
+0000F0: 41 54 45 44 22 2c 22 4c 41 53 54 5f 4d 4f 44 5f |ATED","LAST_MOD_|\
+000100: 54 49 4d 45 22 29 20 56 41 4c 55 45 53 20 28 3a |TIME") VALUES (:|\
+000110: 61 30 2c 3a 61 31 2c 3a 61 32 2c 3a 61 33 2c 3a |a0,:a1,:a2,:a3,:|\
+000120: 61 34 2c 3a 61 35 2c 3a 61 36 29 3e             |a4,:a5,:a6)>    |\
+\
+B4_AFTER_INDICATOR = AFTER\
+000000: 41 46 54 45 52                                  |AFTER           |\
+\
+LOGRBA = 55427\
+000000: 35 35 34 32 37                                  |55427           |\
+\
+TOTAL_CDR_CONFLICTS = 1\
+000000: 31                                              |1               |\
+\
+CDR_FAILED = 0\
+000000: 30                                              |0               |\
+\
+CDR_SUCCESSFUL = 1\
+000000: 31                                              |1               |\
+\
+EXTERNAL_USER_ID_A = 50002159789\
+000000: 35 30 30 30 32 31 35 39 37 38 39                |50002159789     |\
+\
+EXTERNAL_USER_ID_C = 50002159789\
+000000: 35 30 30 30 32 31 35 39 37 38 39                |50002159789     |\
+\
+IDENTITY_PROVIDER_ID_A = 10a43245-7354-4633-a10b-08988ac385b3\
+000000: 31 30 61 34 33 32 34 35 2d 37 33 35 34 2d 34 36 |10a43245-7354-46|\
+000010: 33 33 2d 61 31 30 62 2d 30 38 39 38 38 61 63 33 |33-a10b-08988ac3|\
+000020: 38 35 62 33                                     |85b3            |\
+\
+IDENTITY_PROVIDER_ID_C = 10a43245-7354-4633-a10b-08988ac385b3\
+000000: 31 30 61 34 33 32 34 35 2d 37 33 35 34 2d 34 36 |10a43245-7354-46|\
+000010: 33 33 2d 61 31 30 62 2d 30 38 39 38 38 61 63 33 |33-a10b-08988ac3|\
+000020: 38 35 62 33                                     |85b3            |\
+\
+INTUIT_USER_ID_A = 193514842239869\
+000000: 31 39 33 35 31 34 38 34 32 32 33 39 38 36 39    |193514842239869 |\
+\
+INTUIT_USER_ID_C = 123146225579689\
+\
+\
+SQL> desc "IDMAPOWN"."EXTERNAL_USER_MAP"\
+ Name					   Null?    Type\
+ ----------------------------------------- -------- ----------------------------\
+ EXTERNAL_USER_ID			   NOT NULL VARCHAR2(4000)\
+ IDENTITY_PROVIDER_ID			   NOT NULL VARCHAR2(40)\
+ INTUIT_USER_ID 			   NOT NULL VARCHAR2(40)\
+ ACTIVE 				   NOT NULL NUMBER(1)\
+ DATE_CREATED				   NOT NULL DATE\
+ DATE_LAST_UPDATED			   NOT NULL DATE\
+ LAST_MOD_TIME					    TIMESTAMP(6)\
+ \
+select * from idmapown.EXTERNAL_USER_MAP where EXTERNAL_USER_ID='50002159789' and IDENTITY_PROVIDER_ID='10a43245-7354-4633-a10b-08988ac385b3';\
+select * from idmapown.provider where PROVIDER_ID='10a43245-7354-4633-a10b-08988ac385b3';\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf6 Check with App team
+\f1\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+================================================================================================================================================\
+\
+DBERRMSG = OCI Error ORA-00001: unique constraint (IDMAPOWN.EXTERNAL_REALM_MAP_PK) violated (status = 1), SQL <INSERT INTO "IDMAPOWN"."EXTERNAL_REALM_MAP" ("EXTERNAL_REALM_ID","IDENTITY_PROVIDER_ID","INTUIT_REALM_ID","ACTIVE","DATE_CREATED","DATE_LAST_UPDATED","LAST_MOD_TIME") VALUES (:a0,:a1,:a2,:a3,:a4,:a5,:a6)>\
+\
+B4_AFTER_INDICATOR = AFTER\
+000000: 41 46 54 45 52                                  |AFTER           |\
+\
+LOGRBA = 55427\
+000000: 35 35 34 32 37                                  |55427           |\
+\
+TOTAL_CDR_CONFLICTS = 1\
+000000: 31                                              |1               |\
+\
+CDR_FAILED = 0\
+000000: 30                                              |0               |\
+\
+CDR_SUCCESSFUL = 1\
+000000: 31                                              |1               |\
+\
+EXTERNAL_REALM_ID_A = 146767202331393280\
+000000: 31 34 36 37 36 37 32 30 32 33 33 31 33 39 33 32 |1467672023313932|\
+000010: 38 30                                           |80              |\
+\
+EXTERNAL_REALM_ID_C = 146767202331393280\
+000000: 31 34 36 37 36 37 32 30 32 33 33 31 33 39 33 32 |1467672023313932|\
+000010: 38 30                                           |80              |\
+\
+IDENTITY_PROVIDER_ID_A = edf14978-e8a4-41d4-81f1-69b947f290f1\
+000000: 65 64 66 31 34 39 37 38 2d 65 38 61 34 2d 34 31 |edf14978-e8a4-41|\
+000010: 64 34 2d 38 31 66 31 2d 36 39 62 39 34 37 66 32 |d4-81f1-69b947f2|\
+000020: 39 30 66 31                                     |90f1            |\
+\
+IDENTITY_PROVIDER_ID_C = edf14978-e8a4-41d4-81f1-69b947f290f1\
+000000: 65 64 66 31 34 39 37 38 2d 65 38 61 34 2d 34 31 |edf14978-e8a4-41|\
+000010: 64 34 2d 38 31 66 31 2d 36 39 62 39 34 37 66 32 |d4-81f1-69b947f2|\
+000020: 39 30 66 31                                     |90f1            |\
+\
+\
+select * from IDMAPOWN.external_realm_map where INTUIT_REALM_ID='123151102219734';\
+select EXTERNAL_REALM_ID, INTUIT_REALM_ID, LAST_MOD_TIME from IDMAPOWN.external_realm_map where INTUIT_REALM_ID='1159291473';\
+update IDMAPOWN.external_realm_map set LAST_MOD_TIME=sysdate where INTUIT_REALM_ID='1159291473';\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b \cf6 Check with App team\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f1\b0 \cf0 \
+================================================================================================================================================\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf15 \CocoaLigature0 OCI Error ORA-01403: no data found, SQL <UPDATE "IDMAPOWN"."EXTERNAL_USER_MAP" x SET x."ACTIVE" = :a2,x."DATE_LAST_UPDATED" = :a3,x."LAST_MOD_TIME" = :a4 WHERE x."EXTERNAL_USER_ID" = :b0 AND x."IDENTITY_PROVIDER_ID" = :b1>\
+Aborting transaction on /ogg/12.2.0.1/trail/idf/us-west-2-e2e_us-east-2-e2e/re beginning at seqno 2 rba 3498346\
+                         error at seqno 2 rba 3498346\
+Problem replicating IDMAPOWN.EXTERNAL_USER_MAP to IDMAPOWN.EXTERNAL_USER_MAP\
+Record not found\
+Mapping problem with compressed update record (target format)...\
+*\
+EXTERNAL_USER_ID = IEQTXGAYQDGTARFACLJFEGUWSADCLURX\
+000000: 49 45 51 54 58 47 41 59 51 44 47 54 41 52 46 41 |IEQTXGAYQDGTARFA|\
+000010: 43 4c 4a 46 45 47 55 57 53 41 44 43 4c 55 52 58 |CLJFEGUWSADCLURX|\
+\
+IDENTITY_PROVIDER_ID = 7a63e658-3abb-48ad-92ec-6308bf990ad2\
+000000: 37 61 36 33 65 36 35 38 2d 33 61 62 62 2d 34 38 |7a63e658-3abb-48|\
+000010: 61 64 2d 39 32 65 63 2d 36 33 30 38 62 66 39 39 |ad-92ec-6308bf99|\
+000020: 30 61 64 32                                     |0ad2            |\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf15 \CocoaLigature1 select * from idmapown.EXTERNAL_USER_MAP where IDENTITY_PROVIDER_ID='\CocoaLigature0 7a63e658-3abb-48ad-92ec-6308bf990ad2\CocoaLigature1 ';\
+\
+Setup CDR\cf0 \
+\
+================================================================================================================================================\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 OCI Error ORA-02291: integrity constraint (IDMAPOWN.INTUIT_USER_MAP_FK1) violated - parent key not found (status = 2291), SQL <INSERT INTO "IDMAPOWN"."INTUIT_USER_MAP" ("INTUIT_USER_ID","SERVICE_PROVIDER_ID","LINKED_USER_ID","ACTIVE","DATE_CREATED","DATE_LAST_UPDATED","LAST_MOD_TIME") VALUES (:a0,:a1,:a2,:a3,:a4,:a5,:a6)>\
+Aborting transaction on /ogg/trail/idf/ra beginning at seqno 298 rba 802701\
+                         error at seqno 298 rba 802701\
+Problem replicating IDMAPOWN.INTUIT_USER_MAP to IDMAPOWN.INTUIT_USER_MAP\
+Mapping problem with insert record (target format)...\
+*\
+INTUIT_USER_ID = 123145745164239\
+000000: 31 32 33 31 34 35 37 34 35 31 36 34 32 33 39    |123145745164239 |\
+\
+SERVICE_PROVIDER_ID = fd2f5e75-2232-43be-a3fb-c75bbf58a99c\
+000000: 66 64 32 66 35 65 37 35 2d 32 32 33 32 2d 34 33 |fd2f5e75-2232-43|\
+000010: 62 65 2d 61 33 66 62 2d 63 37 35 62 62 66 35 38 |be-a3fb-c75bbf58|\
+000020: 61 39 39 63                                     |a99c            |\
+\
+LINKED_USER_ID = cb8673eb-c6f6-4cc4-9134-556941253abe\
+000000: 63 62 38 36 37 33 65 62 2d 63 36 66 36 2d 34 63 |cb8673eb-c6f6-4c|\
+000010: 63 34 2d 39 31 33 34 2d 35 35 36 39 34 31 32 35 |c4-9134-55694125|\
+000020: 33 61 62 65\
+\
+\
+select * from idmapown.provider where PROVIDER_ID='
+\f3\fs26 \cf7 \CocoaLigature0 95a7a47f-0c74-4a98-ae08-884020e04212
+\f1\fs30 \cf2 \CocoaLigature1 ';\
+update idmapown.provider set LAST_MOD_TIME=sysdate where PROVIDER_ID='
+\f3\fs26 \cf7 \CocoaLigature0 95a7a47f-0c74-4a98-ae08-884020e04212
+\f1\fs30 \cf2 \CocoaLigature1 ';\
+\
+[[ or ]]\
+\
+SYS@icsprd1> connect oggown\
+Create insert query and run it.\
+\
+e.g.\
+insert into idmapown.provider (PROVIDER_ID,EXTERNAL_PROVIDER_ID,INITIAL_OFFERING_ROLE_ID,SECONDARY_OFFERING_ROLE_ID,ACTIVE,DATE_CREATED,DATE_LAST_UPDATED,OTK_TOKEN_LIFETIME,OWNER,CAPACITY_LIMIT,LAST_MOD_TIME) values ('fd2f5e75-2232-43be-a3fb-c75bbf58a99c','OpenID-Intuit.smallbusiness.ipp.untitled_86181',null,null,1,to_date('05-02-19','DD-MM-RR'),to_date('05-02-19','DD-MM-RR'),null,'Intuit.cto.iam.oauth2',0,to_timestamp('05-02-19 12:56:12.602829000 AM','DD-MM-RR HH12:MI:SSXFF AM'));\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+================================================================================================================================================\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf7 \CocoaLigature0 OCI Error ORA-02291: integrity constraint (IDMAPOWN.OUTBOUND_ATTRIBUTE_MAP_FK) violated - parent key not found (status = 2291), SQL <INSERT INTO "IDMAPOWN"."OUTBOUND_ATTRIBUTE_MAP" ("OPEN_TOKEN_ATTRIBUTE","DATE_CREATED","DATE_LAST_UPDATED","CONNECTION_ID","ATTRIBUTE","LAST_MOD_TIME") VALUES (:a2,:a3,:a4,:a6,:a7,:a8)>\
+Aborting transaction on /ogg/12.2.0.1/trail/idf/pe2eiamdba-qy-ogg_ogg-idm-e2e/rc beginning at seqno 174340 rba 5764\
+                         error at seqno 174340 rba 5764\
+Problem replicating IDMAPOWN.OUTBOUND_ATTRIBUTE_MAP to IDMAPOWN.OUTBOUND_ATTRIBUTE_MAP\
+Mapping problem with unified update record (target format)...\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+================================================================================================================================================\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \
+\
+2019-07-01 00:24:36  WARNING OGG-06439  Oracle GoldenGate Delivery for Oracle, re100idf.prm:  No unique key is defined for table INTUIT_REALM_MAP_EX. All viable columns will be used to represent the key, but may not guarantee uniqueness. KEYCOLS may be used to define the key.\
+2019-07-01 00:24:36  WARNING OGG-06394  Oracle GoldenGate Delivery for Oracle, re100idf.prm:  BEFORE.<column name> syntax has been deprecated, use @BEFORE(<column name>) instead.\
+2019-07-01 00:24:36  INFO    OGG-01971  Oracle GoldenGate Delivery for Oracle, re100idf.prm:  The previous message, 'WARNING OGG-06394', repeated 6 times.\
+2019-07-01 00:24:36  INFO    OGG-06510  Oracle GoldenGate Delivery for Oracle, re100idf.prm:  Using the following key columns for target table IDMAPOWN.INTUIT_REALM_MAP_EX: EXCEPTION_ID.\
+2019-07-01 00:24:36  WARNING OGG-00869  Oracle GoldenGate Delivery for Oracle, re100idf.prm:  OCI Error ORA-01403: no data found\
+2019-07-01 00:24:36  WARNING OGG-01004  Oracle GoldenGate Delivery for Oracle, re100idf.prm:  Aborted grouped transaction on 'IDMAPOWN.INTUIT_REALM_MAP_EX', Database error 1403 (OCI Error ORA-01403: no data found\
+2019-07-01 00:24:36  WARNING OGG-01003  Oracle GoldenGate Delivery for Oracle, re100idf.prm:  Repositioning to rba 13933678 in seqno 4.\
+2019-07-01 00:24:36  WARNING OGG-01154  Oracle GoldenGate Delivery for Oracle, re100idf.prm:  SQL error 1403 mapping IDMAPOWN.INTUIT_REALM_MAP to IDMAPOWN.INTUIT_REALM_MAP_EX OCI Error ORA-01403: no data found\
+2019-07-01 00:24:36  ERROR   OGG-01296  Oracle GoldenGate Delivery for Oracle, re100idf.prm:  Error mapping from IDMAPOWN.INTUIT_REALM_MAP to IDMAPOWN.INTUIT_REALM_MAP_EX.\
+2019-07-01 00:24:36  ERROR   OGG-01668  Oracle GoldenGate Delivery for Oracle, re100idf.prm:  PROCESS ABENDING.\
+\
+\
+INTUIT_REALM_ID_C = 9130346635055306\
+000000: 39 31 33 30 33 34 36 36 33 35 30 35 35 33 30 36 |9130346635055306|\
+\
+SERVICE_PROVIDER_ID_A = ad91d1f4-50fc-40fa-bf87-321b87b6653b\
+000000: 61 64 39 31 64 31 66 34 2d 35 30 66 63 2d 34 30 |ad91d1f4-50fc-40|\
+000010: 66 61 2d 62 66 38 37 2d 33 32 31 62 38 37 62 36 |fa-bf87-321b87b6|\
+000020: 36 35 33 62                                     |653b            |\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 select * from idmapown.INTUIT_REALM_MAP where INTUIT_REALM_ID='\cf2 9130346635055306\cf0 ' and SERVICE_PROVIDER_ID='\cf2 ad91d1f4-50fc-40fa-bf87-321b87b6653b\cf0 ';\
+\
+select * from IDMAPOWN.INTUIT_REALM_MAP_EX order by CDR_DATE;\
+\
+================================================================================================================================================\
+}
