@@ -1,0 +1,22 @@
+SQL> show parameter process;
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+aq_tm_processes                      integer     0
+db_writer_processes                  integer     2
+gcs_server_processes                 integer     0
+job_queue_processes                  integer     10
+log_archive_max_processes            integer     2
+processes                            integer     150
+SQL>
+
+
+SQL> select count(*) from v$process;
+  COUNT(*)
+----------
+        76
+
+SQL> select status,count(*) from v$session group by status;
+STATUS     COUNT(*)
+-------- ----------
+INACTIVE         48
+ACTIVE           25

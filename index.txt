@@ -1,0 +1,70 @@
+Errors in file /oracle/admin/psaf1/diag/rdbms/psaf1/psaf1/trace/psaf1_j000_66.trc:
+ORA-12012: error on auto execute of job 322
+ORA-20000: index "SAFE"."FRAUD_TRANSACTION_FK1"  or partition of such index is in unusable state
+ORA-06512: at "SYS.DBMS_STATS", line 20337
+ORA-06512: at "SYS.DBMS_STATS", line 20360
+ORA-06512: at "SAFE.ANALYZE_TABLES", line 72
+ORA-06512: at line 1
+
+
+Checked the Indexes
+*******************
+partitions
+**********
+
+SELECT i.table_name,  i.index_name, ip.partition_name,i.status AS index_status, ip.status AS partition_status FROM user_indexes i JOIN user_ind_partitions ip ON (i.index_name = ip.index_name ) ORDER BY i.table_name, i.index_name, ip.partition_name;
+
+SQL> select INDEX_NAME,status from dba_indexes where TABLE_NAME='FRAUD_TRANSACTION';
+
+INDEX_NAME                     STATUS
+------------------------------ --------
+FRAUDTXN_PK                    VALID
+FRAUDTXN_1_NK                  VALID
+FRAUDTXN_3_NK                  VALID
+FRAUDTXN_4_NK                  VALID
+FRAUDTXN_2_NK                  VALID
+FRAUDTXN_9_NK                  N/A
+FRAUDTXN_10_NK                 N/A
+FRAUDTXN_PK                    VALID
+FRAUD_TXN_UNQ_IDX              VALID
+FRAUDTXN_12_NK                 N/A
+FRAUD_TRANSACTION_FK1          UNUSABLE
+
+INDEX_NAME                     STATUS
+------------------------------ --------
+FRAUD_TRANSACTION_FK2          UNUSABLE
+FRAUD_TXN_UNQ_COMP_IDX         UNUSABLE
+FRAUDTXN_1_NK                  N/A
+FRAUDTXN_3_NK                  N/A
+FRAUDTXN_5_NK                  N/A
+FRAUDTXN_7_NK                  N/A
+FRAUDTXN_2_NK                  N/A
+FRAUDTXN_4_NK                  N/A
+FRAUDTXN_6_NK                  N/A
+FRAUDTXN_8_NK                  N/A
+FRAUDTXN_11_NK                 N/A
+
+22 rows selected.
+
+select index_name from dba_indexes where table_name='tablename';
+
+alter index safe.FRAUD_TRANSACTION_FK1 rebuild online;
+
+alter index safe.FRAUD_TRANSACTION_FK2 rebuild online;
+
+alter index safe.FRAUD_TXN_UNQ_COMP_IDX rebuild online;
+
+Unwanted indexes
+
+set lines 1000;
+SELECT di.owner,
+       di.table_name,
+       di.index_name,
+       TO_CHAR((di.distinct_keys / di.num_rows) * 100, '999.99') selectivity,
+       di.distinct_keys,
+       di.num_rows,
+       di.index_type
+  FROM dba_indexes di
+WHERE di.num_rows > 0
+AND di.distinct_keys / di.num_rows < 0.2
+ORDER BY di.distinct_keys / di.num_rows;

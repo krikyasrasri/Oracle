@@ -1,0 +1,35 @@
+select count(*) from dba_objects where status='INVALID' and owner='MPI'
+
+
+select object_name,object_type from dba_objects where status='INVALID' and owner='MPI'
+
+
+– compile public synonym that are invalid
+Select ‘alter public synonym ‘||object_name||’ compile;’
+From dba_objects
+Where status <> ‘VALID’
+And owner = ‘PUBLIC’
+And object_type = ‘SYNONYM’;
+
+Find the owner and object type of Table or object
+**************************************************
+
+select object_name,object_type,owner from dba_objects where object_name like 'MSP_MEMBER_REGISTRATION';
+
+how to increase the width of column
+***************************************
+
+ALTER TABLE FACTORY_INFO MODIFY (FACT_ID NUMBER(5));
+
+Example:
+********
+********
+
+Table Name: MSP_MEMBER_REGISTRATION
+Column Name: VNDR_SERV_PRVDR_RFRL_CD
+the column width from varchar2(9) to varchar2(20)..
+
+Code:--->>
+
+ALTER TABLE MRP_ADM.MSP_MEMBER_REGISTRATION MODIFY (VNDR_SERV_PRVDR_RFRL_CD varchar2(20));
+

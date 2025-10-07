@@ -1,0 +1,7 @@
+SELECT index_name FROM user_indexes WHERE table_name = 'ODBUSER.RNT_DTL_SEARCH';
+
+SELECT index_name, column_name, column_position 
+FROM user_ind_columns
+WHERE table_name='ODBUSER.RNT_DTL_SEARCH' 
+ORDER BY index_name, column_position
+

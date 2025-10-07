@@ -1,0 +1,1 @@
+/sys_apps_01/oem/agent10g/bin/emctl start blackout pdw0stl6 -nodeLevel

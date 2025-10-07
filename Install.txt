@@ -1,0 +1,22 @@
+./runInstaller -silent -debug -force \
+FROM_LOCATION=/r02/11gr2_binary_new/database/stage/products.xml \
+oracle.install.option=INSTALL_DB_SWONLY \
+UNIX_GROUP_NAME=oinstall \
+INVENTORY_LOCATION=/u01/app/oracle/oraInventory \
+ORACLE_HOME=/w01/app/oracle/product/11.22.0.2 \
+ORACLE_BASE=/w01/app/oracle \
+oracle.install.db.InstallEdition=EE \
+oracle.install.db.isCustomInstall=false \
+oracle.install.db.DBA_GROUP=dba \
+oracle.install.db.OPER_GROUP=dba \
+DECLINE_SECURITY_UPDATES=true   
+
+
+/usr/sbin/groupadd oinstall
+/usr/sbin/groupadd -g 1000 oinstall
+/usr/sbin/groupadd -g 1031 dba
+/usr/sbin/useradd -u 1101 -g oinstall -G dba oracle
+
+scp -P 22 oracle@161.178.168.165:/tmp/binar/DB_11R2_p10098816_112020_SOLARIS64_1of7.zip .
+
+scp -P 22 oracle@161.178.168.165:/tmp/binar/DB_11R2_p10098816_112020_SOLARIS64_2of7.zip .

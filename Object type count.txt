@@ -1,0 +1,21 @@
+select count(*) , OBJECT_TYPE from dba_objects where OWNER ='LAWSON' group by object_type;
+
+
+select count(*),object_type,status from dba_objects
+where owner='BILLPAY_JBPM_OWNER' group by object_type,status;
+
+Object count in schema::
+---------------------------
+
+select object_type,count(*),status from dba_objects where owner=upper('tigcom') group by object_type;
+
+select 
+   'ALTER ' || OBJECT_TYPE || ' ' ||
+   OWNER || '.' || OBJECT_NAME || ' COMPILE;'
+from
+   dba_objects
+where
+   status = 'INVALID'
+and
+   object_type in ('VIEW')
+;

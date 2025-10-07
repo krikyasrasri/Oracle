@@ -1,0 +1,21 @@
+emctl control agent runCollection BGBPRF01:oracle_database 'ME$RMAN_BACKUP_STATUS'
+
+
+export  AGENT_HOME=`cat /etc/oragchomelist|cut -d ":"  -f2`
+$AGENT_HOME/bin/emctl  status blackout
+$AGENT_HOME/bin/emctl  start blackout DGLAG -nodeLevel -d 06:00
+echo "Check the status of blockout"
+$AGENT_HOME/bin/emctl  status blackout
+
+
+
+expdp directory=DBPUMP1 dumpfile=exp_table_brmprd01_24jan_%U.dmp logfile=exp_table_brmprd01_24jan.log tables=BRM01.PRODUCT_USAGE_MAP_T parallel=4 COMPRESSION=ALL
+
+
+userid='/as sysdba'
+directory=DBPUMP1 dumpfile=exp_table_brmprd01_24jan_%U.dmp
+logfile=imp_table_brmprd01_24jan.log
+tables=BRM01.PRODUCT_USAGE_MAP_T parallel=4
+remap_tablespace=PINX00:PINX00
+remap_tablespace=PIN00:PIN00
+remap_schema=brm01:brm01 

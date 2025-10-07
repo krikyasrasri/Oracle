@@ -1,0 +1,274 @@
+killing inactive sessions
+*************************
+
+select 'alter system kill session ''' || sid || ',' || serial# || ''' immediate; ' from Gv$session where username='GLIMS_ADMIN' and status = 'INACTIVE';
+
+SELECT 'ALTER SYSTEM KILL SESSION '||Chr(39)||sid||','||serial#||',@'||inst_id|| Chr(39)||' immediate;'
+FROM gv$session
+WHERE  username='GLIMS_ADMIN'; 
+
+select username, count(*) "No. of Conn." from v$session where status='INACTIVE' group by username order by count(*) desc;
+$ ps -aef | grep dwmb1s *****************************************
+
+  oracle 20686     1   0 17:00:00 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 22243     1   0   Jul 27 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle  8367     1   0   Jul 23 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle   994     1   0   Jul 21 ?           0:01 ora_reco_dwmb1s
+  oracle 22565 22562   0 23:30:12 ?           0:01 oracledwmb1s (DESCRIPTION=(LOCAL=YES)(ADDRESS=(PROTOCOL=beq)))
+  oracle   976     1   0   Jul 21 ?           1:31 ora_lgwr_dwmb1s
+  oracle  2244     1   0   Jul 21 ?           0:17 oracledwmb1s (LOCAL=NO)
+  oracle 16968     1   0   Jul 26 ?           2:12 oracledwmb1s (LOCAL=NO)
+  oracle   960     1   0   Jul 21 ?           0:30 ora_mman_dwmb1s
+  oracle   964     1   0   Jul 21 ?           1:03 ora_dbw0_dwmb1s
+  oracle   952     1   0   Jul 21 ?           0:25 ora_psp0_dwmb1s
+  oracle   946     1   0   Jul 21 ?          25:10 ora_pmon_dwmb1s
+  oracle   970     1   0   Jul 21 ?           1:00 ora_dbw1_dwmb1s
+  oracle   982     1   0   Jul 21 ?           8:11 ora_ckpt_dwmb1s
+  oracle   988     1   0   Jul 21 ?           0:32 ora_smon_dwmb1s
+  oracle  1026     1   0   Jul 21 ?           0:33 ora_asmb_dwmb1s
+  oracle  1787     1   0   Jul 21 ?           0:26 ora_arc0_dwmb1s
+  oracle  1045     1   0   Jul 21 ?           0:25 ora_rbal_dwmb1s
+  oracle  1793     1   0   Jul 21 ?           0:06 ora_arc1_dwmb1s
+  oracle  1811     1   0   Jul 21 ?           0:36 ora_ctwr_dwmb1s
+  oracle  2359     1   0   Jul 21 ?           0:17 oracledwmb1s (LOCAL=NO)
+  oracle 23516     1   0 17:09:21 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 17246     1   0   Jul 23 ?           0:05 oracledwmb1s (LOCAL=NO)
+  oracle 28262     1   0   Jul 27 ?           0:01 oracledwmb1s (LOCAL=NO)
+  oracle  5180     1   0   Jul 22 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 17211     1   0   Jul 21 ?           0:03 oracledwmb1s (LOCAL=NO)
+  oracle   425     1   0   Jul 22 ?           0:03 oracledwmb1s (LOCAL=NO)
+  oracle 21391     1   0   Jul 22 ?           0:02 oracledwmb1s (LOCAL=NO)
+  oracle 25482     1   0   Jul 22 ?           0:03 oracledwmb1s (DESCRIPTION=(LOCAL=YES)(ADDRESS=(PROTOCOL=beq)))
+  oracle 11249     1   0   Jul 21 ?           0:06 oracledwmb1s (LOCAL=NO)
+  oracle 22227     1   0   Jul 27 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 14277     1   0   Jul 22 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle  7649     1   0   Jul 22 ?           0:03 oracledwmb1s (LOCAL=NO)
+  oracle 18617     1   0   Jul 22 ?           0:01 oracledwmb1s (LOCAL=NO)
+  oracle 17034     1   0 21:10:00 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 28492     1   0   Jul 29 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 22123     1   0   Jul 27 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 29621     1   0   Jul 29 ?           0:01 oracledwmb1s (LOCAL=NO)
+  oracle 22145     1   0   Jul 27 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 14951     1   0   Jul 29 ?           0:01 oracledwmb1s (LOCAL=NO)
+  oracle 22107     1   0   Jul 27 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 29360     1   0 17:25:37 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle   649     1   0 21:50:00 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle  4075     1   0 07:49:59 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 26471     1   0   Jul 22 ?           0:03 oracledwmb1s (LOCAL=NO)
+  oracle 28535     1   0 10:28:42 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 16187     1   0   Jul 26 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 12174     1   0 12:33:29 ?           0:01 oracledwmb1s (LOCAL=NO)
+  oracle 28983   660   0 00:14:08 pts/5       0:00 grep dwmb1s
+  oracle 20063     1   0 14:24:51 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle  8559     1   0 19:20:00 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle   651     1   0 21:50:00 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 24787     1   0 18:40:36 ?           0:00 oracledwmb1s (LOCAL=NO)
+$
+$ if
+$ id
+uid=200(oracle) gid=200(dba)
+$
+$ date
+Sat Jul 31 00:14:24 CDT 2010
+$ ps- aef
+$ ps -aef
+$ ps -aef | grep dwmb1s | grep -v 22565 ********************************************
+  oracle 20686     1   0 17:00:00 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 22243     1   0   Jul 27 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle  8367     1   0   Jul 23 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle   994     1   0   Jul 21 ?           0:01 ora_reco_dwmb1s
+  oracle  9567   660   0 00:15:33 pts/5       0:00 grep dwmb1s
+  oracle   976     1   0   Jul 21 ?           1:31 ora_lgwr_dwmb1s
+  oracle  2244     1   0   Jul 21 ?           0:17 oracledwmb1s (LOCAL=NO)
+  oracle 16968     1   0   Jul 26 ?           2:12 oracledwmb1s (LOCAL=NO)
+  oracle   960     1   0   Jul 21 ?           0:30 ora_mman_dwmb1s
+  oracle   964     1   0   Jul 21 ?           1:03 ora_dbw0_dwmb1s
+  oracle   952     1   0   Jul 21 ?           0:25 ora_psp0_dwmb1s
+  oracle   946     1   0   Jul 21 ?          25:11 ora_pmon_dwmb1s
+  oracle   970     1   0   Jul 21 ?           1:00 ora_dbw1_dwmb1s
+  oracle   982     1   0   Jul 21 ?           8:11 ora_ckpt_dwmb1s
+  oracle   988     1   0   Jul 21 ?           0:32 ora_smon_dwmb1s
+  oracle  1026     1   0   Jul 21 ?           0:33 ora_asmb_dwmb1s
+  oracle  1787     1   0   Jul 21 ?           0:26 ora_arc0_dwmb1s
+  oracle  1045     1   0   Jul 21 ?           0:25 ora_rbal_dwmb1s
+  oracle  1793     1   0   Jul 21 ?           0:06 ora_arc1_dwmb1s
+  oracle  1811     1   0   Jul 21 ?           0:36 ora_ctwr_dwmb1s
+  oracle  2359     1   0   Jul 21 ?           0:17 oracledwmb1s (LOCAL=NO)
+  oracle 23516     1   0 17:09:21 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 17246     1   0   Jul 23 ?           0:05 oracledwmb1s (LOCAL=NO)
+  oracle 28262     1   0   Jul 27 ?           0:01 oracledwmb1s (LOCAL=NO)
+  oracle  5180     1   0   Jul 22 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 17211     1   0   Jul 21 ?           0:03 oracledwmb1s (LOCAL=NO)
+  oracle   425     1   0   Jul 22 ?           0:03 oracledwmb1s (LOCAL=NO)
+  oracle 21391     1   0   Jul 22 ?           0:02 oracledwmb1s (LOCAL=NO)
+  oracle 25482     1   0   Jul 22 ?           0:03 oracledwmb1s (DESCRIPTION=(LOCAL=YES)(ADDRESS=(PROTOCOL=beq)))
+  oracle 11249     1   0   Jul 21 ?           0:06 oracledwmb1s (LOCAL=NO)
+  oracle 22227     1   0   Jul 27 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 14277     1   0   Jul 22 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle  7649     1   0   Jul 22 ?           0:03 oracledwmb1s (LOCAL=NO)
+  oracle 18617     1   0   Jul 22 ?           0:01 oracledwmb1s (LOCAL=NO)
+  oracle 17034     1   0 21:10:00 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 28492     1   0   Jul 29 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 22123     1   0   Jul 27 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 29621     1   0   Jul 29 ?           0:01 oracledwmb1s (LOCAL=NO)
+  oracle 22145     1   0   Jul 27 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 14951     1   0   Jul 29 ?           0:01 oracledwmb1s (LOCAL=NO)
+  oracle 22107     1   0   Jul 27 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 29360     1   0 17:25:37 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle   649     1   0 21:50:00 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle  4075     1   0 07:49:59 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 26471     1   0   Jul 22 ?           0:03 oracledwmb1s (LOCAL=NO)
+  oracle 28535     1   0 10:28:42 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 16187     1   0   Jul 26 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 12174     1   0 12:33:29 ?           0:01 oracledwmb1s (LOCAL=NO)
+  oracle 20063     1   0 14:24:51 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle  8559     1   0 19:20:00 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle   651     1   0 21:50:00 ?           0:00 oracledwmb1s (LOCAL=NO)
+  oracle 24787     1   0 18:40:36 ?           0:00 oracledwmb1s (LOCAL=NO)
+$ ps -aef | grep dwmb1s | grep -v 22565 | awk '{print "kill-9 "$2}
+>
+$ ps -aef | grep P0149X  | grep LOCAL=NO | awk '{print "kill -9 "$2}'*********
+kill-9 20686
+kill-9 22243
+kill-9 8367
+kill-9 2244
+kill-9 16968
+kill-9 2359
+kill-9 23516
+kill-9 17246
+kill-9 28262
+kill-9 5180
+kill-9 17211
+kill-9 425
+kill-9 21391
+kill-9 11249
+kill-9 22227
+kill-9 14277
+kill-9 7649
+kill-9 18617
+kill-9 17034
+kill-9 28492
+kill-9 22123
+kill-9 29621
+kill-9 22145
+kill-9 14951
+kill-9 22107
+kill-9 29360
+kill-9 649
+kill-9 4075
+kill-9 26471
+kill-9 28535
+kill-9 16187
+kill-9 12174
+kill-9 20063
+kill-9 8559
+kill-9 651
+kill-9 24787
+$ ps -aef | grep dwmb1s | grep -v 22565 | grep LOCAL=NO | awk '{print "kill-9 "$2}' | sh
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+sh: kill-9: not found
+$ ps -aef | grep dwmb1s | grep -v 22565 | grep LOCAL=NO | awk '{print "kill -9 "$2}' | sh
+$ pwd
+/ora_trc_01/dwmb1s/bdump
+$ tail -f alert*
+Active call for process 7649 user 'oracle' program 'oracle@cds0stl3'
+Active call for process 17211 user 'oracle' program 'oracle@cds0stl3'
+Active call for process 14951 user 'oracle' program 'oracle@cds0stl3'
+Active call for process 25482 user 'oracle' program 'oracle@cds0stl3 (TNS V1-V3)'
+Active call for process 425 user 'oracle' program 'oracle@cds0stl3'
+Active call for process 26471 user 'oracle' program 'oracle@cds0stl3'
+Active call for process 29621 user 'oracle' program 'oracle@cds0stl3'
+SHUTDOWN: waiting for active calls to complete.
+Fri Jul 30 23:50:14 2010
+MMNL absent for 1230 secs; Foregrounds taking over
+^C$
+$ ps -aef | grep dwmb1s
+  oracle   994     1   0   Jul 21 ?           0:01 ora_reco_dwmb1s
+  oracle 22565 22562   0 23:30:12 ?           0:01 oracledwmb1s (DESCRIPTION=(LOCAL=YES)(ADDRESS=(PROTOCOL=beq)))
+  oracle   976     1   0   Jul 21 ?           1:31 ora_lgwr_dwmb1s
+  oracle   960     1   0   Jul 21 ?           0:30 ora_mman_dwmb1s
+  oracle   964     1   0   Jul 21 ?           1:03 ora_dbw0_dwmb1s
+  oracle   952     1   0   Jul 21 ?           0:25 ora_psp0_dwmb1s
+  oracle   946     1   0   Jul 21 ?          25:12 ora_pmon_dwmb1s
+  oracle   970     1   0   Jul 21 ?           1:00 ora_dbw1_dwmb1s
+  oracle   982     1   0   Jul 21 ?           8:11 ora_ckpt_dwmb1s
+  oracle   988     1   0   Jul 21 ?           0:32 ora_smon_dwmb1s
+  oracle  1026     1   0   Jul 21 ?           0:33 ora_asmb_dwmb1s
+  oracle  1787     1   0   Jul 21 ?           0:26 ora_arc0_dwmb1s
+  oracle  1045     1   0   Jul 21 ?           0:25 ora_rbal_dwmb1s
+  oracle  1793     1   0   Jul 21 ?           0:06 ora_arc1_dwmb1s
+  oracle  1811     1   0   Jul 21 ?           0:36 ora_ctwr_dwmb1s
+  oracle 25482     1   0   Jul 22 ?           0:03 oracledwmb1s (DESCRIPTION=(LOCAL=YES)(ADDRESS=(PROTOCOL=beq)))
+  oracle 24058   660   0 00:17:32 pts/5       0:00 grep dwmb1s
+$ kill -9 25482
+$ tail -f alert*
+Sat Jul 31 00:17:43 2010
+SMON: disabling tx recovery
+SMON: disabling cache recovery
+Sat Jul 31 00:17:44 2010
+Block change tracking service stopping.
+Sat Jul 31 00:17:44 2010
+Stopping background process CTWR
+Sat Jul 31 00:17:47 2010
+Shutting down archive processes
+Archiving is disabled
+Sat Jul 31 00:17:52 2010
+ARCH shutting down
+ARC1: Archival stopped
+Sat Jul 31 00:17:57 2010
+ARCH shutting down
+ARC0: Archival stopped
+Sat Jul 31 00:17:58 2010
+Thread 1 closed at log sequence 34636
+Successful close of redo thread 1
+Sat Jul 31 00:18:12 2010
+Completed: ALTER DATABASE CLOSE NORMAL
+Sat Jul 31 00:18:12 2010
+ALTER DATABASE DISMOUNT
+Sat Jul 31 00:18:13 2010
+SUCCESS: diskgroup DATA1 was dismounted
+SUCCESS: diskgroup FRA1 was dismounted
+Sat Jul 31 00:18:13 2010
+Completed: ALTER DATABASE DISMOUNT
+ARCH: Archival disabled due to shutdown: 1089
+Shutting down archive processes
+Archiving is disabled
+Archive process shutdown avoided: 0 active
+ARCH: Archival disabled due to shutdown: 1089
+Shutting down archive processes
+Archiving is disabled
+Archive process shutdown avoided: 0 active

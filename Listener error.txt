@@ -1,0 +1,206 @@
+login as: e025101
+Using keyboard-interactive authentication.
+Enter PASSCODE:
+Sun Microsystems Inc.   SunOS 5.8       Generic Patch   February 2004
+Sun Microsystems Inc.   SunOS 5.8       Generic Patch   February 2004
+$ sesduo o racle
+ksh: sesduo:  not found
+$ sesudo oracle
+ksh: sesudo:  not found
+$ su - oracle
+Password:
+Sun Microsystems Inc.   SunOS 5.8       Generic Patch   February 2004
+You have mail.
+
+Oracle SID is not set. Please run SetDb to set your Oracle environment.
+
+HOSTNAME = [sv90590e]      USERNAME = [oracle]
+ORACLE_SID = [unset]       ORACLE_HOME = [unset]
+
+sv90590e:/home/oracle
+$ ps -ef |grep tns
+  oracle  1046  1014  0 09:43:16 pts/4    0:00 grep tns
+sv90590e:/home/oracle
+$ setDb
+ksh: setDb:  not found
+sv90590e:/home/oracle
+$ SetDb
+Select $ORACLE_SID:
+1) AGENT
+2) DATS0W
+3) DRCS
+4) DRCS0W
+5) IATS0W
+6) REPO
+7) *Exit*
+#? 2
+
+HOSTNAME = [sv90590e]      USERNAME = [oracle]
+ORACLE_SID = [DATS0W]      ORACLE_HOME = [/oracle/app/oracle/product/v10.2.0.4]
+
+DATS0W @ sv90590e:/home/oracle
+$
+DATS0W @ sv90590e:/home/oracle
+$ voo
+DATS0W @ sv90590e:/var/opt/oracle
+$ cat oratab
+# s file is used by ORACLE utilities.  It is created by root.sh
+#  and updated by the Oracle8 and SQL*Net install procedures.
+
+#
+#  A colon, ':', is used as the field terminator.  A new line terminates
+#  the entry.  Lines beginning with a pound sign, '#', are comments.
+#
+#  Entries are of the form:
+#      $ORACLE_SID:$ORACLE_HOME:<N|Y>:
+#
+#  The first and second fields are the system identifier and home
+#  directory of the database respectively.  The third field indicates
+#  to the dbstart utility that the database should, "Y", or should not,
+#  "N", be brought up at system boot time.
+#
+#  Multiple entries with the same $ORACLE_SID are not allowed.
+#
+#
+DRCS0W:/oracle/app/oracle/product/v10.2.0.4:Y
+AGENT:/oracle/app/oracle/product/OEM10_agent:N
+DRCS:/oracle/app/oracle/product/v9.2.0.7:Y
+DATS0W:/oracle/app/oracle/product/v10.2.0.4:Y
+IATS0W:/oracle/app/oracle/product/v9.2.0.7:Y
+REPO:/oracle/app/oracle/product/v10.2.0.4:Y
+DATS0W @ sv90590e:/var/opt/oracle
+$ lsnrctl start
+
+LSNRCTL for Solaris: Version 10.2.0.4.0 - Production on 08-JUN-2010 09:44:44
+
+Copyright (c) 1991, 2007, Oracle.  All rights reserved.
+
+Starting /oracle/app/oracle/product/v10.2.0.4/bin/tnslsnr: please wait...
+
+TNSLSNR for Solaris: Version 10.2.0.4.0 - Production
+System parameter file is /var/opt/oracle/listener.ora
+Log messages written to /ora_trc/network/log/listener.log
+Listening on: (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=sv90590e.bel01.epss)(PORT=1526)))
+Listening on: (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=sv90590e.bel01.epss)(PORT=1521)))
+Listening on: (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=sv90590e.bel01.epss)(PORT=1527)))
+
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=sv90590e)(PORT=1526)(QUEUESIZE=256)(SDU=15000)(TDU=15000)))
+STATUS of the LISTENER
+------------------------
+Alias                     LISTENER
+Version                   TNSLSNR for Solaris: Version 10.2.0.4.0 - Production
+Start Date                08-JUN-2010 09:44:44
+Uptime                    0 days 0 hr. 0 min. 0 sec
+Trace Level               off
+Security                  ON: Local OS Authentication
+SNMP                      OFF
+Listener Parameter File   /var/opt/oracle/listener.ora
+Listener Log File         /ora_trc/network/log/listener.log
+Listening Endpoints Summary...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=sv90590e.bel01.epss)(PORT=1526)))
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=sv90590e.bel01.epss)(PORT=1521)))
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=sv90590e.bel01.epss)(PORT=1527)))
+Services Summary...
+Service "DATS0W.develop.central" has 1 instance(s).
+  Instance "DATS0W", status UNKNOWN, has 1 handler(s) for this service...
+Service "DRCS.develop.central" has 1 instance(s).
+  Instance "DRCS", status UNKNOWN, has 1 handler(s) for this service...
+Service "DRCS0W.develop.central" has 1 instance(s).
+  Instance "DRCS0W", status UNKNOWN, has 1 handler(s) for this service...
+Service "IATS0W.develop.central" has 1 instance(s).
+  Instance "IATS0W", status UNKNOWN, has 1 handler(s) for this service...
+Service "REPO.develop.central" has 1 instance(s).
+  Instance "REPO", status UNKNOWN, has 1 handler(s) for this service...
+The command completed successfully
+DATS0W @ sv90590e:/var/opt/oracle
+$ lsnrctl status
+
+LSNRCTL for Solaris: Version 10.2.0.4.0 - Production on 08-JUN-2010 09:44:55
+
+Copyright (c) 1991, 2007, Oracle.  All rights reserved.
+
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=sv90590e)(PORT=1526)(QUEUESIZE=256)(SDU=15000)(TDU=15000)))
+STATUS of the LISTENER
+------------------------
+Alias                     LISTENER
+Version                   TNSLSNR for Solaris: Version 10.2.0.4.0 - Production
+Start Date                08-JUN-2010 09:44:44
+Uptime                    0 days 0 hr. 0 min. 11 sec
+Trace Level               off
+Security                  ON: Local OS Authentication
+SNMP                      OFF
+Listener Parameter File   /var/opt/oracle/listener.ora
+Listener Log File         /ora_trc/network/log/listener.log
+Listening Endpoints Summary...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=sv90590e.bel01.epss)(PORT=1526)))
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=sv90590e.bel01.epss)(PORT=1521)))
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=sv90590e.bel01.epss)(PORT=1527)))
+Services Summary...
+Service "DATS0W.develop.central" has 1 instance(s).
+  Instance "DATS0W", status UNKNOWN, has 1 handler(s) for this service...
+Service "DRCS.develop.central" has 1 instance(s).
+  Instance "DRCS", status UNKNOWN, has 1 handler(s) for this service...
+Service "DRCS0W.develop.central" has 1 instance(s).
+  Instance "DRCS0W", status UNKNOWN, has 1 handler(s) for this service...
+Service "IATS0W.develop.central" has 1 instance(s).
+  Instance "IATS0W", status UNKNOWN, has 1 handler(s) for this service...
+Service "REPO.develop.central" has 1 instance(s).
+  Instance "REPO", status UNKNOWN, has 1 handler(s) for this service...
+The command completed successfully
+DATS0W @ sv90590e:/var/opt/oracle
+$
+Thanks & Regards, 
+Shankar
+Oracle DBA Offshore
+
+ 
+
+Please think of the environment before printing this e-mail. 
+
+----- Forwarded by Shankar Arumugam/MAA/MASTERCARD on 06/08/2010 03:30 PM -----
+Florence Coulon/BRU/MASTERCARD 
+06/08/2010 02:45 PM	
+	To
+	Oracle DBA Offshore
+	cc
+	
+	Subject
+	Fw: ORA-12541 : TNS : no listener on DATS0W.DEVELOP.CENTRAL database
+	
+	
+	
+	
+
+Dear all,
+
+Same problem again, could you please solve it.
+It's very urgent.
+
+Thanks
+
+
+Florence Coulon
+----- Forwarded by Florence Coulon/BRU/MASTERCARD on 06/08/2010 11:14 AM -----
+Florence Coulon/BRU/MASTERCARD 
+05/26/2010 10:53 AM	
+	To
+	Oracle DBA Offshore
+	cc
+	
+	Subject
+	ORA-12541 : TNS : no listener on DATS0W.DEVELOP.CENTRAL database
+	
+	
+	
+	
+
+Dear all,
+
+I'm not able to connect to DATS0W.DEVELOP.CENTRAL database on sv90590e server.
+I receive the error message ORA-12541 : TNS : no listener
+
+Could you please have a look?
+
+Thanks.
+
+Florence Coulon

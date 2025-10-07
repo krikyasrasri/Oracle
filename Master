@@ -4,26 +4,6 @@
 ./emctl clearstate agent
 ./emctl upload
 
-
-netstat -tupl 8823
-netstat -tupl | grep 8820
-ps -ef | grep 95613/java
-ps -ef | grep 95613
-
-********************************
-***************casds load job run script*********
-select * from casds.load_control;
-
-alter session set nls_date_format='DD-MON-YYYY HH24:MI:SS';
-
-update casds.load_control
-set processing_from_time = to_date('2019-09-09 00:00:00', 'yyyy-mm-dd
-hh24:mi:ss'),
-processing_to_time = to_date('2019-09-09 00:05:00', 'yyyy- mm-dd hh24:mi:ss');
-Commit;
-
-*****************
-
 select tablespace_name from dba_tablespaces;
 
 Tablespace [ORABPEL_TDE] is [95.09 percent] full 
@@ -60,10 +40,13 @@ where tablespace_name='SYSAUX';
 set linesize 300
 col FILE_NAME format a70
 col tablespace_name format a18
-select tablespace_name, FILE_NAME, MAXBYTES/1024/1024/1024, BYTES/1024/1024/1024, AUTOEXTENSIBLE from dba_data_files where tablespace_name='ORAESB_TDE';
+select tablespace_name, FILE_NAME, MAXBYTES/1024/1024/1024, BYTES/1024/1024/1024, AUTOEXTENSIBLE from dba_data_files where tablespace_name='ORABPEL';
 
 set lines 200 pages 2000
-select a.tablespace_name,a.alloc_size/1024/1024/1024 Allocated_size,a.cur_size/1024/1024/1024 Current_Size,(u.used+a.file_count*65536)/1024/1024/1024 Used_size,(a.alloc_size-(u.used+a.file_count*65536))/1024/1024/1024 Available_size,((u.used+a.file_count*65536)*100)/a.alloc_size Pct_used from dba_tablespaces t,(select t1.tablespace_name,nvl(sum(s.bytes),0) used from  dba_segments s,dba_tablespaces t1 where t1.tablespace_name=s.tablespace_name(+) group by t1.tablespace_name) u,(select d.tablespace_name,sum(greatest(d.bytes,nvl(d.maxbytes,0))) alloc_size,sum(d.bytes) cur_size,count(*) file_count from dba_data_files d group by d.tablespace_name) a where t.tablespace_name=u.tablespace_name and t.tablespace_name=a.tablespace_name and t.tablespace_name='ORAESB_TDE' order by t.tablespace_name;
+select a.tablespace_name,a.alloc_size/1024/1024/1024 Allocated_size,a.cur_size/1024/1024/1024 Current_Size,(u.used+a.file_count*65536)/1024/1024/1024 Used_size,(a.alloc_size-(u.used+a.file_count*65536))/1024/1024/1024 Available_size
+,((u.used+a.file_count*65536)*100)/a.alloc_size Pct_used from     dba_tablespaces t,(select t1.tablespace_name,nvl(sum(s.bytes),0) used from  dba_segments s,dba_tablespaces t1 where t1.tablespace_name=s.tablespace_name(+) group by t1.tablespace_name) u
+,(select d.tablespace_name,sum(greatest(d.bytes,nvl(d.maxbytes,0))) alloc_size,sum(d.bytes) cur_size,count(*) file_count from dba_data_files d group by d.tablespace_name) a where t.tablespace_name=u.tablespace_name and t.tablespace_name=a.tablespace_name
+and t.tablespace_name='ORABPEL' order by t.tablespace_name;
 
 select file_name from dba_data_files where tablespace_name='UNDOTBS1';
 
@@ -236,6 +219,8 @@ EXPIRED :- here these blocks will be reused, you can consider them as free.
 
 **********************File system check ************************
 
+
+
 select * 
 from 
 (
@@ -285,7 +270,7 @@ DBSNMP    djj1j2x059xzh     TEMP              20
 
 ################# SESSION RELATED ############################
 
-alter session set nls_date_format='DD-MON-YYYY HH24:MI:SS';
+alter session set nls_date_format='DD-MON-YYYY HH24:MI:SS'
 
 select sid,serial#,username,status,logon_time,sql_hash_value from v$session where sid=20
 
@@ -302,9 +287,6 @@ col MACHINE FORMAT A25
 select username,status,count(*) from gv$session WHERE TYPE<>'BACKGROUND' and username not in ('SYS','TEMPDBA','DBSNMP') group by username,status;
 
 select username,machine,status,count(*) from gv$session WHERE TYPE<>'BACKGROUND' and username not in ('SYS','TEMPDBA','DBSNMP') group by username,machine,status order by count(*) desc;
-
-select username,machine,status,count(*) from gv$session WHERE TYPE<>'BACKGROUND' and username in ('BRMSYS100') group by username,machine,status order by count(*) desc;
-
 
 alter session set nls_date_format='DD-MON-YY hh24:mi:ss';
 select username,osuser,status,sql_id,machine,program,logon_time from v$session where TYPE<>'BACKGROUND' and username not in ('SYS','TEMPDBA','DBSNMP') and status='INACTIVE';
@@ -383,13 +365,11 @@ WHERE (sn.sid = m.sid AND m.request != 0)
 ORDER BY id1,id2, m.request;
 
 
-select to_char(timestamp_to_scn(to_timestamp(‘08/09/2019 02:36:00’,‘DD/MM/YYYY HH24:MI:SS’))) as scn from dual;
-
 
 ___ Blocking session queries ______
-SELECT s.username,s.blocking_session,s.sid,s.serial#,s.seconds_in_wait FROM gv$session s WHERE blocking_session IS NOT NULL order by blocking_session;
+SELECT s.username,s.blocking_session,s.sid,s.serial#,s.seconds_in_wait FROM gv$session s WHERE blocking_session IS NOT NULL order by blocking_session;;
 
-select 'alter system kill session '''||a.sid||','||a.serial#||''' immediate;' from gv$session a, gv$process b where status='INACTIVE' and a.paddr=b.addr AND a.username='BRM01';
+select 'alter system kill session '''||a.sid||','||a.serial#||''' immediate;' from gv$session a, v$process b where status='INACTIVE' and a.paddr=b.addr AND a.username='BRM01';
 
 SELECT distinct a.sql_id ,a.inst_id,a.blocking_session,a.blocking_session_serial#,a.user_id,s.sql_text,a.module,a.sample_time
 FROM GV$ACTIVE_SESSION_HISTORY a ,gv$sql s
@@ -398,13 +378,6 @@ and blocking_session is not null
 and a.user_id <> 0 -- exclude SYS user 
 and a.sample_time > '04-oct-2018 09:45' ;
 
-SELECT DECODE(request,0,'Holder: ','Waiter: ')||sid sess,id1, id2, lmode, request, type,
-'alter system kill session '''||sid||','||(select serial# from v$session where sid=l.sid) ||'''' "Kill stmt"
-FROM V$LOCK l
-WHERE (id1, id2, type) IN(SELECT id1, id2, type FROM V$LOCK WHERE request>0)
-ORDER BY id1, request
-/
-
 
 SELECT p.program, p.spid, s.sid, s.sql_id, s.status, s.event, s.wait_class, s.status, s.logon_time
 FROM v$session s, v$process p
@@ -412,7 +385,7 @@ WHERE s.paddr = p.addr
 AND p.spid in ('3080408','31195152','21233738','23330938','16842930','27656316','30998544');
 
 
-select 'alter system kill session '''||a.sid||','||a.serial#||''' immediate;' from gv$session a, v$process b where status='INACTIVE' and a.paddr=b.addr AND a.username='AIA';
+select 'alter system kill session '''||a.sid||','||a.serial#||''' immediate;' from gv$session a, v$process b where status='INACTIVE' and a.paddr=b.addr AND a.username='BRM01';
 
 SELECT 'alter system kill session '''|| s.sid|| ','|| s.serial#|| ''' immediate;' kill_sid FROM  gv$session s WHERE  username='BRM01' and sql_id='69c6vyk2xp2k9';
 
@@ -629,9 +602,9 @@ du -sh *|grep G
 
 find . -name "core.oracle*" -mtime +20 -exec ls -lrt {} +
 
-find . -name "*.trc" -mmin +7 -exec rm -rf {} +
+find . -name "*.trc" -mmin +7 -exec ls -lrt {} +
 
-find . -name "aud*" -mtime 15 -exec rm -rf {} +
+find . -name "*.log.*" -mtime +200 -exec rm -rf {} +
 
 find . -mtime +7 | xargs rm -Rf
 
@@ -703,14 +676,6 @@ restore archivelog from sequence 51595 until sequence 51610;
 select sys_context('userenv','current_schema') from dual;
 
 alter session set current_schema=BO_MERCH_STRATEGIC_PLANNING_AN;
-
-Grant select permission to the user 
-
-SET HEADING OFF
-SET PAGES 9999 LINES 400
-SPOOL BRM01_TABLE_GRANTS.sql
-SELECT 'GRANT SELECT ON ' || OWNER || '.' || TABLE_NAME || ' TO eiam01_readonly;' FROM DBA_TABLES WHERE OWNER IN ('BRM01') ORDER BY 1;
-SPOOL OFF
 
 ************How to gather stats*************************************
 exec dbms_stats.gather_schema_stats('ER_OWNER', method_opt => 'for all indexed columns size auto', degree => 4 ,cascade =>TRUE);
@@ -811,8 +776,8 @@ Schema refresh datapump
 set head off
 set pages 0
 set long 9999999
-select  dbms_metadata.get_ddl('USER', 'DBSNMP') || '/' usercreate from DUAL;
-SELECT DBMS_METADATA.GET_GRANTED_DDL('ROLE_GRANT','ERS_READONLY') FROM DUAL;
+select  dbms_metadata.get_ddl('USER', 'COMMUSER') || '/' usercreate from DUAL;
+SELECT DBMS_METADATA.GET_GRANTED_DDL('ROLE_GRANT','COMMUSER') FROM DUAL;
 SELECT DBMS_METADATA.GET_GRANTED_DDL('SYSTEM_GRANT','DGDEV') FROM DUAL;
 SELECT DBMS_METADATA.GET_GRANTED_DDL('OBJECT_GRANT','DGDEV') FROM DUAL;
 
@@ -876,8 +841,8 @@ from v$rman_backup_job_details
 where input_type='ARCHIVELOG'
 order by session_key asc;
 
-col STATUS format a15
 Set lines 200 pages 200
+col STATUS format a15
 col hrs format 999.99
 select SESSION_KEY, INPUT_TYPE, STATUS, to_char(START_TIME,'mm/dd/yy hh24:mi') start_time, to_char(END_TIME,'mm/dd/yy hh24:mi') end_time, elapsed_seconds/3600 hrs from V$RMAN_BACKUP_JOB_DETAILS order by session_key;
 
@@ -886,7 +851,7 @@ Below query is to check whether backup is waiting for tape.
 
 SELECT p.SPID, sw.EVENT, sw.SECONDS_IN_WAIT AS SEC_WAIT,sw.STATE, s.CLIENT_INFO
 FROM V$SESSION_WAIT sw, V$SESSION s, V$PROCESS p
-  WHERE sw.EVENT LIKE '%s%bt%'
+WHERE sw.EVENT LIKE '%s%bt%'
 AND s.SID=sw.SID
 AND s.PADDR=p.ADDR
 ORDER BY SEC_WAIT ASC;
@@ -900,7 +865,7 @@ col object_type for a10
 
 alter session set nls_date_format = 'DD-MM-YYYY HH24:MI:SS';
 
-TEMP_PP_RITM1590705_1_ORDER
+
 
 select SID,STATUS,START_TIME,END_TIME,OBJECT_TYPE,OUTPUT_DEVICE_TYPE
 from v$rman_status order by START_TIME desc;
@@ -999,8 +964,8 @@ group by trunc(COMPLETION_TIME,'DD'),thread# order by 1;
 column REDOLOG_FILE_NAME format a55
 SELECT  a.GROUP#, a.THREAD#, a.SEQUENCE#, a.ARCHIVED, a.STATUS, b.MEMBER AS REDOLOG_FILE_NAME, (a.BYTES/1024/1024) AS SIZE_MB FROM gv$log a JOIN gv$logfile b ON a.Group#=b.Group# ORDER BY a.GROUP#;
 
-column REDOLOG_FILE_NAME format a55
-select lf.group#,l_type.log_type as type, lf.member from v$logfile lf join (select group#,'ORL' as log_type from v$log union select group#,'SRL' as log_type from v$standby_log) l_type on lf.group#=l_type.group# order by lf.group#;
+select lf.group#,l_type.log_type as type, lf.member from v$logfile lf join (select group#,'ORL' as log_type from v$log union select group#,'SRL' as log_type from v$standby_log) l_type on lf.group#=l_type.group#
+order by lf.group#;
 
 ***********************************************************************
 ************* Flashback database to restore point*************
@@ -1124,20 +1089,13 @@ crosscheck archivelog sequence 13 thread 2;
 delete expired archivelog all;
 delete expired datafilecopy all;
 
-RMAN> delete noprompt archivelog from sequence 102116 until sequence 1775 ; 
+RMAN> delete noprompt archivelog from sequence 1554 until sequence 1775 ; 
 
-delete noprompt archivelog until sequence 939240 thread 1;
-delete noprompt archivelog until sequence 65345 thread 2;
-delete force archivelog until sequence 10352 thread 1;
-
-delete force archivelog until sequence 32165 thread 2;
-
+delete noprompt archivelog until sequence 984 thread 1;
+delete noprompt archivelog until sequence 1699 thread 2;
 
 delete archivelog until time 'sysdate-1';
 delete noprompt archivelog until time 'sysdate-30';
-
-delete force archivelog all backed up 1 times to sbt;
-delete noprompt archivelog all backed up 1 times to sbt;
 
 show all;
 list backup;
@@ -1146,7 +1104,7 @@ delete obsolete;
 delete backup tag='BACKUP_PPPH2_00677_012015083128';
 
 list backup summary completed before "sysdate -15";
-delete noprompt backup completed before "sysdate -1";
+delete noprompt backup completed before "sysdate -365";
 list backup summary completed before "sysdate -8";
 
 Standby:
@@ -1269,6 +1227,8 @@ BACKUP DATABASE FORMAT "/usr/local/oracle/exports/devplx01_coldbackup_%U";
 
 Archives deletaton based on time.
 **********************************
+
+
 
 
 select sysdate - interval '3' hour from dual
@@ -1420,7 +1380,7 @@ To check DDL from proc (job action)
 	  
 select text from dba_source where OWNER='SYS' and NAME='MAINTENANCE_WINDOW_GROUP' /*Job_Action from dba_scheduler_jobs*/ ;
 
-select dbms_metadata.get_ddl('INDEX','UPDATE_BILLING_PROFILE','BILLING') from dual; 
+select dbms_metadata.get_ddl('TABLE','S_PRODUCT','SIEBEL') from dual; 
 
 **** Check for snap and use the same in refresh*******
 
@@ -1442,6 +1402,7 @@ WITH ROWID ( "BANKID", "PAREQTIME", "PARESSTATUS", "RANGEID", "TXTYPE" ) INCLUDI
 
 
 select owner, mview_name, last_refresh_type, last_refresh_date from dba_mviews order by owner ;
+
 
 
 Matirilized views
@@ -1698,25 +1659,21 @@ ORDER BY ksppinm
 
 ************* EXPDP IMPDP Export Import****************
 
-SQL> create directory EXPDP as '/u01/oraogg/oexprf1/expdp/';  
+SQL> create directory EXPDP_DIR as '/u02/oradata/export';  
 
 Directory created. 
 
-SQL> grant all on directory EXPDP to system; 
+SQL> grant all on directory EXPDP_DIR to system; 
 
 Grant succeeded.
 
 vi expdp.par
 
 userid='/as sysdba' 
-directory=DMPDIR 
-dumpfile=casoltp_prod_13sep19_%U.dmp 
-logfile=casoltp_prod_13sep19_.log 
-compression=all
-full=y 
-parallel=4 
-
-schemas=brm104_01
+directory=EXPDP_DIR 
+dumpfile=expdp_tables.dmp 
+logfile=expdp_tables.log 
+schemas=ACCOUNT,ASSET,BILLING,CASDS,CATALOG,COMMUSER,SIEBEL
 tables=<schema name>.<table name>
 
 USERID='/ as sysdba'
@@ -1741,12 +1698,12 @@ schemas=<schema1>,<schema2>
 CONTENT=DATA_ONLY
 
 userid='/ as sysdba'
-Directory=EXPDP
-DUMPFILE=expdp_Schema_FACTOPS-4411_%U.dmp
-logfile=expdp_FACTOPS-4411.log
+Directory=IMPDP_SCHEMA
+DUMPFILE=expdp_Schema_PPHRX_PEOPLE_PPH1_OWNER_%U.dmp
+logfile=IMPDP_Schema_PPHRX_PEOPLE_PPH1_OWNER.log
+table_exists_action=truncate
 parallel=4
-schemas=OEAPP,OEOWNER
-compression=all
+schemas=PPHRX_OWNER,PEOPLE_OWNER,PPH1_OWNER
 
 
 nohup expdp "'/ as sysdba '" directory=DBPUMP dumpfile=FACTOPS-4035_%U.dmp logfile=FACTOPS-4035.log parallel=5 TABLES=BRM01.JOURNAL_T FLASHBACK_SCN=12904691149691 filesize=200m compression=all &
@@ -1768,7 +1725,7 @@ Schema refresh datapump
 set head off
 set pages 0
 set long 9999999
-select  dbms_metadata.get_ddl('USER', 'BROM01') || '/' usercreate from DUAL;
+select  dbms_metadata.get_ddl('USER', 'ACCOUNT') || '/' usercreate from DUAL;
 SELECT DBMS_METADATA.GET_GRANTED_DDL('ROLE_GRANT','ACCOUNT') FROM DUAL;
 SELECT DBMS_METADATA.GET_GRANTED_DDL('SYSTEM_GRANT','ACCOUNT') FROM DUAL;
 SELECT DBMS_METADATA.GET_GRANTED_DDL('OBJECT_GRANT','ACCOUNT') FROM DUAL;
@@ -1785,15 +1742,6 @@ set pages 0
 set long 9999999
 select  dbms_metadata.get_ddl('TYPE', 'BRM10_101') || '/' usercreate from DUAL;
 
-
-set heading off;
-set echo off;
-Set pages 999;
-set long 90000;
- 
-spool ddl_list.sql
- 
-select dbms_metadata.get_ddl('TABLE','DEPT','SCOTT') from dual;
 
 verify log:
 
@@ -1874,7 +1822,6 @@ Method 2: If we know SQL
 explain plan for SELECT RULEMNEMONIC, max(DESCRNAME) DESCRNAME FROM ARRFSYSRULEEXECCONFIG WHERE RULEMNEMONIC != 'SCORE' AND EXECVERSION IN ( SELECT DATAVERSION FROM ARRFSYSORGCONFIG WHERE CONFIGTYPE='EXEC'
 AND ORGNAME in ('HSBCCREDIT','HSBCMCDEBIT','HSBCFDCREDIT','HSBCFDDEBIT','HSBCDEBIT','HSBCDEBITPREMIER','HSBCBUSINESSCREDIT','HSBCBUSINESS','HSBCJLFS','MSCREDIT','HSBCCORPORATE','HSBCMALTA')
 AND DATAVERSION IS NOT NULL) group by RULEMNEMONIC;
-
 SELECT PLAN_TABLE_OUTPUT FROM TABLE(DBMS_XPLAN.DISPLAY());
 
 ***** How to purge old data from sys.$aud table***********************
@@ -2083,14 +2030,14 @@ col DB_LINK format a10
 col HOST format a10
 col OWNER format a10
 col DB_LINK format a15
-select * from dba_db_links where DB_LINK='RPT_BRM_PIM';
+select * from dba_db_links where DB_LINK='ASK08_BRM101_DEV05103';
 
 OWNER           DB_LINK                             USERNAME             HOST                                     CREATED
 --------------- ----------------------------------- -------------------- ---------------------------------------- ---------
 PUBLIC          PHLODS003D.WORLD                    ALLPOINTS            t2a2                                     03-FEB-14
 
 
-select DBMS_METADATA.GET_DDL('DB_LINK','RPT_BRM_PIM','PUBLIC') from dual;
+select DBMS_METADATA.GET_DDL('DB_LINK','ASK08_BRM101_DEV05103','PUBLIC') from dual;
 
 CREATE PUBLIC DATABASE LINK "PHLODS003D.WORLD" CONNECT TO "ALLPOINTS" IDENTIFIED BY VALUES ':1' USING 't2a2'
 
@@ -3768,7 +3715,7 @@ prohibited.
 
 [ec2-user@ip-10-86-244-60 ~]$ ls
 account_private_tomcat.pem  key_v2-4bf254b34f688.pem  obill-webs-dev-gghub.pem
-[ec2-user@ip-10-86-244-60 ~]$ ssh -i obill-webs-dev-gghub.pem ec2-user@10.86.247.42
+[ec2-user@ip-10-86-244-60 ~]$ ssh -i obill-webs-dev-gghub.pem ec2-user@10.86.247.23
 ********************************************************************************
 This is a private computer system containing information that is proprietary
 and confidential to the owner of the system.  Only individuals or entities
@@ -3845,8 +3792,3 @@ user: sysman
 -- OEM sysman: Em#13c_PPD$
 
 sehydo447411
-
-***************
-
-
-  954  ./agentDeploy.sh -ignorePrereqs ORACLE_HOSTNAME=10.71.97.146 AGENT_BASE_DIR=/u01/app/oracle/product/agent13c OMS_HOST=ebsemmppd.intuit.net EM_UPLOAD_PORT=1159 AGENT_REGISTRATION_PASSWORD=Intuit01 AGENT_INSTANCE_HOME=/u01/app/oracle/product/agent13c/agent_inst b_doDiscovery=false START_AGENT=TRUE b_forceInstCheck=true -force AGENT_PORT=3872

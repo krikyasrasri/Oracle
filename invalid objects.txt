@@ -1,0 +1,67 @@
+TO check invalid objects
+************************
+
+select * from dba_objects where status != 'VALID';
+
+
+To fix 
+********
+
+
+-          exec sys.utl_Recomp.recomp_parallel;
+
+
+
+
+
+
+select count(*) from dba_objects where status='INVALID' and owner='ORAESB'
+
+
+select object_name,object_type from dba_objects where status='INVALID' and owner='HCM_TST1';
+
+select object_name,object_type from dba_objects where status='INVALID' and object_name="/eab9f844_InteractSifCaller";
+
+
+– compile public synonym that are invalid
+Select ‘alter public synonym ‘||object_name||’ compile;’
+From dba_objects
+Where status <> ‘VALID’
+And owner = ‘PUBLIC’
+And object_type = ‘SYNONYM’;
+
+Find all invaild objects
+************************
+
+COLUMN object_name FORMAT A30
+SELECT owner,
+       object_type,
+       object_name,
+       status
+FROM   dba_objects
+WHERE  status = 'INVALID'
+ORDER BY owner, object_type, object_name;
+
+
+Find the owner and object type of Table or object
+**************************************************
+
+select object_name,object_type,owner,STATUS from dba_objects where object_name like 'LCN_ATTACHMENT_PKG';
+
+how to increase the width of column
+***************************************
+
+ALTER TABLE FACTORY_INFO MODIFY (FACT_ID NUMBER(5));
+
+Example:
+********
+********
+
+Table Name: MSP_MEMBER_REGISTRATION
+Column Name: VNDR_SERV_PRVDR_RFRL_CD
+the column width from varchar2(9) to varchar2(20)..
+
+Code:--->>
+
+ALTER TABLE MSP_MEMBER_REGISTRATION MODIFY (VNDR_SERV_PRVDR_RFRL_CD varchar2(20));
+

@@ -1,0 +1,49 @@
+[usboazudb006:oracle:anitest]/apps/oracle/product> /apps/oracle/product/102/bin/oraenv
+[usboazudb006:oracle:anitest]/apps/oracle/product> env
+MANPATH=/usr/man:/usr/openwin/man
+ORALE_HOME=/apps/oracle/product/102
+TERM=dtterm
+SHELL=/usr/bin/ksh
+SSH_CLIENT=172.18.213.115 60199 22
+OLDPWD=/apps/oracle/product/102
+SSH_TTY=/dev/pts/1
+USER=oracle
+LD_LIBRARY_PATH=/apps/oracle/product/102/lib:/apps/oracle/product/11203/lib:/export/home/oracle/lib
+ORACLE_SID=anitest
+OPENWINHOME=/usr/openwin
+ORACLE_BASE=/apps/oracle
+MAIL=/var/mail//oracle
+PATH=/bin:.:/usr/ccs/bin:/usr/sbin:/usr/bin:/bin:/usr/ucb:/usr/openwin/bin:/usr/local/bin:/opt/bin:/usr/dt/bin/:/usr/ccs/bin:/export/home/oracle/bin:/apps/oracle/product/11203/bin:/apps/oracle/product/102/bin
+PWD=/apps/oracle/product
+EDITOR=/usr/bin/vi
+LANG=en_US.UTF-8
+TZ=US/Eastern
+ORACLE_TERM=dtterm
+PS1=[usboazudb006:oracle:$ORACLE_SID]$PWD>
+SHLVL=1
+HOME=/export/home/oracle
+ORAENV_ASK=NO
+LOGNAME=oracle
+SSH_CONNECTION=172.18.213.115 60199 172.18.41.120 22
+ADM=/apps/oracle/admin
+ORACLE_HOME=/apps/oracle/product/102
+NLS_DATE_FORMAT=yyyy-mm-dd hh24:mi:ss
+_=/bin/env
+[usboazudb006:oracle:anitest]/apps/oracle/product> ORAENV_ASK=YES
+[usboazudb006:oracle:anitest]/apps/oracle/product> /apps/oracle/product/102/bin/oraenv
+ORACLE_SID = [anitest] ? anitest
+[usboazudb006:oracle:anitest]/apps/oracle/product> which sqlplus
+/apps/oracle/product/11203/bin/sqlplus
+[usboazudb006:oracle:anitest]/apps/oracle/product> echo $ORACLE_HOME
+/apps/oracle/product/102
+[usboazudb006:oracle:anitest]/apps/oracle/product> export PATH=$ORACLE_HOME/bin:$PATH
+[usboazudb006:oracle:anitest]/apps/oracle/product> which sqlplus
+/apps/oracle/product/102/bin/sqlplus
+[usboazudb006:oracle:anitest]/apps/oracle/product> sqlplus "/as sysdba"
+
+SQL*Plus: Release 10.2.0.5.0 - Production on Wed Aug 17 04:28:06 2016
+
+Copyright (c) 1982, 2010, Oracle.  All Rights Reserved.
+
+Connected to an idle instance.
+

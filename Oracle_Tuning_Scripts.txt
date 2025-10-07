@@ -1,0 +1,372 @@
+Oracle Tuning And Diagnostics Script
+
+--Active Session Info
+SELECT b.sid, b.serial#, a.spid, b.sql_id, b.program, b.osuser, b.machine,
+b.type, b.event, b.action, b.p1text, b.p2text, b.p3text, b.state, c.sql_text,b.logon_time
+FROM v$process a, v$session b, v$sqltext c
+WHERE a.addr=b.paddr
+AND b.sql_hash_value = c.hash_value
+AND b.STATUS = 'ACTIVE'
+ORDER BY a.spid, c.piece
+ 
+-Trace SQL Query Average Execution Time USING SQL ID
+
+SELECT sql_id, child_number, plan_hash_value plan_hash, executions execs,
+(elapsed_time/1000000)/decode(nvl(executions,0),0,1,executions) avg_etime,
+buffer_gets/decode(nvl(executions,0),0,1,executions) avg_lio, sql_text
+FROM v$sql s
+WHERE s.sql_id='4n01r8z5hgfru'
+ 
+--Get The Detail Explain Plan Using SQL ID
+SELECT plan_table_output FROM TABLE(dbms_xplan.display_cursor('dtdqt19kfv6yx'))
+ 
+--Session Elapsed Processing Time 
+
+SELECT s.sid, s.username, s.module,
+round(t.value/1000000,2) "Elapsed Processing Time (Sec)"
+FROM v$sess_time_model t, v$session s
+WHERE t.sid = s.sid
+AND t.stat_name = 'DB time'
+AND s.username IS NOT NULL
+AND t.value/1000000 >= '1' --running more than 1 second
+ORDER BY round(t.value/1000000,2) DESC
+ 
+--Session Elapsed Processing Time Statistic By SID
+
+SELECT  a.sid, b.username, a.stat_name, ROUND((a.value/1000000),2) "Time (Sec)"
+FROM v$sess_time_model a, v$session b
+WHERE a.sid = b.sid
+AND b.sid = '194'  
+ORDER BY ROUND((a.value/1000000),2) DESC
+ 
+--Use Longops To Check The Estimation Query Runtime
+
+SELECT sid, serial#, opname, target, sofar, totalwork, units, start_time, 
+last_update_time, time_remaining "REMAIN SEC", round(time_remaining/60,2) "REMAIN MINS", 
+elapsed_seconds "ELAPSED SEC", round(elapsed_seconds/60,2) "ELAPSED MINS", 
+round((time_remaining+elapsed_seconds)/60,2)"TOTAL MINS", message time 
+FROM v$session_longops
+WHERE sofar<>totalwork
+AND time_remaining <> '0'
+ 
+--Detect Blocking Session
+
+SELECT sid, serial#, username, status, state, event, 
+blocking_session, seconds_in_wait, wait_time, action, logon_time
+FROM gv$session 
+WHERE state IN ('WAITING') 
+AND wait_class != 'Idle'
+AND event LIKE '%enq%'
+AND type='USER'
+ 
+--Active Table Locking
+
+SELECT b.sid, b.serial#, b.program, b.osuser, b.machine, b.TYPE, b.action,
+c.sql_text,b.logon_time, e.owner, e.object_name "Table Lock"
+FROM v$session b, v$sqltext c, v$locked_object d, dba_objects e
+WHERE b.sql_address = c.address
+AND b.sid = d.session_id
+AND d.object_id = e.object_id
+AND b.STATUS = 'ACTIVE'
+ORDER BY b.sid, c.piece
+ 
+--RAC Active Table Locking
+
+SELECT b.sid, b.serial#, a.spid, b.program, b.osuser, b.machine, 
+b.type, b.event, b.action, b.p1text, b.p2text, b.p3text, 
+b.state, c.sql_text,b.logon_time, 
+b.STATUS,  e.owner, e.object_name "Table Lock"
+FROM gv$process a, gv$session b, gv$sqltext c, gv$locked_object d, dba_objects e
+WHERE a.addr=b.paddr
+AND b.sql_address = c.address
+AND b.sid = d.session_id
+AND d.object_id = e.object_id
+AND b.STATUS = 'ACTIVE'
+ORDER BY a.spid, c.piece
+ 
+--Monitor Highest SQL Wait Time Using Active Session History (ASH)
+
+SELECT h.session_id, h.session_serial#, h.sql_id, h.session_state, 
+h.blocking_session_status, h.event, e.wait_class, h.module, u.username, sql.sql_text,
+SUM(h.wait_time + h.time_waited) "Total Wait Time (Sec)"
+FROM v$active_session_history h, v$sqlarea sql, dba_users u, v$event_name e 
+WHERE h.sample_time BETWEEN sysdate - 1/24 AND sysdate --event in the last hour
+AND h.sql_id = sql.sql_id
+AND h.user_id = u.user_id
+AND h.event# = e.event#
+GROUP BY h.session_id, h.session_serial#, h.sql_id, h.session_state, 
+h.blocking_session_status, h.event, e.wait_class, h.module, u.username, sql.sql_text
+ORDER BY SUM(h.wait_time + h.time_waited) DESC
+ 
+--Monitor Highest Object Wait Time Using Active Session History (ASH)
+
+SELECT o.owner, o.object_name, o.object_type, h.session_id, h.session_serial#, 
+h.sql_id, h.module, SUM(h.wait_time + h.time_waited) "Total Wait Time (Sec)"
+FROM v$active_session_history h, dba_objects o, v$event_name e 
+WHERE h.sample_time BETWEEN sysdate - 1/24 AND sysdate --event in the last hour
+AND h.current_obj# = o.object_id
+AND e.event_id = h.event_id
+GROUP BY  o.owner, o.object_name, o.object_type, h.session_id, h.session_serial#,
+h.sql_id, h.module
+ORDER BY SUM(h.wait_time + h.time_waited) DESC
+ 
+--Monitor Highest Event Wait Time Using Active Session History (ASH)
+
+SELECT h.event "Wait Event", SUM(h.wait_time + h.time_waited) "Total Wait Time (Sec)"
+FROM v$active_session_history h, v$event_name e
+WHERE h.sample_time BETWEEN sysdate - 1/24 AND sysdate --event in the last hour
+AND h.event_id = e.event_id
+AND e.wait_class <> 'Idle'
+GROUP BY h.event
+ORDER BY SUM(h.wait_time + h.time_waited) DESC
+ 
+--Database Time Model Statistic
+
+SELECT wait_class, NAME, ROUND (time_secs, 2) "Time (Sec)",
+ROUND (time_secs * 100 / SUM (time_secs) OVER (), 2) pct
+FROM 
+(SELECT n.wait_class, e.event NAME, e.time_waited / 100 time_secs
+FROM v$system_event e, v$event_name n
+WHERE n.NAME = e.event 
+AND n.wait_class <> 'Idle'
+AND time_waited > 0
+UNION
+SELECT 
+'CPU', 
+'Server CPU', 
+SUM (VALUE / 1000000) time_secs
+FROM v$sys_time_model
+WHERE stat_name IN ('background cpu time', 'DB CPU'))
+ORDER BY time_secs DESC;
+ 
+--Monitor I/O On Data Files
+
+SELECT vfs.file#, dbf.file_name, dbf.tablespace_name, dbf.bytes, vfs.phyrds/vfs.phywrts,
+vfs.phyblkrd/vfs.phyblkwrt, vfs.readtim, vfs.writetim 
+FROM v$filestat vfs, dba_data_files dbf
+WHERE vfs.file# = dbf.file_id
+ 
+--I/O Stats For Data Files & Temp Files
+
+SELECT file_no,
+filetype_name, 
+small_sync_read_reqs "Synch Single Block Read Reqs",
+small_read_reqs "Single Block Read Requests",
+small_write_reqs "Single Block Write Requests",
+round(small_sync_read_latency/1000,2) "Single Block Read Latency (s)",
+large_read_reqs "Multiblock Read Requests",
+large_write_reqs "Multiblock Write Requests",
+async_io "Asynch I/O Availability"
+FROM v$iostat_file
+WHERE filetype_id IN (2,6) --data file and temp file
+ 
+--I/O Stats By Functionality
+
+SELECT function_name,
+small_read_reqs "Single Block Read Requests",
+small_write_reqs "Single Block Write Requests",
+large_read_reqs "Multiblock Read Requests",
+large_write_reqs "Multiblock Write Requests",
+number_of_wait "I/O Waits",
+round(wait_time/1000,2) "Total Wait Time (ms)"
+FROM v$iostat_function
+ORDER BY function_name
+ 
+--Temporary Tablespace Usage By SID
+
+SELECT tu.username, s.sid, s.serial#, s.sql_id, s.sql_address, tu.segtype, 
+tu.extents, tu.blocks, sql.sql_text
+FROM v$tempseg_usage tu, v$session s, v$sql sql
+WHERE tu.session_addr = s.addr
+AND tu.session_num = s.serial#
+AND s.sql_id = sql.sql_id
+AND s.sql_address = sql.address
+ 
+--Monitor Overall Oracle Tablespace 
+
+SELECT d.STATUS "Status",
+d.tablespace_name "Name",
+d.contents "Type",
+d.extent_management "Extent Management",
+d.initial_extent "Initial Extent",
+TO_CHAR(NVL(a.bytes / 1024 / 1024, 0),'99,999,990.900') "Size (M)",
+TO_CHAR(NVL(a.bytes - NVL(f.bytes, 0), 0)/1024/1024,'99,999,999.999') "Used (M)",
+TO_CHAR(NVL((a.bytes - NVL(f.bytes, 0)) / a.bytes * 100, 0), '990.00') "Used %",
+TO_CHAR(NVL(a.maxbytes / 1024 / 1024, 0),'99,999,990.900') "MaxSize (M)",
+TO_CHAR(NVL((a.bytes - NVL(f.bytes, 0)) / a.maxbytes * 100, 0), '990.00') "Used % of Max"
+FROM sys.dba_tablespaces d,
+(SELECT tablespace_name, 
+sum(bytes) bytes, 
+sum(decode(autoextensible,'NO',bytes,'YES',maxbytes))
+maxbytes FROM dba_data_files GROUP BY tablespace_name) a,
+(SELECT tablespace_name, sum(bytes) bytes FROM dba_free_space 
+GROUP BY tablespace_name) f
+WHERE d.tablespace_name = a.tablespace_name(+)
+AND d.tablespace_name = f.tablespace_name(+)
+ORDER BY 10 DESC;
+ 
+--Cache Hit Ratio
+
+SELECT ROUND(((1-(SUM(DECODE(name,
+'physical reads', value,0))/
+(SUM(DECODE(name, 'db block gets', value,0))+
+(SUM(DECODE(name, 'consistent gets', value, 0))))))*100),2)
+|| '%' "Buffer Cache Hit Ratio"
+FROM v$sysstat --Use gv$sysstat if running on RAC environment
+ 
+--Library Cache Hit Ratio
+
+SELECT sum(pins) "Total Pins", sum(reloads) "Total Reloads",
+sum(reloads)/sum(pins) *100 libcache
+FROM v$librarycache --Use v$librarycache if running on RAC environment
+ 
+--DB Session Memory Usage
+
+SELECT se.sid,n.name, MAX(se.value) maxmem
+FROM v$sesstat se, v$statname n
+WHERE n.statistic# = se.statistic#
+AND n.name IN ('session pga memory','session pga memory max',
+'session uga memory','session uga memory max')
+GROUP BY n.name, se.sid
+ORDER BY MAX(se.value) DESCOracle Wait Events FAQ
+Buffer Busy Waits
+Area: Buffer Cache, DBWR
+Possible Causes: The block is being read into the buffer by another session, so the waiting session must wait for the block read to complete.
+Examine: Examine V$SESSION while the problem is occurring to determine the type of block in contention. Tune SQL to access rows with fewer block reads by adding indexes, adjusting the database writer or adding freelists to tables and indexes. Even if there is a huge db_cache_size, the DBA may still see buffer busy waits and increasing the buffer size will not help in this case.
+
+
+Free Buffer Waits
+
+Area: Buffer cache, DBWR, I/O
+Possible Causes: Slow DBWR (possibly due to I/O?). Cache too small
+Examine: Examine write time using operating system statistics. Check buffer cache statistics for evidence of too small cache.
+
+
+DB File Scattered Read
+Area: I/O, SQL statement tuning
+Possible Causes: Poorly written SQL. Slow I/O system
+Examine: Investigate V$SQLAREA to see whether there are SQL statements performing many disk reads. Cross-check I/O system and V$FILESTAT for poor read time.
+
+
+DB File Sequential Read
+Area: I/O, SQL statement tuning
+Possible Causes: Poorly written SQL. Slow I/O system
+Examine: Investigate V$SQLAREA to see whether there are SQL statements performing many disk reads. Cross-check I/O system and V$FILESTAT for poor read time.
+
+
+Enqueue Waits (enq:)
+Area: Locks
+Possible Causes: Depends on type of enqueue
+Examine: Look at V$ENQUEUE_STAT
+
+
+Library Cache Latch Waits (librarycache, library cache pin and library cache lock)
+Area: Latch contention
+Possible Causes: SQL parsing or sharing
+Examine: Check V$SQLAREA to see whether there are SQL statements with a relatively high number of parse calls or a high number of child cursors (column VERSION_COUNT). Check parse statistics inV$SYSSTAT and their corresponding rate for each second.
+
+
+Log Buffer Space
+Area: Log buffer, I/O
+Possible Causes: Log buffer small. Slow I/O system
+Examine: Check the statistic redo buffer allocation retries in V$SYSSTAT. Check configuring log buffer section in configuring memory chapter. Check the disks that house the online redo logs for resource contention.
+
+
+Log File Sync
+Area: I/O, over-commit
+Possible Causes: Slow disks that store the online logs. Unbatched commits
+Examine: Check the disks that house the online redo logs for resource contention. Check the number of transactions (commits + rollbacks) each second, from V$SYSSTAT.
+
+Instance Tuning Using Performance Views – OracleV$ACTIVE_SESSION_HISTORY – view displays active database session activity, sampled once every second.
+
+V$SESS_TIME_MODEL and V$SYS_TIME_MODEL – views contain time model statistics, including DB time which is the total time spent in database calls
+
+V$SESSION_WAIT – view displays the resources or events for which active sessions are waiting.
+
+V$SESSION – view contains the same wait statistics that are contained in the V$SESSION_WAIT view. If applicable, this view also contains detailed information on the object that the session is currently waiting for (object number, block number, file number, and row number), plus the blocking session responsible for the current wait.
+
+V$SESSION_EVENT – view provides summary of all the events the session has waited for since it started.
+
+V$SESSION_WAIT_CLASS – view provides the number of waits and the time spent in each class of wait events for each session.
+
+V$SESSION_WAIT_HISTORY – view provides the last ten wait events for each active session.
+
+V$SYSTEM_EVENT – view provides a summary of all the event waits on the instance since it started.
+
+V$EVENT_HISTOGRAM – view displays a histogram of the number of waits, the maximum wait, and total wait time on a per-child cursor basis.
+
+V$FILE_HISTOGRAM – view displays a histogram of times waited during single block reads for each file.
+
+V$SYSTEM_WAIT_CLASS – view provides the instance wide time totals for the number of waits and the time spent in each class of wait events. This view also shows the object number for which the session is waiting.
+
+V$TEMP_HISTOGRAM – view displays a histogram of times waited during single block reads for each temporary file.
+
+Tuning Oracle Shared PoolSometimes your database might hit the error ORA-04031: unable to allocate 4048 bytes of shared memory (“shared pool”,”unknown object”,”sga heap(1,0)”,”library cache”).
+
+You can use the dbms_shared_pool package to pin large packages, reduce your use of shared memory or increase the amount of available shared memory by increasing the value of the INIT.ORA parameters “shared_pool_reserved_size” and “shared_pool_size”.
+
+Increasing the shared pool size might resolve the problem but it is not necessary will improve the performance of library caching.
+
+Always check the advisory with v$shared_pool_advice view to see the estimated time improvement statistic if you increase the shared pool area.
+
+--Free Memory Available In Shared Pool
+SELECT *
+FROM v$sgastat
+WHERE name = 'free memory'
+AND pool = 'shared pool'
+ 
+--Database Memory Setting
+SELECT component, current_size/1024/1024 "Current Size (MB)",
+min_size/1024/1024 "Min Size (MB)", max_size/1024/1024 "Max Size (MB)",
+user_specified_size/1024/1024 "User Specified Size (MB)", 
+last_oper_type "Type" 
+FROM v$sga_dynamic_components
+ 
+--Estimation Of Shared Memory Pool Size vs. Time Saved
+SELECT shared_pool_size_for_estimated "Pool Size (MB)",
+estd_lc_size "Estimated Library Cache Size (MB)", 
+estd_lc_time_saved/1000000 "Estimated Library Cache Time Saved (Sec)"
+FROM v$shared_pool_adviceTuning Oracle Buffer Cachev$db_cache_advice contains rows that predict the number of physical reads for the cache size corresponding to each row. This view is populated when the DB_CACHE_ADVICE initialization parameter is set to ON.
+
+When the advisory is enabled, there is a small increase in CPU usage as overhead associated with this advisory.
+
+The rows also compute a “physical read factor” which is the ratio of the number of estimated reads to the number of reads actually performed by the real buffer cache during the measurement interval.
+
+--Estimation Of Buffer Cache Size vs. Physical Reads
+
+SELECT size_for_estimate "Cache Size (MB)", 
+buffers_for_estimate "Buffers", 
+estd_physical_read_factor "Estd Phys|Read Factor", 
+estd_physical_reads "Estd Phys| Reads"
+FROM v$db_cache_advice
+WHERE name = 'DEFAULT'
+AND block_size = (SELECT value FROM V$PARAMETER WHERE name = 'db_block_size')
+AND advice_status = 'ON'
+ 
+                                Estd Phys    Estd Phys
+ Cache Size (MB)      Buffers READ Factor        Reads
+---------------- ------------ ----------- ------------
+              30        3,802       18.70  192,317,943      10% of Current Size 
+              60        7,604       12.83  131,949,536
+              91       11,406        7.38   75,865,861
+             121       15,208        4.97   51,111,658
+             152       19,010        3.64   37,460,786
+             182       22,812        2.50   25,668,196
+             212       26,614        1.74   17,850,847
+             243       30,416        1.33   13,720,149
+             273       34,218        1.13   11,583,180
+             304       38,020        1.00   10,282,475      Current Size 
+             334       41,822         .93    9,515,878
+             364       45,624         .87    8,909,026
+             395       49,426         .83    8,495,039
+             424       53,228         .79    8,116,496
+             456       57,030         .76    7,824,764
+             486       60,832         .74    7,563,180
+             517       64,634         .71    7,311,729
+             547       68,436         .69    7,104,280
+             577       72,238         .67    6,895,122
+             608       76,040         .66    6,739,731      200% of Current Size
+The following output shows that if the cache was 212 MB, rather than the current size of 304 MB, the estimated number of physical reads would increase by a factor of 1.74 or 74%. This means it would not be advisable to decrease the cache size to 212MB.
+
+However, increasing the cache size to 334MB would potentially decrease reads by a factor of .93 or 7%. If an additional 30MB memory is available on the host machine and the SGA_MAX_SIZE setting allows the increment, it would be advisable to increase the default buffer cache pool size to 334MB.
+

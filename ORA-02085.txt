@@ -1,0 +1,58 @@
+SQL> select poid_id0 from brm01.account_t@brmsys04 where account_no like '78101831';
+select poid_id0 from brm01.account_t@brmsys04 where account_no like '78101831'
+                                     *
+ERROR at line 1:
+ORA-02085ORA-02085: database link BRMSYS04 connects to BRMSYS01
+
+
+SQL>
+SQL> show parameter global_names;
+ORA-00942: table or view does not exist
+
+
+SQL> conn / as sysdba
+Connected.
+SQL> show user
+USER is "SYS"
+SQL> show parameter global_names;
+
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+global_names                         boolean     TRUE
+SQL> alter system set global_names=FALSE scope=both;
+
+System altered.
+
+SQL> show parameter global_names;
+
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+global_names                         boolean     FALSE
+SQL> drop public DATABASE LINK BRMSYS04;
+
+Database link dropped.
+
+SQL>
+SQL> CREATE PUBLIC DATABASE LINK "BRMSYS04" CONNECT TO "BRM01" IDENTIFIED BY EBPBRM_inTuiT01 using 'brmsys04';
+
+Database link created.
+
+SQL> exit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production
+With the Partitioning option
+oracle@pdevbrmdbk12:/home/oracle->sqlplus brm102/brm102@brmdev12
+
+SQL*Plus: Release 11.2.0.4.0 Production on Sun Apr 14 22:33:29 2019
+
+Copyright (c) 1982, 2013, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production
+With the Partitioning option
+
+SQL> select poid_id0 from brm01.account_t@brmsys04 where account_no like '78101831';
+
+  POID_ID0
+----------
+2273440402

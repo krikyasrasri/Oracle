@@ -1,0 +1,155 @@
+~~~~~~~~~~~~~~~~~~Toad Application- SQL Editor Commands ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+--know role, find tables associated--------
+
+select table_name, privilege from dba_tab_privs where grantee = 'MCN_USR_RL' order by table_name  
+
+find roles assign to A table
+
+select * from role_tab_privs where table_name = 'tablename'
+
+
+--know table name, find roles associated-----
+
+select grantee, privilege from dba_tab_privs where table_name = 'DBA_USERS' order by grantee 
+
+--Verify If User Has Account On Database And What Roles They Have Been Granted.  Include % For Wild Card.  UserID Must Be In All Caps.--
+
+select * from dba_role_privs where grantee like 'E021773';
+
+to pull up the users under the role
+
+select * from dba_role_privs where granted_role='ROLENAME';
+
+pull up the roles in database
+
+select role from dba_roles order by role;
+
+
+--Change Password--
+
+alter user e025784 identified by blue126$;
+
+alter user e028757 password expire;
+
+--Unlock Account--
+
+alter user e019827 account unlock;
+
+
+--Create Database User--
+
+create user e019628 identified by abc1234$ password expire;
+
+
+--Create Database User--
+
+begin sys.user_admin_prc.create_db_user('e019628','abc1234$'); end;
+
+
+--Create Application User--
+
+begin sys.user_admin_prc.create_appl_user('e023005','asdf345$'); end;
+
+
+--Create Database Administrator (DBA)--
+
+begin sys.user_admin_prc.create_dba_user('e019628','abc1234$'); end;
+
+
+--Create Schema Owner--
+
+begin sys.user_admin_prc.create_schema_owner('BNB_OWNER','abc1234$'); end;
+
+
+
+--Grant Role To User--
+ 
+grant prod_select to e023005;
+
+
+--Grant Role To User--
+
+begin sys.user_admin_prc.grant_role('e019628','mcdba_role'); end;
+
+
+--Remove User From Database--
+
+drop user e019628;
+
+
+--Remove User From Database--
+
+begin sys.user_admin_prc.drop_user('e019628'); end;
+
+
+--Remove User From Role--
+
+revoke sys_tool_user from e019628;
+
+
+--View What Roles Are Included In A Database--
+
+select role from MC_ADMIN order by role;
+
+
+
+--eTrust Automatic Email Request To Administer Databases dolt1s tolt2s--
+ 
+alter user e019628 grant connect through lcn_proxy;
+
+
+--modify default role from NO to YES
+
+alter user e026731 default role all; 
+
+
+-- Granting Create session to  a user --
+
+grant create session to e022397;
+
+
+
+--to change the profile
+
+alter user e028757 profile apps_user_profile;
+
+--- not to expire password
+
+alter user e028757 profile default;
+
+alter user e028757 profile apps_user_profile;
+
+
+***********************************************************
+
+select
+  lpad(' ', 2*level) || granted_role "User, his roles and privileges"
+from
+  (
+  /* THE USERS */
+    select 
+      null     grantee, 
+      username granted_role
+    from 
+      dba_users
+    where
+      username like upper('%&enter_username%')
+  /* THE ROLES TO ROLES RELATIONS */ 
+  union
+    select 
+      grantee,
+      granted_role
+    from
+      dba_role_privs
+  /* THE ROLES TO PRIVILEGE RELATIONS */ 
+  union
+    select
+      grantee,
+      privilege
+    from
+      dba_sys_privs
+  )
+start with grantee is null
+connect by grantee = prior granted_role;
+ 
