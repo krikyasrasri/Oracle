@@ -1,0 +1,52 @@
+SQL> select * from V$DATABASE_BLOCK_CORRUPTION;
+
+     FILE#     BLOCK#     BLOCKS CORRUPTION_CHANGE# CORRUPTIO
+---------- ---------- ---------- ------------------ ---------
+        84    1277255          2         5.7471E+12 LOGICAL
+        84    1277263          2         5.7471E+12 LOGICAL
+        84    1277294          3         5.7471E+12 LOGICAL
+
+SQL> select tablespace_name, segment_type, owner, segment_name from dba_extents where file_id=84 and 1277294 between block_id and block_id + blocks -1;
+
+TABLESPACE_NAME SEGMENT_TYPE       OWNER           SEGMENT_NAME
+--------------- ------------------ --------------- ------------------------------
+SCM_STD_TBL     LOBINDEX           SECURECODE      SYS_IL0000328482C00010$$
+
+SQL> select tablespace_name, segment_type, owner, segment_name from dba_extents where file_id=84 and 1277263  between block_id and block_id + blocks -1;
+
+TABLESPACE_NAME SEGMENT_TYPE       OWNER           SEGMENT_NAME
+--------------- ------------------ --------------- ------------------------------
+SCM_STD_TBL     TABLE              SECURECODE      ARBANKINFO_BKP
+
+SQL> select tablespace_name, segment_type, owner, segment_name from dba_extents where file_id=84 and 1277255  between block_id and block_id + blocks -1;
+
+TABLESPACE_NAME SEGMENT_TYPE       OWNER           SEGMENT_NAME
+--------------- ------------------ --------------- ------------------------------
+SCM_STD_TBL     TABLE              SECURECODE      ARBANKCALLOUTS_BKP
+
+DBV output:
+dbv file='/dbs19/pscm2s/scm_std_tbl_39.dbf'
+DBVERIFY: Release 10.2.0.4.0 - Production on Mon Sep 6 23:25:14 2010
+Copyright (c) 1982, 2007, Oracle.  All rights reserved.
+DBVERIFY - Verification starting : FILE = /dbs19/pscm2s/scm_std_tbl_39.dbf
+DBV-00201: Block, DBA 353598791, marked corrupt for invalid redo application
+DBV-00201: Block, DBA 353598792, marked corrupt for invalid redo application
+DBV-00201: Block, DBA 353598799, marked corrupt for invalid redo application
+DBV-00201: Block, DBA 353598800, marked corrupt for invalid redo application
+DBV-00201: Block, DBA 353598830, marked corrupt for invalid redo application
+DBV-00201: Block, DBA 353598831, marked corrupt for invalid redo application
+DBV-00201: Block, DBA 353598832, marked corrupt for invalid redo application
+DBVERIFY - Verification complete
+
+Total Pages Examined         : 1920000
+Total Pages Processed (Data) : 1494726
+Total Pages Failing   (Data) : 0
+Total Pages Processed (Index): 9813
+Total Pages Failing   (Index): 0
+Total Pages Processed (Other): 415341
+Total Pages Processed (Seg)  : 0
+Total Pages Failing   (Seg)  : 0
+Total Pages Empty            : 120
+Total Pages Marked Corrupt   : 7
+Total Pages Influx           : 0
+Highest block SCN            : 1298994752 (1373.1298994752)

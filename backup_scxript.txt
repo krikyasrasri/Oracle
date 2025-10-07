@@ -1,0 +1,28 @@
+select sid, 
+       start_time,
+       sysdate time_now,
+       start_time + (totalwork * (sysdate-start_time)/sofar) est_comp_time,
+       ROUND((totalwork * (sysdate-start_time)/sofar) * 1440,0) minutes, 
+       round(totalwork*8/1024,0) total_megs, 
+       round(sofar*8/1024,0)            megs_read,
+       round((sofar/totalwork) * 100,1)||'%' perc_compl
+from   v$session_longops
+where  totalwork > sofar 
+AND    opname NOT LIKE '%aggregate%'
+AND    opname like 'RMAN%'; 
+
+***************************************
+
+SELECT SID, SERIAL#, CONTEXT, SOFAR,message,
+
+TOTALWORK,ROUND(SOFAR/TOTALWORK*100,2)
+
+FROM V$SESSION_LONGOPS
+
+WHERE ROUND(SOFAR/TOTALWORK*100) !=100
+
+AND OPNAME LIKE 'RMAN%'
+
+AND OPNAME NOT LIKE '%aggregate%'
+
+AND TOTALWORK != 0   AND SOFAR <> TOTALWORK; 
