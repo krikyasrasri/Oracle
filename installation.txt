@@ -1,0 +1,32 @@
+Requirment for 12c database : 
+
+1) Storage Minimum Requirements
+--------------------------------
+Installation Type 	Disk Space for Software Files
+
+Enterprise Edition      9.2 GB
+
+Standard Edition        9.1 GB
+
+Standard Edition One     9.1 GB
+
+2) 5 GB of space in the /tmp directory.
+
+3) Memory Minimum Requirements
+--------------------------------
+Ensure that your system meets the following memory requirements:
+
+Minimum: 1 GB of RAM
+
+Recommended: 2 GB of RAM or more
+
+4) RAM 	Swap Space
+-------------------
+Between 1 GB and 2 GB   1.5 times the size of RAM
+
+Between 2 GB and 16 GB   Equal to the size of RAM
+
+More than 16 GB            16 GB
+
+
+

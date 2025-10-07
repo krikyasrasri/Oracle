@@ -1,0 +1,83 @@
+/u01/app/oracle/product/11.1/middleware/agent11g
+
+
+Applies to:
+Enterprise Manager Grid Control - Version: 10.2.0.4 and later   [Release: 10.2 and later ]
+Oracle Solaris on SPARC (64-bit)
+Symptoms
+
+The scripts to startup and shutdown grid control components (gcstartup and agentstup ) on machine startup and shutdown do not work on Oracle Solaris
+
+
+Cause
+The provided scripts (gcstartup and agentstup (defined in $ORACLE_HOME/install/unix/scripts) are
+wrong because /etc/init.d/funcitons does not exist on Solaris.  The scripts provided are written for linux.
+
+Solution
+The following workaround can be used. This is an example of getting the agent to startup/shutdown on machine reboot.
+
+1) create script testagent2 in /etc/init.d
+
+-rwxr-xr-x 1 root other 419 Feb 5 12:50 testagent2
+
+# more testagent2
+#!/bin/sh
+#Script to start and stop the Agent during shutdown and restart of the machine
+
+ORACLE_HOME=/u01/Software/Oracle/64/agent10g/agent10g
+
+case "$1" in
+'start')
+echo "starting the emagent"
+/bin/su oracle $ORACLE_HOME/agentstartup/starttest.sh
+;;
+'stop')
+
+echo "stopping the emagent"
+/bin/su oracle $ORACLE_HOME/agentstartup/stoptest.sh
+
+;;
+*)
+echo "Usage: /etc/init.d/testagent2 {start | stop}"
+;;
+esac
+
+2) as root:-
+
+Check the run level (to see which rcX.d script needs to be linked)
+eg. run -r to find out run level and then link the script:-
+
+# ln -s /etc/init.d/testagent2 /etc/rc1.d/K99testagent2
+# ln -s /etc/init.d/testagent2 /etc/rc2.d/S99testagent2
+# ln -s /etc/init.d/testagent2 /etc/rc3.d/S99testagent2
+
+
+3) create starttest.sh and stoptest.sh in $ORACLE_HOME/agentstartup (it can be in any
+directory agentstartup is created for purposes of this example)
+
+-rwxr-xr-x 1 oracle dba 93 Feb 5 12:44 starttest.sh
+-rwxr-xr-x 1 oracle dba 92 Feb 5 12:52 stoptest.sh
+
+% more starttest.sh
+
+set ORACLE_HOME=/u01/Software/Oracle/64/agent10g/agent10g
+$ORACLE_HOME/bin/emctl start agent
+
+% more stoptest.sh
+
+set ORACLE_HOME=/u01/Software/Oracle/64/agent10g/agent10g
+$ORACLE_HOME/bin/emctl stop agent
+
+check that these run ok (as user oracle)
+
+4) check that the script runs ok from /etc/init.d as follows:-
+
+su root
+./testagent2 start
+
+if it starts ok...test the stop script
+./testagent2 stop
+
+5) reboot the machine.
+
+Check emctl status agent and ps -ef | grep emagent after machine has restarted
