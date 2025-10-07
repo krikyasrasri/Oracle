@@ -1,0 +1,25 @@
+11.2.0.2.0 to 12c we can upgrade 
+11.2.0.1.0 to 11.2.0.2 upgrade then 12c upgrade.
+10.2.0.1 to 10.2.0.4 to 12c 
+
+11g onwards outplace upgrade.
+
+out place upgrade: valid customer support account.
+                   download the patches/s.w higher version and normal install. fresh install and upgrade downtime is very less.
+
+In place upgrade : Overwrite the existing binaries.
+                   1. Upgrade the s/w and database 
+				   2 ways upgrdes
+				   i. Manuval upgrda
+				   ii. DBUA
+				   
+				   
+				   1. Upgarde the Oracle Database
+				   2  move database from different Oracle home with in the same release.
+				   
+				   
+control file enque
+------------------
+				   
+				SELECT s.SID, USERNAME AS "User", PROGRAM, MODULE, ACTION, LOGON_TIME "Logon", l.* FROM V$SESSION s, V$ENQUEUE_LOCK l  
+				WHERE l.SID = s.SIDAND l.TYPE = 'CF'AND l.ID1 = 0AND l.ID2 = 2

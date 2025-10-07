@@ -1,0 +1,72 @@
+hsun133 - PROD082
+Home PATH : /opt/oracle/orabase/product/10.2.0/db_1
+
+Datafile location
+----------------
+/opt/oracle/oradata/PROD082/data1/
+/opt/oracle/oradata/PROD082/log1/
+/opt/oracle/oradata/PROD082/data2/
+************************
+hsun137 - PROD081 
+Home PATH  /opt/oracle/u01/app/oracle/product/10.2.0/db_1    
+ 
+ Data file locations
+--------------------
+/opt/oracle/u06/PROD081/data/
+*******************
+ SEMLSARDPD01- PROD075- 
+ Home PATH - /u401/app/oracle/product/11.2.0/db_1      
+
+Data file locations
+--------------------
+/u402/oradata/PROD075/
+/u403/oradata/PROD075/
+/u408/oradata/PROD075/
+***********************************
+
+semlsardud03- UTV035 
+HOME PATH - /u001/app/oracle/product/11.2.0/db_1
+
+Datafile locations
+-----------------
+/u007/oradata/UTV035/
+/u008/oradata/UTV035/
+/u003/oradata/UTV035/
+/u002/oradata/UTV035/
+*************************************
+semlsardud03-UTB016
+HOME PATH: /u301/app/oracle/product/11.2.0/db_2
+
+Datafile location
+------------------
+/u302/oradata/UTB016
+/u303/oradata/UTB016/
+/u304/oradata/UTB016/
+/u007/oradata/
+/u301/oradata/UTB016/
+*********************************
+semlsardud03-test081
+HOME PATH:/u301/app/oracle/product/11.2.0/db_2
+
+DAtafile Location
+-----------------
+/u301/oradata/test081/
+/u302/oradata/test081/
+*********************************
+
+semlsardtd02- TEST064- 
+HOME PATH: /u201/app/oracle/product/11.2.0/db_1
+
+Datafile Location
+-------------------
+/u202/oradata/TEST064/
+/u203/oradata/TEST064/
+/u204/oradata/TEST064/
+
+
+
+*********************************************
+find /u001/app/oracle/admin/D0345CDB/adump/*.aud -mtime +20 |xargs  -exec rm {} \;
+
+
+DB failure for usboazudb009.usbod.astrazeneca.net#INC08456932
