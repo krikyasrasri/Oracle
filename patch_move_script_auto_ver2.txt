@@ -1,0 +1,41 @@
+$ uname -a | awk '{ print $1}'
+SunOS
+
+
+OS=`uname`
+case "$OS" in
+
+  SunOS)
+	scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p6880880_112000_SOLARIS64.zip /oracle/local/tools
+	scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p13343447_112020_SOLARIS64.zip /oracle/local/tools
+	scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p13343424_112020_SOLARIS64.zip /oracle/local/tools
+	scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p13343438_112030_SOLARIS64.zip /oracle/local/tools
+	scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p13348650_112030_SOLARIS64.zip /oracle/local/tools
+	scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p9352164_10204_Solaris-64.zip /oracle/local/tools
+	scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p13343461_11107_Solaris-64.zip /oracle/local/tools
+        ;;
+
+   AIX)
+
+        scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p6880880_112000_AIX64-5L.zip /oracle/local/tools
+        scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p13343447_112020_AIX64-5L.zip /oracle/local/tools
+        scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p13343424_112020_AIX64-5L.zip /oracle/local/tools
+        scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p13343438_112030_AIX64-5L.zip /oracle/local/tools
+        scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p13348650_112030_AIX64-5L.zip /oracle/local/tools
+	scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p9352164_10204_AIX5L.zip /oracle/local/tools
+	scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p13343461_111070_AIX5L.zip /oracle/local/tools
+        ;;
+
+ Linux)
+	scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p6880880_112000_Linux-x86-64.zip /oracle/local/tools
+	scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p13343424_112020_Linux-x86-64.zip /oracle/local/tools
+	scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p13343447_112020_Linux-x86-64.zip /oracle/local/tools
+	scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p13348650_112030_Linux-x86-64.zip /oracle/local/tools
+	scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p13343438_112030_Linux-x86-64.zip /oracle/local/tools
+	scp -P 2222 e026910@10.154.22.36:/ora_repository/patch/opatch/p9352164_10204_Linux-x86-64.zip /oracle/local/tools
+        ;;
+ *)
+        print "Unsupported OS"
+        exit 1
+        ;;
+esac

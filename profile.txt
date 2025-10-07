@@ -1,0 +1,267 @@
+select profile from dba_profiles where profile like 'ADV%';
+select profile from dba_profiles where profile like 'DB%';
+select profile from dba_profiles where profile like 'MOL%';
+select profile from dba_profiles where profile like 'APPS%';
+
+
+********************************************
+
+11201C @ dba1stl0:/ora_repository/db_security/duties
+$ cat standard_profiles.sql
+REM -----------------------------------------
+REM Create the profile for APPLICATION user
+REM -----------------------------------------
+
+CREATE PROFILE apps_user_profile
+LIMIT
+CONNECT_TIME unlimited
+PASSWORD_REUSE_TIME unlimited
+PASSWORD_REUSE_MAX 6
+PASSWORD_LIFE_TIME unlimited
+PASSWORD_VERIFY_FUNCTION password_verify
+FAILED_LOGIN_ATTEMPTS unlimited ;
+
+REM -----------------------------------------
+REM Create the profile for DATABASE user
+REM -----------------------------------------
+
+CREATE PROFILE db_user_profile
+LIMIT
+SESSIONS_PER_USER 3
+CONNECT_TIME 60
+IDLE_TIME 60
+FAILED_LOGIN_ATTEMPTS 3
+PASSWORD_LIFE_TIME 60
+PASSWORD_REUSE_TIME unlimited
+PASSWORD_REUSE_MAX 6
+PASSWORD_LOCK_TIME 10
+PASSWORD_GRACE_TIME 7
+PASSWORD_VERIFY_FUNCTION password_verify;
+
+REM -----------------------------------------
+REM Create the profile for ADVANCED DATABASE user
+REM -----------------------------------------
+
+create profile ADV_USER_PROFILE
+LIMIT
+CONNECT_TIME UNLIMITED
+IDLE_TIME 1440
+SESSIONS_PER_USER 20
+FAILED_LOGIN_ATTEMPTS 3
+PASSWORD_GRACE_TIME 7
+PASSWORD_LIFE_TIME 60
+PASSWORD_LOCK_TIME 10
+PASSWORD_REUSE_TIME UNLIMITED
+PASSWORD_REUSE_MAX 6
+PASSWORD_VERIFY_FUNCTION password_verify;
+
+REM ----------------------------------------------------
+REM Create the profile for MOL DATABASE user
+REM ----------------------------------------------------
+
+create profile MOL_USER_PROFILE
+limit
+composite_limit unlimited
+sessions_per_user 20
+cpu_per_session unlimited
+cpu_per_call unlimited
+logical_reads_per_session unlimited
+logical_reads_per_call unlimited
+idle_time 1440
+connect_time unlimited
+private_sga unlimited
+failed_login_attempts 3
+password_life_time unlimited
+password_reuse_time unlimited
+password_reuse_max unlimited
+password_verify_function password_verify
+password_lock_time unlimited
+password_grace_time unlimited;
+11201C @ dba1stl0:/ora_repository/db_security/duties
+
+
+************************************************
+
+col profile format a20;
+col RESOURCE_NAME format a30;
+col LIMIT format a20;
+select PROFILE,RESOURCE_NAME,LIMIT from dba_profiles where profile like 'MOL%';
+
+
+
+*****************************************************************************************************************************
+
+SESSIONS_PER_USER  
+ Specify the number of concurrent sessions to which you want to limit the user. 
+ 
+CPU_PER_SESSION  
+ Specify the CPU time limit for a session, expressed in hundredth of seconds. 
+ 
+CPU_PER_CALL  
+ Specify the CPU time limit for a call (a parse, execute, or fetch), expressed in hundredths of seconds.  
+ 
+CONNECT_TIME  
+ Specify the total elapsed time limit for a session, expressed in minutes.  
+ 
+IDLE_TIME  
+ Specify the permitted periods of continuous inactive time during a session, expressed in minutes. Long-running queries and other operations are not subject to this limit.  
+ 
+LOGICAL_READS_PER_SESSION  
+ Specify the permitted number of data blocks read in a session, including blocks read from memory and disk. 
+ 
+LOGICAL_READS_PER_CALL  
+ Specify the permitted the number of data blocks read for a call to process a SQL statement (a parse, execute, or fetch). 
+ 
+PRIVATE_SGA  
+ Specify the amount of private space a session can allocate in the shared pool of the system global area (SGA), expressed in bytes. Use K or M to specify this limit in kilobytes or megabytes.  
+ 
+ 
+ Note: This limit applies only if you are using multi-threaded server architecture. The private space for a session in the SGA includes private SQL and PL/SQL areas, but not shared SQL and PL/SQL areas. 
+
+  
+COMPOSITE_LIMIT  
+ Specify the total resources cost for a session, expressed in service units. Oracle calculates the total service units as a weighted sum of CPU_PER_SESSION, CONNECT_TIME, LOGICAL_READS_PER_SESSION, and PRIVATE_SGA. 
+
+See Also: ALTER RESOURCE COST for information on how to specify the weight for each session resource 
+
+  
+ 
+
+
+password_parameters 
+
+FAILED_LOGIN_ATTEMPTS  
+ Specify the number of failed attempts to log in to the user account before the account is locked. 
+ 
+PASSWORD_LIFE_TIME  
+ Specify the number of days the same password can be used for authentication. The password expires if it is not changed within this period, and further connections are rejected.  
+ 
+PASSWORD_REUSE_TIME  
+ Specify the number of days before which a password cannot be reused. If you set PASSWORD_REUSE_TIME to an integer value, then you must set PASSWORD_REUSE_MAX to UNLIMITED. 
+ 
+PASSWORD_REUSE_MAX  
+ Specify the number of password changes required before the current password can be reused. If you set PASSWORD_REUSE_MAX to an integer value, then you must set PASSWORD_REUSE_TIME to UNLIMITED. 
+ 
+PASSWORD_LOCK_TIME  
+ Specify the number of days an account will be locked after the specified number of consecutive failed login attempts. 
+ 
+PASSWORD_GRACE_TIME  
+ Specify the number of days after the grace period begins during which a warning is issued and login is allowed. If the password is not changed during the grace period, the password expires. 
+ 
+PASSWORD_VERIFY_FUNCTION  
+ The PASSWORD_VERIFY_FUNCTION clause lets allows a PL/SQL password complexity verification script to be passed as an argument to the CREATE PROFILE statement. Oracle provides a default script, but you can create your own routine or use third-party software instead. 
+ 
+ SEC_MAX_FAILED_LOGIN_ATTEMPTS specifies the number of authentication attempts that can be made by a client on a connection to the server process. After the specified number of failure attempts, the connection will be automatically dropped by the server process.
+ 
+ function 
+ Specify the name of the password complexity verification routine. 
+ 
+ 
+ NULL 
+ Specify NULL to indicate that no password verification is performed. 
+ 
+ 
+
+
+Restrictions on password parameters: 
+
+If PASSWORD_REUSE_TIME is set to an integer value, PASSWORD_REUSE_MAX must be set to UNLIMITED. If PASSWORD_REUSE_MAX is set to an integer value, PASSWORD_REUSE_TIME must be set to UNLIMITED. 
+
+If both PASSWORD_REUSE_TIME and PASSWORD_REUSE_MAX are set to UNLIMITED, then Oracle uses neither of these password resources. 
+
+If PASSWORD_REUSE_MAX is set to DEFAULT and PASSWORD_REUSE_TIME is set to UNLIMITED, then Oracle uses the PASSWORD_REUSE_MAX value defined in the DEFAULT profile. 
+
+If PASSWORD_REUSE_TIME is set to DEFAULT and PASSWORD_REUSE_MAX is set to UNLIMITED, then Oracle uses the PASSWORD_REUSE_TIME value defined in the DEFAULT profile. 
+
+If both PASSWORD_REUSE_TIME and PASSWORD_REUSE_MAX are set to DEFAULT, then Oracle uses whichever value is defined in the DEFAULT profile. 
+
+
+
+SQL> select RESOURCE_NAME,LIMIT from dba_profiles where PROFILE='DB_TECH';
+
+RESOURCE_NAME                    LIMIT
+-------------------------------- ----------------------------------------
+COMPOSITE_LIMIT                  DEFAULT
+SESSIONS_PER_USER                DEFAULT
+CPU_PER_SESSION                  DEFAULT
+CPU_PER_CALL                     DEFAULT
+LOGICAL_READS_PER_SESSION        DEFAULT
+LOGICAL_READS_PER_CALL           DEFAULT
+IDLE_TIME                        DEFAULT
+CONNECT_TIME                     DEFAULT
+PRIVATE_SGA                      DEFAULT
+FAILED_LOGIN_ATTEMPTS            5
+PASSWORD_LIFE_TIME               UNLIMITED
+
+RESOURCE_NAME                    LIMIT
+-------------------------------- ----------------------------------------
+PASSWORD_REUSE_TIME              360
+PASSWORD_REUSE_MAX               4
+PASSWORD_VERIFY_FUNCTION         IBM_PASSWORD_VERIFY_FUNC
+PASSWORD_LOCK_TIME               UNLIMITED
+PASSWORD_GRACE_TIME              5
+
+16 rows selected.
+
+
+ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED; 
+
+CREATE PROFILE AVISBUDGET_SRVCACCT_NOEXPIRE
+LIMIT
+COMPOSITE_LIMIT                   DEFAULT
+SESSIONS_PER_USER                 DEFAULT
+CPU_PER_SESSION                   DEFAULT
+CPU_PER_CALL                      DEFAULT
+LOGICAL_READS_PER_SESSION         DEFAULT
+LOGICAL_READS_PER_CALL            DEFAULT
+IDLE_TIME                         DEFAULT
+CONNECT_TIME                      DEFAULT
+PRIVATE_SGA                       DEFAULT
+FAILED_LOGIN_ATTEMPTS             5
+PASSWORD_VERIFY_FUNCTION          IBM_PASSWORD_VERIFY_FUNC
+PASSWORD_LIFE_TIME                UNLIMITED
+PASSWORD_REUSE_TIME               UNLIMITED
+PASSWORD_REUSE_MAX                UNLIMITED
+PASSWORD_LOCK_TIME                UNLIMITED
+PASSWORD_GRACE_TIME               5;  
+
+CREATE PROFILE AVISBUDGET_SRVCACCT_NOEXPIRE
+LIMIT
+COMPOSITE_LIMIT                  DEFAULT
+SESSIONS_PER_USER                DEFAULT
+CPU_PER_SESSION                  DEFAULT
+CPU_PER_CALL                     DEFAULT
+LOGICAL_READS_PER_SESSION        DEFAULT
+LOGICAL_READS_PER_CALL           DEFAULT
+IDLE_TIME                        DEFAULT
+CONNECT_TIME                     DEFAULT
+PRIVATE_SGA                      DEFAULT
+FAILED_LOGIN_ATTEMPTS            5
+PASSWORD_LIFE_TIME               UNLIMITED
+PASSWORD_REUSE_TIME              360
+PASSWORD_REUSE_MAX               5
+PASSWORD_VERIFY_FUNCTION         IBM_PASSWORD_VERIFY_FUNC
+PASSWORD_LOCK_TIME               UNLIMITED
+PASSWORD_GRACE_TIME              5;
+
+
+
+
+CREATE PROFILE DB_TECH
+LIMIT
+COMPOSITE_LIMIT                  UNLIMITED
+SESSIONS_PER_USER                UNLIMITED
+CPU_PER_SESSION                  UNLIMITED
+CPU_PER_CALL                     UNLIMITED
+LOGICAL_READS_PER_SESSION        UNLIMITED
+LOGICAL_READS_PER_CALL           UNLIMITED
+IDLE_TIME                        UNLIMITED
+CONNECT_TIME                     UNLIMITED
+PRIVATE_SGA                      UNLIMITED
+FAILED_LOGIN_ATTEMPTS            3
+PASSWORD_LIFE_TIME               UNLIMITED
+PASSWORD_REUSE_TIME              720
+PASSWORD_REUSE_MAX               8
+PASSWORD_VERIFY_FUNCTION         DB_VERIFY_FUNCTION
+PASSWORD_LOCK_TIME               UNLIMITED
+PASSWORD_GRACE_TIME              5;

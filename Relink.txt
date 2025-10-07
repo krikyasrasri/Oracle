@@ -1,0 +1,397 @@
+Relinking Oracle Home FAQ ( Frequently Asked Questions) (Doc ID 1467060.1)
+
+
+1)  What is relinking ?
+
+The predefined functions for any language are defined inside the library files for that language  and it is required to Compile the code to create a binary format file (object file).The Object files are then linked together with OS libraries to create one executable file. Successful linking requires all the function definition should be found , Linking generates an executable from it's component. The terms linking and relinking mean the same in this context and used interchangeably. In both cases an executable is being built from pre-built components.
+
+ 
+
+The types of files involved in relinking are:
+
+    * .c   (source code file)
+    * .o   (object file)
+    * .a   (archived file)
+    * .so or .sl on HP/UX (PA-RISC)  (library files)
+
+
+
+2)  What is relinking of Oracle Home Binaries ?
+
+The Oracle software is shipped in form of object files (.o files),  archive files (.a files) and then grouped in a compressed jar format. These object files are then get "relinked" at the operating system level during installation to create usable executables.  This guarantees a reliable integration with functions provided by the OS system libraries. Generally, during relinking the current executables are renamed and saved, while the new executables are being generated. Once the new executables are in place and you have successfully tested that the new executables are working, you can delete the old executables in the directory ORACLE_HOME/bin. Each old executable has an 'O' appended to it's file name, for example, 'exp' is renamed to 'expO'.
+
+The advantage of providing the object file is that it reduces the patch/package size , instead of providing the whole libraries  or program , only objects files are shipped which then linked with OS libraries to create usable executables.
+
+ 
+
+ The following are the directories where various object files and archive files will reside in Oracle Home.
+
+- /lib
+
+- /usr/lib
+
+- $ORACLE_HOME/lib
+
+- $ORACLE_HOME/rdbms/lib
+
+- $ORACLE_HOME/<product>/lib
+
+There is file named “ sysliblist “ which lives in $ORACLE_HOME/rdbms/lib or $ORACLE_HOME/lib directory. It contains a list of other libraries, which need to be included.
+
+ 
+
+ 
+3)  Why Oracle Home Relinking is required ?
+
+Oracle Home relinking  is required to link Oracle provided object files to the OS system library. Relinking  guarantees a reliable integration with functions provided by the OS system libraries.
+
+ 
+
+Relinking occurs automatically under these circumstances:
+
+    An Oracle Database has  been  installed with Oracle Universal Installer ( OUI )
+    An Oracle Database Patchset  has been applied via Oracle Universal Installer ( OUI )
+    An Oracle Database Patch has been applied  using  “ opatch tool “
+
+Relinking can also be performed manually.
+
+ 
+
+ 
+4)  When Manual relinking is required?
+
+Manual relinking is required in below situations.
+
+A)  After OS upgrade, Generally OS Vendors guarantee operating system binary compatibility, therefore, no  reinstall or relink of the Oracle software is required when upgrading these operating systems unless  specifically stated otherwise.
+
+"However Oracle recommends performing manual relinking of Oracle Home binaries after OS upgrade".
+
+B)   After Operating system has been patched.( Recommended ).
+
+C)   Relinking phase during installation of Oracle Home has errors/warnings.
+
+D)  Application of a RDBMS patch failed in relinking phase.
+
+E)   Applications gives error for missing lib files in RDBMS home.
+
+F)   Troubleshooting RDBMS home binaries issue.
+
+G)  After manually modifying RDBMS home binary permissions.
+
+H)  Verifying Integrity of Oracle Home Binaries.
+
+I)  Resetting Oracle Home binaries permission.
+
+ 
+
+ 
+5)  Is relinking required after an OS upgrade , Downgrade , Patching or removal of the patch ?
+
+Yes, Oracle recommends to perform manual relinking of Oracle Home Binaries after OS Upgrade , Patching , Downgrade or removal of the Patch or any change which impact OS library behavior . Successful relinking shows Oracle Executable are properly linked with OS binaries.
+
+ 
+6)  How to relink Oracle Home ?
+
+Below are the steps to relink Oracle Home Binaries.
+
+A) Set Environment variables
+
+When linking the following environment variables need to be set:
+
+    DISPLAY
+    TERM or ORACLE_TERM
+    ORACLE_HOME
+    PATH to include $ORACLE_HOME/bin
+    LD_LIBRARY_PATH $ORACLE_HOME/lib:/usr/lib
+    SHLIB_PATH $ORACLE_HOME/lib:/usr/lib (for HP-UX only)
+
+B) Verify umask value is set as 022 , in case umask value is not correct ,  set umask to 022 ( run cammand " umask 022 " )
+
+C) Stop all oracle instances accessing this ORACLE_HOME, listener and sqlplus in case if any.  For AIX OS only as root user run slibclean, after 5 minutes run slibclean once again.
+
+It is safe to run slibclean even if other database are up and running , please refer to below document for more details
+
+Note 435071.1 Can Slibclean command be Executed when the Database is up and running?
+
+D) As Oracle user perform following Command:
+$ORACLE_HOME/bin/relink
+
+Accepted values for parameter:
+
+"all ", " oracle " , " network",  "client" , "client_sharedlib" , "interMedia" , "precomp" , "utilities ", "oemagent",  "ldap".
+
+The manual relinking logs can be collected using unix redirection feature as mentioned below :
+$  $ORACLE_HOME/bin/relink all >> relink.out
+
+ The Ouput will be written to relink.out file.
+
+E)  Additional option available for 11GR2
+
+11.2.0.1 Database onwards there is an another option to use “ Oracle Universal Installer  “ to perform relinking as mentioned below:
+
+Below option can be used with runinstaller
+
+  -relink : For performing relink actions on the oracle home
+
+Usage: -relink -maketargetsxml <location of maketargetsxml> [-makedepsxml <location of makedepsxml>] [name=value]
+
+Example :
+$ORACLE_HOME/oui/bin/runInstaller -relink -waitForCompletion -maketargetsxml  $ORACLE_HOME/inventory/make/makeorder.xml  -logLocation $ORACLE_HOME/install ORACLE_HOME=$ORACLE_HOME > $ORACLE_HOME/install/relink.log 2>&1
+
+Reference
+
+Note 883299.1   Oracle 11gR2 Relink New Feature
+
+
+F) relinking individual components
+
+You can manually relink any one executable or all executables at any one time using the supplied 'MAKE' files and providing an appropriate link_option. Below describes the command used to perform a manual relink:
+
+            
+make -f <makefile> <link_option>
+
+To relink an executable the above command is executed by the user who is logged on to the system as the software owner. The command is executed from the LIB directory where the <makefile> resides, i.e.
+
+         
+$ORACLE_HOME/<product_name>/lib
+
+where <product_name> could be oracle, forms45 or reports30 etc.
+
+
+G ) debugging relinking logs
+
+relinking script is a shell script and can be debugged as like any normal script as below:
+$ sh -x relink all >relink_all.out 2>&1
+
+The output will be written to relink_all.out file.
+
+ 
+
+ 
+7)  Where to find relinking logs ?
+
+
+linking during Oracle Home Installation or Patchset installation
+
+relinking logs during installation of  Oracle Home binaries can be found in below file:
+$ORACLE_HOME/install/make.log
+
+Also you can fine relinking logs in OUI logs for the database installation. Below document describes the details of OUI installation log files:
+
+Note 403212.1 "Location Of Logs For Opatch And OUI
+
+ 
+
+linking during Oracle patching using opatch 
+
+relinking occurs during patch ( PSU or One off patch ) installation using opatch and logs can be found in opatch logs .Below document describes the details of OUI installation log files:
+
+Note 403212.1 "Location Of Logs For Opatch And OUI
+
+ 
+
+Manual relinking
+
+The manual relinking logs can also be collected using unix redirection feature:
+$  $ORACLE_HOME/bin/relink all >> relink.out
+
+The logs will be redirected to relink.out file
+
+Additional feature for 11gR2
+
+ 
+
+Option 1
+
+If  relink is performed using OUI then  "$ORACLE_HOME/install/relink.log" is not created by default.
+
+To send the relink  output to $ORACLE_HOME/install/relink.log we need to redirect the output explicitly.
+
+ 
+
+$ORACLE_HOME/oui/bin/runInstaller -relink -waitForCompletion -maketargetsxml
+
+$ORACLE_HOME/inventory/make/makeorder.xml -logDir $ORACLE_HOME/install ORACLE_HOME=$ORACLE_HOME > $ORACLE_HOME/install/relink.log 2>&1
+
+ 
+
+ 
+
+Option 2
+
+In case of  " relink all " command, it always creates a new log file with a name "relink.log" and it will not append log information to the existing relink log file . The previous log will be saved with a timestamp ( Ex: relinkActions2009-09-14_09-01-10-PM.log )
+
+ 
+
+ 
+8)  What are the known issues with manual relinking ?
+
+A) Relink all is a generic script and it will try to relink all the components irrespective of the fact whether the components is installed or not and will give errors .You need to verify if the components in installed or not ( use “opatch lsinventory –details” command to list installed components )
+
+ For Oracle Client where not all the components is installed , “ relink all “ is likely to give many errors. The better way to relink a client home is to issue below command:
+$ relink client
+
+B) Executing "relink all" will reset the ownership and permission for root owned files. After "relink all", it is recommended to  change the ownership and permission back.
+
+More details are in Note.1555453.1 - Executing "relink all" resets permission of extjob, jssu, oradism, externaljob.ora
+
+ 
+
+ 
+9)  How to troubleshoot relinking issues ?
+
+Relinking errors during Oracle Home installation or Applying Patchset.
+
+A) Please check whether  the database version you are trying to install is certified on your OS version or not. Refer to below documentation and look for " Certification (or compatibility) Information " to check the certification details:
+
+ Note 1194734.1 Where do I find that on My Oracle Support (MOS) [Video]
+
+B) Verify if the downloaded software is not corrupt , Please refer to below documentation for more details:
+
+Note 549617.1 How To Verify The Integrity Of A Patch/Software Download? [Video]
+
+C) Confirm whether you have verified all the OS  pre-requirements as described in below documentaion O Installation Guide:
+
+Note 169706.1 Oracle Database on Unix AIX,HP-UX,Linux,Mac OS X,Solaris,Tru64 Unix Operating Systems Installation and Configuration Requirements Quick Reference (8.0.5 to 11.2).
+
+Or
+
+Run the install validation engine from the following article to verify system requirements.
+
+Note 250262.1 "RDA 4 - Health Check / Validation Engine Guide"
+
+ Use the following command for Health Check
+ ./rda.sh -dT hcve
+
+ The results are written to a HTML file that is located in the RDA output directory.The HTML file can be opened in any web browser and will give details reports of any OS pre-requirements missing in the server , verify if the OS meets all the OS pre-requirements for installing the respective database version.
+
+D) Verify if below command’s are included in PATH :
+
+which ar
+
+which ld
+
+which cc
+
+which gcc
+
+which make
+
+If any of the above commands does not return the PATH of command it means the command PATH is not set and you have to set it manually. Also try running these commands manually and see these commands working fine at OS level
+
+
+E) Check if enough space is availble in /tmp directory and filesystem where ORACLE_HOME Resides
+
+F) The relinking error while installation is gathered in below log file:
+
+$ORACLE_HOME/install/make.log and OUI log file
+
+G) Identify the first occurrence of “ warning” , “fatal” , “ error” , "stop” , "exception” , "severe ", "Exit Code 1"  messages and these messages will help you out in identifying the root cause if relinking failure . To find known issues check for known issues section in this document or search in MOS portal if any known issue exist for these messages  .In case you are still facing the issue , please raise an SR with Oracle Support and upload the above details in SR for investigation.
+
+ 
+
+Relinking errors during patching of Oracle Home using opatch
+
+A)    Check the following points
+
+1) You have downloaded correct version of patch ( Acording to your database version and OS version )
+
+2) The patch zip file name that you have downloaded shows the correct version and platform.
+
+3) The size of the downloaded zip file is the same as shown on the download page.
+
+4) The patch is downloaded/transferred in "BINARY" mode if it is downloaded on the some other machine and then transferred to this machine.
+
+5) The patch is unzipped at the same server which is being patched.
+
+6 ) Verify if the downloaded patch zip file is not corrupt as per below Note.
+
+Note: 549617.1 - How To Verify The Integrity Of A Patch/Software Download? [Video].
+
+
+B)    If patch has been applied and patching has been failed?
+
+1) Restore from pre-backup stage or in case backup is not availble rollback the failed patch as described in below documentation.
+
+Note.312767.1 How to rollback a failed Interim patch installation.
+
+2) Perform manual relinking of the database , if you still get the same error it means the issue is not with patching , if error is no more appearing then its issue with patching.
+
+3) Check if enough space is availble in /tmp directory and filesystem where ORACLE_HOME Resides
+
+3) Look into the opatch logs and identify the first occurrence of the error, Below document describe the details of opatch log files.
+
+Note 403212.1 "Location Of Logs For Opatch And OUI"
+
+5) Identify the first occurrence of “ warning” , “fatal” , “ error” , "stop” , "exception” , "severe ", "Exit Code 1"  messages and these messages will help you out in identifying the root cause if relinking failure . To find known issues check for known issues section in this document or search in MOS portal if any known issue exist for these messages  .In case you are still facing the issue , please raise an SR with Oracle Support and upload the above details in SR for investigation.
+
+ 
+
+ 
+10)  What are the utilities to troubleshoot relinking issues?
+
+A ) nm
+
+Used to list all symbols in an .o, .a and binary file. It is useful in finding where a symbol is defined. A useful command to use would be:
+
+            
+    nm <file> | grep <symbol>
+
+Where <file> states the name of the library you want to examine and <symbol> names the symbol you are actually looking for.
+
+ 
+
+ B) ar
+
+Builds and maintains libraries and archives of .o files. Using this command you can   group .o files into a single archive (.a) for use in creating executables. It is used to insert, delete & replace objects files from an archive library.
+
+ 
+
+C) Symfind
+
+A script available at below location
+$ORACLE_HOME/bin/symfind <symbol>:
+
+looks for a symbol in the shared objects of Oracle. This script basically performs the two above commands.
+
+ 
+11)  Does relinking occurs in windows ?
+
+Relinking concept is applicable for Unix platform only , relinking does not occur in Windows OS.
+
+ 
+Known Issues
+1) AIX Operating System
+
+i) You are expected to see below warning messages during relinking phase in AIX ( while  database installation , patching or manual relinking ).
+
+ld: 0711-773 WARNING:
+ld: 0711-783 WARNING:
+ld: 0711-319 WARNING:
+ld: 0711-415 WARNING:
+ld: 0711-224 WARNING:
+ld: 0711-324 WARNING:
+ld: 0711-301 WARNING:
+ld: 0711-345 WARNING:
+
+ 
+
+Please refer to below document for more details
+Note 402945.1  While installing one-off Patch on AIX systems, getting several WARNING messages: OUI-67215 - TOC overflow and/or xlC: not found / xlC: Execute permission denied
+
+ 
+
+II) If you are seeing " ld: 0711-780 SEVERE ERROR" while relinking phase you have to follow solution as per below documentaion as this is not a ignorable error.
+
+Note 1379753.1 AIX: ORA-07445 [ksmpclrpga] OR ORA-07445 [ksupop] ORA-07445 [lxhlinfo] OR Link/Relink/Make Fails With: ld: 0711-780 SEVERE ERROR: Symbol .ksmpfpva (entry 58964) in object libserver11.a[ksmp.o]
+
+ 
+2) Solaris Operating System
+
+Below Messages can be ignored during relinking phase in Solaris Operating system ( while 11gR2 database installation , patching or manual relinking ).
+ld: warning: symbol `_start' has differing types:
+(file /home03/oracle/product/11.2.0/dbhome_1/lib/prod/lib/v9/crt1.o type=FUNC; file /home03/oracle/product/11.2.0/dbhome_1/lib//libserver11.a(skds.o) type=OBJT);
+
+
+Please refer to below Document for more details.
+Note 1446945.1  "ld: warning: symbol `_start' has differing types:"  While Installing Or Patching 11gR2 On Oracle Solaris Platform

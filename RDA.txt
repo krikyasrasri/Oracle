@@ -1,0 +1,912 @@
+
+Steps:
+
+1)Find the OS Version using uname -a 
+
+Move using winscp the Respective Sun/Aix RDA Zip files to any common filesystem like  /tmp and unzip it.
+
+2)Run the following scripts:
+
+ cd /tmp/rda
+
+./rda.sh -cv  --> Loading &Checking the directory .You should get "No issues found".
+
+./rda.sh -S    --> Give the appropriate values(y/n) for the database releted questions w.r.t 
+		   Oracle_Home,domain(mastercard.net),Oracle_SID,ASM,RMAN,DATAGAURD,Database Hang Analysis,Oracle VPD,RDBMS Information etc.
+
+	             FOR ALL OTHER questions   like  Collects Oracle 	Communications ASAP 	Information,Oracle Communications Network Discovery 			Information,Hyperion,Siebal,Essbase etc --> Just Hit 'Return' to accept the default (N) 
+
+Finally,Run
+
+./rda.sh -ny -e SQL_LOGIN=/,SQL_SYSDBA=1 -p Rac_Assessment --> 
+
+creates the required output file(Zip file),just copy it using winscp to location V:\Arch Services General\Data Architecture-offshore\RDA and  rename it as RDA.RDA_Servername_<SID>.zip
+
+cd /tmp/rda/output
+
+chmod 755 /output
+
+$ ls -lrt *.zip
+-rw-r-----    1 oracle   dba        17325744 Sep  2 08:40 RDA.RDA_cds2ksc40.zip
+
+chmod 755  RDA.RDA_cds2ksc40.zip
+
+Once copied,update status as "completed" in the XLS & go ahead with next DB....
+
+
+********************************************************************************************
+************************************************************************************************************************************************************************************************************************************************************************************
+
+$ ./rda.sh -S
+-------------------------------------------------------------------------------
+S000INI: Initializes the Data Collection
+-------------------------------------------------------------------------------
+RDA uses the output file prefix to identify all files belonging to the same
+data collection. The prefix must start with a letter and must contain only
+alphanumeric characters.
+
+Enter the prefix to be used for all the generated files
+Hit 'Return' to accept the default (RDA)
+>
+
+Enter the directory used for all the files to be generated
+Hit 'Return' to accept the default (/tmp/rda_sun/rda/output)
+>
+
+Do you want to keep report packages from previous runs (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+Is a fresh collection performed as the default action (Y/N)?
+Hit 'Return' to accept the default (Y)
+>
+
+Enter the Oracle home to be used for data analysis
+Hit 'Return' to accept the default (/oracle/product/v10.2.0.4_Comp)
+>
+
+Enter the domain name for this server
+Hit 'Return' to accept the default (mastercard.net)
+>
+
+-------------------------------------------------------------------------------
+S010CFG: Collects Key Configuration Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S090OCM: Set up the Configuration Manager Interface
+-------------------------------------------------------------------------------
+RDA benefits from Oracle Configuration Manager by improving its data
+collection. Oracle Configuration Manager (OCM) collects the configuration
+information and uploads it to the OCM Repository in connected mode. When OCM
+is configured in disconnected mode, it adds the OCM payload to the RDA report
+packages in future RDA runs.
+
+Select the mode that you want to install Oracle Configuration Manager in
+/oracle/product/v10.2.0.4_Comp
+  C  Connected Mode
+  D  Disconnected Mode
+Enter the letter corresponding to your choice
+Hit 'Return' to accept the default (C)
+> D
+
+Do you want to install OCM Database collection scripts (Y/N)?
+Hit 'Return' to accept the default (Y)
+>
+
+Enter a SYSDBA user for installing the OCM Database collection scripts
+Hit 'Return' to accept the default (sys)
+>
+
+Is /oracle/product/v10.2.0.4_Comp an Oracle E-Business Suite Database Oracle
+home (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S909RDSP: Produces the Remote Data Collection Reports
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S919LOAD: Produces the External Collection Reports
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S990FLTR: Controls Report Content Filtering
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S999END: Finalizes the Data Collection
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S020SMPL: Controls Sampling
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S100OS: Collects the Operating System Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S105PROF: Collects the User Profile
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S110PERF: Collects Performance Information
+-------------------------------------------------------------------------------
+Can ADDM, AWR, and ASH be used (Y/N)?
+Hit 'Return' to accept the default (Y)
+>
+
+-------------------------------------------------------------------------------
+S120NET: Collects Network Information
+-------------------------------------------------------------------------------
+Do you want RDA to perform the network ping tests (Y/N)?
+Hit 'Return' to accept the default (N)
+> Y
+
+Enter the name of the node the script is running on (used for ping tests)
+Hit 'Return' to accept the default (cds2stl7)
+>
+
+Enter a remote node connecting to this server (used for ping tests)
+>
+
+Enter the node hosting the database instance (used for ping tests)
+Hit 'Return' to accept the default (cds2stl7)
+>
+
+Enter the node where the Web Server/Forms server is on (used for ping tests)
+>
+
+Enter a typical client node connecting to the database (used for ping tests)
+>
+
+-------------------------------------------------------------------------------
+S122ONET: Collects Oracle Net Information
+-------------------------------------------------------------------------------
+Do you want RDA to collect Oracle Net information (Y/N)?
+Hit 'Return' to accept the default (N)
+> Y
+
+-------------------------------------------------------------------------------
+S125GTW: Collects Transparent/Procedural Gateway Information
+-------------------------------------------------------------------------------
+Is Transparent/Procedural Gateway information requested (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S130INST: Collects the Oracle Installation Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S140OVMS: Collects Oracle VM Server Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S142OVMM: Collects Oracle VM Manager Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S200DB: Controls RDBMS Data Collection
+-------------------------------------------------------------------------------
+Is there a database for RDA to analyze (Y/N)?
+Hit 'Return' to accept the default (Y)
+> Y
+
+Is the database associated to the current Oracle home (Y/N)?
+Hit 'Return' to accept the default (Y)
+>
+
+Enter the Oracle SID to be analyzed
+Hit 'Return' to accept the default (porb1s)
+>
+
+Is the INIT.ORA for the database to be analyzed located on this system? (Y/N)
+Hit 'Return' to accept the default (Y)
+>
+
+Enter the location of the spfile or the INIT.ORA (including the directory and
+file name)
+Hit 'Return' to accept the default
+(/oracle/product/v10.2.0.4_Comp/dbs/initporb1s.ora)
+>
+
+Enter an Oracle User ID (userid only) to view DBA_ and V$ tables. If RDA will
+be run under the Oracle software owner's ID, enter a forward slash (/) here,
+and enter Y at the SYSDBA prompt to avoid a prompt for the database password
+at runtime.
+Hit 'Return' to accept the default (system)
+>
+
+Is 'system' a SYSDBA user (will connect as SYSDBA) (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S201DBA: Collects RDBMS Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S203DBM: Collects RDBMS Memory Information
+-------------------------------------------------------------------------------
+Do you want to collect RDBMS memory information (Y/N)?
+Hit 'Return' to accept the default (N)
+> Y
+
+-------------------------------------------------------------------------------
+S204LOG: Collects Database Trace and Log Files
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S205BR: Collects Database Backup and Recovery Information
+-------------------------------------------------------------------------------
+Do you want RDA to collect backup/recovery information (Y/N)?
+Hit 'Return' to accept the default (N)
+> y
+
+Is Recovery Manager (RMAN) used for backup and recovery (Y/N)?
+Hit 'Return' to accept the default (Y)
+> y
+
+Are RMAN log files or Media Manager files available for collection (Y/N)?
+Hit 'Return' to accept the default (Y)
+> n
+
+Answering Y to the question requires you to provide the absolute path of the
+related RMAN trace file.
+
+Is the debug option used while running RMAN (Y/N)?
+Hit 'Return' to accept the default (N)
+> n
+
+Is the channel tracing option enabled while running RMAN (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+Is the RMAN catalog used (Y/N)?
+Hit 'Return' to accept the default (Y)
+>
+
+Enter the user schema containing the RMAN catalog
+Hit 'Return' to accept the default (rman)
+>
+
+Can the RMAN catalog be exported (Y/N)?
+Hit 'Return' to accept the default (Y)
+>
+
+Enter the DBA user for exporting the RMAN catalog
+Hit 'Return' to accept the default (system)
+>
+
+-------------------------------------------------------------------------------
+S206RSRC: Collects Database Resource Manager Information
+-------------------------------------------------------------------------------
+Do you want to collect Resource Manager information for this database (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S207D2PC: Collects Distributed Transaction Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S208OMM: Collects Oracle Multimedia or Oracle interMedia Information
+-------------------------------------------------------------------------------
+Do you want to collect Oracle interMedia information (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S209XDB: Collects XDB Information
+-------------------------------------------------------------------------------
+Do you want RDA to collect XDB information (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S210OLAP: Collects OLAP Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze OLAP (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S211EXA: Collects Exadata Information
+-------------------------------------------------------------------------------
+Do you want to collect Exadata information (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S212DNFS: Collects Direct NFS Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S213SP: Collects SQL*Plus/iSQL*Plus Information
+-------------------------------------------------------------------------------
+Do you want RDA to collect SQL*Plus/iSQL*Plus information (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S215OES: Collects Oracle Express Server Information
+-------------------------------------------------------------------------------
+Do you want RDA to collect Oracle Express Server information (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S220IA: Collects Intelligent Agent Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S230STC: Collects Streams Configuration Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S231STM: Collects Streams Monitoring Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S235TTEN: Collects Oracle TimesTen In-Memory Database Information
+-------------------------------------------------------------------------------
+Should RDA analyze Oracle TimesTen (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S240OCS: Controls Oracle Collaboration Suite Data Collection
+-------------------------------------------------------------------------------
+Do you want RDA to collect Oracle Collaboration Suite information (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S241MAIL: Collects Oracle Collaboration Suite Mail Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S242WAC: Collects Web Access Client Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S243WMC: Collects Webmail Client Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S244OCAL: Collects Oracle Calendar Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S245RTC: Collects Real Time Communication Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S246DSCS: Collects Discussions Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S247WKSP: Collects Workspaces Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S248CONT: Collects Oracle Content Services Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S249WRLS: Collects Wireless Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S250BEE: Collects Beehive Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S260OMS: Collects Oracle Management Server Information (obsolete)
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S290DEV: Collects Oracle Developer Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S292APEX: Collects APEX Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle APEX (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S294LANG: Collects Oracle Language Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze any language applications (OCI/OCCI, precompilers)
+(Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S298PLNC: Collects Oracle PL/SQL Native Compilation Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle PL/SQL Native Compilation (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S300IAS: Collects Web Server Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Web Application Server, Oracle iAS, Oracle
+9iAS, or Oracle AS 10g (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S301WLS: Collects Oracle WebLogic Server Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle WebLogic Server (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S302WSP: Collects IBM WebSphere Application Server Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze IBM WebSphere Application Server (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S305ASBR: Collects Oracle Application Server Backup and Recovery Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S306ASG: Collects Application Server Guard Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S310J2EE: Collects J2EE/OC4J Information
+-------------------------------------------------------------------------------
+Is the Oracle J2EE/OC4J used in this Oracle home (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S313ASIT: Collects Information for Multiple Fusion Middleware Installation
+Types
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S320IFS: Collects iFS (iFS, CMSDK, Files) Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S325PDA: Collects Portal Diagnostics Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S326JIVE: Collects Jive Information
+-------------------------------------------------------------------------------
+Do you want to collect Jive information (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S328WCI: Collects Oracle WebCenter Information
+-------------------------------------------------------------------------------
+Should RDA analyze Oracle WebCenter 11g (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S330SSO: Collects Single Sign-On Information
+-------------------------------------------------------------------------------
+Do you want RDA to collect Oracle Single Sign-On (SSO) information (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S335SES: Collects Oracle Secure Enterprise Search Information
+-------------------------------------------------------------------------------
+Do you want RDA to collect Oracle Secure Enterprise Search information (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S340OID: Collects Oracle Internet Directory Information
+-------------------------------------------------------------------------------
+Is Oracle Internet Directory used in this Oracle home (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S342OVD: Collects Oracle Virtual Directory Information
+-------------------------------------------------------------------------------
+Is Oracle Virtual Directory used (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S350WEBC: Collects Web Cache Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S352ECM: Controls Oracle Enterprise Content Management Data Collection
+-------------------------------------------------------------------------------
+The specified Oracle Enterprise Content Management directory does not exist or
+does not contain some Oracle Enterprise Content Management related-files. The
+collection is disabled.
+
+Hit 'Return' to continue
+
+-------------------------------------------------------------------------------
+S353UOA: Collects Oracle Universal Online Archive Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S354UCM: Collects Oracle Universal Content Management Information
+-------------------------------------------------------------------------------
+Do you want RDA to collect Oracle Universal Content Management 10g information
+(Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S360CRID: Collects Oracle Access Manager (COREid) Information
+-------------------------------------------------------------------------------
+Do you want RDA to collect Oracle Access Manager (COREid) information (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S362OIM: Collects Oracle Identity Manager Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Identity Manager (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S365COHR: Collects Oracle Coherence Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Coherence (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S366JDBC: Collects Oracle Java DB Connectivity (JDBC) Information
+-------------------------------------------------------------------------------
+Do you want RDA to collect Oracle Java DB Connectivity (JDBC) information
+(Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S367JDEV: Collects Oracle JDeveloper Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S368TOPL: Collects Oracle TopLink Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S370SOA: Collects Oracle SOA Suite Information
+-------------------------------------------------------------------------------
+Should RDA analyze Oracle SOA Suite 11g (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S371ESB: Collects Enterprise Service Bus Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S372OWSM: Collects Oracle Web Services Manager Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S373BPEL: Collects Oracle BPEL Process Manager Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S374BAM: Collects Business Activity Monitoring Information
+-------------------------------------------------------------------------------
+Is Business Activity Monitoring (BAM) in use (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S375B2B: Collects Oracle Business to Business (B2B) Information
+-------------------------------------------------------------------------------
+Should RDA analyze Oracle Business to Business (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S376BPM: Collects Oracle Business Process Management Suite Information
+-------------------------------------------------------------------------------
+Should RDA analyze Oracle Business Process Management Suite (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S377CAMM: Collects Oracle Composite Application Monitor and Modeler
+Information
+-------------------------------------------------------------------------------
+Should RDA analyze Oracle Composite Application Monitor and Modeler
+information (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S380BRM: Collects Oracle Communications Billing and Revenue Management
+Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S385ODI: Collects Oracle Data Integrator Information
+-------------------------------------------------------------------------------
+Oracle Data Integrator collections can take a long time. Be selective in your
+request to reduce collection time.
+
+Do you want RDA to analyze Oracle Data Integrator (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S390DSCV: Collects Oracle Discoverer Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S391OWB: Collects Oracle Warehouse Builder Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Warehouse Builder (OWB) (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S392ODM: Collects Oracle Data Mining Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Data Mining (ODM) (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S397BI: Collects Oracle Business Intelligence Enterprise Edition Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Business Intelligence Enterprise Edition
+(formerly Siebel Business Analytics) (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S398DAC: Collects Data Warehouse Administration Console Information
+-------------------------------------------------------------------------------
+Should RDA analyze Oracle Business Intelligence Data Warehouse Administration
+Console (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S400RAC: Collects Cluster Information
+-------------------------------------------------------------------------------
+Do you want RDA to collect information for a clustered environment (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S400RACD: Performs a Database Hang Analysis
+-------------------------------------------------------------------------------
+Are you experiencing an instance hang or slowness (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S401OCFS: Collects Oracle Cluster File System Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S402ASM: Collects Automatic Storage Management Information
+-------------------------------------------------------------------------------
+Do you want RDA to collect Automatic Storage Management (ASM) information
+(Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S403ACFS: Collects ASM Cluster File System Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S405DG: Collects Data Guard Information
+-------------------------------------------------------------------------------
+Do you want RDA to collect Data Guard information (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S410GRID: Collects Oracle Management Server and Repository Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Enterprise Manager Grid Control (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S420AGT: Collects Oracle Enterprise Manager Agent Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Enterprise Manager Agent (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S430DBC: Collects Database Control Information
+-------------------------------------------------------------------------------
+Is the Oracle Enterprise Manager Database Control in use (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S440EM: Collects Enterprise Manager OMS and Repository Information (obsolete)
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S450GRDN: Collects Oracle Guardian Information
+-------------------------------------------------------------------------------
+Do you want RDA to run Oracle Guardian (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S480NM: Collects Oracle Communications Network Mediation Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Communications Network Mediation (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S482ND: Collects Oracle Communications Network Discovery Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Communications Network Discovery (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S483NI: Collects Oracle Communications Network Integrity Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Communications Network Integrity (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S484ASAP: Collects Oracle Communications ASAP Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Communications Automated Service Activation
+Program (ASAP) (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S486IPSA: Collects Oracle Communications IPSA Software Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Communications IP Service Activator (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S487OSM: Collects Oracle Communications OSM Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Communications Order and Service Management
+(Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S488PS: Collects Oracle Communications Policy Services Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Communications Policy Services (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S489CM: Collects Oracle Communications Configuration Manager Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Communications Configuration Manager (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S490UIM: Collects Oracle Communications Unified Inventory Management
+Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Communications Unified Inventory Management
+(Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S500ACT: Collects Oracle E-Business Suite Application Information
+-------------------------------------------------------------------------------
+Do you want RDA to collect Oracle Applications information (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S510ADX: Collects AutoConfig and Rapid Clone Information
+-------------------------------------------------------------------------------
+Do you want RDA to collect Oracle Applications AutoConfig and Rapid Clone
+information (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S530SEBL: Collects Siebel Information
+-------------------------------------------------------------------------------
+Do you want RDA to collect Siebel information (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S550ESS: Collects Oracle Essbase Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Essbase (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S554HPSV: Collects Oracle Hyperion Provider Services Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Hyperion Provider Services (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S563HPL: Collects Oracle Hyperion Planning Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Oracle Hyperion Planning (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S572EPMA: Collects Enterprise Performance Management Architect Information
+-------------------------------------------------------------------------------
+Do you want RDA to analyze Enterprise Performance Management Architect (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S590RET: Collects Oracle Retail Information
+-------------------------------------------------------------------------------
+Should RDA analyze Oracle Retail (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S700ADBA: Collects ACS Oracle Database Assessment Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S720PSFT: Controls PeopleSoft Data Collections
+-------------------------------------------------------------------------------
+This module controls the following PeopleSoft collection types:
+ * Tuxedo Application Server
+ * Process Scheduler
+ * Web Application Server
+ Do you want RDA to analyze any of those collection types (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S725PDBA: Collects PeopleSoft Information from Oracle Database
+-------------------------------------------------------------------------------
+Should RDA analyze PeopleSoft information from Oracle Database (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S728PAPP: Collects PeopleSoft Information from Tuxedo Application Server
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S729PSCH: Collects PeopleSoft Information from Process Scheduler
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S730PWEB: Collects PeopleSoft Information from Web Application Server
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S800NPRF: Samples Performance Information (root not required)
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S801RPRF: Samples Performance Information (root privileges required)
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S898XSMP: Samples User Defined Data
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S900REXE: Performs the Remote Data Collections
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S910CCR: Collects OCM Diagnostic Information
+-------------------------------------------------------------------------------
+"Do you want to diagnose OCM installations (Y/N)?
+Hit 'Return' to accept the default (N)
+>
+
+-------------------------------------------------------------------------------
+S997CUST: Collects Customer-Specific Information
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+S998XTRA: Collects User Defined Data
+-------------------------------------------------------------------------------
+
+ At this point, it should be possible to collect the diagnostic information.
+ sqlplus should connect to the database with the userid specified during the
+ setup.
+
+ With the same command used so far, start the data collection:
+
+    ./rda.pl [-v]
+ or
+    ./rda.sh [-v]
+
+ The -v option is optional. It allows to see the collection progression.
+
+ Once it has completed, the results will be packaged for sending it to Oracle
+ Support Services, if this file was generated to assist in resolving a Service
+ Request.
+
+ Selective data collection is also possible. For more details, the command
+ usage can be displayed by specifying the -h option, or complete manual page
+ with the -M option.
+
+porb1s @ cds2stl7:/tmp/rda_sun/rda
+$

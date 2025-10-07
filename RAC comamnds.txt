@@ -1,0 +1,61 @@
+TO check what the instance running.
+
+
+SQL> desc gv$instance
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ INST_ID                                            NUMBER
+ INSTANCE_NUMBER                                    NUMBER
+ INSTANCE_NAME                                      VARCHAR2(16)
+ HOST_NAME                                          VARCHAR2(64)
+ VERSION                                            VARCHAR2(17)
+ STARTUP_TIME                                       DATE
+ STATUS                                             VARCHAR2(12)
+ PARALLEL                                           VARCHAR2(3)
+ THREAD#                                            NUMBER
+ ARCHIVER                                           VARCHAR2(7)
+ LOG_SWITCH_WAIT                                    VARCHAR2(15)
+ LOGINS                                             VARCHAR2(10)
+ SHUTDOWN_PENDING                                   VARCHAR2(3)
+ DATABASE_STATUS                                    VARCHAR2(17)
+ INSTANCE_ROLE                                      VARCHAR2(18)
+ ACTIVE_STATE                                       VARCHAR2(9)
+ BLOCKED                                            VARCHAR2(3)
+
+SQL> select INSTANCE_NAME,STARTUP_TIME,STATUS,HOST_NAME from  gv$instance;
+
+INSTANCE_NAME    STARTUP_TIM STATUS
+---------------- ----------- ------------
+pdw3s            24-JAN-2012 OPEN
+pdw2s            12-NOV-2011 OPEN
+pdw1s            12-NOV-2011 OPEN
+
+
+
+Check if the listener  is running in all the nodes
+***************************************************
+
+pdw3s @ pdw2stl8:/oracle/admin/pdw3s/diag/rdbms/pdw/pdw3s/trace
+$ srvctl status listener
+Listener LISTENER is enabled
+Listener LISTENER is running on node(s): pdw2stl6,pdw2stl7,pdw2stl8
+pdw3s @ pdw2stl8:/oracle/admin/pdw3s/diag/rdbms/pdw/pdw3s/trace
+
+
+TO check if  the services are running in NODES
+***********************************************
+
+pdw3s @ pdw2stl8:/oracle/admin/pdw3s/diag/rdbms/pdw/pdw3s/trace
+$ srvctl status service -d pdw
+Service pdw_ext_high_web is running on instance(s) pdw2s
+Service pdw_ext_low_web is running on instance(s) pdw2s
+Service pdw_ext_med_web is running on instance(s) pdw2s
+Service pdw_int_adv_adhoc is running on instance(s) pdw2s
+Service pdw_int_high_web is running on instance(s) pdw2s
+Service pdw_int_low_web is running on instance(s) pdw2s
+Service pdw_int_med_web is running on instance(s) pdw2s
+Service pdw_ps_batch is running on instance(s) pdw3s
+Service ps_batch_prod is running on instance(s) pdw3s
+pdw3s @ pdw2stl8:/oracle/admin/pdw3s/diag/rdbms/pdw/pdw3s/trace
+$
+

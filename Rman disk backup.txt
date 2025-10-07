@@ -1,0 +1,30 @@
+select * from dict where table_name like '%BACKUP%';
+
+/opt/oracle/u01/app/oracle/admin/PROD055/udump
+
+find /opt/oracle/u01/app/oracle/admin/PROD055/udump -name "prod055_ora_*.trc " -mtime +30 -exec rm -f{} \;
+find /opt/oracle/u01/app/oracle/admin/PROD055/udump -name "prod055_ora_*.trc " -mtime +30 -exec ls -lrth{} \;
+
+/opt/oracle/u01/app/oracle/admin/PROD055/bdump
+
+connect target;
+connect catalog rman/abc123y\
+allocate channel ch1 type disk format '/backuptest/Oracle/PROD055_disk_bkup/L1_backup';
+allocate channel ch2 type disk format '/backuptest/Oracle/PROD055_disk_bkup/L1_backup';
+allocate channel ch3 type disk format '/backuptest/Oracle/PROD055_disk_bkup/L1_backup';
+allocate channel ch4 type disk format '/backuptest/Oracle/PROD055_disk_bkup/L1_backup';
+sql 'alter system archive log current';
+backup incremental level 1
+ format '/backuptest/Oracle/PROD055_disk_bkup/L1_backup/Hsun129_PROD055_OPEN_INC1_DAY<PROD055_%s:%t:%p>.dbf'
+ database;
+backup
+ format '/backuptest/Oracle/PROD055_disk_bkup/L1_backup/Hsun129_PROD055_OPEN_INC1_DAY<PROD055_%s:%t:%p>.dbf'
+ current controlfile;
+}
+exit;
+
+nohup rman cmdfile=rman_PROD055_disk_manual_L1.rcv log=L1_PROD055_15_jul.log &
+
+seskacnspp188-CDSSP 
+
+util_oracle8.pl -config -dbname CDSSP -orahome /u001/app/oracle/product/11.2.0.4/db_1 -prmuser hpdp -prmpasswd astra123 -prmservice seskacnspp188-CDSSP  

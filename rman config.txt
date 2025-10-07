@@ -1,0 +1,138 @@
+imsd1s @ cds1stl0:/sys_apps_01
+$ cd rman/scripts
+imsd1s @ cds1stl0:/sys_apps_01/rman/scripts
+$ cat rman_logon.out |crypt backupuser
+imrs1s:/:rman/backup3#@irct1s:y    ------for production------  rman/backup_pr0d@prct0s
+ 
+ixpr1s:/:rman/backup3#@irct1s:y
+icrd1s:/:rman/backup3#@irct1s:y
+imsd1s @ cds1stl0:/sys_apps_01/rman/scripts
+$ rman target /
+
+Recovery Manager: Release 11.2.0.1.0 - Production on Thu Mar 25 02:08:09 2010
+
+Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: IMSD1S (DBID=3707229077)
+
+RMAN> connect rcvcat rman/backup3#@drct0s    
+
+connected to recovery catalog database
+
+RMAN> register database;
+
+database registered in recovery catalog
+starting full resync of recovery catalog
+full resync complete
+
+RMAN>
+imsd1s @ cds1stl0:/sys_apps_01/rman/scripts
+$ ./rman_logon.sh -p
+Enter the action you would like to perform (insert/update/delete): insert
+ORACLE_SID does not seem to be valid.
+Possible ORACLE_SIDs:
+imrs1s
+icrd1s
+imgw1s
+ixpr1s
+imsd1s
+Enter the value for ORACLE_SID: imsd1s
+Enter the username and password of the user for doing the backup
+(for example, userid/password@sid ): /
+Enter the connection string for connecting to the catalog database
+(for example, rman/rman@rcat): rman/backup3#@irct1s
+Monitor the target database
+(for example, y/n ): y
+imsd1s @ cds1stl0:/sys_apps_01/rman/scripts
+$ cat rman_logon.out |crypt backupuser
+temp1s:/:rman/backup3#@drct0s:y
+ixpr1s:/:rman/backup3#@irct1s:y
+icrd1s:/:rman/backup3#@irct1s:y
+imsd1s:/:rman/backup3#@irct1s:y
+
+
+
+RMAN> show all;
+
+using target database control file instead of recovery catalog
+RMAN configuration parameters for database with db_unique_name MMSD1S are:
+CONFIGURE RETENTION POLICY TO REDUNDANCY 1; # default
+CONFIGURE BACKUP OPTIMIZATION OFF; # default
+CONFIGURE DEFAULT DEVICE TYPE TO DISK; # default
+CONFIGURE CONTROLFILE AUTOBACKUP OFF; # default
+CONFIGURE CONTROLFILE AUTOBACKUP FORMAT FOR DEVICE TYPE DISK TO '%F'; # default
+CONFIGURE DEVICE TYPE DISK PARALLELISM 1 BACKUP TYPE TO BACKUPSET; # default
+CONFIGURE DATAFILE BACKUP COPIES FOR DEVICE TYPE DISK TO 1; # default
+CONFIGURE ARCHIVELOG BACKUP COPIES FOR DEVICE TYPE DISK TO 1; # default
+CONFIGURE MAXSETSIZE TO UNLIMITED; # default
+CONFIGURE ENCRYPTION FOR DATABASE OFF; # default
+CONFIGURE ENCRYPTION ALGORITHM 'AES128'; # default
+CONFIGURE COMPRESSION ALGORITHM 'BASIC' AS OF RELEASE 'DEFAULT' OPTIMIZE FOR LOAD TRUE ; # default
+CONFIGURE ARCHIVELOG DELETION POLICY TO NONE; # default
+CONFIGURE SNAPSHOT CONTROLFILE NAME TO '/oracle/product/v11.2.0.1/dbs/snapcf_mmsd1s.f'; # default
+
+RMAN> CONFIGURE CONTROLFILE AUTOBACKUP ON;
+
+new RMAN configuration parameters:
+CONFIGURE CONTROLFILE AUTOBACKUP ON;
+new RMAN configuration parameters are successfully stored
+
+RMAN> configure RETENTION POLICY to RECOVERY WINDOW OF 20 days;
+
+RMAN> configure default device type to sbt;
+
+imsd1s @ cds1stl0:/sys_apps_01/rman/scripts
+$ ./menu.sh
+
+         RMAN Main Menu
+
+         1. Backup a database
+
+         2. Recover a database
+
+         3. Restart Archivelog Monitor
+
+         Choose: 1-2 [c=cancel q=quit] 1
+
+         Select a database
+
+         1       imrs1s
+         2       icrd1s
+         3       ixpr1s
+         4       imsd1s
+
+         Choose: 1-4  4
+
+         Choose type of backup
+
+         1. Backup up the entire database
+
+         2. Backup selected tablespaces
+
+         3. Backup selected datafiles
+
+         4. Backup archived redo log files
+
+         Choose: 1-4 [c=cancel q=quit] 1
+
+         Enter the number of Channels(default=1 will be used if no value is entered) :
+
+         Enter the Filesperset(default=64 will be used if no value is entered) :
+
+         Starting Online Backup of Database imsd1s....
+
+         Please Wait. Backup in progress ....
+
+         Online Backup of Database imsd1s Completed....
+
+         Please check the logfile /sys_apps_01/rman/logs/bkup_online_imsd1s_20100325.log for completion status....
+
+         RMAN Main Menu
+
+         1. Backup a database
+
+         2. Recover a database
+
+         3. Restart Archivelog Monitor
+
+         Choose: 1-2 [c=cancel q=quit] q

@@ -1,0 +1,26 @@
+connect target;															
+connect catalog SESKOVLGDBP06_P0346X/dba4ever@tsmrcat;															
+ run {															
+ allocate channel 'dev_0' type 'sbt_tape'															
+  parms															
+ 'SBT_LIBRARY=/opt/omni/lib/libob2oracle8_64bit.so, ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=P0346XCDB,OB2BARLIST=seskovlgdbp06_P0346XCDB_ARCHIVE_BACKUP)'															
+ ;															
+ allocate channel 'dev_1' type 'sbt_tape'															
+  parms															
+ 'SBT_LIBRARY=/opt/omni/lib/libob2oracle8_64bit.so, ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=P0346XCDB,OB2BARLIST=seskovlgdbp06_P0346XCDB_ARCHIVE_BACKUP)'															
+ ;															
+ allocate channel 'dev_2' type 'sbt_tape'															
+  parms															
+ 'SBT_LIBRARY=/opt/omni/lib/libob2oracle8_64bit.so, ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=P0346XCDB,OB2BARLIST=seskovlgdbp06_P0346XCDB_ARCHIVE_BACKUP)'															
+ ;															
+ allocate channel 'dev_3' type 'sbt_tape'															
+  parms															
+ 'SBT_LIBRARY=/opt/omni/lib/libob2oracle8_64bit.so, ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=P0346XCDB,OB2BARLIST=seskovlgdbp06_P0346XCDB_ARCHIVE_BACKUP)'															
+ ;																											
+ sql 'alter system archive log current';															
+ backup															
+  format 'seskovlgdbp06_P0346XCDB_ARCHIVE_BACKUP<P0346XCDB_%s:%t:%p	.dbf'														
+  archivelog all;															
+ DELETE NOPROMPT ARCHIVELOG UNTIL TIME "SYSDATE-4";															
+ resync catalog;															
+ }															

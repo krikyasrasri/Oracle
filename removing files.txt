@@ -1,0 +1,29 @@
+ls -lrt |grep -i "Aug 20" |awk '{print "rm "$9}' | sh
+
+
+ 1	     2   3	 4            5   6  7   8        **9**
+
+-rw-r-----   1 oracle   dba          690 Aug 25 02:25 pmoc2k_ora_1925_3.aud
+-rw-r-----   1 oracle   dba          690 Aug 25 02:25 pmoc2k_ora_1927_4.aud
+-rw-r-----   1 oracle   dba          690 Aug 25 02:25 pmoc2k_ora_1929_4.aud
+-rw-r-----   1 oracle   dba          690 Aug 25 02:25 pmoc2k_ora_1931_6.aud
+-rw-r-----   1 oracle   dba          690 Aug 25 02:25 pmoc2k_ora_1978_6.aud
+-rw-r-----   1 oracle   dba          690 Aug 25 02:25 pmoc2k_ora_1980_5.aud
+-rw-r-----   1 oracle   dba          690 Aug 25 02:25 pmoc2k_ora_1982_5.aud
+-rw-r-----   1 oracle   dba          690 Aug 25 02:26 pmoc2k_ora_2001_6.aud
+-rw-r-----   1 oracle   dba          690 Aug 25 02:26 pmoc2k_ora_2004_5.aud
+-rw-r-----   1 oracle   dba          690 Aug 25 02:26 pmoc2k_ora_2006_7.aud
+-rw-r-----   1 oracle   dba          690 Aug 25 02:26 pmoc2k_ora_2009_3.aud
+-rw-r-----   1 oracle   dba          690 Aug 25 02:26 pmoc2k_ora_2027_6.aud
+-rw-r-----   1 oracle   dba          690 Aug 25 02:26 pmoc2k_ora_2029_6.aud
+-rw-r-----   1 oracle   dba          690 Aug 25 02:27 pmoc2k_ora_2076_4.aud
+-rw-r-----   1 oracle   dba          690 Aug 25 02:27 pmoc2k_ora_2078_3.aud
+-rw-r-----   1 oracle   dba          690 Aug 25 02:27 pmoc2k_ora_2080_3.aud
+
+
+ls -ltr |awk '{print "rm "$9}' > x.log
+
+
+this will put print the 9th column's data(pmoc2k_ora_1925_3.aud) into to file x.log
+
+

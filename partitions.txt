@@ -1,0 +1,9 @@
+oracle@161.178.235.164
+
+avsodbp3
+
+SQL> select TABLE_NAME,PARTITION_NAME,LAST_ANALYZED from dba_tab_partitions where PARTITION_NAME='RNTDTL_YEAR2012';
+
+TABLE_NAME                     PARTITION_NAME                 LAST_ANAL
+------------------------------ ------------------------------ ---------
+RNT_DTL                        RNTDTL_YEAR2012                11-JUN-12

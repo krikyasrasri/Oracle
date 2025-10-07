@@ -1,0 +1,27 @@
+remove files:
+ 
+Year Wise:
+**********
+
+ ls -lrt |egrep -i "2012" |awk '{print "rm "$9}' |sh
+
+Month wise
+**********
+ls -lrt |egrep -i "Aug" |awk '{print "rm "$9}' | sh
+
+Datewise
+*********
+ls -lrt |grep -i "Feb 1" |awk '{print "rm "$9}' | sh
+
+remove files before 30 days:
+
+find /oracle/admin/toeb9s/udump/*.trc -mtime +30 -exec compress -f {} \;
+
+
+ADRCI: for trace
+
+
+purge -age 21600 -type TRACE  
+
+21600 is for 15 days
+

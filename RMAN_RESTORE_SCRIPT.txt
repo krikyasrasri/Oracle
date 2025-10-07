@@ -1,0 +1,95 @@
+rman target /
+Perform point-in-time recovery in Oracle RMAN. 
+Make sure that you change the SET UNTIL SCN value to the SCN that you recorded in step #1 in the "Performing Data Updates in PDB2" section. Also, set the AUXILIARY DESTINATION value to a location with enough free space to hold a copy of the database files.
+run {
+set until SCN = 2263440 ;
+restore pluggable database TRIMCX;
+recover pluggable database TRIMCX auxiliary destination='/u102/oradata/TRIMCX/DATA/CDBTRIMCX/';
+alter pluggable database TRIMCX open resetlogs;
+}
+========================================
+rman target /
+run
+{
+set until time "to_date('2016-08-04:01:25:00', 'yyyy-mm-dd:hh24:mi:ss')";
+restore pluggable database TRIMCX;
+recover pluggable database TRIMCX auxiliary destination='/u102/oradata/TRIMCX/DATA/CDBTRIMCX/';
+alter pluggable database TRIMCX open resetlogs;
+}
+==========================================
+nohup rman cmdfile=restore_TRIMCX_PDB.cmd log =restore_TRIMCX_PDB.log &
+
+/oradump/TASK0923992
+
+ALTER PLUGGABLE DATABASE TRIMCX close;
+
+connect target ;
+connect catalog SESKOVLGDBN02_TRIMCX/oracle_123@rman06;
+run {
+allocate channel 'dev_0' type 'sbt_tape'
+ parms
+'SBT_LIBRARY=/opt/omni/lib/libob2oracle8_64bit.so, ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=CDBTRIMCX,OB2BARLIST=SESKOVLGDBN02_CDBTRIMCX_INC1)';
+allocate channel 'dev_1' type 'sbt_tape'
+ parms
+'SBT_LIBRARY=/opt/omni/lib/libob2oracle8_64bit.so, ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=CDBTRIMCX,OB2BARLIST=SESKOVLGDBN02_CDBTRIMCX_INC1)';
+set until time "to_date('2016-08-04:01:28:00', 'yyyy-mm-dd:hh24:mi:ss')";
+restore pluggable database TRIMCX;
+recover pluggable database TRIMCX auxiliary destination='/u102/oradata/TRIMCX/DATA/CDBTRIMCX/';
+}
+
+nohup rman cmdfile=restore_TRIMCX_PDB_level0.cmd log=restore_TRIMCX_PDB_level0.log &
+
+[oracle@seskovlgdbn02 TASK0923992]$ pwd
+/oradump/TASK0923992
+[oracle@seskovlgdbn02 TASK0923992]$ ls -lrt
+total 12
+-rw-r--r--. 1 oracle oinstall  709 Aug  9 14:15 restore_TRIMCX_PDB.cmd
+-rw-------. 1 oracle oinstall   58 Aug  9 14:15 nohup.out
+-rw-r--r--. 1 oracle oinstall 2954 Aug  9 14:35 restore_TRIMCX_PDB.log
+[oracle@seskovlgdbn02 TASK0923992]$
+
+connect target ;
+connect catalog SESKOVLGDBN02_TRIMCX/oracle_123@rman06;
+run {
+allocate channel 'dev_0' type 'sbt_tape' parms'SBT_LIBRARY=/opt/omni/lib/libob2oracle8_64bit.so, ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=CDBTRIMCX,OB2BARLIST=SESKOVLGDBN02_CDBTRIMCX_INC0)';
+allocate channel 'dev_1' type 'sbt_tape'parms 'SBT_LIBRARY=/opt/omni/lib/libob2oracle8_64bit.so, ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=CDBTRIMCX,OB2BARLIST=SESKOVLGDBN02_CDBTRIMCX_INC0)';
+set until time "to_date('2016-08-02:09:57:00', 'yyyy-mm-dd:hh24:mi:ss')";
+restore pluggable database TRIMCX;
+recover pluggable database TRIMCX auxiliary destination='/u102/oradata/TRIMCX/DATA/CDBTRIMCX/';
+}
+
+configure channel sbt_tape FORMAT '%U' PARMS='ENV=(NB_ORA_CLIENT=......, NB_ORA_POLICY=............., NB_ORA_SCHED=.....)';
+configure channel 'sbt_tape' format '%U%' PARMS='ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=CDBTRIMCX,OB2BARLIST=SESKOVLGDBN02_CDBTRIMCX_INC1)';
+allocate channel 'dev_0' type 'sbt_tape' parms 'SBT_LIBRARY=/opt/omni/lib/libob2oracle8_64bit.so, 
+
+connect target ;
+connect catalog SESKOVLGDBN02_TRIMCX/oracle_123@rman06;
+run {
+allocate channel 'dev_0' type 'sbt_tape'
+ parms
+'SBT_LIBRARY=/opt/omni/lib/libob2oracle8_64bit.so, ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=CDBTRIMCX,OB2BARLIST=SESKOVLGDBN02_CDBTRIMCX_INC0)';
+allocate channel 'dev_1' type 'sbt_tape'
+ parms
+'SBT_LIBRARY=/opt/omni/lib/libob2oracle8_64bit.so, ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=CDBTRIMCX,OB2BARLIST=SESKOVLGDBN02_CDBTRIMCX_INC0)';
+
+connect target ;
+connect catalog SESKOVLGDBN02_TRIMCX/oracle_123@rman06;
+run {
+allocate channel 'dev_0' type 'sbt_tape' parms'SBT_LIBRARY=/opt/omni/lib/libob2oracle8_64bit.so, ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=CDBTRIMCX,OB2BARLIST=SESKOVLGDBN02_CDBTRIMCX_INC0)';
+allocate channel 'dev_1' type 'sbt_tape'parms 'SBT_LIBRARY=/opt/omni/lib/libob2oracle8_64bit.so, ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=CDBTRIMCX,OB2BARLIST=SESKOVLGDBN02_CDBTRIMCX_INC0)';
+set until time "to_date('2016-08-02:09:57:00', 'yyyy-mm-dd:hh24:mi:ss')";
+restore pluggable database TRIMCX;
+recover pluggable database TRIMCX auxiliary destination='/u102/oradata/TRIMCX/DATA/CDBTRIMCX/';
+}
+
+CONFIGURE CHANNEL DEVICE TYPE 'SBT_TAPE' PARMS  'SBT_LIBRARY=/opt/omni/lib/libob2oracle8_64bit.so, ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=CDBTRIMCX,OB2BARLIST=SESKOVLGDBN02_CDBTRIMCX_INC0)';
+
+[oracle@seskovlgdbn02 TASK0923992]$ cat restore_TRIMCX_PDB_level01.cmd
+connect target ;
+connect catalog SESKOVLGDBN02_TRIMCX/oracle_123@rman06;
+run {
+set until time "to_date('2016-08-02:09:57:00', 'yyyy-mm-dd:hh24:mi:ss')";
+restore pluggable database TRIMCX;
+recover pluggable database TRIMCX;
+}
+[oracle@seskovlgdbn02 TASK0923992]$

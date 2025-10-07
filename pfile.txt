@@ -1,0 +1,19 @@
+V$SPPARAMETER displays information about the contents of the server parameter file. If a server parameter file was 
+not used to start the instance, then each row of the view will contain FALSE in the ISSPECIFIED column.
+  ISSPECIFIED     Indicates whether the parameter was specified in the server parameter file (TRUE) or not (FALSE)
+
+V$PARAMETER displays information about the initialization parameters that are currently in effect for the session. 
+A new session inherits parameter values from the instance-wide values displayed by the V$SYSTEM_PARAMETER view. 
+  ISSYS_MODIFIABLE  Indicates whether the parameter can be changed with ALTER SYSTEM and when the change takes effect:
+    IMMEDIATE - Parameter can be changed with ALTER SYSTEM regardless of the type of parameter file used to start the 
+                instance. The change takes effect immediately.
+    DEFERRED  - Parameter can be changed with ALTER SYSTEM regardless of the type of parameter file used to start 
+                the instance. The change takes effect in subsequent sessions.
+    FALSE     - Parameter cannot be changed with ALTER SYSTEM unless a server parameter file was used to start the 
+                instance. The change takes effect in subsequent instances.
+  ISINSTANCE_MODIFIABLE   For parameters that can be changed with ALTER SYSTEm, indicates whether the value of the 
+    parameter can be different for every instance (TRUE) or whether the parameter must have the same value for all 
+    Real Application  Clusters instances (FALSE). If the ISSYS_MODIFIABLE column is FALSE, then this column is always 
+    FALSE.
+    
+    http://www.hhutzler.de/blog/using-spfile-for-changing-11-2-rac-parameters/

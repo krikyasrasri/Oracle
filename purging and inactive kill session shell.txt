@@ -1,0 +1,106 @@
+## Purge Alert log and trace files
+00 22 * * 6 /u01/app/oracle/local/monitor/purge_db_master.ksh "crmpdsp1" > /scripts/oracle/logs/purge_db_master_"crmpdsp1".log 2>&1
+
+oracle@ppdsseldbe01.corp.intuit.net:/home/oracle->cat /u01/app/oracle/local/monitor/purge_db_master.ksh
+#!/bin/ksh
+# Filename:     purge_db_master.ksh
+# Description:  This script will cleanup on each database; the alert logs,
+#               the trace files, the core dump files, and the user dump
+#               files that are more that two weeks old.
+# Author:       Ravi Sundram
+# Date Created: 22-FEB-99
+#     Modified: 19-MAR-1999. (Mehul Janodia)
+#               Made generic and added alert_log truncating logic
+
+echo Cleaning up the $1 database log files
+if [ $# -lt 1 ]
+then
+  echo "usage: `basename $0` <\" ORACLE_SID List \"> "
+ 
+  exit 1
+fi
+
+
+for instance in $1
+do
+  if [ -f /l/tng/oramon.$instance ]
+  then
+    . /l/tng/oramon.$instance
+  else
+    . /l/tng/oramon.profile
+  fi
+. $ORAMON_SID_ENVDIR/$instance
+
+# Make sure ORACLE_BASE is set correctly
+# Purge alert log.
+. $ORAMON_DIR/purge_db_alert.ksh $instance
+
+done
+
+# Truncate listener log to 1000 lines
+[ "$LISTENER_NAME" = "" ] && LISTENER_NAME="listener"
+LOWER_LISTENER=`echo ${LISTENER_NAME} | tr [A-Z] [a-z]`
+LISTENER_NAME=`echo ${LOWER_LISTENER}`
+HOST=`hostname|awk -F. '{print $1}'`
+cd $ORACLE_BASE/diag/tnslsnr/$HOST/${LISTENER_NAME}/trace
+if test -f $LISTENER_NAME.1
+then 
+        mv $LISTENER_NAME.1 $LISTENER_NAME.2
+fi
+if tail -1000 $LISTENER_NAME.log > tmp_$LISTENER_NAME.log
+then
+   cp $LISTENER_NAME.log $LISTENER_NAME.1
+   cp tmp_$LISTENER_NAME.log $LISTENER_NAME.log
+fi
+
+# Truncate sqlnet log to 1000 lines
+cd $ORACLE_HOME/network/log
+if test -f sqlnet.1
+then 
+        mv sqlnet.1 sqlnet.2
+fi
+if tail -1000 sqlnet.log > tmp_sqlnet.log
+then
+   mv sqlnet.log sqlnet.1
+   mv tmp_sqlnet.log sqlnet.log
+fi
+
+# purge custom_log file
+if test -f $ORAMON_LOGFILE.1
+then 
+        mv $ORAMON_LOGFILE.1 $ORAMON_LOGFILE.2
+fi
+   cp $ORAMON_LOGFILE $ORAMON_LOGFILE.1
+    > $ORAMON_LOGFILE
+	
+	*******************************************************************
+	
+	##################inactive session###########################
+
+*/5 * * * * /home/oracle/perf_monitor/kill_inactive_siebel.sh > /home/oracle/perf_monitor/kill_inactive_siebel.log 2>&1
+oracle@ppdsseldbe01.corp.intuit.net:/home/oracle->cat /home/oracle/perf_monitor/kill_inactive_siebel.sh
+#!/bin/ksh
+# File which will be used to keep pid
+rm -f /home/oracle/perf_monitor/kill_inactive.sh
+#!/bin/bash
+. ~/.bash_profile
+cd /home/oracle/perf_monitor
+DATE=`date '+%m%d%Y%H%M%S'`
+
+sqlplus "/ as sysdba" <<EOF
+@/home/oracle/perf_monitor/kill_inactive.sql
+exit;
+EOF
+chmod 755 /home/oracle/perf_monitor/kill_inactive.sh
+/home/oracle/perf_monitor/kill_inactive.sh > /home/oracle/perf_monitor/kill_inactive_sh.log
+
+***************************************************************
+
+*/5 * * * * find /u01/app/crmprfp1/oracle/admin/crmprfp1/adump -name "crmprfp1*.aud" -mmin +0 -exec rm -f {} \;  #  audit_file_cleanup
+30 03 * * * find /oracle/diag_dest -name "crmprfp1*.aud" -mmin +0 -exec rm -f {} \;  #  audit_file_cleanup
+
+
+0 */6 * * * /bin/nice -n 19 /usr/bin/find /opt/app/oracle/admin/edicis/adump -type f -name 'edicis*.aud' -mtime +30 -exec /bin/rm -f '{}' \; > /dev/null 2>&1
+# Puppet Name: oracle_database_cron_adump_cleanup_edwebsvc
+0 */6 * * * /bin/nice -n 19 /usr/bin/find /opt/app/oracle/admin/edwebsvc/adump -type f -name 'edwebsvc*.aud' -mtime +30 -exec /bin/rm -f '{}' \; > /dev/null 2>&1
+30 03 * * * find  /u01/app/crmprfp1/oracle/diag/rdbms/crmprfp1/crmprfp11/trace  -name  "crmprfp11_*.tr?" -mtime +1 -exec rm -f {} \;   #  clean *.trc & trm files from alert log

@@ -1,0 +1,4 @@
+1) alter user MY_APP_ID profile DEFAULT;
+2) select password from dba_users where username = 'MY_APP_ID';
+3) alter user MY_APP_ID identified by values 'D0D86B3D81B3443E';
+4) alter user MY_APP_ID profile APPS_USER_PROFILE;

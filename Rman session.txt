@@ -1,0 +1,20 @@
+SQL> select sid,serial#,to_char(logon_time,'DD-MON-YY HH24:MI'),status from v$session where upper(module) like '%IMP%';
+
+       SID    SERIAL# TO_CHAR(LOGON_TIME,'DD-MON-YY                                               STATUS
+---------- ---------- --------------------------------------------------------------------------- --------
+       483      54971 16-APR-11 22:59                                                             INACTIVE
+
+SQL> alter system kill session '483,54971' immediate;
+
+System altered.
+
+SQL> select sid,serial#,to_char(logon_time,'DD-MON-YY HH24:MI'),status from v$session where upper(module) like '%RMAN%';
+
+       SID    SERIAL# TO_CHAR(LOGON_TIME,'DD-MON-YY                                               STATUS
+---------- ---------- --------------------------------------------------------------------------- --------
+       426       1461 17-APR-11 06:14                                                             INACTIVE
+       479      54005 17-APR-11 06:14                                                             INACTIVE
+
+SQL> select sid,serial#,to_char(logon_time,'DD-MON-YY HH24:MI'),status from v$session where upper(module) like '%RMAN%';
+
+no rows selected
