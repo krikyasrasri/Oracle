@@ -1,0 +1,24 @@
+select name,free_mb,total_mb,(free_mb/total_mb)*100 from v$asm_diskgroup;
+
+
+select GROUP_NUMBER,DISK_NUMBER,NAME,PATH from V$ASM_DISK;
+
+
+ls -ltr /devices/pseudo| grep oracle | grep "crw-rw"
+
+
+
+srvctl status diskgroup
+srvctl status diskgroup -g ora.ARCH1.dg
+srvctl status diskgroup -g ARCH1
+
+crsctl modify resource "ora.cssd" -attr "AUTO_START=1"
+crsctl modify resource "ora.diskmon" -attr "AUTO_START=1"
+crsctl modify resource "ora.asm" -attr "AUTO_START=1"
+crsctl modify resource "ora.DATA1.dg" -attr "AUTO_START=1"
+crsctl modify resource "ora.ARCH1.dg" -attr "AUTO_START=1"
+crsctl modify resource "ora.FRA1.dg" -attr "AUTO_START=1"
+
+srvctl start diskgroup -g ARCH1
+srvctl start diskgroup -g DATA1
+srvctl start diskgroup -g FRA1

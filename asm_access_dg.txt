@@ -1,0 +1,10 @@
+prompt Instances currently accessing these diskgroups
+prompt ==============================================
+col "Instance" form a8
+select c.group_number  "Group"
+,      g.name          "Group Name"
+,      c.instance_name "Instance"
+from   v$asm_client c
+,      v$asm_diskgroup g
+where  g.group_number=c.group_number
+/

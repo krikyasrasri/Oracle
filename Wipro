@@ -1,0 +1,60 @@
+ what happens when we put the database in statup upgrade mode?
+ What is baseline? What is histogram?
+ I have 100records in a table. I want only 10records. How to do ? With out using the expdp? (CTAS(create table as select))
+ How to do RAC patching? what are the pre-requisites?  have you faced any issues while doing the patching?   
+ What are the Oracle12c features?
+ What are the diff b/w Oracle10g/11g?
+ How to do Patching in Standalone and RAC?
+ How to perform the query tuning?
+ What are the steps to do RMan cloning by usig duplicate command?
+ What is the use of FRA? What files it stored? What is the use of it?
+ In RMAN retention period is 2 days. I have 10 days before backup,Can I restore the database by using the backup?
+ diff b/w traditional exp and expdp?
+ What are the issues faced in your carrier?
+ what are the diff b/w public,private and virtual ip?
+ What is Scan ip? How it works?
+ Split brain syndrome?
+ What is TAF?
+ What is Cache Fusion?
+ Minimum requirement for the creation of ASM?
+ How to add a disk to diskgroup?
+ I am adding a disk to diskgroup with rebalance 2? Shell i change the rebalance after adding the disk?
+ How to check asm status in RAC?
+ How to check the Voting disk in RAC?
+ My voting disks are corrupted? What happened to my database? 
+ How to add voting disk in RAC?
+ How to check utilization status of ASM in OS level?
+ what are the TOP wait events? How to over come those things?
+ How to create AWR Report for a particular query?
+ How to generate explain plan?
+ How to export and import without using dump file?
+ one of the block is corrupted? How to do the recovery?
+ diff b/w retention period and recovery window?
+ how you are configure the backups to the tapes? Share the script?
+ How to do database/schema refresh? what are the pre- request?
+ Explain the Database installation steps?
+ What are the issues faced in the Dataguard? How to do sync activity?
+ My stand by database time is 1 hour delay with the primary? How to configure it?
+ what are difference b/w sync and async? diff b/w fal client and fal server?
+ Difference b/w memory parameters in 10g and 11g?
+ what is the olr? How it is useful?
+ Why we are using the db_filename_convert and log_filename_convert parameters?
+ What is mean by HA? What are the HA services?
+ How to find the master node?
+ How to perform the point in time export?
+ how to perform the cluster restore?
+ How to configure the DG? What are the protection modes? Diff b/w the protection modes?
+ I have lag of 600 archives how to perform the sync activity?
+ RFS process is not running? What might be the reason?
+ I have exported the 500 tables, Now i want to import only 200 tables. How to perform this?
+ Have you done any upgrade activity? How to Perform it?
+ My cluster version is 10G? I want to upgrade the database? How to perform it?
+ How to perform the cluster upgrade?
+ One of my node is rebooted in cluster? How to find the cause of reboot?
+ One of my node is evicited from the cluster? What might be the reasons?
+ What is optimizer?
+ Why we need to gather stats?
+ What is Bit map index,Hash based index?
+ Diff B/w standby and dataguard?
+
+

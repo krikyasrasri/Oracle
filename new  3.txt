@@ -1,0 +1,207 @@
+
+#!/bin/ksh
+cd
+SCRIPT_DIR=`pwd`
+DATE=`date +%d%b%Y_%H%M`
+HOSTNAME=`hostname`
+BKPMODE="ARC"
+userdb="AZBKPRPT@DBMON/bdj23ktn"
+DBNAME="PROD076"
+ASMNAME="+ASM1"
+DB_ENV="PRODUCTION"
+DB_CRITICALITY="CSET"
+RETRY=3
+RT=1
+ISMML=1
+ISFRA=0
+SCRIPT_DIR="$SCRIPT_DIR/AZ_SCRIPTS/backup"
+
+ISDBRUN=`ps -ef|grep ${DBNAME}|grep pmon|wc -l`
+if [ $ISDBRUN -lt 1 ]
+then
+echo "DB not running, hence exiting. $DATE"
+else
+echo "DB Running, Backup has been started at $DATE"
+
+ORACLE_SID=$DBNAME
+export ORACLE_SID
+PATH=/usr/sbin:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin; export PATH
+#export PATH=$PATH:$ORACLE_HOME/bin
+ORAENV_ASK=NO; export ORAENV_ASK
+#oradb
+. oraenv
+#TNS_ADMIN="$ORACLE_HOME/network/admin"; export $TNS_ADMIN
+
+ARCLOC_T=`sqlplus -silent / as sysdba << END
+set pages 0 echo off feed off
+@$SCRIPT_DIR/sqls/archiveloc.sql
+exit;
+END`
+#ARCLOC=`echo $ARCLOC_T |awk '{gsub(/^ +| +$/,"")} {print $1 " "}' | cut -d'=' -f2`
+ARCLOC_CAP=`echo ${ARCLOC_T}| tr '[:lower:]' '[:upper:]'`
+
+if [ "$ARCLOC_CAP" = "USE_DB_RECOVERY_FILE_DEST" ]
+then
+
+ISFRA=1
+echo $ISFRA
+FRALOC=`sqlplus -silent / as sysdba << END
+set pages 0 echo off feed off
+@$SCRIPT_DIR/sqls/fraloc.sql
+exit;
+END`
+
+ISASM=`echo $FRALOC | awk '{print substr($0,0,1);}'`
+echo $ISASM
+if  [ "$ISASM" = "+" ]
+then
+
+ORACLE_SID=$ASMNAME; export ORACLE_SID
+PATH=/usr/sbin:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin; export PATH
+ORAENV_ASK=NO
+. oraenv
+
+DG=`echo $FRALOC | cut -c 2-`
+ARCPER=`sqlplus -silent / as sysasm @$SCRIPT_DIR/sqls/asmdgloc.sql $DG`
+
+ORACLE_SID=$DBNAME; export ORACLE_SID
+PATH=/usr/sbin:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin; export PATH
+ORAENV_ASK=NO
+. oraenv
+
+FRAPER=`sqlplus -silent / as sysdba << END
+set pages 0 echo off feed off
+@$SCRIPT_DIR/sqls/frautil.sql
+exit;
+END`
+
+elif [ "$ISASM" = "/" ]
+then
+
+FRAPER=`sqlplus -silent / as sysdba << END
+set pages 0 echo off feed off
+@$SCRIPT_DIR/sqls/frautil.sql
+exit;
+END`
+
+ARCLOC_T=`df -kh $FRALOC | grep -vE '^Filesystem|tmpfs|cdrom' | awk '{ print $4 }' | tail -1`
+ARCPER=`echo $ARCPER_T | cut -d' ' -f1`
+
+fi
+
+else
+ARCPER_T=`df -kh $ARCLOC_T | grep -vE '^Filesystem|tmpfs|cdrom' | awk '{ print $4 }' | tail -1`
+ARCPER=`echo $ARCPER_T | cut -d' ' -f1`
+fi
+
+ORACLE_SID=$DBNAME; export ORACLE_SID
+PATH=/usr/sbin:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/X11R6/bin; export PATH
+ORAENV_ASK=NO
+. oraenv
+
+
+if [ "$BKPMODE" = "Level 0" ]
+then
+BKM="L0"
+elif [ "$BKPMODE" = "Level 1" ]
+then
+BKM="L1"
+elif [ "$BKPMODE" = "Monthly" ]
+then
+BKM="MLY"
+else
+BKM="ARC"
+fi
+
+BKP_STAT_RPT="$SCRIPT_DIR/logs/$DBNAME-$BKM-$DATE.log"
+RCV_FILE="$SCRIPT_DIR/rcvs/$DBNAME-$BKM.rcv"
+
+if egrep -r 'tdpo.opt' $RCV_FILE
+then
+BKP_TOOL="TSM"
+elif egrep -r 'SBT_LIBRARY' $RCV_FILE
+then
+BKP_TOOL="HPDP"
+elif egrep -r 'NSR_CLIENT' $RCV_FILE
+then
+BKP_TOOL="NETBACKUP"
+elif egrep -r 'NSR_CLIENT' $RCV_FILE
+then
+BKP_TOOL="LAGATO"
+else
+BKP_TOOL="DISK"
+fi
+
+startbkp()
+{
+if [ $RT -le $RETRY ]
+then
+echo $BKP_STAT_RPT
+ISMML=1
+DATE=`date +%d%b%Y_%H%M`
+BKP_STAT_RPT="$SCRIPT_DIR/logs/$DBNAME-$BKM-$DATE.log"
+STARTTIME=`date +%d-%b-%Y' '%H:%M:%S`
+rman cmdfile=$RCV_FILE log=$BKP_STAT_RPT
+ENDTIME=`date +%d-%b-%Y' '%H:%M:%S`
+echo "Checking MML Error."
+if egrep -r 'ORA-19511: Error received from media manager layer, error text|ORA-27211: Failed to load Media Management Library' $BKP_STAT_RPT
+then
+echo "MML Found!"
+ISMML=2
+echo "Retrying the backup ($(( RT+1)) Time))."
+RT=$(( RT+1 ))
+sleep 900 #15 min
+startbkp
+else
+ISMML=1
+return
+fi
+else
+return
+fi
+}
+startbkp
+
+echo "Checking ORA/RMAN error."
+
+if egrep -r 'ORA-|RMAN-' $BKP_STAT_RPT
+then
+
+LOGLINE=`wc -l < $BKP_STAT_RPT`
+if [ "$LOGLINE" -gt "50" ]
+then
+TEMPLOG1="$SCRIPT_DIR/temp-$DBNAME-$BKM-$DATE.log"
+cat $BKP_STAT_RPT | head -10 > $TEMPLOG1
+i=1
+while [ i -lt 11 ]
+do
+echo "." >> $TEMPLOG1
+i=$(( i+1 ))
+done
+cat $BKP_STAT_RPT | tail -15 >> $TEMPLOG1
+BKP_HTML_LOG=`while read line; do echo $line"<br>"; done < $TEMPLOG1`
+BKP_HTML_LOG_1=`echo $BKP_HTML_LOG | xargs`
+LOG_LEN=`echo ${#BKP_HTML_LOG_1}`
+else
+BKP_HTML_LOG=`while read line; do echo $line"<br>"; done < $BKP_STAT_RPT`
+BKP_HTML_LOG_1=`echo $BKP_HTML_LOG | xargs`
+LOG_LEN=`echo ${#BKP_HTML_LOG_1}`
+fi
+OSCATIME=`
+sqlplus -s $userdb <<!
+set pages 0 echo off feed off
+select to_char(sysdate,'DD-MON-YYYY HH24:MI:SS') from dual;
+exit;
+!`
+#echo $LOG_LEN
+$ORACLE_HOME/bin/sqlplus /nolog  << EOF
+connect $userdb
+declare
+   l_clob clob  := rpad('$BKP_HTML_LOG_1', $LOG_LEN);
+begin
+insert into BACKUP_REPORT(HOST_NAME,INSTANCE_NAME,BACKUP_TYPE,START_TIME,END_TIME,BKP_TOOL,DB_ENV,BKP_LOG,IS_MML,BKP_LFILE,REC_TIME,ARC_PER,DB_CRITICALITY,IS_FRA,FRA_PER) values ('$HOSTNAME','$DBNAME','$BKPMODE',TO_DATE('$STARTTIME','DD-MON-YYYY HH24:MI:SS'),TO_DATE('$ENDTIME','DD-MON-YYYY HH24:MI:SS'),'$BKP_TOOL','$DB_ENV',l_clob,'$ISMML','$BKP_STAT_RPT',TO_DATE('$OSCATIME','DD-MON-YYYY HH24:MI:SS'),'$ARCPER','$DB_CRITICALITY','$ISFRA','$FRAPER');
+end;
+/
+commit;
+exit;
+EOF

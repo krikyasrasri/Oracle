@@ -1,0 +1,4 @@
+select  d.name, d.path from 
+v$asm_disk d, v$asm_diskgroup dg
+where d.group_number=dg.group_number
+and dg.name='&NAME';

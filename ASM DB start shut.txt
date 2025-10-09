@@ -1,0 +1,48 @@
+*************************
+*************************
+*************************
+			:->>> Start ASM instance 
+*************************
+*************************
+*************************
+
+SQL> Startup;
+ORA-01031: insufficient privileges
+SQL> exit
+
+srvctl start asm
+
+********************************************************
+*************************
+*************************
+*************************
+			:->>> Stop ASM instance
+*************************
+*************************
+*************************
+
+SQL> shutdown immediate;
+ORA-01031: insufficient privileges
+SQL> exit
+
+srvctl stop asm -f
+
+****************************************************************************************************************************************************************************************
+
+Refer to the SQL*Plus User's Guide and Reference for more information.
++ASM @ cds2ksc30:/oracle/home
+$ sqlplus "/ as sysasm"
+
+SQL*Plus: Release 11.2.0.1.0 Production on Sat Sep 18 22:25:28 2010
+
+Copyright (c) 1982, 2009, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Automatic Storage Management option
+
+SQL> shutdown immediate;
+ASM diskgroups dismounted
+ASM instance shutdown
+SQL>

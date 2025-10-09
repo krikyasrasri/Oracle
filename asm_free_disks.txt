@@ -1,0 +1,14 @@
+ Free ASM disks and their paths
+
+set linesize 199
+set pagesize 999
+col "Disk Size"    form a9
+column path format a35
+select header_status                   "Header"
+, mode_status                     "Mode"
+, path                            "Path"
+, lpad(round(os_mb/1024),7)||'Gb' "Disk Size"
+from   v$asm_disk
+where header_status in ('FORMER','CANDIDATE')
+order by path
+/

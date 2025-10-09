@@ -1,0 +1,47 @@
+prompt
+prompt #########
+prompt UNDO Size
+prompt #########
+set head off
+select to_char(sum(a.bytes)/1024/1024,'999,999')||' mb' undo_size
+  from v$datafile a,
+       v$tablespace b,
+       dba_tablespaces c
+ where c.contents = 'UNDO'
+   and c.status = 'ONLINE'
+   and b.name = c.tablespace_name
+   and a.ts# = b.ts#
+/
+set head on
+column block_size heading 'Block Size' new_value block_size
+select to_number(value) block_size
+  from v$parameter
+ where name = 'db_block_size'
+/
+set verify off
+prompt
+prompt ################
+prompt UNDO UTILIZATION
+prompt ################
+col tablespace_name heading 'Undo Tablespace' format a15
+col status heading 'Status' format a15
+col mb heading 'Size MB' format 999,999
+select tablespace_name,
+       status,
+       round(sum(blocks) * &block_size/1024/1024,2) MB
+  from dba_undo_extents
+  group by tablespace_name,
+           status
+  order by tablespace_name,
+           status
+/
+
+col undo_retention heading 'undo_retention' format a30
+select to_char(value,'99,999')||' seconds or '||to_char(value/60,'99')||' minutes' undo_retention from v$parameter where name = 'undo_retention'
+/
+col undo_tablespace heading 'undo_tablespace' format a30
+select value undo_tablespace from v$parameter where name = 'undo_tablespace'
+/
+col undo_management heading 'undo_management' format a30
+select value undo_management from v$parameter where name = 'undo_management'
+/

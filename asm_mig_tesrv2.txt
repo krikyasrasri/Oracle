@@ -1,0 +1,305 @@
+
+< -----Database Name   tesrv2  --------------------->
+
+SQL> select name from   v$datafile;
+
+NAME
+--------------------------------------------------------------------------------
+/dbs51/tesrv2/system_01.dbf
+/dbs51/tesrv2/fijms_part_lob_idx_cur.dbf
+/dbs51/tesrv2/fijms_part_lob_idx_03.dbf
+/dbs52/tesrv2/user_std_tbl_01.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_12.dbf
+/dbs52/tesrv2/esrv_std01_tbl_01.dbf
+/dbs52/tesrv2/esrv_std02_idx_01.dbf
+/dbs52/tesrv2/esrv_std02_idx_02.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_12_2.dbf
+/dbs10/tesrv2/esrv_undo_tbl_01.dbf
+/dbs51/tesrv2/fijms_part_lob_idx_02.dbf
+
+NAME
+--------------------------------------------------------------------------------
+/dbs52/tesrv2/esrv_hot01_tbl_01.dbf
+/dbs53/tesrv2/esrv_hot01_idx_01.dbf
+/dbs52/tesrv2/esrv_std03_tbl_01.dbf
+/dbs53/tesrv2/esrv_std03_idx_01.dbf
+/dbs53/tesrv2/esrv_lob1_idx_01.dbf
+/dbs52/tesrv2/esrv_lob01_tbl_01.dbf
+/dbs52/tesrv2/esrv_part_tbl_01.dbf
+/dbs52/tesrv2/esrv_part_tbl_02.dbf
+/dbs52/tesrv2/esrv_part_tbl_03.dbf
+/dbs52/tesrv2/esrv_part_tbl_04.dbf
+/dbs52/tesrv2/esrv_part_tbl_05.dbf
+
+NAME
+--------------------------------------------------------------------------------
+/dbs52/tesrv2/esrv_part_tbl_06.dbf
+/dbs52/tesrv2/esrv_part_tbl_07.dbf
+/dbs52/tesrv2/esrv_part_tbl_08.dbf
+/dbs52/tesrv2/esrv_part_tbl_09.dbf
+/dbs52/tesrv2/esrv_part_tbl_10.dbf
+/dbs52/tesrv2/esrv_part_tbl_11.dbf
+/dbs52/tesrv2/esrv_part_tbl_12.dbf
+/dbs51/tesrv2/esrv_part_idx_01.dbf
+/dbs51/tesrv2/esrv_part_idx_02.dbf
+/dbs51/tesrv2/esrv_part_idx_03.dbf
+/dbs51/tesrv2/esrv_part_idx_04.dbf
+
+NAME
+--------------------------------------------------------------------------------
+/dbs51/tesrv2/esrv_part_idx_05.dbf
+/dbs51/tesrv2/esrv_part_idx_06.dbf
+/dbs51/tesrv2/esrv_part_idx_07.dbf
+/dbs51/tesrv2/esrv_part_idx_08.dbf
+/dbs51/tesrv2/esrv_part_idx_09.dbf
+/dbs51/tesrv2/esrv_part_idx_10.dbf
+/dbs51/tesrv2/esrv_part_idx_11.dbf
+/dbs51/tesrv2/esrv_part_idx_12.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_01.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_02.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_03.dbf
+
+NAME
+--------------------------------------------------------------------------------
+/dbs51/tesrv2/esrv_part_lob_idx_04.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_05.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_06.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_07.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_08.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_09.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_10.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_11.dbf
+/dbs51/tesrv2/fijms_part_lob_idx_01.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_cur.dbf
+/dbs51/tesrv2/sp_std_tbl_01.dbf
+
+NAME
+--------------------------------------------------------------------------------
+/dbs51/tesrv2/esrv_part_cur_tbl_01.dbf
+/dbs52/tesrv2/esrv_part_idx_01.dbf
+/dbs51/tesrv2/sp_std_idx_01.dbf
+/dbs52/tesrv2/esrv_tbl_01_enc_01.dbf
+/dbs51/tesrv2/esrv_part_cur_tbl_02.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_cur_2.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_cur_3.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_cur_4.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_08_2.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_08_3.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_09_2.dbf
+
+NAME
+--------------------------------------------------------------------------------
+/dbs51/tesrv2/esrv_part_lob_idx_10_2.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_07_2.dbf
+/dbs53/tesrv2/esrv_std04_idx_01.dbf
+/dbs52/tesrv2/esrv_std04_tbl_01.dbf
+/dbs52/tesrv2/fijms_part_cur_tbl.dbf
+/dbs51/tesrv2/fijms_part_cur_idx.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_11_2.dbf
+/dbs52/tesrv2/fijms_part_04.dbf
+/dbs51/tesrv2/fijms_part_03_idx.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_01_1.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_06_2.dbf
+
+NAME
+--------------------------------------------------------------------------------
+/dbs51/tesrv2/esrv_part_lob_idx_02_2.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_03_2.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_04_2.dbf
+/dbs51/tesrv2/esrv_part_lob_idx_05_2.dbf
+/dbs52/tesrv2/dcc_std_tbl_01.dbf
+/dbs52/tesrv2/dcc_std_idx_01.dbf
+/dbs52/tesrv2/esrv_lmt01_tbl_01.dbf
+/dbs52/tesrv2/esrv_lmt01_idx_01.dbf
+/dbs52/tesrv2/esrv_idx_01_enc_01.dbf
+/dbs56/tesrv2/esrv_part_lob_enc_01.dbf
+/dbs52/tesrv2/fijms_part_03.dbf
+
+NAME
+--------------------------------------------------------------------------------
+/dbs51/tesrv2/fijms_part_02_idx.dbf
+/dbs52/tesrv2/fijms_part_02.dbf
+/dbs51/tesrv2/fijms_part_01_idx.dbf
+/dbs56/tesrv2/esrv_part_tbl_01_enc_01.dbf
+/dbs52/tesrv2/esrv_std_part_cur_tbl_01.dbf
+/dbs51/tesrv2/esrv_std_part_cur_01.dbf
+/dbs52/tesrv2/esrv_std_part_tbl_01.dbf
+/dbs51/tesrv2/esrv_std_part_idx_01.dbf
+/dbs52/tesrv2/esrv_std_part_tbl_02.dbf
+/dbs51/tesrv2/esrv_std_part_idx_02.dbf
+/dbs52/tesrv2/esrv_std_part_tbl_03.dbf
+
+NAME
+--------------------------------------------------------------------------------
+/dbs51/tesrv2/esrv_std_part_idx_03.dbf
+/dbs52/tesrv2/esrv_std_part_tbl_04.dbf
+/dbs51/tesrv2/esrv_std_part_idx_04.dbf
+/dbs52/tesrv2/tools_std_tbl_01.dbf
+/dbs52/tesrv2/esrv_std02_tbl_01.dbf
+/dbs52/tesrv2/esrv_hot01_tbl_02.dbf
+/dbs52/tesrv2/esrv_std01_idx_01.dbf
+/dbs52/tesrv2/jms_std_tbl_01.dbf
+/dbs51/tesrv2/rppsdmp_std_tbl_01.dbf
+/dbs51/tesrv2/rppsdmp_std_idx_01.dbf
+/dbs51/tesrv2/sysaux_01.dbf
+
+NAME
+--------------------------------------------------------------------------------
+/dbs56/tesrv2/esrv_part_idx_01_enc_01.dbf
+/dbs52/tesrv2/rppsdmp_tbl_01_enc_01.dbf
+/dbs52/tesrv2/rppsdmp_idx_01_enc_01.dbf
+
+SQL> select name from v$controlfile;
+
+NAME
+--------------------------------------------------------------------------------
+/dbs51/tesrv2/tesrv2_cntl01.ctl
+/dbs52/tesrv2/tesrv2_cntl02.ctl
+/dbs53/tesrv2/tesrv2_cntl03.ctl
+
+SQL> select member from v$logfile;
+
+MEMBER
+--------------------------------------------------------------------------------
+/dbs51/tesrv2/redo_log_01_03a.log
+/dbs52/tesrv2/redo_log_01_03b.log
+/dbs53/tesrv2/redo_log_01_03c.log
+/dbs51/tesrv2/redo_log_01_02a.log
+/dbs52/tesrv2/redo_log_01_02b.log
+/dbs53/tesrv2/redo_log_01_02c.log
+/dbs51/tesrv2/redo_log_01_01a.log
+/dbs52/tesrv2/redo_log_01_01b.log
+/dbs53/tesrv2/redo_log_01_01c.log
+
+
+SQL> select NAME  from v$tempfile;
+
+NAME
+--------------------------------------------------------------------------------
+/dbs52/tesrv2/esrv_temp_tbl_01.dbf
+/dbs52/tesrv2/temp_std_tbl_01.dbf
+
+SQL> select sum(bytes/1024/1024) from dba_data_files;
+
+SUM(BYTES/1024/1024)
+--------------------
+               39640
+
+
+SQL> show parameter fal
+
+NAME                                 TYPE
+------------------------------------ ---------------------------------
+VALUE
+------------------------------
+fal_client                           string
+
+fal_server                           string
+
+
+NAME                                 TYPE
+------------------------------------ ---------------------------------
+VALUE
+------------------------------
+compatible       
+
+=========================================
+
+nohup ./bkup_cold.sh -s tmps1s -c 2 &
+
+
+connect rcvcat rman_test/backup3#@drct0s
+
+SQL "ALTER DATABASE DISABLE BLOCK CHANGE TRACKING";
+ 
+run
+      {
+      ALLOCATE CHANNEL dev1 DEVICE TYPE DISK;
+      ALLOCATE CHANNEL dev2 DEVICE TYPE DISK;
+      BACKUP AS COPY INCREMENTAL LEVEL 0 DATABASE FORMAT '+DATA1' TAG 'ORA_ASM_MIGRATION';
+      }
+
+RMAN> SQL "ALTER SYSTEM ARCHIVE LOG CURRENT";
+
+RMAN> BACKUP AS BACKUPSET SPFILE;
+
+RMAN> SQL "ALTER DATABASE FLASHBACK OFF";
+RMAN> SQL “DROP RESTORE POINT xxxx”;
+
+rman > SHUTDOWN IMMEDIATE;
+
+
+-----------------------------------------------------------------
+startup force nomount
+
+sql>
+
+alter system set db_recovery_file_dest_size=5G scope=spfile;
+alter system set db_create_online_log_dest_1='+DATA1' scope =spfile
+alter system set db_create_online_log_dest_2='+DATA1' scope =spfile
+alter system set db_create_online_log_dest_3='+FRA1'  scope =spfile 
+
+ALTER SYSTEM SET DB_CREATE_FILE_DEST='+DATA1'  ;
+ALTER SYSTEM SET DB_RECOVERY_FILE_DEST='+FRA1'  ;---******
+
+shutdown immediate
+
+RMAN target /
+Rman connect ........
+
+RMAN> STARTUP MOUNT;
+RMAN> RESTORE SPFILE TO  '+DATA1/tmps1s/spfiletmps1s.ora';
+
+starup nomount 
+
+ALTER SYSTEM SET CONTROL_FILES='+DATA1','+FRA1' SCOPE=SPFILE ;
+
+
+
+RMAN>  STARTUP FORCE NOMOUNT;
+RMAN> RESTORE CONTROLFILE FROM '/dbs22/tmps1s/control_01.ctl';
+
+
+RMAN>  ALTER DATABASE MOUNT;
+ 
+RMAN> SWITCH DATABASE TO COPY;
+     
+     RUN
+      {
+      ALLOCATE CHANNEL dev1 DEVICE TYPE DISK;
+      ALLOCATE CHANNEL dev2 DEVICE TYPE DISK;
+      RECOVER DATABASE;
+      } 
+
+SQL> ALTER DATABASE ENABLE BLOCK CHANGE TRACKING USING FILE '+DATA1';
+SQL> ALTER DATABASE FLASHBACK ON; ( If Flashback was enabled in begining)
+SQL> ALTER DATABASE OPEN
+
+sql> startup force;
+sql> alter system set log_archive_dest_1='LOCATION=+ARCH1' scope=spfile; 
+
+
+ select GROUP#,STATUS from v$log;
+
+ alter database drop logfile group 3;
+
+ alter database add logfile group 3 ('+DATA1','+DATA1','+FRA1') size 50M;
+ 
+
+ alter tablespace TEMP1 drop tempfile '/dbs22/tmps1s/temp1_01.dbf' ;
+ select FILE_NAME,TABLESPACE_NAME from dba_temp_files;
+ alter tablespace TEMP1 add tempfile '+DATA1' size 2000M ;
+
+
+ create pfile='/tmp/inittmps1s.ora' from spfile ;
+
+ create spfile='+DATA1/spfiletmps1s.ora' from pfile='/tmp/inittmps1s.ora'
+
+spfile='+DATA1/spfiletmps1s.ora'
+
+spfiletesrv2.ora
+
+/ora_trc_01/tesrv2/
+
+
+/ora_trc_01/tesrv2/diag/rdbms/tesrv2/tesrv2/trace

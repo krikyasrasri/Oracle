@@ -1,0 +1,11 @@
+SQL> select ALLOCATION_UNIT_SIZE from V$ASM_DISKGROUP;
+
+ALLOCATION_UNIT_SIZE
+--------------------
+             1048576
+
+
+COLUMN name FORMAT A20
+COLUMN value FORMAT A20
+
+SELECT group_number, name, value FROM v$asm_attribute ORDER BY group_number, name;

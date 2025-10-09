@@ -1,0 +1,56 @@
++ASM @ scd2ksc0:/dbs22/homebckup
+$ asmcmd
+ASMCMD> lsdg
+State    Type    Rebal  Sector  Block       AU  Total_MB  Free_MB  Req_mir_free_MB  Usable_file_MB  Offline_disks  Voting_files  Name
+MOUNTED  EXTERN  N         512   4096  1048576    104556    93030                0           93030              0             N  ARCH1/
+MOUNTED  EXTERN  N         512   4096  1048576   7528140  3194469                0         3194469              0             N  DATA1/
+MOUNTED  EXTERN  N         512   4096  1048576     34852    34753                0           34753              0             N  FRA1/
+ASMCMD> md_backup 03oct11_mdbck DATA1,ARCH1,FRA1
+usage: md_backup <backup_file>
+                  [-G '<diskgroup_name>,<diskgroup_name>,...']
+help:  help md_backup
+ASMCMD> md_backup 03oct11_mdbck -G DATA1,ARCH1,FRA1
+Disk group metadata to be backed up: DATA1
+Disk group metadata to be backed up: ARCH1
+Disk group metadata to be backed up: FRA1
+Current alias directory path: PSCM2K/PARAMETERFILE
+Current alias directory path: PSCM4K/ONLINELOG
+Current alias directory path: DB_UNKNOWN/PARAMETERFILE
+Current alias directory path: ASM/ASMPARAMETERFILE
+Current alias directory path: ASM
+Current alias directory path: PSCM2K/CONTROLFILE
+Current alias directory path: PSCM4K/DATAFILE
+Current alias directory path: DB_UNKNOWN
+Current alias directory path: PSCM4K
+Current alias directory path: PSCM2K/ONLINELOG
+Current alias directory path: PSCM2K/DATAFILE
+Current alias directory path: PSCM2K
+Current alias directory path: PSCM4K/CONTROLFILE
+Current alias directory path: PSCM4K/PARAMETERFILE
+Current alias directory path: PSCM2K/TEMPFILE
+Current alias directory path: PSCM4K/TEMPFILE
+Current alias directory path: PSCM2K/ARCHIVELOG/2011_10_02
+Current alias directory path: PSCM2K/ARCHIVELOG/2011_03_27
+Current alias directory path: PSCM2K/ARCHIVELOG/2011_09_06
+Current alias directory path: PSCM2K/ARCHIVELOG/2011_09_11
+Current alias directory path: PSCM2K/ARCHIVELOG/2011_09_08
+Current alias directory path: PSCM2K/ARCHIVELOG/2011_04_17
+Current alias directory path: PSCM2K/ARCHIVELOG/2011_04_27
+Current alias directory path: PSCM2K
+Current alias directory path: PSCM2K/ARCHIVELOG/2011_09_10
+Current alias directory path: PSCM2K/ARCHIVELOG
+Current alias directory path: PSCM2K/ARCHIVELOG/2011_05_18
+Current alias directory path: PSCM2K/ARCHIVELOG/2011_10_03
+Current alias directory path: PSCM2K/ARCHIVELOG/2011_04_16
+Current alias directory path: PSCM2K/CONTROLFILE
+Current alias directory path: PSCM2K
+ASMCMD> exit
++ASM @ scd2ksc0:/dbs22/homebckup
+$ asmcmd
+ASMCMD> exit
++ASM @ scd2ksc0:/dbs22/homebckup
+$ ls -lrt
+total 15556758
+-rw-r--r--   1 oracle   dba      7961064448 Oct  3 05:08 10204.tar
+-rw-r--r--   1 oracle   dba        93164 Oct  3 06:00 03oct11_mdbck
++ASM @ scd2ksc0:/dbs22/homebckup

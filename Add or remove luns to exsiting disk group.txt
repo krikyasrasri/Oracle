@@ -1,0 +1,7 @@
+-- Add disks.
+ALTER DISKGROUP disk_group_1 ADD DISK
+  '/devices/disk*3',
+  '/devices/disk*4';
+
+-- Drop a disk.
+ALTER DISKGROUP disk_group_1 DROP DISK diska2;

@@ -1,0 +1,47 @@
+Archive backup:
+run {
+allocate channel 'dev_0' type 'sbt_tape' parms 'ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=IDSPRD,OB2BARLIST=SEKIAZU0354_IDSPRD_ARCHIVE_BACKUP)';
+crosscheck archivelog all;
+backup
+format 'SEKIAZU0354_IDSPRD_ARCHIVE_BACKUP<IDSPRD_%s:%t:%p>.dbf'
+archivelog all FILESPERSET 10 DELETE INPUT;
+}
+
+
+L0 Backup:
+
+run {S
+allocate channel 'dev_0' type 'sbt_tape'
+parms 
+'ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=IDSPRD,OB2BARLIST=SEKIAZU0354_IDSPRD_OPEN_INC0_DAY)';
+sql 'alter system archive log current';
+backup incremental level 0
+format 'SEKIAZU0354_IDSPRD_OPEN_INC0_DAY<IDSPRD_%s:%t:%p>.dbf'
+database;
+backup
+format 'SEKIAZU0354_IDSPRD_OPEN_INC0_DAY<IDSPRD_%s:%t:%p>.dbf'
+archivelog all FILESPERSET 10 DELETE INPUT;
+backup
+format 'SEKIAZU0354_IDSPRD_OPEN_INC0_DAY<IDSPRD_%s:%t:%p>.dbf'
+current controlfile;
+}
+
+
+L1 Backup:
+
+run {
+allocate channel 'dev_0' type 'sbt_tape'
+parms 
+'ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=IDSPRD,OB2BARLIST=SEKIAZU0354_IDSPRD_OPEN_INC1_DAY)';
+sql 'alter system archive log current';
+backup incremental level 1
+format 'SEKIAZU0354_IDSPRD_OPEN_INC1_DAY<IDSPRD_%s:%t:%p>.dbf'
+database;
+backup
+format 'SEKIAZU0354_IDSPRD_OPEN_INC1_DAY<IDSPRD_%s:%t:%p>.dbf'
+archivelog all FILESPERSET 10 DELETE INPUT;
+backup
+format 'SEKIAZU0354_IDSPRD_OPEN_INC1_DAY<IDSPRD_%s:%t:%p>.dbf'
+current controlfile;
+}
+

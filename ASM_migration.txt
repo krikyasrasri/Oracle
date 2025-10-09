@@ -1,0 +1,1604 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2013.06.02 02:24:24 =~=~=~=~=~=~=~=~=~=~=~=
+login as: oracle
+oracle@161.178.175.42's password: 
+Last login: Sat Jun  1 16:31:03 2013 from 167.210.219.80
+
+****************************************************************************
+*  "Avis Budget Group", or one of its affiliates, jointly referred to as   *
+*  "Avis Budget Group", owns this computer system and restricts access and *
+*  use to authorized persons only.  Use of and/or access to this system    *
+*  and/or any information obtained via this system is subject to Avis      *
+*  Budget Group's policies and procedures governing such use and access    *
+*  (including, but not limited to, confidentiality, privacy, data and      *
+*  system security, and information protection).  Unauthorized or improper *
+*  use of or access to this system, or any portion of it, either directly  *
+*  or indirectly, or any attempt to deny service to authorized users or to *
+*  alter, damage, or destroy information, or otherwise to interfere with   *
+*  the system or its operation, is strictly prohibited.  Any party using   *
+*  or accessing, or attempting to use or access, this system without       *
+*  express authority from Avis Budget Group may be subject to severe       *
+*  disciplinary action and/or civil and criminal penalties in accordance   *
+*  with applicable state and federal law (including, but not limited to,   *
+*  the Computer Fraud and Abuse Act of 1986 and the Electronic             *
+*  Communications Privacy Act).  Avis Budget Group's representatives may   *
+*  monitor and record use and access for quality assurance, security,      *
+*  privacy compliance, performance, and maintenance purposes, except as    *
+*  prohibited by law.  Any person who uses or accesses this system         *
+*  expressly consents to such monitoring and recording.  Avis Budget Group *
+*  or its representatives may furnish information obtained by its          *
+*  monitoring and recording activity to law enforcement officials if such  *
+*  monitoring and recording reveals possible evidence of unlawful          *
+*  activity.                                                               *
+****************************************************************************
+****************************************************************************
+*  "Avis Budget Group", or one of its affiliates, jointly referred to as   *
+*  "Avis Budget Group", owns this computer system and restricts access and *
+*  use to authorized persons only.  Use of and/or access to this system    *
+*  and/or any information obtained via this system is subject to Avis      *
+*  Budget Group's policies and procedures governing such use and access    *
+*  (including, but not limited to, confidentiality, privacy, data and      *
+*  system security, and information protection).  Unauthorized or improper *
+*  use of or access to this system, or any portion of it, either directly  *
+*  or indirectly, or any attempt to deny service to authorized users or to *
+*  alter, damage, or destroy information, or otherwise to interfere with   *
+*  the system or its operation, is strictly prohibited.  Any party using   *
+*  or accessing, or attempting to use or access, this system without       *
+*  express authority from Avis Budget Group may be subject to severe       *
+*  disciplinary action and/or civil and criminal penalties in accordance   *
+*  with applicable state and federal law (including, but not limited to,   *
+*  the Computer Fraud and Abuse Act of 1986 and the Electronic             *
+*  Communications Privacy Act).  Avis Budget Group's representatives may   *
+*  monitor and record use and access for quality assurance, security,      *
+*  privacy compliance, performance, and maintenance purposes, except as    *
+*  prohibited by law.  Any person who uses or accesses this system         *
+*  expressly consents to such monitoring and recording.  Avis Budget Group *
+*  or its representatives may furnish information obtained by its          *
+*  monitoring and recording activity to law enforcement officials if such  *
+*  monitoring and recording reveals possible evidence of unlawful          *
+*  activity.                                                               *
+****************************************************************************
+You have mail.
+
+oracle@b3psavcmsora01:~$ ps -ef|grep pmon
+  oracle  5948     1   0 16:31:28 ?           0:01 ora_pmon_cmsppssp
+  oracle  6895  6886   0 16:51:36 pts/1       0:00 grep pmon
+ oragrid  6329     1   0 16:36:35 ?           0:00 asm_pmon_+ASM
+                                                                                                                                                                        
+oracle@b3psavcmsora01:~$ ps -ef|grep tns
+  oracle  6898  6886   0 16:51:39 pts/1       0:00 grep tns
+                                                                                                                                                                        
+oracle@b3psavcmsora01:~$ lsn   cd $ORACLE _HOME/network/admin
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ L S-LRT
+-ksh: L: not found [No such file or directory]
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ ls -lrt
+total 3842022
+-rw-r--r--   1 oracle   oinstall     205 May 11  2011 shrept.lst
+drwxr-xr-x   2 oracle   oinstall       5 Oct 23  2012 samples
+-rw-r--r--   1 oracle   oinstall     294 Nov  7  2012 listener.ora
+-rw-------   1 oracle   oinstall 204257569421 Feb 11 19:36 core
+-rw-r--r--   1 oracle   oinstall     401 Feb 12 08:46 tnsnames.ora
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ cat listener.ora
+LISTENER_CMSPPSSP =
+  (DESCRIPTION_LIST =
+    (DESCRIPTION =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 161.178.175.42)(PORT = 1523))
+
+    )
+  )
+SID_LIST_LISTENER_CMSPPSSP =
+  (SID_LIST =
+    (SID_DESC =
+      (ORACLE_HOME = /u01/app/oracle/product/11.2.0/db_1)
+      (SID_NAME = CMSPPSSP))
+  )
+
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ lsnrctl start LISTENER _CMSPPSSP
+
+LSNRCTL for Solaris: Version 11.2.0.3.0 - Production on 01-JUN-2013 16:52:11
+
+Copyright (c) 1991, 2011, Oracle.  All rights reserved.
+
+Starting /u01/app/oracle/product/11.2.0/db_1/bin/tnslsnr: please wait...
+
+TNSLSNR for Solaris: Version 11.2.0.3.0 - Production
+System parameter file is /u01/app/oracle/product/11.2.0/db_1/network/admin/listener.ora
+Log messages written to /u01/app/oracle/diag/tnslsnr/b3psavcmsora01/listener_cmsppssp/alert/log.xml
+Listening on: (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=161.178.175.42)(PORT=1523)))
+
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=161.178.175.42)(PORT=1523)))
+STATUS of the LISTENER
+------------------------
+Alias                     LISTENER_CMSPPSSP
+Version                   TNSLSNR for Solaris: Version 11.2.0.3.0 - Production
+Start Date                01-JUN-2013 16:52:11
+Uptime                    0 days 0 hr. 0 min. 0 sec
+Trace Level               off
+Security                  ON: Local OS Authentication
+SNMP                      OFF
+Listener Parameter File   /u01/app/oracle/product/11.2.0/db_1/network/admin/listener.ora
+Listener Log File         /u01/app/oracle/diag/tnslsnr/b3psavcmsora01/listener_cmsppssp/alert/log.xml
+Listening Endpoints Summary...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=161.178.175.42)(PORT=1523)))
+Services Summary...
+Service "CMSPPSSP" has 1 instance(s).
+  Instance "CMSPPSSP", status UNKNOWN, has 1 handler(s) for this service...
+The command completed successfully
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$   
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$   
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$   
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$   
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$   
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ sqlplus "/as sysdba"
+
+SQL*Plus: Release 11.2.0.3.0 Production on Sat Jun 1 16:55:00 2013
+
+Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> selc    show parameter pfile;
+
+NAME                                 TYPE
+------------------------------------ --------------------------------
+VALUE
+------------------------------
+spfile                               string
+/u01/app/oracle/product/11.2.0
+/db_1/dbs/spfilecmsppssp.ora
+SQL> 
+SQL> 
+SQL> exit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ cd /u04
+                                                                                                                                                                        
+oracle@b3psavcmsora01:/u04$ ls -lrt
+total 14
+drwxr-x---   3 oracle   oinstall       3 Apr  4 17:12 archive_files
+drwxr-x---   2 oracle   oinstall       5 Apr  7 09:03 prosuat_foref
+drwxr-xr-x   4 oracle   oinstall       5 May  2 08:34 oradata
+drwxr-x---   2 oracle   oinstall       4 Jun  1 14:30 oracle_home_bkp
+                                                                                                                                                                        
+oracle@b3psavcmsora01:/u04$ cd oracle _home _bkp
+                                                                                                                                                                        
+oracle@b3psavcmsora01:/u04/oracle_home_bkp$ sqlplus "/as sysdba"
+
+SQL*Plus: Release 11.2.0.3.0 Production on Sat Jun 1 16:55:47 2013
+
+Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> create pfile=/u04/oracle_home_bkp                          pfile='/u04/oracle_home_bkp/pfile_before_migration.ora' from spfile;
+
+File created.
+
+SQL> !pwd      !cat /u04/oracle_home_bkp/pfile_before_migration.ora
+cmsppssp.__db_cache_size=136902082560
+cmsppssp.__java_pool_size=536870912
+cmsppssp.__large_pool_size=1073741824
+cmsppssp.__oracle_base='/u01/app/oracle'#ORACLE_BASE set from environment
+cmsppssp.__pga_aggregate_target=37580963840
+cmsppssp.__sga_target=155692564480
+cmsppssp.__shared_io_pool_size=0
+cmsppssp.__shared_pool_size=15032385536
+cmsppssp.__streams_pool_size=536870912
+*._ash_size=393216000
+*.audit_file_dest='/u01/app/oracle/admin/cmsppssp/adump'
+*.audit_sys_operations=TRUE
+*.audit_trail='DB'
+*.compatible='11.2.0'
+*.control_file_record_keep_time=31
+*.control_files='/u02/oradata/cmsppssp/controlfile/control01.ctl','/u06/oradata/cmsppssp/controlfile/control02.ctl','/u08/oradata/cmsppssp/controlfile/control03.ctl'
+*.cursor_sharing='FORCE'
+*.db_block_size=8192
+*.db_domain=''
+*.db_file_multiblock_read_count=16
+*.db_name='cmsppssp'
+*.db_writer_processes=8
+*.diagnostic_dest='/u01/app/oracle/admin/cmsppssp/ddump'
+*.dml_locks=4096
+*.fast_start_mttr_target=360
+*.instance_name='cmsppssp'
+*.job_queue_processes=4
+*.local_listener='(ADDRESS =(PROTOCOL=TCP)(HOST=161.178.175.42)(PORT=1523))'
+*.log_archive_dest_1='LOCATION=/u05/oradata/cmsppssp/archivelog'
+*.log_archive_format='%t_%s_%r.arc'
+*.log_buffer=262144000
+*.log_checkpoint_interval=0
+*.log_checkpoint_timeout=7200
+*.memory_target=180G
+*.open_cursors=1000
+*.optimizer_index_caching=80
+*.optimizer_index_cost_adj=20
+*.parallel_adaptive_multi_user=false
+*.parallel_execution_message_size=65535
+*.parallel_max_servers=160
+*.parallel_min_servers=8
+*.pga_aggregate_target=26843545600
+*.processes=1400
+*.query_rewrite_enabled='FALSE'
+*.recyclebin='OFF'
+*.remote_login_passwordfile='EXCLUSIVE'
+*.sec_case_sensitive_logon=FALSE
+*.Sec_max_failed_login_attempts=4
+*.SEC_PROTOCOL_ERROR_TRACE_ACTION='log'
+*.session_cached_cursors=100
+*.session_max_open_files=20
+*.sga_target=155692564480
+*.star_transformation_enabled='false'
+*.timed_statistics=TRUE
+*.undo_management='AUTO'
+*.undo_retention=10800
+*.undo_tablespace='UNDOTBS1'
+
+SQL> select name from   v$datafile;
+
+NAME
+--------------------------------------------------------------------------------
+/u02/oradata/cmsppssp/system01.dbf
+/u02/oradata/cmsppssp/sysaux01.dbf
+/u02/oradata/cmsppssp/undotbs01.dbf
+/u03/oradata/cmsppssp/users01.dbf
+/u03/oradata/cmsppssp/PROS_DEFAULT_01.dbf
+/u03/oradata/cmsppssp/PROS_DEFAULT_02.dbf
+/u03/oradata/cmsppssp/PROS_DEFAULT_03.dbf
+/u03/oradata/cmsppssp/PROS_DEFAULT_04.dbf
+/u03/oradata/cmsppssp/PROS_DEFAULT_05.dbf
+/u03/oradata/cmsppssp/PROS_DEFAULT_06.dbf
+/u03/oradata/cmsppssp/PROS_DEFAULT_07.dbf
+
+NAME
+--------------------------------------------------------------------------------
+/u03/oradata/cmsppssp/PROS_DEFAULT_08.dbf
+/u03/oradata/cmsppssp/PROS_DEFAULT_09.dbf
+/u03/oradata/cmsppssp/PROS_DEFAULT_10.dbf
+/u03/oradata/cmsppssp/PROS_DEFAULT_11.dbf
+/u03/oradata/cmsppssp/PROS_DEFAULT_12.dbf
+/u03/oradata/cmsppssp/PROS_DEFAULT_13.dbf
+/u04/oradata/cmsppssp/PROS_DEFAULT_14.dbf
+/u02/oradata/cmsppssp/undotbs02.dbf
+/u02/oradata/cmsppssp/tivoliorts1.dbf
+
+20 rows selected.
+
+SQL> select name from v$controlfile;
+
+NAME
+--------------------------------------------------------------------------------
+/u02/oradata/cmsppssp/controlfile/control01.ctl
+/u06/oradata/cmsppssp/controlfile/control02.ctl
+/u08/oradata/cmsppssp/controlfile/control03.ctl
+
+SQL> select member from v$logfile;
+
+MEMBER
+--------------------------------------------------------------------------------
+/u06/oradata/cmsppssp/redolog/redo01a.log
+/u08/oradata/cmsppssp/redolog/redo01b.log
+/u06/oradata/cmsppssp/redolog/redo02a.log
+/u08/oradata/cmsppssp/redolog/redo02b.log
+/u06/oradata/cmsppssp/redolog/redo03a.log
+/u08/oradata/cmsppssp/redolog/redo03b.log
+/u06/oradata/cmsppssp/redolog/redo04a.log
+/u08/oradata/cmsppssp/redolog/redo04b.log
+/u06/oradata/cmsppssp/redolog/redo05a.log
+/u08/oradata/cmsppssp/redolog/redo05b.log
+
+10 rows selected.
+
+SQL> select NAME  from v$tempfile;
+
+NAME
+--------------------------------------------------------------------------------
+/u06/oradata/cmsppssp/temp01.dbf
+/u06/oradata/cmsppssp/PROS_TEMP01.dbf
+/u06/oradata/cmsppssp/PROS_TEMP02.dbf
+/u08/oradata/cmsppssp/PROS_TEMP03.dbf
+/u02/oradata/cmsppssp/tivoliortempts.dbf
+
+SQL> select sum(bytes)/1024/1024/1024 "Database size in GB" from dba_data_files;
+
+Database size in GB
+-------------------
+         436.294922
+
+SQL> exit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+                                                                                                                                                                        
+oracle@b3psavcmsora01:/u04/oracle_home_bkp$ rman target /
+
+Recovery Manager: Release 11.2.0.3.0 - Production on Sat Jun 1 16:58:12 2013
+
+Copyright (c) 1982, 2011, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database: CMSPPSSP (DBID=12869650)
+
+RMAN> exit
+
+
+Recovery Manager complete.
+                                                                                                                                                                        
+oracle@b3psavcmsora01:/u04/oracle_home_bkp$ sqlplus "/as sysdba"
+
+SQL*Plus: Release 11.2.0.3.0 Production on Sat Jun 1 16:59:31 2013
+
+Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> select name,open_mode from v$databse  ase;
+
+NAME      OPEN_MODE
+--------- --------------------
+CMSPPSSP  READ WRITE
+
+SQL> shutdown immediate;
+Database closed.
+Database dismounted.
+ORACLE instance shut down.
+SQL> 
+SQL> 
+SQL> exit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+                                                                                                                                                                        
+oracle@b3psavcmsora01:/u04/oracle_home_bkp$   
+                                                                                                                                                                        
+oracle@b3psavcmsora01:/u04/oracle_home_bkp$   
+                                                                                                                                                                        
+oracle@b3psavcmsora01:/u04/oracle_home_bkp$ lsnrctl stop LISTENER _CMSPPSSP
+
+LSNRCTL for Solaris: Version 11.2.0.3.0 - Production on 01-JUN-2013 17:00:32
+
+Copyright (c) 1991, 2011, Oracle.  All rights reserved.
+
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=161.178.175.42)(PORT=1523)))
+The command completed successfully
+                                                                                                                                                                        
+oracle@b3psavcmsora01:/u04/oracle_home_bkp$   
+                                                                                                                                                                        
+oracle@b3psavcmsora01:/u04/oracle_home_bkp$   
+                                                                                                                                                                        
+oracle@b3psavcmsora01:/u04/oracle_home_bkp$ rman target /
+
+Recovery Manager: Release 11.2.0.3.0 - Production on Sat Jun 1 17:00:43 2013
+
+Copyright (c) 1982, 2011, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database (not started)
+
+RMAN> run {
+    startup mount;
+2> 3>     allocate channel d1 device type disk;
+4>     allocate channel d2 device type disk;
+5>     allocate channel d3 device type disk;
+6>     allocate channel d4 device type disk;
+7>     backup as copy
+8>     incremental level 0 database
+9>     format '+DATA'
+10>     tag 'database_asm_migration';
+11>    }
+
+Oracle instance started
+database mounted
+
+Total System Global Area  192468205568 bytes
+
+Fixed Size                     2170328 bytes
+Variable Size              54760833576 bytes
+Database Buffers          136902082560 bytes
+Redo Buffers                 803119104 bytes
+
+using target database control file instead of recovery catalog
+allocated channel: d1
+channel d1: SID=307 device type=DISK
+
+allocated channel: d2
+channel d2: SID=316 device type=DISK
+
+allocated channel: d3
+channel d3: SID=325 device type=DISK
+
+allocated channel: d4
+channel d4: SID=334 device type=DISK
+
+Starting backup at 01-JUN-13
+channel d1: starting datafile copy
+input datafile file number=00006 name=/u03/oradata/cmsppssp/PROS_DEFAULT_02.dbf
+channel d2: starting datafile copy
+input datafile file number=00007 name=/u03/oradata/cmsppssp/PROS_DEFAULT_03.dbf
+channel d3: starting datafile copy
+input datafile file number=00008 name=/u03/oradata/cmsppssp/PROS_DEFAULT_04.dbf
+channel d4: starting datafile copy
+input datafile file number=00009 name=/u03/oradata/cmsppssp/PROS_DEFAULT_05.dbf
+output file name=+DATA/cmsppssp/datafile/pros_default.256.816973383 tag=DATABASE_ASM_MIGRATION RECID=2 STAMP=816973760
+channel d1: datafile copy complete, elapsed time: 00:06:26
+channel d1: starting datafile copy
+input datafile file number=00010 name=/u03/oradata/cmsppssp/PROS_DEFAULT_06.dbf
+output file name=+DATA/cmsppssp/datafile/pros_default.259.816973383 tag=DATABASE_ASM_MIGRATION RECID=3 STAMP=816973760
+channel d2: datafile copy complete, elapsed time: 00:06:25
+channel d2: starting datafile copy
+input datafile file number=00011 name=/u03/oradata/cmsppssp/PROS_DEFAULT_07.dbf
+output file name=+DATA/cmsppssp/datafile/pros_default.258.816973383 tag=DATABASE_ASM_MIGRATION RECID=4 STAMP=816973762
+channel d3: datafile copy complete, elapsed time: 00:06:25
+channel d3: starting datafile copy
+input datafile file number=00012 name=/u03/oradata/cmsppssp/PROS_DEFAULT_08.dbf
+output file name=+DATA/cmsppssp/datafile/pros_default.257.816973383 tag=DATABASE_ASM_MIGRATION RECID=1 STAMP=816973760
+channel d4: datafile copy complete, elapsed time: 00:06:25
+channel d4: starting datafile copy
+input datafile file number=00013 name=/u03/oradata/cmsppssp/PROS_DEFAULT_09.dbf
+output file name=+DATA/cmsppssp/datafile/pros_default.260.816973765 tag=DATABASE_ASM_MIGRATION RECID=7 STAMP=816974136
+channel d1: datafile copy complete, elapsed time: 00:06:16
+channel d1: starting datafile copy
+input datafile file number=00014 name=/u03/oradata/cmsppssp/PROS_DEFAULT_10.dbf
+output file name=+DATA/cmsppssp/datafile/pros_default.261.816973765 tag=DATABASE_ASM_MIGRATION RECID=6 STAMP=816974136
+channel d2: datafile copy complete, elapsed time: 00:06:16
+channel d2: starting datafile copy
+input datafile file number=00015 name=/u03/oradata/cmsppssp/PROS_DEFAULT_11.dbf
+output file name=+DATA/cmsppssp/datafile/pros_default.262.816973765 tag=DATABASE_ASM_MIGRATION RECID=8 STAMP=816974138
+channel d3: datafile copy complete, elapsed time: 00:06:16
+channel d3: starting datafile copy
+input datafile file number=00016 name=/u03/oradata/cmsppssp/PROS_DEFAULT_12.dbf
+output file name=+DATA/cmsppssp/datafile/pros_default.263.816973765 tag=DATABASE_ASM_MIGRATION RECID=5 STAMP=816974136
+channel d4: datafile copy complete, elapsed time: 00:06:15
+channel d4: starting datafile copy
+input datafile file number=00017 name=/u03/oradata/cmsppssp/PROS_DEFAULT_13.dbf
+output file name=+DATA/cmsppssp/datafile/pros_default.264.816974141 tag=DATABASE_ASM_MIGRATION RECID=9 STAMP=816974510
+channel d1: datafile copy complete, elapsed time: 00:06:16
+channel d1: starting datafile copy
+input datafile file number=00018 name=/u04/oradata/cmsppssp/PROS_DEFAULT_14.dbf
+output file name=+DATA/cmsppssp/datafile/pros_default.265.816974141 tag=DATABASE_ASM_MIGRATION RECID=10 STAMP=816974514
+channel d2: datafile copy complete, elapsed time: 00:06:16
+channel d2: starting datafile copy
+input datafile file number=00019 name=/u02/oradata/cmsppssp/undotbs02.dbf
+output file name=+DATA/cmsppssp/datafile/pros_default.266.816974141 tag=DATABASE_ASM_MIGRATION RECID=11 STAMP=816974516
+channel d3: datafile copy complete, elapsed time: 00:06:17
+channel d3: starting datafile copy
+input datafile file number=00003 name=/u02/oradata/cmsppssp/undotbs01.dbf
+output file name=+DATA/cmsppssp/datafile/pros_default.267.816974141 tag=DATABASE_ASM_MIGRATION RECID=12 STAMP=816974519
+channel d4: datafile copy complete, elapsed time: 00:06:20
+channel d4: starting datafile copy
+input datafile file number=00005 name=/u03/oradata/cmsppssp/PROS_DEFAULT_01.dbf
+output file name=+DATA/cmsppssp/datafile/undotbs1.270.816974517 tag=DATABASE_ASM_MIGRATION RECID=14 STAMP=816974649
+channel d3: datafile copy complete, elapsed time: 00:02:18
+channel d3: starting datafile copy
+input datafile file number=00002 name=/u02/oradata/cmsppssp/sysaux01.dbf
+output file name=+DATA/cmsppssp/datafile/pros_default.271.816974521 tag=DATABASE_ASM_MIGRATION RECID=13 STAMP=816974649
+channel d4: datafile copy complete, elapsed time: 00:02:16
+channel d4: starting datafile copy
+input datafile file number=00001 name=/u02/oradata/cmsppssp/system01.dbf
+output file name=+DATA/cmsppssp/datafile/system.273.816974657 tag=DATABASE_ASM_MIGRATION RECID=15 STAMP=816974683
+channel d4: datafile copy complete, elapsed time: 00:00:35
+channel d4: starting datafile copy
+input datafile file number=00020 name=/u02/oradata/cmsppssp/tivoliorts1.dbf
+output file name=+DATA/cmsppssp/datafile/tivoliorts.274.816974691 tag=DATABASE_ASM_MIGRATION RECID=16 STAMP=816974695
+channel d4: datafile copy complete, elapsed time: 00:00:07
+channel d4: starting datafile copy
+input datafile file number=00004 name=/u03/oradata/cmsppssp/users01.dbf
+output file name=+DATA/cmsppssp/datafile/sysaux.272.816974657 tag=DATABASE_ASM_MIGRATION RECID=17 STAMP=816974700
+channel d3: datafile copy complete, elapsed time: 00:00:45
+output file name=+DATA/cmsppssp/datafile/users.275.816974699 tag=DATABASE_ASM_MIGRATION RECID=18 STAMP=816974700
+channel d4: datafile copy complete, elapsed time: 00:00:03
+output file name=+DATA/cmsppssp/datafile/undotbs1.269.816974517 tag=DATABASE_ASM_MIGRATION RECID=19 STAMP=816974739
+channel d2: datafile copy complete, elapsed time: 00:03:47
+output file name=+DATA/cmsppssp/datafile/pros_default.268.816974517 tag=DATABASE_ASM_MIGRATION RECID=20 STAMP=816974757
+channel d1: datafile copy complete, elapsed time: 00:04:07
+Finished backup at 01-JUN-13
+
+Starting Control File and SPFILE Autobackup at 01-JUN-13
+piece handle=/u01/app/oracle/product/11.2.0/db_1/dbs/c-12869650-20130601-04 comment=NONE
+Finished Control File and SPFILE Autobackup at 01-JUN-13
+released channel: d1
+released channel: d2
+released channel: d3
+released channel: d4
+
+RMAN> BACKUP AS BACKUPSET SPFILE;
+
+Starting backup at 01-JUN-13
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=307 device type=DISK
+channel ORA_DISK_1: starting full datafile backup set
+channel ORA_DISK_1: specifying datafile(s) in backup set
+including current SPFILE in backup set
+channel ORA_DISK_1: starting piece 1 at 01-JUN-13
+channel ORA_DISK_1: finished piece 1 at 01-JUN-13
+piece handle=/u01/app/oracle/product/11.2.0/db_1/dbs/7fob42u8_1_1 tag=TAG20130601T172631 comment=NONE
+channel ORA_DISK_1: backup set complete, elapsed time: 00:00:01
+Finished backup at 01-JUN-13
+
+Starting Control File and SPFILE Autobackup at 01-JUN-13
+piece handle=/u01/app/oracle/product/11.2.0/db_1/dbs/c-12869650-20130601-05 comment=NONE
+Finished Control File and SPFILE Autobackup at 01-JUN-13
+
+RMAN> SHUTDOWN IMMEDIATE;
+
+database dismounted
+Oracle instance shut down
+
+RMAN> STARTUP MOUNT;              exit
+
+
+Recovery Manager complete.
+                                                                                                                                                                        
+oracle@b3psavcmsora01:/u04/oracle_home_bkp$ rman target /
+
+Recovery Manager: Release 11.2.0.3.0 - Production on Sat Jun 1 17:28:01 2013
+
+Copyright (c) 1982, 2011, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database (not started)
+
+RMAN> STARTUP MOUNT;
+
+Oracle instance started
+database mounted
+
+Total System Global Area  192468205568 bytes
+
+Fixed Size                     2170328 bytes
+Variable Size              55834575400 bytes
+Database Buffers          135828340736 bytes
+Redo Buffers                 803119104 bytes
+
+RMAN> RESTORE SPFILE TO '+DATA/CMSPPSSP/spfilecmsppssp.ora';
+
+Starting restore at 01-JUN-13
+using target database control file instead of recovery catalog
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=307 device type=DISK
+
+channel ORA_DISK_1: starting datafile backup set restore
+channel ORA_DISK_1: restoring SPFILE
+output file name=+DATA/CMSPPSSP/spfilecmsppssp.ora
+channel ORA_DISK_1: reading from backup piece /u01/app/oracle/product/11.2.0/db_1/dbs/c-12869650-20130601-05
+channel ORA_DISK_1: piece handle=/u01/app/oracle/product/11.2.0/db_1/dbs/c-12869650-20130601-05 tag=TAG20130601T172633
+channel ORA_DISK_1: restored backup piece 1
+channel ORA_DISK_1: restore complete, elapsed time: 00:00:01
+Finished restore at 01-JUN-13
+
+RMAN> SHUTDOWN IMMEDIATE;
+
+database dismounted
+Oracle instance shut down
+
+RMAN> exit
+
+
+Recovery Manager complete.
+                                                                                                                                                                        
+oracle@b3psavcmsora01:/u04/oracle_home_bkp$ sqlplus "/as sysdba                   sqlplus "/as sysda ba"
+
+SQL*Plus: Release 11.2.0.3.0 Production on Sat Jun 1 17:31:31 2013
+
+Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+
+Connected to an idle instance.
+
+SQL> STARTUP FORCE NOMOUNT;
+ORACLE instance started.
+
+Total System Global Area 1.9247E+11 bytes
+Fixed Size                  2170328 bytes
+Variable Size            5.5835E+10 bytes
+Database Buffers         1.3583E+11 bytes
+Redo Buffers              803119104 bytes
+SQL> ALTER SYSTEM SET DB_CREATE_FILE_DEST='+DATA' SID='*';
+
+System altered.
+
+SQL> ALTER SYSTEM SET DB_RECOVERY_FILE_DEST='+FRA' SID='*';
+ALTER SYSTEM SET DB_RECOVERY_FILE_DEST='+FRA' SID='*'
+*
+ERROR at line 1:
+ORA-02097: parameter cannot be modified because specified value is invalid
+ORA-19802: cannot use DB_RECOVERY_FILE_DEST without DB_RECOVERY_FILE_DEST_SIZE
+
+
+SQL> Alter system set DB_RECOVERY_FILE_DEST_SIZE=300G scope=both;
+
+System altered.
+
+SQL> ALTER SYSTEM SET DB_RECOVERY_FILE_DEST='+FRA' SID='*';
+
+System altered.
+
+SQL> ALTER SYSTEM SET CONTROL_FILES='+DATA','+FRA' SCOPE=SPFILE SID='*';
+
+System altered.
+
+SQL> SHUTDOWN IMMEDIATE;
+ORA-01507: database not mounted
+
+
+ORACLE instance shut down.
+SQL> exit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+                                                                                                                                                                        
+oracle@b3psavcmsora01:/u04/oracle_home_bkp$ rman target /
+
+Recovery Manager: Release 11.2.0.3.0 - Production on Sat Jun 1 17:35:39 2013
+
+Copyright (c) 1982, 2011, Oracle and/or its affiliates.  All rights reserved.
+
+connected to target database (not started)
+
+RMAN> STARTUP FORCE NOMOUNT;
+
+Oracle instance started
+
+Total System Global Area  192468205568 bytes
+
+Fixed Size                     2170328 bytes
+Variable Size              56371446312 bytes
+Database Buffers          135291469824 bytes
+Redo Buffers                 803119104 bytes
+
+RMAN> RESTORE CONTROLFILE FROM '/u02/oradata/cmsppssp/controlfile/control01.ctl'; 
+
+Starting restore at 01-JUN-13
+using target database control file instead of recovery catalog
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=343 device type=DISK
+
+channel ORA_DISK_1: copied control file copy
+output file name=+DATA/cmsppssp/controlfile/current.277.816975465
+output file name=+FRA/cmsppssp/controlfile/current.256.816975465
+Finished restore at 01-JUN-13
+
+RMAN> ALTER DATABASE MOUNT;
+
+database mounted
+released channel: ORA_DISK_1
+
+RMAN> SWITCH DATABASE TO COPY;
+
+datafile 1 switched to datafile copy "+DATA/cmsppssp/datafile/system.273.816974657"
+datafile 2 switched to datafile copy "+DATA/cmsppssp/datafile/sysaux.272.816974657"
+datafile 3 switched to datafile copy "+DATA/cmsppssp/datafile/undotbs1.270.816974517"
+datafile 4 switched to datafile copy "+DATA/cmsppssp/datafile/users.275.816974699"
+datafile 5 switched to datafile copy "+DATA/cmsppssp/datafile/pros_default.271.816974521"
+datafile 6 switched to datafile copy "+DATA/cmsppssp/datafile/pros_default.256.816973383"
+datafile 7 switched to datafile copy "+DATA/cmsppssp/datafile/pros_default.259.816973383"
+datafile 8 switched to datafile copy "+DATA/cmsppssp/datafile/pros_default.258.816973383"
+datafile 9 switched to datafile copy "+DATA/cmsppssp/datafile/pros_default.257.816973383"
+datafile 10 switched to datafile copy "+DATA/cmsppssp/datafile/pros_default.260.816973765"
+datafile 11 switched to datafile copy "+DATA/cmsppssp/datafile/pros_default.261.816973765"
+datafile 12 switched to datafile copy "+DATA/cmsppssp/datafile/pros_default.262.816973765"
+datafile 13 switched to datafile copy "+DATA/cmsppssp/datafile/pros_default.263.816973765"
+datafile 14 switched to datafile copy "+DATA/cmsppssp/datafile/pros_default.264.816974141"
+datafile 15 switched to datafile copy "+DATA/cmsppssp/datafile/pros_default.265.816974141"
+datafile 16 switched to datafile copy "+DATA/cmsppssp/datafile/pros_default.266.816974141"
+datafile 17 switched to datafile copy "+DATA/cmsppssp/datafile/pros_default.267.816974141"
+datafile 18 switched to datafile copy "+DATA/cmsppssp/datafile/pros_default.268.816974517"
+datafile 19 switched to datafile copy "+DATA/cmsppssp/datafile/undotbs1.269.816974517"
+datafile 20 switched to datafile copy "+DATA/cmsppssp/datafile/tivoliorts.274.816974691"
+
+RMAN> ALTER DATABASE OPEN;
+
+database opened
+
+RMAN> 
+
+RMAN> exit
+
+
+Recovery Manager complete.
+                                                                                                                                                                        
+oracle@b3psavcmsora01:/u04/oracle_home_bkp$ sqlplus "/as sysdba"
+
+SQL*Plus: Release 11.2.0.3.0 Production on Sat Jun 1 17:40:17 2013
+
+Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+
+SQL> set pages 999
+SQL> col tablespace_name format a40
+SQL> col "size MB" format 999,999,999
+SQL> col "free MB" format 99,999,999
+SQL> col "% Used" format 999
+SQL> select     tsu.tablespace_name, ceil(tsu.used_mb) "size MB"
+  2  ,  decode(ceil(tsf.free_mb), NULL,0,ceil(tsf.free_mb)) "free MB"
+  3  ,  decode(100 - ceil(tsf.free_mb/tsu.used_mb*100), NULL, 100,
+  4                 100 - ceil(tsf.free_mb/tsu.used_mb*100)) "% used"
+  5  from       (select tablespace_name, sum(bytes)/1024/1024 used_mb
+  6     from    dba_data_files group by tablespace_name union all
+  7     select  tablespace_name || '  **TEMP**'
+  8     ,       sum(bytes)/1024/1024 used_mb
+  9     from    dba_temp_files group by tablespace_name) tsu
+ 10  ,  (select tablespace_name, sum(bytes)/1024/1024 free_mb
+ 11     from    dba_free_space group by tablespace_name) tsf
+ 12  where      tsu.tablespace_name = tsf.tablespace_name (+)
+ 13  order      by 4
+ 14  /
+
+TABLESPACE_NAME                               size MB     free MB % used
+---------------------------------------- ------------ ----------- ------
+TIVOLIORTS                                        250         249      0
+USERS                                             100          99      1
+SYSTEM                                          2,000       1,590     20
+SYSAUX                                          4,096       2,749     32
+PROS_DEFAULT                                  409,600     180,777     55
+UNDOTBS1                                       30,720         705     97
+TIVOLIORTEMPTS  **TEMP**                          250           0    100
+PROS_TEMP  **TEMP**                            30,672           0    100
+TEMPTS1  **TEMP**                                 300           0    100
+
+9 rows selected.
+
+SQL> SELECT FILE_NAME,TABLESPACE_NAME,BYTES/1024/1024,AUTOEXTENSIBLE,MAXBYTES/1024/1024,INCREMENT_BY FROM DBA_TEMP_FILES WHERE TABLESPACE_NAME='PROS_TEMP';
+
+FILE_NAME
+--------------------------------------------------------------------------------
+TABLESPACE_NAME                          BYTES/1024/1024 AUT MAXBYTES/1024/1024
+---------------------------------------- --------------- --- ------------------
+INCREMENT_BY
+------------
+/u06/oradata/cmsppssp/PROS_TEMP01.dbf
+PROS_TEMP                                          12240 NO                   0
+           0
+
+/u06/oradata/cmsppssp/PROS_TEMP02.dbf
+PROS_TEMP                                          10240 NO                   0
+           0
+
+/u08/oradata/cmsppssp/PROS_TEMP03.dbf
+PROS_TEMP                                           8192 NO                   0
+           0
+
+
+SQL> ALTER TABLESPACE PROS_TEMP ADD TEMPFILE '+DATA' SIZE 12240m;
+
+Tablespace altered.
+
+SQL> ALTER TABLESPACE PROS_TEMP ADD TEMPFILE '+DATA' SIZE 10240m;
+
+Tablespace altered.
+
+SQL> ALTER TABLESPACE PROS_TEMP ADD TEMPFILE '+DATA' SIZE 8192m;
+
+Tablespace altered.
+
+SQL> SELECT FILE_NAME,TABLESPACE_NAME,BYTES/1024/1024,AUTOEXTENSIBLE,MAXBYTES/1024/1024,INCREMENT_BY FROM DBA_TEMP_FILES WHERE TABLESPACE_NAME='PROS_TEMP';
+
+FILE_NAME
+--------------------------------------------------------------------------------
+TABLESPACE_NAME                          BYTES/1024/1024 AUT MAXBYTES/1024/1024
+---------------------------------------- --------------- --- ------------------
+INCREMENT_BY
+------------
+/u06/oradata/cmsppssp/PROS_TEMP01.dbf
+PROS_TEMP                                          12240 NO                   0
+           0
+
+/u06/oradata/cmsppssp/PROS_TEMP02.dbf
+PROS_TEMP                                          10240 NO                   0
+           0
+
+/u08/oradata/cmsppssp/PROS_TEMP03.dbf
+PROS_TEMP                                           8192 NO                   0
+           0
+
++DATA/cmsppssp/tempfile/pros_temp.278.816975835
+PROS_TEMP                                          12240 NO                   0
+           0
+
++DATA/cmsppssp/tempfile/pros_temp.279.816975861
+PROS_TEMP                                          10240 NO                   0
+           0
+
++DATA/cmsppssp/tempfile/pros_temp.280.816975873
+PROS_TEMP                                           8192 NO                   0
+           0
+
+
+6 rows selected.
+
+SQL> ALTER TABLESPACE PROS_TEMP DROP TEMPFILE '/u06/oradata/cmsppssp/PROS_TEMP01.dbf';
+
+Tablespace altered.
+
+SQL> ALTER TABLESPACE PROS_TEMP DROP TEMPFILE '/u06/oradata/cmsppssp/PROS_TEMP02.dbf';
+
+Tablespace altered.
+
+SQL> ALTER TABLESPACE PROS_TEMP DROP TEMPFILE '/u08/oradata/cmsppssp/PROS_TEMP03.dbf';
+
+Tablespace altered.
+
+SQL> SELECT FILE_NAME,TABLESPACE_NAME,BYTES/1024/1024,AUTOEXTENSIBLE,MAXBYTES/1024/1024,INCREMENT_BY FROM DBA_TEMP_FILES WHERE TABLESPACE_NAME='PROS_TEMP';
+
+FILE_NAME
+--------------------------------------------------------------------------------
+TABLESPACE_NAME                          BYTES/1024/1024 AUT MAXBYTES/1024/1024
+---------------------------------------- --------------- --- ------------------
+INCREMENT_BY
+------------
++DATA/cmsppssp/tempfile/pros_temp.278.816975835
+PROS_TEMP                                          12240 NO                   0
+           0
+
++DATA/cmsppssp/tempfile/pros_temp.279.816975861
+PROS_TEMP                                          10240 NO                   0
+           0
+
++DATA/cmsppssp/tempfile/pros_temp.280.816975873
+PROS_TEMP                                           8192 NO                   0
+           0
+
+
+SQL> SELECT FILE_NAME,TABLESPACE_NAME,BYTES/1024/1024,AUTOEXTENSIBLE,MAXBYTES/1024/1024,INCREMENT_BY FROM DBA_TEMP_FILES WHERE TABLESPACE_NAME='TEMPTS1';
+
+FILE_NAME
+--------------------------------------------------------------------------------
+TABLESPACE_NAME                          BYTES/1024/1024 AUT MAXBYTES/1024/1024
+---------------------------------------- --------------- --- ------------------
+INCREMENT_BY
+------------
+/u06/oradata/cmsppssp/temp01.dbf
+TEMPTS1                                              300 NO                   0
+           0
+
+
+SQL> ALTER TABLESPACE TEMPTS1 ADD TEMPFILE '+DATA' SIZE 300m;
+
+Tablespace altered.
+
+SQL>  ALTER TABLESPACE TEMPTS1 TEMPFILE '/u06/oradata/cmsppssp/temp01.dbf';
+ ALTER TABLESPACE TEMPTS1 TEMPFILE '/u06/oradata/cmsppssp/temp01.dbf'
+                                   *
+ERROR at line 1:
+ORA-02142: missing or invalid ALTER TABLESPACE option
+
+
+SQL> ALTER TABLESPACE TEMPTS1 TEMPFILE '/u06/oradata/cmsppssp/temp01.dbf';
+ALTER TABLESPACE TEMPTS1 TEMPFILE '/u06/oradata/cmsppssp/temp01.dbf'
+                                  *
+ERROR at line 1:
+ORA-02142: missing or invalid ALTER TABLESPACE option
+
+
+SQL> ALTER TABLESPACE TEMPTS1 DROP TEMPFILE '/u06/oradata/cmsppssp/temp01.dbf';
+
+Tablespace altered.
+
+SQL>  SELECT FILE_NAME,TABLESPACE_NAME,BYTES/1024/1024,AUTOEXTENSIBLE,MAXBYTES/1024/1024,INCREMENT_BY FROM DBA_TEMP_FILES WHERE TABLESPACE_NAME='TEMPTS1';
+
+FILE_NAME
+--------------------------------------------------------------------------------
+TABLESPACE_NAME                          BYTES/1024/1024 AUT MAXBYTES/1024/1024
+---------------------------------------- --------------- --- ------------------
+INCREMENT_BY
+------------
++DATA/cmsppssp/tempfile/tempts1.281.816975989
+TEMPTS1                                              300 NO                   0
+           0
+
+
+SQL> SELECT FILE_NAME,TABLESPACE_NAME,BYTES/1024/1024,AUTOEXTENSIBLE,MAXBYTES/1024/1024,INCREMENT_BY FROM DBA_TEMP_FILES WHERE TABLESPACE_NAME='TIVOLIORTEMPTS';
+
+FILE_NAME
+--------------------------------------------------------------------------------
+TABLESPACE_NAME                          BYTES/1024/1024 AUT MAXBYTES/1024/1024
+---------------------------------------- --------------- --- ------------------
+INCREMENT_BY
+------------
+/u02/oradata/cmsppssp/tivoliortempts.dbf
+TIVOLIORTEMPTS                                       250 NO                   0
+           0
+
+
+SQL> ALTER TABLESPACE TIVOLIORTEMPTS ADD TEMPFILE '+DATA' SIZE 250m;
+
+Tablespace altered.
+
+SQL> ALTER TABLESPACE TIVOLIORTEMPTS DROP TEMPFILE '/u02/oradata/cmsppssp/tivoliortempts.dbf';
+
+Tablespace altered.
+
+SQL> SELECT FILE_NAME,TABLESPACE_NAME,BYTES/1024/1024,AUTOEXTENSIBLE,MAXBYTES/1024/1024,INCREMENT_BY FROM DBA_TEMP_FILES WHERE TABLESPACE_NAME='TIVOLIORTEMPTS';
+
+FILE_NAME
+--------------------------------------------------------------------------------
+TABLESPACE_NAME                          BYTES/1024/1024 AUT MAXBYTES/1024/1024
+---------------------------------------- --------------- --- ------------------
+INCREMENT_BY
+------------
++DATA/cmsppssp/tempfile/tivoliortempts.282.816976105
+TIVOLIORTEMPTS                                       250 NO                   0
+           0
+
+
+SQL> 
+SQL> 
+SQL> select name from   v$datafile;
+
+NAME
+--------------------------------------------------------------------------------
++DATA/cmsppssp/datafile/system.273.816974657
++DATA/cmsppssp/datafile/sysaux.272.816974657
++DATA/cmsppssp/datafile/undotbs1.270.816974517
++DATA/cmsppssp/datafile/users.275.816974699
++DATA/cmsppssp/datafile/pros_default.271.816974521
++DATA/cmsppssp/datafile/pros_default.256.816973383
++DATA/cmsppssp/datafile/pros_default.259.816973383
++DATA/cmsppssp/datafile/pros_default.258.816973383
++DATA/cmsppssp/datafile/pros_default.257.816973383
++DATA/cmsppssp/datafile/pros_default.260.816973765
++DATA/cmsppssp/datafile/pros_default.261.816973765
++DATA/cmsppssp/datafile/pros_default.262.816973765
++DATA/cmsppssp/datafile/pros_default.263.816973765
++DATA/cmsppssp/datafile/pros_default.264.816974141
++DATA/cmsppssp/datafile/pros_default.265.816974141
++DATA/cmsppssp/datafile/pros_default.266.816974141
++DATA/cmsppssp/datafile/pros_default.267.816974141
++DATA/cmsppssp/datafile/pros_default.268.816974517
++DATA/cmsppssp/datafile/undotbs1.269.816974517
++DATA/cmsppssp/datafile/tivoliorts.274.816974691
+
+20 rows selected.
+
+SQL> select name from v$controlfile;
+
+NAME
+--------------------------------------------------------------------------------
++DATA/cmsppssp/controlfile/current.277.816975465
++FRA/cmsppssp/controlfile/current.256.816975465
+
+SQL> select member from v$logfile;
+
+MEMBER
+--------------------------------------------------------------------------------
++DATA/cmsppssp/onlinelog/group_6.283.816976221
++FRA/cmsppssp/onlinelog/group_6.257.816976227
++DATA/cmsppssp/onlinelog/group_7.284.816976267
++FRA/cmsppssp/onlinelog/group_7.258.816976273
++DATA/cmsppssp/onlinelog/group_8.285.816976287
++FRA/cmsppssp/onlinelog/group_8.259.816976293
++DATA/cmsppssp/onlinelog/group_9.286.816976337
++FRA/cmsppssp/onlinelog/group_9.260.816976343
++DATA/cmsppssp/onlinelog/group_10.287.816976361
++FRA/cmsppssp/onlinelog/group_10.261.816976367
++DATA/cmsppssp/onlinelog/group_11.288.816976379
++FRA/cmsppssp/onlinelog/group_11.262.816976387
++DATA/cmsppssp/onlinelog/group_12.289.816976399
++FRA/cmsppssp/onlinelog/group_12.263.816976405
+
+14 rows selected.
+
+SQL> select NAME  from v$tempfile;
+
+NAME
+--------------------------------------------------------------------------------
++DATA/cmsppssp/tempfile/tivoliortempts.282.816976105
++DATA/cmsppssp/tempfile/tempts1.281.816975989
++DATA/cmsppssp/tempfile/pros_temp.278.816975835
++DATA/cmsppssp/tempfile/pros_temp.279.816975861
++DATA/cmsppssp/tempfile/pros_temp.280.816975873
+
+SQL> alter system set log_archive_dest_1='LOCATION=USE_DB_RECOVERY_FILE_DEST';
+
+System altered.
+
+SQL> archive log list;
+Database log mode              Archive Mode
+Automatic archival             Enabled
+Archive destination            USE_DB_RECOVERY_FILE_DEST
+Oldest online log sequence     842
+Next log sequence to archive   844
+Current log sequence           844
+SQL> show paramter RECOV
+SP2-0158: unknown SHOW option "paramter"
+SP2-0158: unknown SHOW option "RECOV"
+SQL> show paramater           parameter RECOVERY
+
+NAME                                 TYPE
+------------------------------------ --------------------------------
+VALUE
+------------------------------
+db_recovery_file_dest                string
++FRA
+db_recovery_file_dest_size           big integer
+300G
+recovery_parallelism                 integer
+0
+SQL> alter system swict log         switch logfile;
+
+System altered.
+
+SQL> /
+
+System altered.
+
+SQL> /
+
+System altered.
+
+SQL> /
+
+System altered.
+
+SQL> select name from v$database;
+
+NAME
+---------
+CMSPPSSP
+
+SQL> exit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+                                                                                                                                                                        
+oracle@b3psavcmsora01:/u04/oracle_home_bkp$ cd $ORACLE _HOME
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$ pwd
+/u01/app/oracle/product/11.2.0/db_1
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$ srvctl add database -d cmsppssp -o /u01/app/oracle/product/11.2.0/db _1
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$ crsctl modify resource "ora.cmsppssp.db" -attr "AUTO _START=1"
+-ksh: crsctl: not found [No such file or directory]
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$   
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$   
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$   
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$   
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$   
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$   
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$ sqlplus "/as sysdba"
+
+SQL*Plus: Release 11.2.0.3.0 Production on Sat Jun 1 18:24:42 2013
+
+Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+
+SQL> shutdown          exit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$  crs _stat         sqlplus "/as sysdba"
+
+SQL*Plus: Release 11.2.0.3.0 Production on Sat Jun 1 18:26:46 2013
+
+Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+
+SQL> shutdown immedate        imediate;
+SP2-0717: illegal SHUTDOWN option
+SQL> shutdown immediate;
+Database closed.
+Database dismounted.
+ORACLE instance shut down.
+SQL> exit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$ pwd
+/u01/app/oracle/product/11.2.0/db_1
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$ srvctl add database -d cmsppssp -o /u01/app/oracle/product/11.2.0/db _1
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$ ps -ef|grep smon
+ oragrid  6351     1   0 16:36:36 ?           0:00 asm_smon_+ASM
+  oracle 11218     1   0 18:30:21 ?           0:00 ora_smon_cmsppssp
+  oracle 11257  6886   0 18:31:03 pts/1       0:00 grep smon
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$ sqlplus "/asa              sqlplus "/as sysdba"
+
+SQL*Plus: Release 11.2.0.3.0 Production on Sat Jun 1 18:31:20 2013
+
+Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+
+SQL> select name,open_mode from v$dataas  base;
+select name,open_mode from v$database
+                           *
+ERROR at line 1:
+ORA-01507: database not mounted
+
+
+SQL>  select * from gv$instance;
+
+   INST_ID INSTANCE_NUMBER INSTANCE_NAME
+---------- --------------- ----------------
+HOST_NAME
+----------------------------------------------------------------
+VERSION           STARTUP_T STATUS       PAR    THREAD# ARCHIVE LOG_SWITCH_WAIT
+----------------- --------- ------------ --- ---------- ------- ---------------
+LOGINS     SHU DATABASE_STATUS   INSTANCE_ROLE      ACTIVE_ST BLO
+---------- --- ----------------- ------------------ --------- ---
+         1               1 cmsppssp
+b3psavcmsora01
+11.2.0.3.0        01-JUN-13 STARTED      NO           0 STOPPED
+ALLOWED    NO  ACTIVE            UNKNOWN            NORMAL    NO
+
+
+SQL>  select * from gv$instance;
+
+   INST_ID INSTANCE_NUMBER INSTANCE_NAME
+---------- --------------- ----------------
+HOST_NAME
+----------------------------------------------------------------
+VERSION           STARTUP_T STATUS       PAR    THREAD# ARCHIVE LOG_SWITCH_WAIT
+----------------- --------- ------------ --- ---------- ------- ---------------
+LOGINS     SHU DATABASE_STATUS   INSTANCE_ROLE      ACTIVE_ST BLO
+---------- --- ----------------- ------------------ --------- ---
+         1               1 cmsppssp
+b3psavcmsora01
+11.2.0.3.0        01-JUN-13 OPEN         NO           1 STARTED
+ALLOWED    NO  ACTIVE            PRIMARY_INSTANCE   NORMAL    NO
+
+
+SQL>  select * from gv$instance;
+
+   INST_ID INSTANCE_NUMBER INSTANCE_NAME
+---------- --------------- ----------------
+HOST_NAME
+----------------------------------------------------------------
+VERSION           STARTUP_T STATUS       PAR    THREAD# ARCHIVE LOG_SWITCH_WAIT
+----------------- --------- ------------ --- ---------- ------- ---------------
+LOGINS     SHU DATABASE_STATUS   INSTANCE_ROLE      ACTIVE_ST BLO
+---------- --- ----------------- ------------------ --------- ---
+         1               1 cmsppssp
+b3psavcmsora01
+11.2.0.3.0        01-JUN-13 OPEN         NO           1 STARTED
+ALLOWED    NO  ACTIVE            PRIMARY_INSTANCE   NORMAL    NO
+
+
+SQL> exit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$ ps -ef|grep smon
+  oracle 11598  6886   0 18:36:38 pts/1       0:00 grep smon
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$ ps -ef|grep d.bin
+ oragrid  6997     1   0 16:54:32 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/tnslsnr LISTENER -inherit
+ oragrid 11574     1   0 18:36:29 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/cssdagent
+ oragrid 11601     1   0 18:36:44 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/oraagent.bin
+    root  8128     1   0 17:22:03 ?           0:00 ./vsaoutd.bin start
+ oragrid 11506     1   0 18:35:47 ?           0:02 /c01/app/grid/product/11.2.0/grid/bin/ohasd.bin reboot
+    root  8118     1   0 17:22:02 ?           0:02 ./vsaclientd.bin start
+  oracle 11614  6886   0 18:36:47 pts/1       0:00 grep d.bin
+ oragrid 11587     1   0 18:36:29 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/ocssd.bin 
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$  ps -ef|grep d.bin
+ oragrid  6997     1   0 16:54:32 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/tnslsnr LISTENER -inherit
+ oragrid 11727 11658   0 18:36:58 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/evmlogger.bin -o /c01/app/grid/product/11
+ oragrid 11574     1   0 18:36:29 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/cssdagent
+  oracle 11754  6886   0 18:37:08 pts/1       0:00 grep d.bin
+ oragrid 11601     1   0 18:36:44 ?           0:01 /c01/app/grid/product/11.2.0/grid/bin/oraagent.bin
+    root  8128     1   0 17:22:03 ?           0:00 ./vsaoutd.bin start
+ oragrid 11506     1   0 18:35:47 ?           0:02 /c01/app/grid/product/11.2.0/grid/bin/ohasd.bin reboot
+    root  8118     1   0 17:22:02 ?           0:02 ./vsaclientd.bin start
+ oragrid 11658     1   0 18:36:56 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/evmd.bin
+ oragrid 11587     1   0 18:36:29 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/ocssd.bin 
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$  ps -ef|grep d.bin
+ oragrid  6997     1   0 16:54:32 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/tnslsnr LISTENER -inherit
+ oragrid 11727 11658   0 18:36:58 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/evmlogger.bin -o /c01/app/grid/product/11
+ oragrid 11574     1   0 18:36:29 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/cssdagent
+ oragrid 11601     1   0 18:36:44 ?           0:01 /c01/app/grid/product/11.2.0/grid/bin/oraagent.bin
+    root  8128     1   0 17:22:03 ?           0:00 ./vsaoutd.bin start
+  oracle 11761  6886   0 18:37:11 pts/1       0:00 grep d.bin
+ oragrid 11506     1   0 18:35:47 ?           0:02 /c01/app/grid/product/11.2.0/grid/bin/ohasd.bin reboot
+    root  8118     1   0 17:22:02 ?           0:02 ./vsaclientd.bin start
+ oragrid 11658     1   0 18:36:56 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/evmd.bin
+ oragrid 11587     1   0 18:36:29 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/ocssd.bin 
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...app/oracle/product/11.2.0/db_1$ cd network/admin
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ l s-lrt
+-ksh: l: not found [No such file or directory]
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ ls -lrt
+total 3842022
+-rw-r--r--   1 oracle   oinstall     205 May 11  2011 shrept.lst
+drwxr-xr-x   2 oracle   oinstall       5 Oct 23  2012 samples
+-rw-r--r--   1 oracle   oinstall     294 Nov  7  2012 listener.ora
+-rw-------   1 oracle   oinstall 204257569421 Feb 11 19:36 core
+-rw-r--r--   1 oracle   oinstall     401 Feb 12 08:46 tnsnames.ora
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ cay   cat listener.ora
+LISTENER_CMSPPSSP =
+  (DESCRIPTION_LIST =
+    (DESCRIPTION =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 161.178.175.42)(PORT = 1523))
+
+    )
+  )
+SID_LIST_LISTENER_CMSPPSSP =
+  (SID_LIST =
+    (SID_DESC =
+      (ORACLE_HOME = /u01/app/oracle/product/11.2.0/db_1)
+      (SID_NAME = CMSPPSSP))
+  )
+
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ lsnrctl        lsnrctl star            status LISTENER _CMSPPSSP                        lsnrctl status LISTENER _CMSPPSSP
+
+LSNRCTL for Solaris: Version 11.2.0.3.0 - Production on 01-JUN-2013 18:43:32
+
+Copyright (c) 1991, 2011, Oracle.  All rights reserved.
+
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=161.178.175.42)(PORT=1523)))
+TNS-12541: TNS:no listener
+ TNS-12560: TNS:protocol adapter error
+  TNS-00511: No listener
+   Solaris Error: 146: Connection refused
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ lsnrctl start LISTENER _CMSPPSSP
+
+LSNRCTL for Solaris: Version 11.2.0.3.0 - Production on 01-JUN-2013 18:43:39
+
+Copyright (c) 1991, 2011, Oracle.  All rights reserved.
+
+Starting /u01/app/oracle/product/11.2.0/db_1/bin/tnslsnr: please wait...
+
+TNSLSNR for Solaris: Version 11.2.0.3.0 - Production
+System parameter file is /u01/app/oracle/product/11.2.0/db_1/network/admin/listener.ora
+Log messages written to /u01/app/oracle/diag/tnslsnr/b3psavcmsora01/listener_cmsppssp/alert/log.xml
+Listening on: (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=161.178.175.42)(PORT=1523)))
+
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=161.178.175.42)(PORT=1523)))
+STATUS of the LISTENER
+------------------------
+Alias                     LISTENER_CMSPPSSP
+Version                   TNSLSNR for Solaris: Version 11.2.0.3.0 - Production
+Start Date                01-JUN-2013 18:43:39
+Uptime                    0 days 0 hr. 0 min. 0 sec
+Trace Level               off
+Security                  ON: Local OS Authentication
+SNMP                      OFF
+Listener Parameter File   /u01/app/oracle/product/11.2.0/db_1/network/admin/listener.ora
+Listener Log File         /u01/app/oracle/diag/tnslsnr/b3psavcmsora01/listener_cmsppssp/alert/log.xml
+Listening Endpoints Summary...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=161.178.175.42)(PORT=1523)))
+Services Summary...
+Service "CMSPPSSP" has 1 instance(s).
+  Instance "CMSPPSSP", status UNKNOWN, has 1 handler(s) for this service...
+The command completed successfully
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ lsnrctl stop LISTENER _CMSPPSSP
+
+LSNRCTL for Solaris: Version 11.2.0.3.0 - Production on 01-JUN-2013 18:44:01
+
+Copyright (c) 1991, 2011, Oracle.  All rights reserved.
+
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=161.178.175.42)(PORT=1523)))
+The command completed successfully
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ ps -ef|grep b.              ps -ef|grep d.bin
+ oragrid 12619     1   0 18:51:19 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/orarootagent.bin
+ oragrid 12576     1   0 18:50:45 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/oraagent.bin
+    root  8128     1   0 17:22:03 ?           0:00 ./vsaoutd.bin start
+  oracle 12641  6886   0 18:51:25 pts/1       0:00 grep d.bin
+    root  8118     1   0 17:22:02 ?           0:03 ./vsaclientd.bin start
+ oragrid 12617     1   0 18:51:19 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/cssdagent
+ oragrid 12630     1   0 18:51:20 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/ocssd.bin 
+ oragrid 12548     1   0 18:50:42 ?           0:01 /c01/app/grid/product/11.2.0/grid/bin/ohasd.bin reboot
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ ps -ef|grep d.bin
+ oragrid 12619     1   0 18:51:19 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/orarootagent.bin
+ oragrid 12576     1   0 18:50:45 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/oraagent.bin
+  oracle 12644  6886   0 18:51:30 pts/1       0:00 grep d.bin
+    root  8128     1   0 17:22:03 ?           0:00 ./vsaoutd.bin start
+    root  8118     1   0 17:22:02 ?           0:03 ./vsaclientd.bin start
+ oragrid 12617     1   0 18:51:19 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/cssdagent
+ oragrid 12630     1   0 18:51:20 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/ocssd.bin 
+ oragrid 12548     1   0 18:50:42 ?           0:01 /c01/app/grid/product/11.2.0/grid/bin/ohasd.bin reboot
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ ps -ef|grep d.bin
+ oragrid 12647     1   0 18:51:34 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/oraagent.bin
+    root  8128     1   0 17:22:03 ?           0:00 ./vsaoutd.bin start
+ oragrid 12725 12663   0 18:51:37 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/evmlogger.bin -o /c01/app/grid/product/11
+    root  8118     1   0 17:22:02 ?           0:03 ./vsaclientd.bin start
+ oragrid 12617     1   0 18:51:19 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/cssdagent
+ oragrid 12663     1   0 18:51:36 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/evmd.bin
+  oracle 12773  6886   0 18:51:42 pts/1       0:00 grep d.bin
+ oragrid 12630     1   0 18:51:20 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/ocssd.bin 
+ oragrid 12659     1   0 18:51:35 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/tnslsnr LISTENER -inherit
+ oragrid 12548     1   0 18:50:42 ?           0:02 /c01/app/grid/product/11.2.0/grid/bin/ohasd.bin reboot
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ ps -ef|grep d.bin
+ oragrid 12647     1   0 18:51:34 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/oraagent.bin
+    root  8128     1   0 17:22:03 ?           0:00 ./vsaoutd.bin start
+ oragrid 12725 12663   0 18:51:37 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/evmlogger.bin -o /c01/app/grid/product/11
+    root  8118     1   0 17:22:02 ?           0:03 ./vsaclientd.bin start
+ oragrid 12617     1   0 18:51:19 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/cssdagent
+ oragrid 12663     1   0 18:51:36 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/evmd.bin
+  oracle 12791  6886   0 18:51:46 pts/1       0:00 grep d.bin
+ oragrid 12630     1   0 18:51:20 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/ocssd.bin 
+ oragrid 12659     1   0 18:51:35 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/tnslsnr LISTENER -inherit
+ oragrid 12548     1   0 18:50:42 ?           0:02 /c01/app/grid/product/11.2.0/grid/bin/ohasd.bin reboot
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ ps -ef|grep d.bin
+ oragrid 12647     1   0 18:51:34 ?           0:01 /c01/app/grid/product/11.2.0/grid/bin/oraagent.bin
+    root  8128     1   0 17:22:03 ?           0:00 ./vsaoutd.bin start
+ oragrid 12725 12663   0 18:51:37 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/evmlogger.bin -o /c01/app/grid/product/11
+  oracle 12883  6886   0 18:52:06 pts/1       0:00 grep d.bin
+    root  8118     1   0 17:22:02 ?           0:03 ./vsaclientd.bin start
+ oragrid 12617     1   0 18:51:19 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/cssdagent
+ oragrid 12663     1   0 18:51:36 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/evmd.bin
+ oragrid 12630     1   0 18:51:20 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/ocssd.bin 
+ oragrid 12659     1   0 18:51:35 ?           0:00 /c01/app/grid/product/11.2.0/grid/bin/tnslsnr LISTENER -inherit
+ oragrid 12548     1   0 18:50:42 ?           0:02 /c01/app/grid/product/11.2.0/grid/bin/ohasd.bin reboot
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ crs _stat        lsnrctl start LISTENER _CMSPPSSP
+
+LSNRCTL for Solaris: Version 11.2.0.3.0 - Production on 01-JUN-2013 18:55:34
+
+Copyright (c) 1991, 2011, Oracle.  All rights reserved.
+
+Starting /u01/app/oracle/product/11.2.0/db_1/bin/tnslsnr: please wait...
+
+TNSLSNR for Solaris: Version 11.2.0.3.0 - Production
+System parameter file is /u01/app/oracle/product/11.2.0/db_1/network/admin/listener.ora
+Log messages written to /u01/app/oracle/diag/tnslsnr/b3psavcmsora01/listener_cmsppssp/alert/log.xml
+Listening on: (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=161.178.175.42)(PORT=1523)))
+
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=161.178.175.42)(PORT=1523)))
+STATUS of the LISTENER
+------------------------
+Alias                     LISTENER_CMSPPSSP
+Version                   TNSLSNR for Solaris: Version 11.2.0.3.0 - Production
+Start Date                01-JUN-2013 18:55:34
+Uptime                    0 days 0 hr. 0 min. 0 sec
+Trace Level               off
+Security                  ON: Local OS Authentication
+SNMP                      OFF
+Listener Parameter File   /u01/app/oracle/product/11.2.0/db_1/network/admin/listener.ora
+Listener Log File         /u01/app/oracle/diag/tnslsnr/b3psavcmsora01/listener_cmsppssp/alert/log.xml
+Listening Endpoints Summary...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=161.178.175.42)(PORT=1523)))
+Services Summary...
+Service "CMSPPSSP" has 1 instance(s).
+  Instance "CMSPPSSP", status UNKNOWN, has 1 handler(s) for this service...
+The command completed successfully
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ lsnrctl stop LISTENER _CMSPPSSP
+
+LSNRCTL for Solaris: Version 11.2.0.3.0 - Production on 01-JUN-2013 18:55:42
+
+Copyright (c) 1991, 2011, Oracle.  All rights reserved.
+
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=161.178.175.42)(PORT=1523)))
+The command completed successfully
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ login as: oracle
+oracle@161.178.175.42's password: 
+Last login: Sat Jun  1 17:48:27 2013 from 167.210.219.80
+
+****************************************************************************
+*  "Avis Budget Group", or one of its affiliates, jointly referred to as   *
+*  "Avis Budget Group", owns this computer system and restricts access and *
+*  use to authorized persons only.  Use of and/or access to this system    *
+*  and/or any information obtained via this system is subject to Avis      *
+*  Budget Group's policies and procedures governing such use and access    *
+*  (including, but not limited to, confidentiality, privacy, data and      *
+*  system security, and information protection).  Unauthorized or improper *
+*  use of or access to this system, or any portion of it, either directly  *
+*  or indirectly, or any attempt to deny service to authorized users or to *
+*  alter, damage, or destroy information, or otherwise to interfere with   *
+*  the system or its operation, is strictly prohibited.  Any party using   *
+*  or accessing, or attempting to use or access, this system without       *
+*  express authority from Avis Budget Group may be subject to severe       *
+*  disciplinary action and/or civil and criminal penalties in accordance   *
+*  with applicable state and federal law (including, but not limited to,   *
+*  the Computer Fraud and Abuse Act of 1986 and the Electronic             *
+*  Communications Privacy Act).  Avis Budget Group's representatives may   *
+*  monitor and record use and access for quality assurance, security,      *
+*  privacy compliance, performance, and maintenance purposes, except as    *
+*  prohibited by law.  Any person who uses or accesses this system         *
+*  expressly consents to such monitoring and recording.  Avis Budget Group *
+*  or its representatives may furnish information obtained by its          *
+*  monitoring and recording activity to law enforcement officials if such  *
+*  monitoring and recording reveals possible evidence of unlawful          *
+*  activity.                                                               *
+****************************************************************************
+****************************************************************************
+*  "Avis Budget Group", or one of its affiliates, jointly referred to as   *
+*  "Avis Budget Group", owns this computer system and restricts access and *
+*  use to authorized persons only.  Use of and/or access to this system    *
+*  and/or any information obtained via this system is subject to Avis      *
+*  Budget Group's policies and procedures governing such use and access    *
+*  (including, but not limited to, confidentiality, privacy, data and      *
+*  system security, and information protection).  Unauthorized or improper *
+*  use of or access to this system, or any portion of it, either directly  *
+*  or indirectly, or any attempt to deny service to authorized users or to *
+*  alter, damage, or destroy information, or otherwise to interfere with   *
+*  the system or its operation, is strictly prohibited.  Any party using   *
+*  or accessing, or attempting to use or access, this system without       *
+*  express authority from Avis Budget Group may be subject to severe       *
+*  disciplinary action and/or civil and criminal penalties in accordance   *
+*  with applicable state and federal law (including, but not limited to,   *
+*  the Computer Fraud and Abuse Act of 1986 and the Electronic             *
+*  Communications Privacy Act).  Avis Budget Group's representatives may   *
+*  monitor and record use and access for quality assurance, security,      *
+*  privacy compliance, performance, and maintenance purposes, except as    *
+*  prohibited by law.  Any person who uses or accesses this system         *
+*  expressly consents to such monitoring and recording.  Avis Budget Group *
+*  or its representatives may furnish information obtained by its          *
+*  monitoring and recording activity to law enforcement officials if such  *
+*  monitoring and recording reveals possible evidence of unlawful          *
+*  activity.                                                               *
+****************************************************************************
+You have mail.
+
+oracle@b3psavcmsora01:~$ sqlplus "/as sysdba"
+
+SQL*Plus: Release 11.2.0.3.0 Production on Sat Jun 1 19:24:09 2013
+
+Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+
+SQL> select name,open_mode from v$database;
+
+NAME      OPEN_MODE
+--------- --------------------
+CMSPPSSP  READ WRITE
+
+SQL> exit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+                                                                                                                                                                        
+oracle@b3psavcmsora01:~$ sqlplus "/as sysdba"
+
+SQL*Plus: Release 11.2.0.3.0 Production on Sat Jun 1 19:27:36 2013
+
+Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+
+SQL> exit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+                                                                                                                                                                        
+oracle@b3psavcmsora01:~$ cd $ORACLE_HOME/network/admin
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ ls -lrt
+-ksh: l: not found [No such file or directory]
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ ls -lrt
+total 3842022
+-rw-r--r--   1 oracle   oinstall     205 May 11  2011 shrept.lst
+drwxr-xr-x   2 oracle   oinstall       5 Oct 23  2012 samples
+-rw-r--r--   1 oracle   oinstall     294 Nov  7  2012 listener.ora
+-rw-------   1 oracle   oinstall 204257569421 Feb 11 19:36 core
+-rw-r--r--   1 oracle   oinstall     401 Feb 12 08:46 tnsnames.ora
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ cat listener.ora
+LISTENER_CMSPPSSP =
+  (DESCRIPTION_LIST =
+    (DESCRIPTION =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 161.178.175.42)(PORT = 1523))
+
+    )
+  )
+SID_LIST_LISTENER_CMSPPSSP =
+  (SID_LIST =
+    (SID_DESC =
+      (ORACLE_HOME = /u01/app/oracle/product/11.2.0/db_1)
+      (SID_NAME = CMSPPSSP))
+  )
+
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ lsnrctl start LISTENER CMSPPSSP
+
+LSNRCTL for Solaris: Version 11.2.0.3.0 - Production on 01-JUN-2013 19:28:04
+
+Copyright (c) 1991, 2011, Oracle.  All rights reserved.
+
+Starting /u01/app/oracle/product/11.2.0/db_1/bin/tnslsnr: please wait...
+
+TNSLSNR for Solaris: Version 11.2.0.3.0 - Production
+System parameter file is /u01/app/oracle/product/11.2.0/db_1/network/admin/listener.ora
+Log messages written to /u01/app/oracle/diag/tnslsnr/b3psavcmsora01/listener_cmsppssp/alert/log.xml
+Listening on: (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=161.178.175.42)(PORT=1523)))
+
+Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=161.178.175.42)(PORT=1523)))
+STATUS of the LISTENER
+------------------------
+Alias                     LISTENER_CMSPPSSP
+Version                   TNSLSNR for Solaris: Version 11.2.0.3.0 - Production
+Start Date                01-JUN-2013 19:28:04
+Uptime                    0 days 0 hr. 0 min. 0 sec
+Trace Level               off
+Security                  ON: Local OS Authentication
+SNMP                      OFF
+Listener Parameter File   /u01/app/oracle/product/11.2.0/db_1/network/admin/listener.ora
+Listener Log File         /u01/app/oracle/diag/tnslsnr/b3psavcmsora01/listener_cmsppssp/alert/log.xml
+Listening Endpoints Summary...
+  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=161.178.175.42)(PORT=1523)))
+Services Summary...
+Service "CMSPPSSP" has 1 instance(s).
+  Instance "CMSPPSSP", status UNKNOWN, has 1 handler(s) for this service...
+The command completed successfully
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ sqlplus "/as sysdba"
+
+SQL*Plus: Release 11.2.0.3.0 Production on Sat Jun 1 19:43:06 2013
+
+Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+
+SQL> select name,open_mode from v$daatabase;
+
+NAME      OPEN_MODE
+--------- --------------------
+CMSPPSSP  READ WRITE
+
+SQL> exit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, Automatic Storage Management, OLAP, Data Mining
+and Real Application Testing options
+                                                                                                                                                                        
+oracle@b3psavcmsora01:...duct/11.2.0/db_1/network/admin$ exit

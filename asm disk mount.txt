@@ -1,0 +1,87 @@
+pcmdb1k @ cds2ksc30:/ora_grid/product/v11.2.0/grid/bin
+
+
+
+if ASM Group not mounted if its shows offline 
+then 
+go to cd /ora_grid/product/v11.2.0/grid/bin
+
+
+1.check the  status of asm - crs_stat -t
+
+./crs_stat -t
+Name           Type           Target    State     Host
+------------------------------------------------------------
+ora.ARCH1.dg   ora....up.type ONLINE    ONLINE    cds2ksc30
+ora.DATA1.dg   ora....up.type ONLINE    ONLINE    cds2ksc30
+ora.FRA1.dg    ora....up.type OFFLINE   OFFLINE
+ora....ER.lsnr ora....er.type ONLINE    ONLINE    cds2ksc30
+ora.asm        ora.asm.type   ONLINE    ONLINE    cds2ksc30
+ora.cssd       ora.cssd.type  ONLINE    ONLINE    cds2ksc30
+ora.diskmon    ora....on.type ONLINE    ONLINE    cds2ksc30
+ora.pcmdb1k.db ora....se.type ONLINE    OFFLINE
+ora.ptsrm2k.db ora....se.type ONLINE    OFFLINE
+
+2.if any asm group offline then..,
+ now FRA1 OFFLINE So - 
+
+crsctl start resource ora.FRA1.dg
+
+3.Check now for status
+
+$ ./crs_stat -t
+Name           Type           Target    State     Host
+------------------------------------------------------------
+ora.ARCH1.dg   ora....up.type ONLINE    ONLINE    cds2ksc30
+ora.DATA1.dg   ora....up.type ONLINE    ONLINE    cds2ksc30
+ora.FRA1.dg    ora....up.type ONLINE    ONLINE    cds2ksc30
+ora....ER.lsnr ora....er.type ONLINE    ONLINE    cds2ksc30
+ora.asm        ora.asm.type   ONLINE    ONLINE    cds2ksc30
+ora.cssd       ora.cssd.type  ONLINE    ONLINE    cds2ksc30
+ora.diskmon    ora....on.type ONLINE    ONLINE    cds2ksc30
+ora.pcmdb1k.db ora....se.type ONLINE    OFFLINE
+ora.ptsrm2k.db ora....se.type ONLINE    OFFLINE
+
+
+
+
+4.login to the asm db and 
+
+check 
+
+select group_number, name, STATE from v$asm_diskgroup;
+
+SQL> select group_number, name, STATE from v$asm_diskgroup;
+
+GROUP_NUMBER NAME                           STATE
+------------ ------------------------------ -----------
+           1 DATA1                          MOUNTED
+           2 ARCH1                          MOUNTED
+           3 FRA1                           MOUNTED
+
+now all the diks mounted
+
+
+*******************************************************************************
+
+$ crsctl check crs
+Parse error:
+  'crs' is an invalid argument
+
+Brief usage:
+  crsctl check has
+     Check status of OHAS
+
+  crsctl check resource {<resName> [...]|-w <filter>} [-n <server>] [-k <cid>] [-d <did>]
+     Check status of resources
+
+  crsctl check css
+     Check status of Cluster Synchronization Services
+
+  crsctl check evm
+     Check status of Event Manager
+
+For complete usage, use:
+    crsctl [-h | --help]
+For detailed help on each command and object and its options use:
+    crsctl <command> <object> -h  For example, crsctl relocate resource -h

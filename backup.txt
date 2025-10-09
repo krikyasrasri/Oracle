@@ -1,0 +1,58 @@
+connect target rman/Cloudy123@PROD023;
+connect catalog rman/Cloudy123@rcat9;
+
+run {
+allocate channel t1 type 'SBT_TAPE' 
+parms 'ENV=(NSR_COMPRESSION=true)';
+SQL 'alter system archive log current';
+backup archivelog all delete input skip inaccessible format '/LOG_%d_%u/';
+release channel t1;
+ resync catalog;
+ }
+
+IDSSGDDDCDB =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = sgkcadsdbdev01.asiapac.astrazeneca.net)(PORT = 1526))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SID_NAME=IDSSGDDDCDB)
+      (SERVICE_NAME=IDSSGDDDCDB)
+    )
+  )
+
+* hsun116:/opt/oracle/u01/app/oracle/admin/PROD033/backup/bck_7_28_l1.cmd RMAN script execution is not successful. RMAN exited with return code '1'.
+* hsun116:/opt/oracle/u01/app/oracle/admin/PROD074/backup/bck_7_28_l1.cmd RMAN script execution is not successful. RMAN exited with return code '1'.
+* hsun116:/opt/oracle/u01/app/oracle/admin/PROD041/backup/bck_7_28_l1.cmd RMAN script execution is not successful. RMAN exited with return code '1'.
+* hsun116:/opt/oracle/u01/app/oracle/admin/PROD017/backup/bck_7_28_l1.cmd RMAN script execution is not successful. RMAN exited with return code '1'.
+
+::/opt/oracle/orabase/admin/UTV038/backup/bck_7_28_l1.cmd  
+
+vi /opt/oracle/u01/app/oracle/admin/PROD033/backup/bck_7_28_l1.cmd
+
+connect target rman/number9@PROD033;
+
+connect catalog rman/Cloudy123@rcat9;
+
+run {
+allocate channel t1 type 'SBT_TAPE'
+parms 'ENV=(NSR_COMPRESSION=true)';
+
+backup incremental level 1 cumulative filesperset 64 format '/L1_%d_%u/' database;
+
+SQL 'alter system archive log current';
+
+backup archivelog all delete input skip inaccessible format '/LOG_%d_%u/';
+
+release channel t1;
+resync catalog;
+}
+~
+connect catalog rman102/number9@rcat9;
+find /u001/app/oracle/admin/REGTPRD/adump/ -name '*.aud' -mtime +2 -exec rm -f {} \;
+
+find . -name "/opt/oracle/orabase/admin/UTV038/adump/*.aud" -mtime +20 -exec rm {} \;
+
+connect catalog rman_sys/Astra123@rmanlu;
+
+
+/opt/oracle/orabase/admin/UTV038/adump
