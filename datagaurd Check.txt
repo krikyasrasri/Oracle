@@ -1,0 +1,5 @@
+select name,open_mode,database_role from v$database;
+
+select logins from v$instance;
+
+show parameter fal

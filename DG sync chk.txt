@@ -1,0 +1,49 @@
+SQL> archive log list;
+Database log mode              Archive Mode
+Automatic archival             Enabled
+Archive destination            /arch_log_01/polt1k/arch
+Oldest online log sequence     34741
+Next log sequence to archive   0
+Current log sequence           34744
+
+
+SQL> archive log list;
+Database log mode              Archive Mode
+Automatic archival             Enabled
+Archive destination            +POLT_ARCH01
+Oldest online log sequence     34573
+Next log sequence to archive   34576
+Current log sequence           34576
+
+
+SQL> select max(SEQUENCE#) from v$archived_log;
+
+MAX(SEQUENCE#)
+--------------
+         35407
+
+SQL> select max(SEQUENCE#) from gv$archived_log where APPLIED='YES';
+
+MAX(SEQUENCE#)
+--------------
+         35406
+
+-------------------------------------------------------------------
+
+
+SQL> select max(SEQUENCE#) from gv$archived_log where APPLIED='YES';
+
+MAX(SEQUENCE#)
+--------------
+         35406
+
+SQL> select INSTANCE_NAME from gv$instance;
+
+INSTANCE_NAME
+----------------
+polt1k
+
+
+select round((sysdate – a.NEXT_TIME)*24*60) as “Backlog”,m.SEQUENCE#-1 “Seq Applied”,m.process, m.status
+
+from v$archived_log a, (select process,SEQUENCE#, status from v$managed_standby where process like ‘%MRP%’)m where a.SEQUENCE#=(m.SEQUENCE#-1);

@@ -1,0 +1,33 @@
+SQL> startup nomount pfile='/db14/db10g/app/oracle/product/10.2.0/db_1/dbs/initIDSTSTDB.ora';
+ORACLE instance started.
+
+Total System Global Area 2088402944 bytes
+Fixed Size                  2159904 bytes
+Variable Size            1610615520 bytes
+Database Buffers          469762048 bytes
+Redo Buffers                5865472 bytes
+
+SQL> CREATE DATABASE IDSTSTDB
+    USER SYS IDENTIFIED BY oracle123
+     USER SYSTEM IDENTIFIED BY manager123
+        LOGFILE GROUP 1 ('/u202/IDSTSTDB/redo01.log') SIZE 100M,
+        GROUP 2 ('/u202/IDSTSTDB/redo02.log') SIZE 100M,
+        GROUP 3 ('/u202/IDSTSTDB/redo03.log') SIZE 100M
+    MAXLOGFILES 64
+    MAXINSTANCES 8
+    MAXLOGMEMBERS 5
+    MAXLOGHISTORY 100
+    MAXDATAFILES 200
+    CHARACTER SET US7ASCII
+    NATIONAL CHARACTER SET AL16UTF16
+    EXTENT MANAGEMENT LOCAL
+    DATAFILE '/u202/IDSTSTDB/system01.dbf' SIZE 2000M
+    SYSAUX DATAFILE '/u202/IDSTSTDB/sysaux01.dbf' SIZE 1000M
+    DEFAULT TABLESPACE users
+    DATAFILE '/u202/IDSTSTDB/users01.dbf' SIZE 100M
+    DEFAULT TEMPORARY TABLESPACE tempts1
+    TEMPFILE '/u202/IDSTSTDB/temp01.dbf' SIZE 200M
+    UNDO TABLESPACE UNDOTBS1
+    DATAFILE '/u202/IDSTSTDB/undotbs01.dbf' SIZE 1000M;
+
+Database created.

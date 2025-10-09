@@ -1,0 +1,15 @@
+create user APPSINTST identified by appsint123
+DEFAULT TABLESPACE INFCAD
+TEMPORARY TABLESPACE tempts1
+QUOTA UNLIMITED ON INFCAD; 
+
+abginfp =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 161.178.235.246)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SID = abginfp)
+      (SERVER = DEDICATED)
+    )
+  )

@@ -1,0 +1,167 @@
+SQL> SELECT TO_CHAR(CURRENT_SCN) FROM V$DATABASE;
+
+CURRENT_SCN
+-----------
+1447102
+
+On the standby:
+
+SQL> SELECT TO_CHAR(CURRENT_SCN) FROM V$DATABASE;
+
+CURRENT_SCN
+-----------
+1301571
+
+SQL> select scn_to_timestamp(4475242677) from dual;
+
+SCN_TO_TIMESTAMP(1447102)
+-------------------------------
+18-DEC-09 08.54.28.000000000 AM
+
+I ran the same query to know the timestamp associated with the SCN of the standby database as well (note, I ran it on the primary database, though; since it will fail in the standby in a mounted mode):
+
+SQL> select scn_to_timestamp(12899559753552) from dual;
+
+SCN_TO_TIMESTAMP(1301571)
+-------------------------------
+15-DEC-09 07.19.27.000000000 PM
+
+************************************************
+1. [Standby] Stop the managed standby apply process:
+
+SQL> alter database recover managed standby database cancel;
+
+Database altered.
+
+2. [Standby] Shutdown the standby database
+
+3. [Primary] On the primary, take an incremental backup from the SCN number where the standby has been stuck:
+
+RMAN> 
+	
+using target database control file instead of recovery catalog
+allocated channel: c1
+channel c1: sid=139 devtype=DISK
+
+Starting backup at 18-DEC-09
+channel c1: starting full datafile backupset
+channel c1: specifying datafile(s) in backupset
+input datafile fno=00001 name=/u01/oradata/DEL1/datafile/o1_mf_system_5bhbh59c_.dbf
+… …
+piece handle=/u01/oraback/06l16u1q_1_1.rmb tag=TAG20091218T083619 comment=NONE
+channel c1: backup set complete, elapsed time: 00:00:06
+Finished backup at 18-DEC-09
+released channel: c1
+
+4. [Primary] On the primary, create a new standby controlfile:
+
+SQL> alter database create standby controlfile as '/a01/oradata/brmprfp1/lag/brm_standby.ctl';
+backup current controlfile for standby format '/a01/oradata/brmprfp1/lag/standby-ctl-%U';
+Database altered.
+
+5. [Primary] Copy these files to standby host:
+
+oracle@oradba1 /u01/oraback# scp *.rmb *.ctl oracle@oradba2:/u01/orabackoracle@oradba2's password:
+06l16u1q_1_1.rmb 100% 43MB 10.7MB/s 00:04 
+DEL1_standby.ctl 100% 43MB 10.7MB/s 00:04 
+
+6. [Standby] Bring up the instance in nomount mode:
+
+SQL> startup nomount
+
+7. [Standby] Check the location of the controlfile:
+
+SQL> show parameter control_files
+
+NAME TYPE VALUE
+------------------------------------ ----------- ------------------------------
+control_files string /u01/oradata/standby_cntfile.ctl
+
+8. [Standby] Replace the controlfile with the one you just created in primary.
+
+9. $ cp /u01/oraback/DEL1_standby.ctl /u01/oradata/standby_cntfile.ctl
+
+10.[Standby] Mount the standby database:
+
+SQL> alter database mount standby database;
+
+11.[Standby] RMAN does not know about these files yet; so you must let it know – by a process called cataloging. Catalog these files:
+
+$ rman target=/
+
+Recovery Manager: Release 10.2.0.4.0 - Production on Fri Dec 18 06:44:25 2009
+
+Copyright (c) 1982, 2007, Oracle. All rights reserved.
+
+connected to target database: DEL1 (DBID=846390698, not open)
+RMAN> catalog start with '/u01/oradata/brmdev/standby';
+
+using target database control file instead of recovery catalog
+searching for all files that match the pattern /u01/oraback
+
+List of Files Unknown to the Database
+=====================================
+File Name: /u01/oraback/DEL1_standby.ctl
+File Name: /u01/oraback/06l16u1q_1_1.rmb
+
+Do you really want to catalog the above files (enter YES or NO)? yes
+cataloging files...
+cataloging done
+
+List of Cataloged Files
+=======================
+File Name: /u01/oraback/DEL1_standby.ctl
+File Name: /u01/oraback/06l16u1q_1_1.rmb
+
+12.Recover these files:
+
+RMAN> recover database;
+
+Starting recover at 18-DEC-09
+using channel ORA_DISK_1
+channel ORA_DISK_1: starting incremental datafile backupset restore
+channel ORA_DISK_1: specifying datafile(s) to restore from backup set
+destination for restore of datafile 00001: /u01/oradata/DEL2/datafile/o1_mf_system_5lptww3f_.dbf
+...…
+channel ORA_DISK_1: reading from backup piece /u01/oraback/05l16u03_1_1.rmb
+channel ORA_DISK_1: restored backup piece 1
+piece handle=/u01/oraback/05l16u03_1_1.rmb tag=TAG20091218T083619
+channel ORA_DISK_1: restore complete, elapsed time: 00:00:07
+
+starting media recovery
+
+archive log thread 1 sequence 8012 is already on disk as file /u01/oradata/1_8012_697108460.dbf
+archive log thread 1 sequence 8013 is already on disk as file /u01/oradata/1_8013_697108460.dbf
+… …
+
+13. After some time, the recovery fails with the message:
+
+archive log filename=/u01/oradata/1_8008_697108460.dbf thread=1 sequence=8009
+RMAN-00571: ===========================================================
+RMAN-00569: =============== ERROR MESSAGE STACK FOLLOWS ===============
+RMAN-00571: ===========================================================
+RMAN-03002: failure of recover command at 12/18/2009 06:53:02
+RMAN-11003: failure during parse/execution of SQL statement: alter database recover logfile '/u01/oradata/1_8008_697108460.dbf'
+ORA-00310: archived log contains sequence 8008; sequence 8009 required
+ORA-00334: archived log: '/u01/oradata/1_8008_697108460.dbf'
+
+This happens because we have come to the last of the archived logs. The expected archived log with sequence# 8008 has not been generated yet.
+
+14.At this point exit RMAN and start managed recovery process:
+
+SQL> alter database recover managed standby database disconnect from session;
+
+Database altered.
+
+15.Check the SCN’s in primary and standby:
+
+[Standby] SQL> select current_scn from v$database;
+
+CURRENT_SCN
+-----------
+1447474
+[Primary] SQL> select current_scn from v$database;
+
+CURRENT_SCN
+-----------
+1447478

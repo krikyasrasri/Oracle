@@ -1,31 +1,30 @@
-lsnrctl>set current_listener LISTENER
-lsnrctl>set Log_status off
-mv Listener.log to listenerold.log (from the command prompt)
-lsnrctl>set Log_Status on 
+LSNR_ABGINFP =
+  (DESCRIPTION_LIST =
+    (DESCRIPTION =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 161.178.235.246)(PORT = 1521))
+    )
+  )
 
 
-LSNRCTL> set current_listener LISTENER_UKBLTARGDB_1
-Current Listener is LISTENER_UKBLTARGDB_1
-LSNRCTL> set password 3C0C019FB06F4946
-The command completed successfully
-LSNRCTL> status
-Connecting to (DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=ukbltargdb.ukhx.astrazeneca.net)(PORT=1521)))
-STATUS of the LISTENER
-------------------------
-Alias                     LISTENER_UKBLTARGDB_1
-Version                   TNSLSNR for Solaris: Version 9.2.0.8.0 - Production
-Start Date                24-OCT-2015 11:58:42
-Uptime                    14 days 1 hr. 0 min. 40 sec
-Trace Level               off
-Security                  ON
-SNMP                      OFF
-Listener Parameter File   /data/d601/app/oracle/product/9.2/network/admin/listener.ora
-Listener Log File         /data/d601/app/oracle/product/9.2/network/log/listener_ukbltargdb_1.log
-Listening Endpoints Summary...
-  (DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=10.146.14.87)(PORT=1521)))
-Services Summary...
-Service "TARGETS1" has 1 instance(s).
-  Instance "TARGETS1", status UNKNOWN, has 1 handler(s) for this service...
-The command completed successfully
-LSNRCTL>
 
+SID_LIST_LSNR_ABGINFP =
+  (SID_LIST =
+    (SID_DESC =
+      (GLOBAL_DBNAME = abginfp)
+      (ORACLE_HOME = /u01/app/oracle/product/11.2.0.2)
+      (SID_NAME = abginfp)
+    )
+)
+
+tns
+****
+abginfp =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 161.178.235.246)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SID = abginfp)
+      (SERVER = DEDICATED)
+    )
+  )

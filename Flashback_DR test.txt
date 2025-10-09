@@ -1,0 +1,75 @@
+On Standby
+=========================================================
+1. Enable flashback 
+
+Setup flashback destination and file size.
+
+SQL> Alter system set db_recovery_file_dest=’/u01/flash’ scope=spfile;
+SQL> Alter system set db_recovery_file_dest_size=10G scope=spfile;
+
+2. Cancel the recovery.
+
+SQL> Alter database recover managed standby database cancel;
+
+SQL> Shutdown immediate
+
+3. Startup database in mount mode.
+
+SQL> Startup mount
+
+4. Put database in the flashback mode 
+
+SQL> alter database flashback on;
+
+5. Create the Restore Point on the standby database 
+
+SQL> Create restore point before_dr guarantee flashback database;
+
+6. Activate Standby database
+
+SQL> Alter database activate standby database;
+
+7. Open the DR database
+
+SQL> Alter database open;
+
+8. Shutdown and restart the database and check the services of primary and DR database should be same.
+
+--- Perform DR tests --- 
+========================================================================================================
+Steps to rollback and convert to standby.
+
+On Standby
+
+1. Shutdown after DR test 
+
+SQL> Shutdown immediate
+
+2. Startup database with mount.
+
+SQL> startup mount 
+
+3. Restore database to the restored point. 
+
+SQL> Flashback database to restore point before_dr;
+
+4.Convert database to physical standby 
+
+SQL> Alter database convert to physical standby;
+
+5. shutdown and startup in standby mode 
+
+SQL> Shutdown immediate
+SQL> startup nomount
+SQL> Alter database mount standby database;
+SQL> Alter database recover managed standby database disconnect from session;
+
+after primary and DR came to sync
+
+6. Drop restored point 
+
+SQL> Drop restore point before_dr;
+
+7. Turn off flashback
+
+alter database flashback off;

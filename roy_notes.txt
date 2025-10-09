@@ -1,0 +1,167 @@
+select max(sequence#) from v$archived_log where applied='YES' and dest_id=3; 
+select max(sequence#) from v$archived_log where applied='YES' and dest_id=2; 
+Incremental backup with SCN method can be used also after a logmode changed in primary :
+
+Production database:  
+Name: CPRO @w95237
+Size : 6 TB
+
+Standby database : 
+Name: CPROS @w80000 
+
+Steps to be followed  to rebuild standby : 
+
+On standby :
+1.cancel the managed recovery :
+
+ALTER DATABASE RECOVER MANAGED STANDBY DATABASE CANCEL;
+
+2.Get the current scn from standby instance :
+
+sql> select current_scn from v$database;
+
+10615562421
+
+3.shutdown the standby:
+
+sql> shutdown immediate;
+
+on primary:
+
+4.disable the log_archive_dest_2
+
+alter system set log_archive_dest_state_2=defer;
+
+here during application upgrade archive log build up was already stopped :
+
+alter system set log_archive_dest_2=' ' scope=both;
+alter system set log_archive_dest_state_2='DEFER'; 
+
+5.Take a incremental backup with SCN :
+
+Your active environment: 
+DATABASE ID : CPRO 
+ORACLE_HOME : /software/app/oracle10/product/11.2.0/dbhome_1 
+
+w95212[PRODUCTION]:/software/app/oracle10 (CPRO)> rman target / 
+
+Recovery Manager: Release 11.2.0.3.0 - Production on Mon Jun 23 18:51:20 2014 
+
+Copyright (c) 1982, 2011, Oracle and/or its affiliates.  All rights reserved. 
+
+connected to target database: CPRO (DBID=1000365001) 
+
+RMAN> run 
+{ 
+
+allocate channel d1 type disk;
+
+allocate channel d2 type disk;
+
+backup incremental from scn 10615562421 database format
+
+'/w80000_app/backup/u01/oracle/CPROS/stb_%U';
+
+release channel d1;
+
+release channel d2;
+
+}
+
+=> This has been run for 7 to 8 hours and the size of incremntal backup was 850 GB . 
+
+6.  Create copy of control file on Primary:
+
+alter database create standby controlfile as ‘/w80000_app/backup/u01/oracle/CPROS/cpros.ctl’;
+
+7.copy/scp the backup files & control file to standby server. 
+
+Here backup taken on NFS location and NFS is being shared in both primary & standby server.hence no need to SCP the backup files and control file 
+
+ Copy the current standby control file to its original location.
+
+cp /w80000_app/u01/prod/db/oracle/data/CPROS/cpros.ctl  /w80000_app/u01/prod/db/oracle/data/CPRO/control01.ctl
+
+cp /w80000_app/u01/prod/db/oracle/data/CPROS/cpros.ctl  /w80000_app/u02/prod/db/oracle/data/CPRO/control02.ctl
+
+8. start the standby database in mount stage:
+
+oracle10@w80000(CPROS): . cpros 
+The Oracle base remains unchanged with value /software/app/oracle10/product/11.2.0 
+
+Your active environment: 
+DATABASE ID : CPROS 
+ORACLE_HOME : /software/app/oracle10/product/11.2.0/dbhome_2 
+
+oracle10@w80000(CPROS): sqlplus / as sysdba
+
+sql>startup mount;
+
+9. connect to rman and catalog the files :
+
+Your active environment: 
+DATABASE ID : CPROS 
+ORACLE_HOME : /software/app/oracle10/product/11.2.0/dbhome_2 
+
+oracle10@w80000(CPROS): rman target / 
+
+Recovery Manager: Release 11.2.0.3.0 - Production on Mon Jun 23 19:03:17 2014 
+
+Copyright (c) 1982, 2011, Oracle and/or its affiliates.  All rights reserved. 
+
+connected to target database: CPRO (DBID=1000365001, not open) 
+
+RMAN> catalog start with '/w80000_app/backup/u01/oracle/CPROS/';
+
+10. Apply differential backup to bring the standby in line with Primary:
+
+RMAN> recover database noredo;
+
+This has been taken 10 hours to complete. 
+
+11. When the recovery completes, you may start the managed recovery process on standby and also enable the log_archive_dest_2 on primary:
+
+@primary:
+
+alter system set log_archive_dest_2='service=CPROS async valid_for=(online_logfile,primary_role) db_unique_name=CPROS' ;
+
+alter system set log_archive_dest_state_2='ENABLE' ;
+
+Then to verify  run the following on the primary :-
+select DEST_ID, STATUS, DESTINATION, ERROR from V$ARCHIVE_DEST where DEST_ID<=2;
+- confirm destination 2 is 'VALID'
+======================================================
+
+@standby :
+
+ALTER DATABASE RECOVER MANAGED STANDBY DATABASE DISCONNECT FROM SESSION;
+
+Check the log shipping : 
+
+select al.thrd "Thread", almax "Last Seq Received", lhmax "Last Seq Applied" 
+  from (select thread# thrd, max(sequence#) almax 
+  	   from v$archived_log 
+  	   where resetlogs_change#=(select resetlogs_change# from v$database) 
+  	   group by thread#) al, 
+  	  (select thread# thrd, max(sequence#) lhmax 
+  	   from v$log_history 
+  	   where resetlogs_change#=(select resetlogs_change# from v$database) 
+  	   group by thread#) lh 
+  where al.thrd = lh.thrd; 
+
+- which will confirm log shipping
+    Thread 	Last Seq Received 	Last Seq Applied 
+---------- 		----------------- 		---------------- 
+         1            	103701           		10370
+***************************************************************************************************
+
+Monitor both primary & standby database alert log for few time and also check the scheduled backup to ensure everything is running as expected. 
+
+Check the archive dest on primary to ensure archive logs are getting deleted after a successful backup and without any warning messages as  
+below :
+RMAN-08137: WARNING: archived log not deleted, needed for standby or upstream capture process 
+archived log file name=/w95237_app/archive/flash_recovery_area/CPRO/archivelog/2014_06_14/o1_mf_1_41750_9sr2tvtk_.arc thread=1 sequence=41750 
+RMAN-08137: WARNING: archived log not deleted, needed for standby or upstream capture process 
+archived log file name=/w95237_app/archive/flash_recovery_area/CPRO/archivelog/2014_06_14/o1_mf_1_41751_9sr2tw17_.arc thread=1 sequence=41751 
+RMAN-08137: WARNING: archived log not deleted, needed for standby or upstream capture process .
+******************************************************************* 

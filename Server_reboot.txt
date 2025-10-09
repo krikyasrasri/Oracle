@@ -1,0 +1,197 @@
+ps -ef|grep pmon
+
+ps -ef|grep inherit
+
+lsnrctl status
+
+ps -ef|grep oem
+
+
+voo
+cat oratab
+
+dchs1s:/oracle/product/v11.2.0.1:N
+dmrs1s:/oracle/product/v11.2.0.1:N
+dmrs2s:/oracle/product/v11.2.0.1:N
+dmrs3s
+
+Db Status
+******************
+dmrs1s
+dmrs2s
+dchs1s
+dmrs3s
+
+for i in dmch1s dsaf2 dipe1s desi1s drsk2  dsaf1 
+do
+SetDb $i
+sqlplus -s "/ as sysdba"<<EOF
+set linesize 200
+col owner format a20
+col object_type format a30
+col object_name format a40
+col action_time format a40
+col comments format a60
+select name,open_mode,database_role from v\$database; 
+select INSTANCE_NAME,VERSION,STATUS,DATABASE_STATUS,LOGINS from v\$instance;
+show parameter fal;
+select CAPTURE_NAME,STATUS,SOURCE_DATABASE from dba_capture;
+select username from dba_users where username like 'STRADMIN';
+exit
+EOF
+done
+
+
+Databases SHUTDOWN: 
+################## 
+In case of ASM Shutdown : 1)DB 2)ASM 3)LISTENER:
+
+SQL> shutdown immediate;
+ORA-01031: insufficient privileges
+SQL> exit
+
+srvctl stop asm -f
+
+Usage: srvctl stop listener [-l <lsnr_name>]
+    -l <lsnr_name>           Listener name
+    -f                       Force stop
+    -h                       Print usage
+
+
+for i in dmch1s dsaf2 dipe1s desi1s drsk2  dsaf1
+do
+SetDb $i
+sqlplus -s "/ as sysdba"<<EOF
+shutdown immediate;
+exit
+EOF
+done
+
+
+for i in dmch1s dsaf2 dipe1s desi1s drsk2  dsaf1
+do
+SetDb $i
+sqlplus -s "/ as sysdba"<<EOF
+startup;
+exit
+EOF
+done
+
+for i in pcop1k
+do
+SetDb $i
+sqlplus -s "/ as sysdba"<<EOF
+alter database recover managed standby database cancel;
+shutdown immediate;
+exit
+EOF
+done
+
+
+for i in pcop1k
+do
+SetDb $i
+sqlplus -s "/ as sysdba"<<EOF
+startup nomount;
+alter database mount standby database;
+alter database recover managed standby database using current logfile disconnect from session;
+exit
+EOF
+done
+
+
+$ ps -aef | grep dwmb1s | grep -v 22565 | grep LOCAL=NO | awk '{print "kill-9 "$2}' | sh
+
+Databases STARTUP: 
+################## 
+
+In Case of ASM Startup :1) ASM 2)DB 3)LISTENER
+
+SQL> Startup;
+ORA-01031: insufficient privileges
+SQL> exit
+
+srvctl start asm
+
+for i in imrs1s imsd1s iems4s icrd1s iems2s ixpr1s
+do
+SetDb $i
+sqlplus -s "/ as sysdba"<<EOF
+startup;
+exit
+EOF
+done
+
+*************************************
+
+ASM - Server rboot instructions
+
+*************************************
+The ASM instance in the Grid,was automatically starting on multiple server reboots,by adding the entry in Oratab.
+
++ASM:/ora_grid/product/v11.2.0/grid:N          # line added by Agent
+
+Hence disabled it using srvctl command.
+/ora_grid/product/v11.2.0/grid/bin
+./srvctl stop ASM -f
+
+$ srvctl disable asm
++ASM @ cds0stl32:/oracle/home
+
+Then after server reboot is done :
+
+$ srvctl enable asm
++ASM @ cds0stl32:/oracle/home
+
++ASM @ cds0stl32:/oracle/home
+$ crsctl start resource ora.ARCH1.dg
+$ crsctl start resource ora.FRA1.dg
+
+crsctl start resource ora.DATA1_APPLIMATION.dg
+crsctl start resource ora.ARCH1_UAT.dg
+
+I have started these resources on cds0stl32. In future, please follow this.
+
+Log :
+
++ASM @ cds0stl32:/oracle/home
+$ crs_stat -t
+Name           Type           Target    State     Host
+------------------------------------------------------------
+ora.ARCH1.dg   ora....up.type OFFLINE   OFFLINE
+ora.DATA1.dg   ora....up.type ONLINE    ONLINE    cds0stl32
+ora.FRA1.dg    ora....up.type OFFLINE   OFFLINE
+ora....ER.lsnr ora....er.type ONLINE    ONLINE    cds0stl32
+ora.asm        ora.asm.type   ONLINE    ONLINE    cds0stl32
+ora.cssd       ora.cssd.type  ONLINE    ONLINE    cds0stl32
+ora.diskmon    ora....on.type ONLINE    ONLINE    cds0stl32
++ASM @ cds0stl32:/oracle/home
+$ crsctl start resource ora.ARCH1.dg
+CRS-2672: Attempting to start 'ora.ARCH1.dg' on 'cds0stl32'
+CRS-2676: Start of 'ora.ARCH1.dg' on 'cds0stl32' succeeded
++ASM @ cds0stl32:/oracle/home
+$ crs_stat -t
+Name           Type           Target    State     Host
+------------------------------------------------------------
+ora.ARCH1.dg   ora....up.type ONLINE    ONLINE    cds0stl32
+ora.DATA1.dg   ora....up.type ONLINE    ONLINE    cds0stl32
+ora.FRA1.dg    ora....up.type OFFLINE   OFFLINE
+ora....ER.lsnr ora....er.type ONLINE    ONLINE    cds0stl32
+ora.asm        ora.asm.type   ONLINE    ONLINE    cds0stl32
+ora.cssd       ora.cssd.type  ONLINE    ONLINE    cds0stl32
+ora.diskmon    ora....on.type ONLINE    ONLINE    cds0stl32
++ASM @ cds0stl32:/oracle/home
+$ crsctl start resource ora.FRA1.dg
+CRS-2672: Attempting to start 'ora.FRA1.dg' on 'cds0stl32'
+CRS-2676: Start of 'ora.FRA1.dg' on 'cds0stl32' succeeded
++ASM @ cds0stl32:/oracle/home
+$ crs_stat -t
+Name           Type           Target    State     Host
+------------------------------------------------------------
+ora.ARCH1.dg   ora....up.type ONLINE    ONLINE    cds0stl32
+ora.DATA1.dg   ora....up.type ONLINE    ONLINE    cds0stl32
+ora.FRA1.dg    ora....up.type ONLINE    ONLINE    cds0stl32
+ora....ER.lsnr ora....er.type ONLINE    ONLINE    cds0stl32
+ora.asm        ora.asm.type   ONLINE    ONLINE    cds0stl32
+ora.cssd       ora.cssd.type  ONLINE    ONLINE    cds0stl32
+ora.diskmon    ora....on.type ONLINE    ONLINE    cds0stl32

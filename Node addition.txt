@@ -1,0 +1,492 @@
+oracle@pprfsbidbk01:/u01/app/crs/11.2.0.4/oui/bin->./addNode.sh "CLUSTER_NEW_NODES={pprfsbidbk02}"
+
+Performing pre-checks for node addition
+
+Checking node reachability...
+Node reachability check passed from node "pprfsbidbk01"
+
+
+Checking user equivalence...
+User equivalence check passed for user "oracle"
+
+Checking CRS integrity...
+
+Clusterware version consistency passed
+
+CRS integrity check passed
+
+Checking shared resources...
+
+Checking CRS home location...
+Shared resources check for node addition failed
+Shared resources check for node addition failed
+
+Check failed on nodes:
+        pprfsbidbk02
+
+Checking node connectivity...
+
+Checking hosts config file...
+
+Verification of the hosts config file successful
+
+Check: Node connectivity for interface "eth0"
+Node connectivity passed for interface "eth0"
+TCP connectivity check passed for subnet "10.146.0.0"
+
+
+Check: Node connectivity for interface "eth2"
+Node connectivity passed for interface "eth2"
+TCP connectivity check passed for subnet "10.146.80.0"
+
+Checking subnet mask consistency...
+Subnet mask consistency check passed for subnet "10.146.0.0".
+Subnet mask consistency check passed for subnet "10.146.80.0".
+Subnet mask consistency check passed.
+
+Node connectivity check passed
+
+Checking multicast communication...
+
+Checking subnet "10.146.0.0" for multicast communication with multicast group "230.0.1.0"...
+Check of subnet "10.146.0.0" for multicast communication with multicast group "230.0.1.0" passed.
+
+Checking subnet "10.146.80.0" for multicast communication with multicast group "230.0.1.0"...
+PRVG-11134 : Interface "10.146.80.65" on node "pprfsbidbk02" is not able to communicate with interface "10.146.80.64" on node "pprfsbidbk01"
+Checking subnet "10.146.80.0" for multicast communication with multicast group "224.0.0.251"...
+Check of subnet "10.146.80.0" for multicast communication with multicast group "224.0.0.251" passed.
+
+Check of multicast communication passed.
+Total memory check passed
+Available memory check passed
+Swap space check passed
+Free disk space check passed for "pprfsbidbk01:/u01/app/crs/11.2.0.4"
+Free disk space check passed for "pprfsbidbk02:/u01/app/crs/11.2.0.4"
+Free disk space check passed for "pprfsbidbk01:/tmp"
+Free disk space check passed for "pprfsbidbk02:/tmp"
+Check for multiple users with UID value 500 passed
+User existence check passed for "oracle"
+Run level check passed
+Hard limits check passed for "maximum open file descriptors"
+Soft limits check passed for "maximum open file descriptors"
+Hard limits check passed for "maximum user processes"
+Soft limits check passed for "maximum user processes"
+System architecture check passed
+
+WARNING:
+PRVF-7524 : Kernel version is not consistent across all the nodes.
+Kernel version = "4.1.12-124.19.6.el7uek.x86_64" found on nodes: pprfsbidbk01.
+Kernel version = "4.1.12-124.25.1.el7uek.x86_64" found on nodes: pprfsbidbk02.
+Kernel version check passed
+Kernel parameter check passed for "semmsl"
+Kernel parameter check passed for "semmns"
+Kernel parameter check passed for "semopm"
+Kernel parameter check passed for "semmni"
+Kernel parameter check passed for "shmmax"
+Kernel parameter check passed for "shmmni"
+Kernel parameter check failed for "shmall"
+Check failed on nodes:
+        pprfsbidbk02
+Kernel parameter check passed for "file-max"
+Kernel parameter check passed for "ip_local_port_range"
+Kernel parameter check passed for "rmem_default"
+Kernel parameter check passed for "rmem_max"
+Kernel parameter check passed for "wmem_default"
+Kernel parameter check passed for "wmem_max"
+Kernel parameter check passed for "aio-max-nr"
+Package existence check passed for "make"
+Package existence check passed for "binutils"
+Package existence check passed for "gcc(x86_64)"
+Package existence check passed for "libaio(x86_64)"
+Package existence check passed for "glibc(x86_64)"
+Package existence check failed for "compat-libstdc++-33(x86_64)"
+Check failed on nodes:
+        pprfsbidbk02
+Package existence check passed for "elfutils-libelf(x86_64)"
+
+WARNING:
+PRVF-7584 : Multiple versions of package "elfutils-libelf-devel" found on node pprfsbidbk01: elfutils-libelf-devel(x86_64)-0.172-2.el7,elfutils-libelf-devel(i686)-0.172-2.el7
+Package existence check passed for "elfutils-libelf-devel"
+Package existence check passed for "glibc-common"
+Package existence check passed for "glibc-devel(x86_64)"
+Package existence check passed for "glibc-headers"
+Package existence check passed for "gcc-c++(x86_64)"
+Package existence check passed for "libaio-devel(x86_64)"
+Package existence check passed for "libgcc(x86_64)"
+Package existence check passed for "libstdc++(x86_64)"
+Package existence check passed for "libstdc++-devel(x86_64)"
+Package existence check passed for "sysstat"
+Package existence check failed for "pdksh"
+Check failed on nodes:
+        pprfsbidbk01,pprfsbidbk02
+Package existence check passed for "expat(x86_64)"
+Check for multiple users with UID value 0 passed
+Current group ID check passed
+
+Starting check for consistency of primary group of root user
+
+Check for consistency of root user's primary group passed
+
+Checking OCR integrity...
+Check for compatible storage device for OCR location "/u01/crs_1/crs.dbf"...
+
+
+Checking OCR device "/u01/crs_1/crs.dbf" for sharedness...
+
+OCR device "/u01/crs_1/crs.dbf" is shared...
+
+
+Checking size of the OCR location "/u01/crs_1/crs.dbf" ...
+
+Size check for OCR location "/u01/crs_1/crs.dbf" successful...
+Check for compatible storage device for OCR location "/u02/crs_2/crs.dbf"...
+
+
+Checking OCR device "/u02/crs_2/crs.dbf" for sharedness...
+
+OCR device "/u02/crs_2/crs.dbf" is shared...
+
+
+Checking size of the OCR location "/u02/crs_2/crs.dbf" ...
+
+Size check for OCR location "/u02/crs_2/crs.dbf" successful...
+Check for compatible storage device for OCR location "/u03/crs_3/crs.dbf"...
+
+
+Checking OCR device "/u03/crs_3/crs.dbf" for sharedness...
+
+OCR device "/u03/crs_3/crs.dbf" is shared...
+
+
+Checking size of the OCR location "/u03/crs_3/crs.dbf" ...
+
+Size check for OCR location "/u03/crs_3/crs.dbf" successful...
+
+OCR integrity check passed
+
+Checking Oracle Cluster Voting Disk configuration...
+
+Oracle Cluster Voting Disk configuration check passed
+Time zone consistency check passed
+
+Starting Clock synchronization checks using Network Time Protocol(NTP)...
+
+NTP Configuration file check started...
+NTP Configuration file check passed
+
+Checking daemon liveness...
+Liveness check passed for "ntpd"
+Check for NTP daemon or service alive passed on all nodes
+
+NTP daemon slewing option check passed
+
+NTP daemon's boot time configuration check for slewing option passed
+
+NTP common Time Server Check started...
+Check of common NTP Time Server passed
+
+Clock time offset check from NTP Time Server started...
+Clock time offset check passed
+
+Clock synchronization check using Network Time Protocol(NTP) passed
+
+
+User "oracle" is not part of "root" group. Check passed
+Checking consistency of file "/etc/resolv.conf" across nodes
+
+File "/etc/resolv.conf" does not have both domain and search entries defined
+domain entry in file "/etc/resolv.conf" is consistent across nodes
+search entry in file "/etc/resolv.conf" is consistent across nodes
+All nodes have one search entry defined in file "/etc/resolv.conf"
+The DNS response time for an unreachable node is within acceptable limit on all nodes
+
+File "/etc/resolv.conf" is consistent across nodes
+
+
+Checking integrity of name service switch configuration file "/etc/nsswitch.conf" ...
+Check for integrity of name service switch configuration file "/etc/nsswitch.conf" passed
+
+
+Pre-check for node addition was unsuccessful on all the nodes.
+oracle@pprfsbidbk01:/u01/app/crs/11.2.0.4/oui/bin->
+
+
+
+oracle@pprfsbidbk01:/u01/app/crs/11.2.0.4/oui/bin->./addNode.sh "CLUSTER_NEW_NODES={pprfsbidbk02}" "CLUSTER_NEW_VIRTUAL_HOSTNAMES={pprfsbidbk02-vip}"
+
+Performing pre-checks for node addition
+
+Checking node reachability...
+Node reachability check passed from node "pprfsbidbk01"
+
+
+Checking user equivalence...
+User equivalence check passed for user "oracle"
+
+Checking CRS integrity...
+
+Clusterware version consistency passed
+
+CRS integrity check passed
+
+Checking shared resources...
+
+Checking CRS home location...
+Shared resources check for node addition failed
+Shared resources check for node addition failed
+
+Check failed on nodes:
+        pprfsbidbk02
+
+Checking node connectivity...
+
+Checking hosts config file...
+
+Verification of the hosts config file successful
+
+Check: Node connectivity for interface "eth0"
+Node connectivity passed for interface "eth0"
+TCP connectivity check passed for subnet "10.146.0.0"
+
+
+Check: Node connectivity for interface "eth2"
+Node connectivity passed for interface "eth2"
+TCP connectivity check passed for subnet "10.146.80.0"
+
+Checking subnet mask consistency...
+Subnet mask consistency check passed for subnet "10.146.0.0".
+Subnet mask consistency check passed for subnet "10.146.80.0".
+Subnet mask consistency check passed.
+
+Node connectivity check passed
+
+Checking multicast communication...
+
+Checking subnet "10.146.0.0" for multicast communication with multicast group "230.0.1.0"...
+Check of subnet "10.146.0.0" for multicast communication with multicast group "230.0.1.0" passed.
+
+Checking subnet "10.146.80.0" for multicast communication with multicast group "230.0.1.0"...
+PRVG-11134 : Interface "10.146.80.65" on node "pprfsbidbk02" is not able to communicate with interface "10.146.80.64" on node "pprfsbidbk01"
+Checking subnet "10.146.80.0" for multicast communication with multicast group "224.0.0.251"...
+Check of subnet "10.146.80.0" for multicast communication with multicast group "224.0.0.251" passed.
+
+Check of multicast communication passed.
+Total memory check passed
+Available memory check passed
+Swap space check passed
+Free disk space check passed for "pprfsbidbk01:/u01/app/crs/11.2.0.4"
+Free disk space check passed for "pprfsbidbk02:/u01/app/crs/11.2.0.4"
+Free disk space check passed for "pprfsbidbk01:/tmp"
+Free disk space check passed for "pprfsbidbk02:/tmp"
+Check for multiple users with UID value 500 passed
+User existence check passed for "oracle"
+Run level check passed
+Hard limits check passed for "maximum open file descriptors"
+Soft limits check passed for "maximum open file descriptors"
+Hard limits check passed for "maximum user processes"
+Soft limits check passed for "maximum user processes"
+System architecture check passed
+
+WARNING:
+PRVF-7524 : Kernel version is not consistent across all the nodes.
+Kernel version = "4.1.12-124.19.6.el7uek.x86_64" found on nodes: pprfsbidbk01.
+Kernel version = "4.1.12-124.25.1.el7uek.x86_64" found on nodes: pprfsbidbk02.
+Kernel version check passed
+Kernel parameter check passed for "semmsl"
+Kernel parameter check passed for "semmns"
+Kernel parameter check passed for "semopm"
+Kernel parameter check passed for "semmni"
+Kernel parameter check passed for "shmmax"
+Kernel parameter check passed for "shmmni"
+Kernel parameter check failed for "shmall"
+Check failed on nodes:
+        pprfsbidbk02
+Kernel parameter check passed for "file-max"
+Kernel parameter check passed for "ip_local_port_range"
+Kernel parameter check passed for "rmem_default"
+Kernel parameter check passed for "rmem_max"
+Kernel parameter check passed for "wmem_default"
+Kernel parameter check passed for "wmem_max"
+Kernel parameter check passed for "aio-max-nr"
+Package existence check passed for "make"
+Package existence check passed for "binutils"
+Package existence check passed for "gcc(x86_64)"
+Package existence check passed for "libaio(x86_64)"
+Package existence check passed for "glibc(x86_64)"
+Package existence check failed for "compat-libstdc++-33(x86_64)"
+Check failed on nodes:
+        pprfsbidbk02
+Package existence check passed for "elfutils-libelf(x86_64)"
+
+WARNING:
+PRVF-7584 : Multiple versions of package "elfutils-libelf-devel" found on node pprfsbidbk01: elfutils-libelf-devel(x86_64)-0.172-2.el7,elfutils-libelf-devel(i686)-0.172-2.el7
+Package existence check passed for "elfutils-libelf-devel"
+Package existence check passed for "glibc-common"
+Package existence check passed for "glibc-devel(x86_64)"
+Package existence check passed for "glibc-headers"
+Package existence check passed for "gcc-c++(x86_64)"
+Package existence check passed for "libaio-devel(x86_64)"
+Package existence check passed for "libgcc(x86_64)"
+Package existence check passed for "libstdc++(x86_64)"
+Package existence check passed for "libstdc++-devel(x86_64)"
+Package existence check passed for "sysstat"
+Package existence check failed for "pdksh"
+Check failed on nodes:
+        pprfsbidbk01,pprfsbidbk02
+Package existence check passed for "expat(x86_64)"
+Check for multiple users with UID value 0 passed
+Current group ID check passed
+
+Starting check for consistency of primary group of root user
+
+Check for consistency of root user's primary group passed
+
+Checking OCR integrity...
+Check for compatible storage device for OCR location "/u01/crs_1/crs.dbf"...
+
+
+Checking OCR device "/u01/crs_1/crs.dbf" for sharedness...
+
+OCR device "/u01/crs_1/crs.dbf" is shared...
+
+
+Checking size of the OCR location "/u01/crs_1/crs.dbf" ...
+
+Size check for OCR location "/u01/crs_1/crs.dbf" successful...
+Check for compatible storage device for OCR location "/u02/crs_2/crs.dbf"...
+
+
+Checking OCR device "/u02/crs_2/crs.dbf" for sharedness...
+
+OCR device "/u02/crs_2/crs.dbf" is shared...
+
+
+Checking size of the OCR location "/u02/crs_2/crs.dbf" ...
+
+Size check for OCR location "/u02/crs_2/crs.dbf" successful...
+Check for compatible storage device for OCR location "/u03/crs_3/crs.dbf"...
+
+
+Checking OCR device "/u03/crs_3/crs.dbf" for sharedness...
+
+OCR device "/u03/crs_3/crs.dbf" is shared...
+
+
+Checking size of the OCR location "/u03/crs_3/crs.dbf" ...
+
+Size check for OCR location "/u03/crs_3/crs.dbf" successful...
+
+OCR integrity check passed
+
+Checking Oracle Cluster Voting Disk configuration...
+
+Oracle Cluster Voting Disk configuration check passed
+Time zone consistency check passed
+
+Starting Clock synchronization checks using Network Time Protocol(NTP)...
+
+NTP Configuration file check started...
+NTP Configuration file check passed
+
+Checking daemon liveness...
+Liveness check passed for "ntpd"
+Check for NTP daemon or service alive passed on all nodes
+
+NTP daemon slewing option check passed
+
+NTP daemon's boot time configuration check for slewing option passed
+
+NTP common Time Server Check started...
+Check of common NTP Time Server passed
+
+Clock time offset check from NTP Time Server started...
+Clock time offset check passed
+
+Clock synchronization check using Network Time Protocol(NTP) passed
+
+
+User "oracle" is not part of "root" group. Check passed
+Checking consistency of file "/etc/resolv.conf" across nodes
+
+File "/etc/resolv.conf" does not have both domain and search entries defined
+domain entry in file "/etc/resolv.conf" is consistent across nodes
+search entry in file "/etc/resolv.conf" is consistent across nodes
+All nodes have one search entry defined in file "/etc/resolv.conf"
+The DNS response time for an unreachable node is within acceptable limit on all nodes
+
+File "/etc/resolv.conf" is consistent across nodes
+
+
+Checking integrity of name service switch configuration file "/etc/nsswitch.conf" ...
+Check for integrity of name service switch configuration file "/etc/nsswitch.conf" passed
+
+Checking VIP configuration.
+Checking VIP Subnet configuration.
+Check for VIP Subnet configuration passed.
+Checking VIP reachability
+PRVF-10209 : VIPs "pprfsbidbk02-vip" are active before Clusterware installation
+
+Pre-check for node addition was unsuccessful on all the nodes.
+oracle@pprfsbidbk01:/u01/app/crs/11.2.0.4/oui/bin->
+
+[oracle@pprfsbidbk02 oraInventory]$ sudo su -
+[sudo] password for oracle:
+[root@pprfsbidbk02 ~]# cd /u01/app/oraInventory
+[root@pprfsbidbk02 oraInventory]# ./orainstRoot.sh
+Changing permissions of /u01/app/oraInventory.
+Adding read,write permissions for group.
+Removing read,write,execute permissions for world.
+
+Changing groupname of /u01/app/oraInventory to oinstall.
+The execution of the script is complete.
+[root@pprfsbidbk02 oraInventory]# ./root.sh
+-bash: ./root.sh: No such file or directory
+[root@pprfsbidbk02 oraInventory]# cd ../crs/11.2.0.4/
+[root@pprfsbidbk02 11.2.0.4]# ./root.sh
+Performing root user operation for Oracle 11g
+
+The following environment variables are set as:
+    ORACLE_OWNER= oracle
+    ORACLE_HOME=  /u01/app/crs/11.2.0.4
+
+Enter the full pathname of the local bin directory: [/usr/local/bin]:
+The contents of "dbhome" have not changed. No need to overwrite.
+The contents of "oraenv" have not changed. No need to overwrite.
+The contents of "coraenv" have not changed. No need to overwrite.
+
+
+Creating /etc/oratab file...
+Entries will be added to the /etc/oratab file as needed by
+Database Configuration Assistant when a database is created
+Finished running generic part of root script.
+Now product-specific root actions will be performed.
+Using configuration parameter file: /u01/app/crs/11.2.0.4/crs/install/crsconfig_params
+User ignored Prerequisites during installation
+Installing Trace File Analyzer
+OLR initialization - successful
+  root wallet
+  root wallet cert
+  root cert export
+  peer wallet
+  profile reader wallet
+  pa wallet
+  peer wallet keys
+  pa wallet keys
+  peer cert request
+  pa cert request
+  peer cert
+  pa cert
+  peer root cert TP
+  profile reader root cert TP
+  pa root cert TP
+  peer pa cert TP
+  pa peer cert TP
+  profile reader pa cert TP
+  profile reader peer cert TP
+  peer user cert
+  pa user cert
+Failed to sign a peer profile for Oracle Cluster GPnP. gpnptool rc=32512
+Creation of Oracle GPnP peer profile failed for pprfsbidbk02
+Failed to create GPnP peer profile for pprfsbidbk02 at /u01/app/crs/11.2.0.4/crs/install/crsconfig_lib.pm line 5020.
+/u01/app/crs/11.2.0.4/perl/bin/perl -I/u01/app/crs/11.2.0.4/perl/lib -I/u01/app/crs/11.2.0.4/crs/install /u01/app/crs/11.2.0.4/crs/install/rootcrs.pl execution failed
+[root@pprfsbidbk02 11.2.0.4]#

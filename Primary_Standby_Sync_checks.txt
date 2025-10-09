@@ -1,0 +1,169 @@
+DA validation tasks
+The following steps will check and verify whether standby db is synchronized with primary db.
+Switchover to KSC 
+Step 1: 
+1. Verify KSC database is in sync and there are no Corruption has occurred (check the alert log)
+The following steps will check and verify whether standby database is synchronized with primary database.
+Check that standby db PBIL1K is synchronized with primary db (PBIL1S)
+1.1.  Verify status on Primary Server: 
+Log on to primary server: PBIL1S database on BIL2stl20
+Sqlplus /nolog
+Connect / as sysdba
+col dest_name FOR a20
+col destination FOR a30 wrap
+col error FOR a30 wrap
+
+SELECT dest_id, dest_name, status, target, archiver, schedule, destination, log_sequence, error
+  FROM v$archive_dest WHERE status <> 'INACTIVE';
+The result should look like:
+
+
+DEST_ID DEST_NAME            STATUS    TARGET  ARCHIVER   SCHEDULE DESTINATION             LOG_SEQUENCE ERROR
+------- -------------------- 	    --------    -------- --------     ------------------------- 	        --------- ----------
+      1 LOG_ARCHIVE_DEST_1   VALID     PRIMARY ARCH       ACTIVE   /oracle/admin/pbil1s/arch   26449
+      2 LOG_ARCHIVE_DEST_2   VALID     STANDBY ARCH       ACTIVE	PBIL1K.world		 35292
+                    
+                         
+You should compare log_sequence value for both the primary and the standby destinations. Sequence(standby) >= sequence(primary). Also, error column should be blank.
+Then, issue :
+SELECT dest_id, status, TYPE, database_mode, recovery_mode,
+	   PROTECTION_MODE, ARCHIVED_SEQ#, APPLIED_SEQ#, ERROR
+  FROM v$archive_dest_status
+ WHERE status <> 'INACTIVE';
+DEST_ID STATUS    TYPE           DATABASE_MODE   RECOVERY_MODE           PROTECTION_MODE      ARCHIVED_SEQ# 
+APPLIED_SEQ# ERROR
+------- --------- -------------- --------------- ----------------------- -------------------- ------------- ------------ ----------
+      1 VALID     LOCAL          OPEN            IDLE                    MAXIMUM PERFORMANCE   26450            0
+      2 DEFERRED  PHYSICAL       UNKNOWN         UNKNOWN                 MAXIMUM PERFORMANCE 	22944        22944
+
+
+       
+Here, you can see the sequence of the last archive log file received, and applied. There should also be no error.
+1.2 Verify status on Standby Server: 
+Log on to standby server: PBIL1K on BIl2ksc20
+Sqlplus /nolog
+Connect / as sysdba
+COLUMN message format a80 
+
+SELECT message, TIMESTAMP 
+FROM v$dataguard_status 
+WHERE severity IN ('Error','Fatal') 
+ORDER BY TIMESTAMP;
+Should not produce any output (no error).
+-- Query v$managed_standby to see the status of processes involved in the configuration.
+SELECT process,status,client_process,SEQUENCE#,BLOCK#,active_agents,known_agents 
+FROM v$managed_standby;
+
+PROCESS   STATUS       CLIENT_P  SEQUENCE#     BLOCK# ACTIVE_AGENTS KNOWN_AGENTS
+--------- ------------ -------- ---------- ---------- ------------- ------------
+ARCH      CLOSING      ARCH          26426       4097             0            0
+ARCH      CLOSING      ARCH          26423    1425409             0            0
+ARCH      CLOSING      ARCH          26424    1005569             0            0
+ARCH      CLOSING      ARCH          26449    1988609             0            0
+RFS       RECEIVING    ARCH           3558       2368             0            0
+
+-- Verify that the last sequence# received and the last sequence# applied to standby database.
+SELECT MAX(al.SEQUENCE#) "Last Seq Received", MAX(lh.SEQUENCE#) "Last Seq Applied" 
+FROM v$archived_log al, v$log_history lh;
+
+Last Seq Received Last Seq Applied
+----------------- ----------------
+            26450            26450
+-- The V$ARCHIVE_GAP fixed view on a physical standby database only returns the next  gap that is currently blocking redo apply from continuing. After resolving the identified gap and starting redo apply, query the V$ARCHIVE_GAP fixed view again on the physical standby database to determine the next gap sequence, if there is one.
+SELECT * FROM v$archive_gap;
+No rows selected
+The primary DB and the standby DB should be at the same log sequence number. 
+-See If application related sessions are in progress, request approval from the Application team to close all connections (including cron related processes)
+
+-Check if there any connections to the database PBIl1S
+
+-Check if these connections can be killed
+
+
+Return Migration to STL
+Step 1: 
+DataGuard switchover to point to STL
+1. Verify KSC database is in sync and there are no Corruption has occurred (check the alert log) 1.1 Verify status on Primary Server: 
+Log on to primary server : PBIL1K database on BIL2KSC20
+Sqlplus /nolog
+Connect / as sysdba
+col dest_name FOR a20
+col destination FOR a30 wrap
+col error FOR a30 wrap
+
+SELECT dest_id, dest_name, status, target, archiver, schedule,
+	   destination, log_sequence, error
+  FROM v$archive_dest
+ WHERE status <> 'INACTIVE';
+The result should look like :
+DEST_ID DEST_NAME            STATUS    TARGET  ARCHIVER   SCHEDULE DESTINATION             LOG_SEQUENCE ERROR
+------- -------------------- 	    --------    -------- --------     ------------------------- 	        --------- ----------
+      1 LOG_ARCHIVE_DEST_1   VALID     PRIMARY ARCH       ACTIVE   /oracle/admin/pbil1k/arch   26449
+      2 LOG_ARCHIVE_DEST_2   VALID     STANDBY ARCH       ACTIVE	PBIL1S.world		 35292
+
+
+You should compare log_sequence value for both the primary and the standby destinations. Sequence(standby) >= sequence(primary). Also, error column should be blank.
+Then, issue :
+
+SELECT dest_id, status, TYPE, database_mode, recovery_mode,
+	   PROTECTION_MODE, ARCHIVED_SEQ#, APPLIED_SEQ#, ERROR
+  FROM v$archive_dest_status
+ WHERE status <> 'INACTIVE';
+
+
+
+
+
+DEST_ID STATUS    TYPE           DATABASE_MODE   RECOVER PROTECTION_MODE
+---------- --------- -------------- --------------- ------- --------------------
+ARCHIVED_SEQ# APPLIED_SEQ# ERROR
+------------- ------------ ------------------------------
+         1 VALID     LOCAL          OPEN            IDLE    MAXIMUM PERFORMANCE
+        35292            0
+
+         2 VALID     LOGICAL        MOUNTED-STANDBY MANAGED MAXIMUM PERFORMANCE
+        35292        35291
+Here, you can see the sequence of the last archive log file received, and applied. There should also be no error.
+1.2 Verify status on Standby Server: 
+Log on to standby server: PBIL1S on BIL2stl20
+Sqlplus /nolog
+Connect / as sysdba
+COLUMN message format a80 
+
+SELECT message, TIMESTAMP 
+FROM v$dataguard_status 
+WHERE severity IN ('Error','Fatal') 
+ORDER BY TIMESTAMP;
+Should not produce any output (no error).
+-- Query v$managed_standby to see the status of processes involved in the configuration.
+SELECT process,status,client_process,SEQUENCE#,BLOCK#,active_agents,known_agents 
+FROM v$managed_standby;
+
+PROCESS   STATUS       CLIENT_P  SEQUENCE#     BLOCK# ACTIVE_AGENTS KNOWN_AGENTS
+--------- ------------ -------- ---------- ---------- ------------- ------------
+ARCH      CONNECTED    ARCH              0          0             0            0
+ARCH      CONNECTED    ARCH              0          0             0            0
+ARCH      CONNECTED    ARCH              0          0             0            0
+ARCH      CONNECTED    ARCH              0          0             0            0
+MRP0      WAIT_FOR_LOG N/A            3562          0             0            0
+RFS       RECEIVING    ARCH           3558       2368             0            0
+RFS       RECEIVING    ARCH           3560       3646             0            0
+RFS       RECEIVING    ARCH           3559      17367             0            0
+RFS       ATTACHED     ARCH           3561       4625             0            0
+-- Verify that the last sequence# received and the last sequence# applied to standby database.
+SELECT MAX(al.SEQUENCE#) "Last Seq Received", MAX(lh.SEQUENCE#) "Last Seq Applied" 
+FROM v$archived_log al, v$log_history lh;
+
+
+Last Seq Received Last Seq Applied
+----------------- ----------------
+            13337            13337
+-- The V$ARCHIVE_GAP fixed view on a physical standby database only returns the next gap that is currently blocking redo apply from continuing. After resolving the identified gap and starting redo apply, query the V$ARCHIVE_GAP fixed view again on the physical standby database to determine the next gap sequence, if there is one.
+SELECT * FROM v$archive_gap;
+No rows selected
+The primary DB and the standby DB should be at the same log sequence number. 
+-See If application related sessions are in progress, request approval from the Application team to close all connections (including cron related processes)
+-Make sure that PBIL1S database instance is the Standby database instance 
+-Check if there any connections to the database PBIl1K
+
+-Check if these connections can be killed

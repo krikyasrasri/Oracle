@@ -1,0 +1,66 @@
+stop
+
+ #echo "dbconsole stop instances"
+  #echo "dbconsole stop db"
+  #echo "dbconsole stop asm"
+  #echo "dbconsole stop nodeapps"
+  #echo "dbconsole stop services"
+
+
+$oem_dir/emctl start blackout ${blackout_nm_prefix}_${vDate} -nodeLevel -d $vBlackout_Length;
+$oem_dir/emctl stop agent
+srvctl stop instance -d $db_nm -i $inst_nm -o immediate
+srvctl stop instance -d $db_nm -o immediate
+srvctl stop asm -n $host_nm
+# srvctl stop nodeapps -n $host_nm
+srvctl stop service -d $db_nm -s $service_nm
+
+------------------------------------------------------------------------------------------------------------------------
+start
+
+#echo "dbconsole start instances"
+   #echo "dbconsole start db"
+  #echo "dbconsole start asm"
+  #echo "dbconsole start nodeapps"
+  #echo "dbconsole start services"
+
+srvctl start nodeapps -n $host_nm
+srvctl start asm -n $host_nm
+srvctl start instance -d $db_nm
+srvctl start instance -d $db_nm -i $inst_nm
+srvctl start service -d $db_nm -s $service_nm
+$oem_dir/emctl start agent
+$oem_dir/emctl stop blackout $blackoutname
+
+all)
+    if [ $start_stop = "stop" ]; then
+      createblackout
+      stopoemagent
+      stopinstances
+      stopasm
+      stopnodeapps
+    elif [ $start_stop = "start" ]; then
+      startnodeapps
+      startasm
+      startinstances
+      startservices
+      startarchivemonitor
+      startoemagent
+      endblackout
+    fi;;
+
+export PATH="$PATH:/oracle/product/crs/bin:/oracle/product/v10.2.0/crs/bin"
+export LOGFILE="/oracle/local/logs/dbconsole.log"
+vDate=`date "+%Y%m%d_%H:%M"`
+vBlackout_Length='14:00'
+blackout_nm_prefix='ServerBlackout'
+oem_dir='/sys_apps_01/oem/agent10g/bin'
+
+#  Log everything to this file.
+exec >>${LOGFILE} 2>&1
+
+# Test if we have two arguments on the command line
+if [ $# != 2 ]; then
+  usage
+  exit
+fi

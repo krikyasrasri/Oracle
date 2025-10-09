@@ -1,0 +1,147 @@
+setup 11g active dataguard
+===========================
+
+1) Setup a normal dataguard database.
+
+2) Check the dataguard configuration
+
+DGMGRL> show database orcl_stdby1
+
+Database
+
+Name:            orcl_stdby1
+
+Role:            PHYSICAL STANDBY
+
+Enabled:         YES
+
+Intended State:  APPLY-ON
+
+Instance(s):
+
+ orcl_stdby1
+
+Current status for "orcl_stdby1":
+
+SUCCESS
+
+3) If you try to open database during this time, you will get error as below :
+
+SQL>Alter database open;
+
+Alter database open;
+*
+ERROR at line 1:
+
+ORA-10456: cannot open standby database; media recovery session may be in progress
+
+4) In order to open the standby database, connect to dgmrl and change the apply state
+
+DGMGRL> edit database orcl_stdby1 set state=apply-off;
+
+Succeeded
+
+5) Open the standby database now.
+
+alter database open;
+
+6) Re-enable the apply state so that redo transferred and applied to standby database while the database is open for querying.
+
+DGMGRL> edit database orcl_stdby1 set state=apply-on;
+
+Succeeded
+
+7) To disable the active dataguard, the steps are the same :
+
+I.        DGMGRL> edit database stdby set state=apply-off;
+
+II.        Shutdown the stdby database
+
+III.        Startup mount the stdby database
+
+IV.        DGMGRL> edit database stdby set state=apply-on;
+
+Setup Snapshot standby database
+===============================
+
+1) In order to create snapshot standby database :
+
+standby database must be a physical standby database 
+
+Flashback logging must be enabled on both production and standby database 
+
+2) After enabling flashback mode, connect to dgmgrl utility in the primary database :
+
+DGMGRL> show configuration;
+
+Configuration - dataguard_config2
+
+Protection Mode: MaxPerformance
+
+Databases:
+
+porck1 - Primary database
+
+porcl1 - Physical standby database
+
+Fast-Start Failover: DISABLED
+
+Configuration Status:
+
+SUCCESS
+
+3) Convert the physical standby to snapshot standby with a single command :
+
+DGMGRL> convert database "porcl1" to snapshot database;
+
+please wait......
+
+Database "porcl1" converted successfully.
+
+DGMGRL> show configuration;
+
+Configuration - dataguard_config2
+
+Protection Mode: MaxPerformance
+
+ Databases:
+
+ porck1 - Primary database
+
+ porcl1 - Snapshot standby database
+
+Fast-Start Failover: DISABLED
+
+Configuration Status:
+
+SUCCESS
+
+4. From now on, we can do any testing (like creating new schemas, tables and so on) on our standby database. 
+
+Please note that at this point of time, all the redo generated in our production database will be still shipped to standby database. 
+
+But it is just that not going to be applied until the database is converted into physical standby mode.
+
+5. Once the testing done, you can convert the snapshot standby database to physical standby with just 1 command :
+
+DGMGRL>convert database stdby to physical standby;
+
+6. Note that when the above command is executed
+
+All the changes made to the snapshot standby database ( such as creating new schemas, tables) has been terminated 
+
+Previous physical standby database state is initiated 
+
+Physical standby database is mounted and MRP process is initiated. MRP will apply all the logs which was shipped yet 
+
+applied during the snapshot standby database state. 
+
+7. Duration for this process is depends on few factors :
+
+The amount of changes made to the database during the snapshot standby database state. More changes will lead to 
+
+more time to rewind the changes via flashback database option. 
+
+The amount of archived logs generated during the snapshot standby database state. More archive logs will cause more
+
+time to apply it when the database is converted to physical standby database

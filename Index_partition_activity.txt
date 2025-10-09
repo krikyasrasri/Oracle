@@ -1,0 +1,174 @@
+pdw2stl7/pdw2s
+
+MCI_LBI_JOB_REQ_DESC
+
+dw_auth_tran_vol_summ_idx - DW_IDX_AUTHO
+
+create bitmap index auth_tran_vol_summ_bmx01
+  on auth_tran_vol_summ (ORIG_MIP_HDR)
+ local tablespace DW_IDX_AUTHO
+  nologging invisible unusable;
+
+
+
+create bitmap index auth_tran_vol_summ_bmx02
+  on auth_tran_vol_summ (source_id_hdr)
+ local tablespace DW_IDX_AUTHO
+  nologging invisible unusable;
+
+create bitmap index auth_tran_vol_summ_bmx03
+  on auth_tran_vol_summ (recv_mip_hdr)
+ local tablespace DW_IDX_AUTHO
+  nologging invisible unusable;
+
+create bitmap index auth_tran_vol_summ_bmx04
+  on auth_tran_vol_summ (dest_id_hdr)
+ local tablespace DW_IDX_AUTHO
+  nologging invisible unusable;
+
+create bitmap index auth_tran_vol_summ_bmx05
+  on auth_tran_vol_summ (mti_code)
+ local tablespace DW_IDX_AUTHO
+  nologging invisible unusable;
+
+create bitmap index auth_tran_vol_summ_bmx06
+  on auth_tran_vol_summ (tran_dt)
+ local tablespace DW_IDX_AUTHO
+  nologging invisible unusable;
+
+Index created.
+
+
+Index created.
+
+
+Index created.
+
+
+Index created.
+
+
+Index created.
+
+
+Index created.
+
+
+Create files to rebuild the index partitions.
+
+set pages 0
+set feedback off
+set trims on
+set echo off
+set termout off
+
+spool auth_tran_vol_sum_bmx01.sql
+
+select 'alter index '||index_name,
+       ' rebuild partition '||partition_name||' nologging;'
+from user_ind_partitions
+where index_name = 'AUTH_TRAN_VOL_SUMM_BMX01'
+and status = 'UNUSABLE'
+order by index_name, partition_name
+/
+
+spool off
+spool auth_tran_vol_sum_bmx02.sql
+
+select 'alter index '||index_name,
+       ' rebuild partition '||partition_name||' nologging;'
+from user_ind_partitions
+where index_name = 'AUTH_TRAN_VOL_SUMM_BMX02'
+and status = 'UNUSABLE'
+order by index_name, partition_name
+/
+
+spool off
+spool auth_tran_vol_sum_bmx03.sql
+
+select 'alter index '||index_name,
+       ' rebuild partition '||partition_name||' nologging;'
+from user_ind_partitions
+where index_name = 'AUTH_TRAN_VOL_SUMM_BMX03'
+and status = 'UNUSABLE'
+order by index_name, partition_name
+/
+
+spool off
+spool auth_tran_vol_sum_bmx04.sql
+
+select 'alter index '||index_name,
+       ' rebuild partition '||partition_name||' nologging;'
+from user_ind_partitions
+where index_name = 'AUTH_TRAN_VOL_SUMM_BMX04'
+and status = 'UNUSABLE'
+order by index_name, partition_name
+/
+
+spool off
+spool auth_tran_vol_sum_bmx05.sql
+
+select 'alter index '||index_name,
+       ' rebuild partition '||partition_name||' nologging;'
+from user_ind_partitions
+where index_name = 'AUTH_TRAN_VOL_SUMM_BMX05'
+and status = 'UNUSABLE'
+order by index_name, partition_name
+/
+
+spool off
+spool auth_tran_vol_sum_bmx06.sql
+
+select 'alter index '||index_name,
+       ' rebuild partition '||partition_name||' nologging;'
+from user_ind_partitions
+where index_name = 'AUTH_TRAN_VOL_SUMM_BMX06'
+and status = 'UNUSABLE'
+order by index_name, partition_name
+/
+
+@auth_tran_vol_sum_bmx01.sql
+
+spool off
+
+Execute the generated sql scripts to rebuild the index partitions.
+
+Create file to analyze the table and indexes.
+
+set pages 0
+set linesize 90aa
+set feedback off
+set trims on
+set echo off
+set termout off
+
+spool auth_tran_vol_sum_analyze.sql
+
+select 'exec db_stats.gathertable(''DW'',''AUTH_TRAN_VOL_SUMM'','''||
+         partition_name||''')'
+from user_tab_partitions
+where table_name = 'AUTH_TRAN_VOL_SUMM'
+order by table_name, partition_name desc
+/
+
+spool off
+
+Execute the generated script to analyze the partitions and indexes.
+
+select distinct i.index_name, p.status, i.visibility
+from dba_indexes i, dba_ind_partitions p
+where i.table_name = 'AUTH_TRAN_VOL_SUMM'
+  and i.index_name = p.index_name
+  and i.owner = p.index_owner
+order by 1;
+
+should return
+
+INDEX_NAME                     STATUS   VISIBILIT
+------------------------------ -------- ---------
+AUTH_TRAN_VOL_SUMM_BMX01       USABLE   INVISIBLE
+AUTH_TRAN_VOL_SUMM_BMX02       USABLE   INVISIBLE
+AUTH_TRAN_VOL_SUMM_BMX03       USABLE   INVISIBLE
+AUTH_TRAN_VOL_SUMM_BMX04       USABLE   INVISIBLE
+AUTH_TRAN_VOL_SUMM_BMX05       USABLE   INVISIBLE
+AUTH_TRAN_VOL_SUMM_BMX06       USABLE   INVISIBLE

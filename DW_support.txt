@@ -1,0 +1,62 @@
+DW oncall details:
+=================
+
+Sunil Kandi:
+------------
+001-201-993-0926 - cell
+636-614-1551	 - Residence
+
+
+cds2stl4
+--------
+msaf1
+
+
+
+pdw2stl6/7/8 --> pdw1s/2s/3s
+
+
+polt2s/polt3s --> pdw2stl7/8
+
+
+SQL> select count(*) from  BES.BES_105551055555555 partition(BES_105551055555555_OLD);
+
+  COUNT(*)
+----------
+         0
+
+
+
+=====================================================================
+SQL> INSERT INTO BES_105551055555555
+(PERIOD_HIERARCHY_ID, CUST_HIER_ID, CUST_SERV_CD_HIER_ID, REGN_CD, CNTRY_ISO_NUM3_CD, BILL_EVENT_DEF_HIER_ID,
+TIER_EVENT_DEF_HIER_ID, SERV_CD_DEF_HIER_ID, BILL_EVENT_GL_HIER_ID, ADDR_HIER_ID, GDPNT_HIER_ID, CURR_ISO_NUM3_CD,PRDCT_CD)
+values(4056, 1010005558,1022173227, '3','BRA',1040006059,1069999999,1030000275,1059999999,1079999999,1080005659,986,'OTH');
+
+
+SELECT TABLE_OWNER,subpartition_count
+            FROM ALL_TAB_PARTITIONS
+            WHERE table_name     = 'AUTHOP01_DETAIL' 
+            AND   partition_name = 'AUTHOP01_DETAIL_P20110215';
+
+
+
+changes made in line numbers on pkg DW.DB_AUTH_UTILITIES.DailyPostLoad00
+
+
+
+BES.BES_105551055555555
+
+SQL> alter table bes.BES_105551055555555 rename partition BES_105551055555555_P08 to BES_105551055555555_OLD_08;
+
+Table altered.
+
+SQL> alter table BES.BES_105551055555555 add partition BES_105551055555555_P08 VALUES LESS THAN (4057) TABLESPACE BES_TBL_SUMMARY;
+
+Table altered.
+
+
+
+
+
+

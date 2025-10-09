@@ -1,0 +1,218 @@
+Shutdown/Startup Procedure the Standby db's on the pdw2ksc8
+============================================
+
+take the invalid count before the patching.
+
+select count(*),object_type from dba_objects where status='INVALID' group by object_type;
+select object_type,owner,object_name from dba_objects where status='INVALID';
+
+SetDb pdw2k
+sqlplus "/ as sysdba"
+
+select instance_name from v$instance;
+INSTANCE_NAME
+----------------
+pdw2k
+
+shutdown immediate;
+
+
+SetDb polt1k
+sqlplus "/ as sysdba"
+select instance_name from v$instance;
+INSTANCE_NAME
+----------------
+polt1k
+shutdown immediate;
+
+Apply only the patch binaries on polt1k (Because Dataguard is enabled)
+Please apply the patch in the below order
+1.10248523 (PSU)
+2.6904068  - Overlay Patch
+3.10182051  Bug fix requested by Hong
+4.9375300 - Bug fix requested by Hong
+5.11839701
+
+
+
+SetDb polt1k
+sqlplus "/ as sysdba"
+startup nomount;
+alter database mount standby database;
+select instance_name from v$instance;
+INSTANCE_NAME
+----------------
+polt1k
+
+col DB_UNIQUE_NAME format a10
+select name,DB_UNIQUE_NAME,open_mode,DATABASE_ROLE,LOG_MODE from v$database;
+NAME      DB_UNIQUE_ OPEN_MODE            DATABASE_ROLE    LOG_MODE
+--------- ---------- -------------------- ---------------- ------------
+POLT      polt1k     MOUNTED              PHYSICAL STANDBY ARCHIVELOG
+
+
+
+
+SetDb pdw2k
+sqlplus "/ as sysdba"
+startup;
+
+col DB_UNIQUE_NAME format a10
+select name,DB_UNIQUE_NAME,open_mode,DATABASE_ROLE,LOG_MODE from v$database;
+NAME      DB_UNIQUE_ OPEN_MODE            DATABASE_ROLE    LOG_MODE
+--------- ---------- -------------------- ---------------- ------------
+PDW       pdw        READ WRITE           PRIMARY          ARCHIVELOG
+
+select instance_name from v$instance;
+
+INSTANCE_NAME
+----------------
+pdw2k
+
+Apply the catbundle.sql on pdw2k (It is a Standalone Standby DB which is open for DW Application)
+	cd $ORACLE_HOME/rdbms/admin
+	sqlplus /nolog
+	SQL> CONNECT / AS SYSDBA
+	SQL> STARTUP
+	SQL> @catbundle.sql psu apply
+	SQL> QUIT
+
+To validate the Primary and Standby Log Sync
+One Primary
+--------------
+set pages 1000
+set lines 120
+column DEST_NAME format a20
+column DESTINATION format a35
+column ARCHIVER format a10
+column TARGET format a15
+column status format a10
+column error format a15
+select DEST_ID,DEST_NAME,DESTINATION,TARGET,STATUS,ERROR from gv$archive_dest
+where DESTINATION is NOT NULL
+/
+
+SELECT THREAD# "Thread",SEQUENCE# "Last Sequence generated" 
+FROM gV$ARCHIVED_LOG 
+WHERE (THREAD#,FIRST_TIME ) IN (SELECT THREAD#,MAX(FIRST_TIME) FROM V$ARCHIVED_LOG GROUP BY THREAD#) 
+ORDER BY 1
+/
+
+
+on Standby
+--------------
+
+SELECT ARCH.THREAD# "Thread", ARCH.SEQUENCE# "Last Sequence Received", APPL.SEQUENCE# "Last Sequence Applied", (ARCH.SEQUENCE# - APPL.SEQUENCE#) "Difference" 
+FROM (SELECT THREAD# ,SEQUENCE# FROM V$ARCHIVED_LOG WHERE (THREAD#,FIRST_TIME ) IN (SELECT THREAD#,MAX(FIRST_TIME) FROM V$ARCHIVED_LOG GROUP BY THREAD#)) ARCH, 
+(SELECT THREAD# ,SEQUENCE# FROM V$LOG_HISTORY WHERE (THREAD#,FIRST_TIME ) IN (SELECT THREAD#,MAX(FIRST_TIME) FROM V$LOG_HISTORY GROUP BY THREAD#)) APPL 
+WHERE ARCH.THREAD# = APPL.THREAD# 
+ORDER BY 1
+/
+
+SELECT THREAD#, LOW_SEQUENCE#, HIGH_SEQUENCE# FROM V$ARCHIVE_GAP
+/
+select process,status,sequence# from v$managed_standby
+/
+Make sure Standby is syncing after the maintenance;
+
+
+
+Shutdown/Startup of the Primary Database's:-
+==================================================
+Stop RAC DB
+Set the DB parameter on all the instances
+backup the init<dbname>.ora file
+
+alter system set _first_spare_parameter=50 scope=both;
+
+srvctl status database -d pdw
+srvctl stop database -d pdw -o immediate
+srvctl status database -d polt
+srvctl stop database -d polt -o immediate
+
+
+Stop ASM
+srvctl status asm
+srvctl stop asm
+
+crsctl stop resource ora.PDW_ARCH01.dg
+crsctl stop resource ora.PDW_DATA01.dg
+crsctl stop resource ora.PDW_REDO01.dg
+crsctl stop resource ora.PDW_REDO02.dg
+crsctl stop resource ora.POLT_ARCH01.dg
+crsctl stop resource ora.POLT_DATA01.dg
+crsctl stop resource ora.registry.acfs
+srvctl stop asm
+
+ps -ef |grep +ASM
+check all the process came down on the all the server
+srvctl stop asm
+check the ASM parameter are taken place
+
+
+Please check the listener status after the maintenance and make sure all the services are up and running.
+
+
+
+pdw2stl6:/oracle/home
+$  ps -ef |grep tns
+  oracle 13893658        1   0   Mar 19      -  1:09 /ora_grid/product/v11.2.0.2/bin/tnslsnr LISTENER_SCAN3 -inherit
+  oracle 24314006        1   0   Mar 30      - 47:17 /ora_grid/product/v11.2.0.2/bin/tnslsnr LISTENER -inherit
+
+pdw2stl7:/oracle/home
+$  ps -ef |grep tns
+  oracle  8519774        1   0   Mar 19      - 238:06 /ora_grid/product/v11.2.0.2/bin/tnslsnr LISTENER -inherit
+  oracle 14286864        1   0   Mar 19      -  1:21 /ora_grid/product/v11.2.0.2/bin/tnslsnr LISTENER_SCAN1 -inherit
+  oracle 15073458  8651258   0 15:50:49  pts/1  0:00 grep tns
+
+
++ASM1 @ pdw2stl8:/oracle/home
+$  ps -ef |grep tns
+  oracle  6685136        1   0   Mar 19      -  1:14 /ora_grid/product/v11.2.0.2/bin/tnslsnr LISTENER_SCAN2 -inherit
+  oracle 20119892 26345522   0 15:49:37  pts/2  0:00 grep tns
+  oracle 30277940        1   0   Mar 30      - 132:06 /ora_grid/product/v11.2.0.2/bin/tnslsnr LISTENER -inherit
++ASM1 @ pdw2stl8:/oracle/home
+
+
+Apply only the patch
+
+Please apply the patch in the below order
+1.10248523 (PSU)
+2.6904068  - Overlay Patch
+3.10182051 - Bug fix requested by Hong
+4.9375300  - Bug fix requested by Hong
+5.11839701
+
+Start one node on polt and pdw manually  and apply the catbundle
+cd $ORACLE_HOME/rdbms/admin
+	sqlplus /nolog
+	SQL> CONNECT / AS SYSDBA
+	SQL> STARTUP
+	SQL> @catbundle.sql psu apply
+	SQL> QUIT
+
+Shutdown the database manually
+
+
+Start RAC DB
+Set Db +ASM
+srvctl start asm
+
+for any issues:-
+--------------
+crsctl start resource ora.PDW_ARCH01.dg
+crsctl start resource ora.PDW_DATA01.dg
+crsctl start resource ora.PDW_REDO01.dg
+crsctl start resource ora.PDW_REDO02.dg
+crsctl start resource ora.POLT_ARCH01.dg
+crsctl start resource ora.POLT_DATA01.dg
+crsctl start resource ora.registry.acfs
+srvctl start asm
+
+srvctl start database -d pdw
+srvctl start database -d polt
+
+Make sure all the services on all the nodes are up and running
+Check the external connectivity 
+
+Send a end notification for the maintenace

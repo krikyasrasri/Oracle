@@ -1,0 +1,8 @@
+for i in dspr2k drctbk0k dscm2s  dbsr1s dgar1s dmcm1s dgodb1s doem1s
+do
+SetDb $i >> /dev/null
+sqlplus -s "/ as sysdba" << hi
+startup;
+exit
+hi
+done

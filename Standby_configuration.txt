@@ -1,0 +1,275 @@
+Step 1: Add the TNS entry in the $TNS_ADMIN/tnsname.ora file primary and standby server
+==========================================================================================
+on Primary:
+--------------
+GM3_STANDBY =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = usplasap020.americas.astrazeneca.net)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = GM3.WORLD)
+    )
+  )
+
+GM3 =
+  (DESCRIPTION =
+    (ADDRESS = (COMMUNITY = SAP.WORLD)(PROTOCOL = TCP)(HOST = seskasap024.emea.astrazeneca.net )(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = GM3.WORLD)
+    )
+  )
+
+On Standby:
+----------------
+ GM3_PRIMARY =
+  (DESCRIPTION =
+    (ADDRESS = (COMMUNITY = SAP.WORLD)(PROTOCOL = TCP)(HOST = seskasap024.emea.astrazeneca.net )(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = GM3.WORLD)
+    )
+  )
+  
+GM3 =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = usplasap020.americas.astrazeneca.net)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = GM3.WORLD)
+    )
+  )
+Step 2: Take control file and full database backup for the standby:
+===================================================================
+Database backup:
+-----------------
+connect target;
+run {
+allocate channel c1 device type disk format '/u009/backup/GM3_prim_backup_%U';
+allocate channel c2 device type disk format '/u009/backup/GM3_prim_backup_%U';
+allocate channel c3 device type disk format '/u009/backup/GM3_prim_backup_%U';
+allocate channel c4 device type disk format '/u009/backup/GM3_prim_backup_%U';
+allocate channel c5 device type disk format '/u009/backup/GM3_prim_backup_%U';
+allocate channel c6 device type disk format '/u009/backup/GM3_prim_backup_%U';
+backup as compressed backupset database plus archivelog;
+}
+
+Controlfile backup
+-------------------
+RMAN> backup current controlfile for standby format ='/u009/backup/GM3_standby_control_%U';
+
+Step 3: Make the parameter changes on the primary database
+============================================================
+
+SQL> alter system set log_archive_config='DG_CONFIG=(GM,GM_STANDBY)' scope=both;
+SQL> ALTER SYSTEM SET log_archive_dest_2='SERVICE=GM3_STANDBY ASYNC VALID_FOR=(ONLINE_LOGFILES,PRIMARY_ROLE) DB_UNIQUE_NAME=GM3' SCOPE=both;
+SQL> alter system set fal_server=GM3_STANDBY scope=both;
+SQL> alter system set fal_client=GM3_STANDBY scope=both;
+
+Step 4: Move the backup files to the standby server
+====================================================
+step 5: Move the password file from primary to the standby server
+=================================================================
+$scp $ORACLE_HOME/dbs/orapwGM3 10.56.122.55:/oracle/GM3/11.2.0.4/db_1/dbs
+
+Step 6: Create a pfile on the standby server
+=============================================
+
+When we are creating the pfile below are the important parameter which is needed to be included:
+
+db_unique_name='standby'
+instance_name='standby'
+db_file_name_convert=
+log_file_name_convert=
+standby_archive_dest=
+*.fal_client=
+*.fal_server=
+*.log_archive_config=
+*.log_archive_dest_1=
+*.log_archive_dest_2=
+*.db_file_name_convert=
+*.log_file_name_convert=
+---------------------------------
+
+*.audit_trail='db'
+*.compatible='11.2.0.0.0'
+*.control_files='/oracle/GM3/GM3/control01.ctl','/oracle/GM3/GM3/control02.ctl','/oracle/GM3/GM3/control03.ctl'
+*.db_block_size=8192
+*.db_domain='WORLD'
+*.db_name='GM3'
+*.diagnostic_dest='/oracle'
+*.open_cursors=300
+*.pga_aggregate_target=2G
+*.processes=150
+*.remote_login_passwordfile='EXCLUSIVE'
+*.undo_tablespace='UNDOTBS1'
+*.fal_client='GM3'
+*.fal_server='GM3_PRIMARY'
+*.log_archive_config='DG_CONFIG=(GM,GM_PRIMARY)'
+*.log_archive_dest_1='LOCATION=/oracle/GM3/11.2.0.4/db_1/arch'
+*.log_archive_dest_2='SERVICE=GM3_PRIMARY ASYNC VALID_FOR=(ONLINE_LOGFILES,PRIMARY_ROLE) DB_UNIQUE_NAME=GM3'
+*.sga_max_size=6G
+*.sga_target=6G
+*.standby_file_management='AUTO'
+*.undo_management='AUTO'
+*.undo_tablespace='UNDOTBS1'
+*.db_file_name_convert=('/oracle/GM3/112_64/dbs/' '/oracle/GM3/11.2.0.4/db_1/data' '/oracle/GM3/GM3' '/oracle/GM3/11.2.0.4/db_1/data')
+*.log_file_name_convert=('/oracle/GM3/GM3' '/oracle/GM3/11.2.0.4/db_1/redo')
+
+Step 7: Startup the standby database in nomount state using the pfile which was created.
+=============================================================================================
+Step 8: Recover the controlfile from the backup
+================================================
+
+RMAN> restore standby controlfile from 'o1_mf_s_998447261_g4os4y3f_.bkp';
+
+Starting restore at 17-MAR-17
+using target database control file instead of recovery catalog
+allocated channel: ORA_DISK_1
+channel ORA_DISK_1: SID=127 device type=DISK
+
+channel ORA_DISK_1: restoring control file
+channel ORA_DISK_1: restore complete, elapsed time: 00:00:01
+output file name=/oracle/GM3/GM3/control01.ctl
+output file name=/oracle/GM3/GM3/control02.ctl
+output file name=/oracle/GM3/GM3/control03.ctl
+Finished restore at 17-MAR-17
+
+Step 9: After the controlfile is restored, mount the database
+==================================================================
+
+From the RMAN prompt we can do the same or we can log into the sqlplus prompt and do it
+------------------------------------------------------------------------------------------
+
+RMAN> sql 'alter database mount standby database';
+
+sql statement: alter database mount standby database
+released channel: ORA_DISK_1
+
+Step 10: Restore the standby database 
+=======================================
+
+RMAN> catalog start with '/u01/oradata/oggdata/lag/';
+
+searching for all files that match the pattern /oracle/GM3/GM3_prim_backup/GM3_prim_backup
+
+List of Files Unknown to the Database
+=====================================
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_llrvaal5_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lmrvaal5_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lnrvaal5_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lorvaal5_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lprvaam8_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lqrvaamh_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lrrvaamh_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lsrvaamh_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_ltrvaamh_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lurvaao8_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lvrvaaoa_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_m0rvaark_1_1
+
+Do you really want to catalog the above files (enter YES or NO)? YES
+cataloging files...
+cataloging done
+
+List of Cataloged Files
+=======================
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_llrvaal5_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lmrvaal5_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lnrvaal5_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lorvaal5_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lprvaam8_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lqrvaamh_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lrrvaamh_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lsrvaamh_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_ltrvaamh_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lurvaao8_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lvrvaaoa_1_1
+File Name: /oracle/GM3/GM3_prim_backup/GM3_prim_backup_m0rvaark_1_1
+
+RMAN> run {
+allocate channel c1 device type disk;
+allocate channel c2 device type disk;
+allocate channel c3 device type disk;
+allocate channel c4 device type disk;
+restore database;
+}
+2> 3> 4> 5> 6> 7>
+allocated channel: c1
+channel c1: SID=127 device type=DISK
+
+allocated channel: c2
+channel c2: SID=34 device type=DISK
+
+allocated channel: c3
+channel c3: SID=66 device type=DISK
+
+allocated channel: c4
+channel c4: SID=97 device type=DISK
+
+Starting restore at 17-MAR-17
+
+channel c1: starting datafile backup set restore
+channel c1: specifying datafile(s) to restore from backup set
+channel c1: restoring datafile 00002 to /oracle/GM3/11.2.0.4/db_1/data/sysaux01.dbf
+channel c1: restoring datafile 00012 to /oracle/GM3/11.2.0.4/db_1/dataA2I_AZMasterRepository_m001.DBF
+channel c1: restoring datafile 00013 to /oracle/GM3/11.2.0.4/db_1/dataA2I_AZMasterRepository_Z001_Ix.DBF
+channel c1: restoring datafile 00015 to /oracle/GM3/11.2.0.4/db_1/dataA2I_AZProduct_m000_Ix.DBF
+channel c1: restoring datafile 00019 to /oracle/GM3/11.2.0.4/db_1/data/system02.dbf
+channel c1: reading from backup piece /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lqrvaamh_1_1
+channel c2: starting datafile backup set restore
+channel c2: specifying datafile(s) to restore from backup set
+channel c2: restoring datafile 00001 to /oracle/GM3/11.2.0.4/db_1/data/system01.dbf
+channel c2: restoring datafile 00004 to /oracle/GM3/11.2.0.4/db_1/data/users01.dbf
+channel c2: restoring datafile 00005 to /oracle/GM3/11.2.0.4/db_1/dataA2I_A2i_xCat_DBs_Ix.DBF
+channel c2: restoring datafile 00010 to /oracle/GM3/11.2.0.4/db_1/dataA2I_AZMASTERREPOSITORY_Z000.DBF
+channel c2: restoring datafile 00017 to /oracle/GM3/11.2.0.4/db_1/dataA2I_AZProduct_Z000_Ix.DBF
+channel c2: restoring datafile 00022 to /oracle/GM3/11.2.0.4/db_1/dataA2I_AZMasterRepository_m001_Ix1.DBF
+channel c2: reading from backup piece /oracle/GM3/GM3_prim_backup/GM3_prim_backup_ltrvaamh_1_1
+channel c3: starting datafile backup set restore
+channel c3: specifying datafile(s) to restore from backup set
+channel c3: restoring datafile 00003 to /oracle/GM3/11.2.0.4/db_1/data/undotbs01.dbf
+channel c3: restoring datafile 00007 to /oracle/GM3/11.2.0.4/db_1/dataA2I_AZMASTERREPOSITORY_m000_Ix.DBF
+channel c3: restoring datafile 00008 to /oracle/GM3/11.2.0.4/db_1/dataA2I_AZMASTERREPOSITORY_m000.DBF
+channel c3: restoring datafile 00011 to /oracle/GM3/11.2.0.4/db_1/dataA2I_AZMasterRepository_m001_Ix.DBF
+channel c3: restoring datafile 00018 to /oracle/GM3/11.2.0.4/db_1/dataA2I_AZProduct_Z000.DBF
+channel c3: restoring datafile 00023 to /oracle/GM3/11.2.0.4/db_1/dataA2I_AZMASTERREPOSITORY_m000_Ix1.DBF
+channel c3: reading from backup piece /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lsrvaamh_1_1
+channel c4: starting datafile backup set restore
+channel c4: specifying datafile(s) to restore from backup set
+channel c4: restoring datafile 00006 to /oracle/GM3/11.2.0.4/db_1/dataA2I_A2i_xCat_DBs.DBF
+channel c4: restoring datafile 00009 to /oracle/GM3/11.2.0.4/db_1/dataA2I_AZMASTERREPOSITORY_Z000_Ix.DBF
+channel c4: restoring datafile 00014 to /oracle/GM3/11.2.0.4/db_1/dataA2I_AZMasterRepository_Z001.DBF
+channel c4: restoring datafile 00016 to /oracle/GM3/11.2.0.4/db_1/dataA2I_AZProduct_m000.DBF
+channel c4: restoring datafile 00020 to /oracle/GM3/11.2.0.4/db_1/data/sysaux02.dbf
+channel c4: restoring datafile 00021 to /oracle/GM3/11.2.0.4/db_1/dataA2I_AZMasterRepository_m002.DBF
+channel c4: reading from backup piece /oracle/GM3/GM3_prim_backup/GM3_prim_backup_lrrvaamh_1_1
+channel c2: piece handle=/oracle/GM3/GM3_prim_backup/GM3_prim_backup_ltrvaamh_1_1 tag=TAG20170316T214240
+channel c2: restored backup piece 1
+channel c2: restore complete, elapsed time: 00:02:55
+channel c4: piece handle=/oracle/GM3/GM3_prim_backup/GM3_prim_backup_lrrvaamh_1_1 tag=TAG20170316T214240
+channel c4: restored backup piece 1
+channel c4: restore complete, elapsed time: 00:03:35
+channel c3: piece handle=/oracle/GM3/GM3_prim_backup/GM3_prim_backup_lsrvaamh_1_1 tag=TAG20170316T214240
+channel c3: restored backup piece 1
+channel c3: restore complete, elapsed time: 00:03:45
+channel c1: piece handle=/oracle/GM3/GM3_prim_backup/GM3_prim_backup_lqrvaamh_1_1 tag=TAG20170316T214240
+channel c1: restored backup piece 1
+channel c1: restore complete, elapsed time: 00:05:05
+Finished restore at 17-MAR-17
+released channel: c1
+released channel: c2
+released channel: c3
+released channel: c4
+
+Step 11: Configure a Standby Redo Log on primary
+=======================================================
+
+ ALTER DATABASE ADD STANDBY LOGFILE GROUP 4 '/oracle/GM3/GM3/redo4.log' SIZE 50M; 
+ ALTER DATABASE ADD STANDBY LOGFILE GROUP 5 '/oracle/GM3/GM3/redo5.log' SIZE 50M; 
+ ALTER DATABASE ADD STANDBY LOGFILE GROUP 6 '/oracle/GM3/GM3/redo6.log' SIZE 50M; 
+ 
+Step 12: Startup the MRP process on the Standby database.
+===========================================================
+Step 13: Switch the logfile on primary and check the standby is in sync
+==========================================================================

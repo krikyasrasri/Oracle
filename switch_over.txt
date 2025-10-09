@@ -1,0 +1,110 @@
+Primary database:
+************************
+SQL> select switchover_status from v$database;
+
+SWITCHOVER_STATUS
+--------------------
+TO STANDBY
+
+SQL> select name,open_mode from v$database;
+
+NAME      OPEN_MODE
+--------- --------------------
+HENDB1    READ WRITE
+
+SQL> select switchover_status from v$database;
+
+SWITCHOVER_STATUS
+--------------------
+TO STANDBY
+
+SQL> alter database commit to switchover to physical standby with session shutdown;
+
+Database altered.
+
+SQL> shutdown immediate;
+ORA-01092: ORACLE instance terminated. Disconnection forced
+SQL> exit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - 64bit Production
+With the Partitioning, Oracle Label Security, OLAP, Data Mining,
+Oracle Database Vault and Real Application Testing options
+dehensv601[PRODUCTION]:/home/oracle (HENDB1)> sqlp
+
+SQL*Plus: Release 11.2.0.3.0 Production on Wed May 20 14:58:19 2015
+
+Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+
+Connected to an idle instance.
+
+SQL> startup nomount
+ORACLE instance started.
+
+Total System Global Area  835104768 bytes
+Fixed Size                  2226096 bytes
+Variable Size             532678736 bytes
+Database Buffers          293601280 bytes
+Redo Buffers                6598656 bytes
+SQL> alter database mount standby database;
+
+Database altered.
+
+SQL> alter database recover managed standby database disconnect from session;
+
+Database altered.
+
+SQL> alter system set log_archive_dest_state_2='DEFER' scope=both;
+
+System altered.
+
+SQL> select name,open_mode,database_role from v$database;
+
+NAME      OPEN_MODE            DATABASE_ROLE
+--------- -------------------- ----------------
+HENDB1    MOUNTED              PHYSICAL STANDBY
+
+Stand by Database:
+*************************
+SQL> select NAME,open_mode,SWITCHOVER_STATUS from v$database;
+
+NAME      OPEN_MODE            SWITCHOVER_STATUS
+--------- -------------------- --------------------
+HENDB1    READ ONLY WITH APPLY NOT ALLOWED
+
+SQL> select switchover_status from v$database;
+
+SWITCHOVER_STATUS
+--------------------
+TO PRIMARY
+
+SQL> alter database commit to switchover to primary with session shutdown;
+
+Database altered.
+
+SQL> shutdown immediate;
+ORA-01109: database not open
+
+
+Database dismounted.
+ORACLE instance shut down.
+SQL> startup mount;
+ORACLE instance started.
+
+Total System Global Area  835104768 bytes
+Fixed Size                  2226096 bytes
+Variable Size             515901520 bytes
+Database Buffers          310378496 bytes
+Redo Buffers                6598656 bytes
+Database mounted.
+SQL> alter database open;
+
+Database altered.
+
+SQL> alter system set log_archive_dest_state_2='ENABLE' scope=both;
+
+System altered.
+
+SQL> select name,open_mode,database_role from v$database;
+
+NAME      OPEN_MODE            DATABASE_ROLE
+--------- -------------------- ----------------
+HENDB1    READ WRITE           PRIMARY

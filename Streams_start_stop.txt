@@ -1,0 +1,20 @@
+:( via STRADMIN user only)
+1.Bring down the Streams -:
+===================================
+cd /oracle/admin/drsc3/ddl/streams/scripts
+
+a.check the status with status.sql and capture the screenshot of the output
+b. Bring down the Capture (run stop_capture.sql)
+c. Bring down the Propagation (run stop_propagation.sql)
+d. Stop apply (run stop_apply.sql)
+
+2. Bring down the databases
+
+
+4.Bring up Streams - 
+===============================
+a. start apply (run start_apply.sql)
+b. Bring up the Propagation (run start_propagation.sql)
+c. Bring up the Capture (run start_capture.sql)
+d. check the status by running status.sql and ensure the output matches with step 1a.
+

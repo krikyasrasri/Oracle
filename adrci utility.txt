@@ -1,0 +1,42 @@
+teps : 
+
+1. With (11g/12c/18c and higher) ORACLE_HOME and PATH set,from the OS prompt enter 
+
+%]adrci 
+
+adrci tool is started. 
+
+2. 
+adrci> show home 
+diag/rdbms/v11/V11 (example) 
+
+This will list all the ADR homes. Note the home path for current database or instance 
+
+3. set the home path (for exmple) 
+
+adrci> set homepath diag/rdbms/v11/V11 
+
+4. 
+adrci> show problem 
+
+This will list the most recent problems encountered by the database. 
+The Oracle Error (i.e. ORA-600, ORA-7445, ORA-1578) you are experiencing will be listed. 
+You will also see a PROBLEM_ID , Problem_key and Date associated with the problem. 
+
+5. Package the trace files 
+
+adrci> ips pack problem <problem id> in /tmp 
+
+Package will be generated in /tmp. 
+
+6. Upload this package to the SR . 
+
+Reference : 738732.1 - ADR How to Package Diagnostic Information in (11g/12c/18c and higher) 
+
+
+NOTE:: My work hours are from 7:00 am to 3:00 pm IST (GMT + 5:30). 
+I shall do my best to respond during these hours. Please continue to monitor the SR for updates and provide additional details upon request.. 
+
+Thanks, 
+M Guhan, 
+GCS 
